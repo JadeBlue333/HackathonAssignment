@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: af9c14ff8e5794043b3794a99284f781
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 292108
+  packageName: Industrial Ladders Pack
+  packageVersion: 1.0
+  assetPath: Assets/LaddersPack/URP/Materials/M_Stepladder01.mat
+  uploadId: 682188
