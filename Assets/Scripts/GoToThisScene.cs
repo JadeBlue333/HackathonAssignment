@@ -9,6 +9,11 @@ public class GoToThisScene : MonoBehaviour
     public Image blackImage;
     public float fadeDuration = 1f;
 
+    // 진행도 화면에서 사용할 때만 true로 할 것.
+    [Header("Progress?")]
+    public bool progress = false;
+    public int buttonDay = 9;
+
     public void nextSceneButton()
     {
         StartCoroutine(nextScene());
@@ -18,7 +23,13 @@ public class GoToThisScene : MonoBehaviour
     {
         StartCoroutine(FadeIn());
         yield return new WaitForSeconds(fadeDuration);
-        SceneManager.LoadScene(sceneName);
+        if (progress)
+        {
+           if (PlayerStatus.Instance.currentDay == buttonDay)
+                SceneManager.LoadScene(sceneName);
+        }
+        else
+            SceneManager.LoadScene(sceneName);
     }
 
     public IEnumerator FadeIn()
