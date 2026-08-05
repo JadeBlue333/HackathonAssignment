@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd56e504d55b27348b1a98181568f99f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291738
+  packageName: Industrial Workbench Pack
+  packageVersion: 1.0
+  assetPath: Assets/WorkbenchPack/URP/Materials/M_FurnitureSet.mat
+  uploadId: 681254

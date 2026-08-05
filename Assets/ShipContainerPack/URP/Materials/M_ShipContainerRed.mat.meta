@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a0a8bb4119ef7884ba01631a131c2aed
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291948
+  packageName: Industrial Shipping Container Pack
+  packageVersion: 1.0
+  assetPath: Assets/ShipContainerPack/URP/Materials/M_ShipContainerRed.mat
+  uploadId: 681765

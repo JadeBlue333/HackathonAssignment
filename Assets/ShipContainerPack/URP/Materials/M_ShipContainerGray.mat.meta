@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 27573339603ef2540bbe70ebcacbb9e7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291948
+  packageName: Industrial Shipping Container Pack
+  packageVersion: 1.0
+  assetPath: Assets/ShipContainerPack/URP/Materials/M_ShipContainerGray.mat
+  uploadId: 681765

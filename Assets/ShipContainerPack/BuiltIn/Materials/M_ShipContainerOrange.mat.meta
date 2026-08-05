@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 19e2ee7e9b454054b864e2b759ab5a97
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291948
+  packageName: Industrial Shipping Container Pack
+  packageVersion: 1.0
+  assetPath: Assets/ShipContainerPack/BuiltIn/Materials/M_ShipContainerOrange.mat
+  uploadId: 681765

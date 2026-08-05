@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5fd23e90420b1bc489b7489a87f8e5ec
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291738
+  packageName: Industrial Workbench Pack
+  packageVersion: 1.0
+  assetPath: Assets/WorkbenchPack/URP/Prefabs/AdjWrench_URP.prefab
+  uploadId: 681254

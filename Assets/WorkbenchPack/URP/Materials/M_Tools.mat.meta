@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7adb8840fa5a95f4484299b7679f8f3e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 291738
+  packageName: Industrial Workbench Pack
+  packageVersion: 1.0
+  assetPath: Assets/WorkbenchPack/URP/Materials/M_Tools.mat
+  uploadId: 681254
