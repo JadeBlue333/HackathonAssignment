@@ -37,6 +37,7 @@ public class PlayerStatus : MonoBehaviour
     // 2. 돈
     [Header("Money")]
     public int money;
+    public int earnings; // 이번 날 정산으로 얻은 돈
 
     // 3. 연료
     [Header("Fuel")]
@@ -49,6 +50,7 @@ public class PlayerStatus : MonoBehaviour
     [Header("Trust")]
     [Range(0, 100)]
     public int trust;
+    public int trustChange; // 이번 날 정산으로 얻은 신뢰도 변화
 
     public const int MaxTrust = 100;
 
@@ -69,6 +71,25 @@ public class PlayerStatus : MonoBehaviour
     public float dayDuration = 180f;
 
     // ---------------------------------------------------------------------
+
+    // 이번 날 수익 누적
+    public void AddEarnings(int amount)
+    {
+        earnings += amount;
+    }
+
+    // 이번 날 수익 초기화
+    public void ResetEarnings()
+    {
+        earnings = 0;
+    }
+
+    // 정산 완료 이 함수 하나만 호출하면 됨
+    public void ApplyEarnings()
+    {
+        AddMoney(earnings);
+        ResetEarnings();
+    }
 
     public void AddMoney(int amount)
     {
@@ -99,10 +120,22 @@ public class PlayerStatus : MonoBehaviour
         trust = Mathf.Clamp(trust + amount, 0, MaxTrust);
     }
 
-    public void ReduceTrust(int amount)
+    public void AddTrustChanges(int amount)
     {
-        trust = Mathf.Clamp(trust - amount, 0, MaxTrust);
+        trustChange += amount;
     }
+
+    public void ResetTrustChanges()
+    {
+        trustChange = 0;
+    }
+
+    public void ApplyTrustChanges()
+    {
+        AddTrust(trustChange);
+        ResetTrustChanges();
+    }
+
     public void NextDay()
     {
         if (currentDay > 0)

@@ -1056,6 +1056,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 7
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &426480418
 Transform:
   m_ObjectHideFlags: 0
@@ -1105,6 +1107,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 8
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &455535811
 Transform:
   m_ObjectHideFlags: 0
@@ -1687,6 +1691,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 5
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &654734253
 Transform:
   m_ObjectHideFlags: 0
@@ -2333,6 +2339,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 1
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &812786413
 Transform:
   m_ObjectHideFlags: 0
@@ -2382,6 +2390,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 0
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &820901538
 Transform:
   m_ObjectHideFlags: 0
@@ -2838,6 +2848,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 2
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &871631525
 Transform:
   m_ObjectHideFlags: 0
@@ -2887,6 +2899,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 4
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &977861016
 Transform:
   m_ObjectHideFlags: 0
@@ -3385,11 +3399,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddee9d4597c1434ebe76fc55fd1069e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoToThisScene
-  sceneName: Background
+  sceneName: D-9Bridge
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   progress: 1
   buttonDay: 9
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &1352119993
 Transform:
   m_ObjectHideFlags: 0
@@ -3778,6 +3794,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 6
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &1595935560
 Transform:
   m_ObjectHideFlags: 0
@@ -3827,6 +3845,8 @@ MonoBehaviour:
   fadeDuration: 1
   progress: 1
   buttonDay: 3
+  report: 0
+  reportUI: {fileID: 0}
 --- !u!4 &1697806949
 Transform:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class InspectionGameManager : MonoBehaviour
 {
@@ -56,19 +55,20 @@ public class InspectionGameManager : MonoBehaviour
 
     void CheckAnswer(InspectionResult playerAnswer)
     {
+        Debug.Log($"선택 : {playerAnswer}, 현재정답 : {currentAnswer}");
         bool correct = playerAnswer == currentAnswer;
 
         if (correct)
         {
             int reward = GetReward(currentAnswer);
 
-            PlayerStatus.Instance.AddMoney(reward);
+            PlayerStatus.Instance.AddEarnings(reward);
 
             Debug.Log($"정답! +{reward} 크레타");
         }
         else
         {
-            PlayerStatus.Instance.AddTrust(-trustPenalty);
+            PlayerStatus.Instance.AddTrustChanges(-trustPenalty);
 
             Debug.Log($"오답! 신뢰도 -{trustPenalty}");
         }
@@ -90,6 +90,7 @@ public class InspectionGameManager : MonoBehaviour
         }
 
         GenerateQuestion();
+        Debug.Log($"새 정답 : {currentAnswer}");
     }
 
     int GetReward(InspectionResult result)

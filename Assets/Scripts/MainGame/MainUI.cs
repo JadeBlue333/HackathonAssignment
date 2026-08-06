@@ -13,6 +13,7 @@ public class MainUI : MonoBehaviour
 
     [Header("Money")]
     [SerializeField] private TMP_Text moneyText;
+    [SerializeField] private TMP_Text earningText;
 
     [Header("Fuel")]
     [SerializeField] private Image fuelBar;
@@ -90,6 +91,7 @@ public class MainUI : MonoBehaviour
         dayText.text = $"D-{player.currentDay}";
 
         moneyText.text = $"{player.money} 크레타";
+        earningText.text = $"(+{player.earnings})";
 
         fuelBar.fillAmount = player.fuel / (float)PlayerStatus.MaxFuel;
         fuelText.text = $"{player.fuel} 연료";
