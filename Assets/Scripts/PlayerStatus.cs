@@ -64,6 +64,10 @@ public class PlayerStatus : MonoBehaviour
     [Header("Human Parts")]
     public bool[] humanParts = new bool[3];
 
+    [Header("Time")]
+    [Tooltip("현실 시간 기준 하루 길이(초)")]
+    public float dayDuration = 180f;
+
     // ---------------------------------------------------------------------
 
     public void AddMoney(int amount)
@@ -98,5 +102,17 @@ public class PlayerStatus : MonoBehaviour
     public void ReduceTrust(int amount)
     {
         trust = Mathf.Clamp(trust - amount, 0, MaxTrust);
+    }
+    public void NextDay()
+    {
+        if (currentDay > 0)
+        {
+            currentDay--;
+            Debug.Log($"다음 날! 현재 날짜 : D-{currentDay}");
+        }
+        else
+        {
+            Debug.Log("D-Day입니다.");
+        }
     }
 }

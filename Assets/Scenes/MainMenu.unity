@@ -151,6 +151,8 @@ MonoBehaviour:
   sceneName: Intro
   blackImage: {fileID: 1979587369}
   fadeDuration: 1
+  progress: 0
+  buttonDay: 9
 --- !u!4 &108330227
 Transform:
   m_ObjectHideFlags: 0
@@ -807,6 +809,7 @@ GameObject:
   - component: {fileID: 1979587371}
   - component: {fileID: 1979587370}
   - component: {fileID: 1979587369}
+  - component: {fileID: 1979587372}
   m_Layer: 5
   m_Name: Transition
   m_TagString: Untagged
@@ -827,7 +830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -871,6 +874,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000045776, y: 0.000022888}
   m_SizeDelta: {x: 800, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1979587372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979587368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba9cf11dd6147d4085d45ee1e6262ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeOut
+  blackImage: {fileID: 1979587369}
+  fadeDuration: 1
 --- !u!1 &1994221394
 GameObject:
   m_ObjectHideFlags: 0
