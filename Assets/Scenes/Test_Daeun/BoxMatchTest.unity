@@ -275,12 +275,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56339f9b360cb944d93421711495b28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxMatchManager
-  boxAssetSceneName: BoxAsset
+  boxesResourcePath: Box+Tape/Boxes
+  tapesResourcePath: Box+Tape/Tapes
   boxPosition: {x: 0, y: 0, z: 0}
   tapePosition: {x: 0, y: 0, z: 0}
   boxRotation: {x: 0, y: 0, z: 0}
   tapeRotation: {x: 0, y: 0, z: 0}
-  enableMouseClick: 1
+  boxScale: {x: 1, y: 1, z: 1}
+  tapeScale: {x: 1, y: 1, z: 1}
+  openChance: 30
+  demageChance: 30
+  useMouseClick: 1
+  useTouchInput: 1
 --- !u!4 &992434360
 Transform:
   m_ObjectHideFlags: 0
