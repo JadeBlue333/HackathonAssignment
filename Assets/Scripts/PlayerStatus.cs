@@ -102,6 +102,7 @@ public class PlayerStatus : MonoBehaviour
             return false;
 
         money -= amount;
+        Debug.Log($"{amount}쓰고 " + $"{money} 남음");
         return true;
     }
 
