@@ -22,6 +22,14 @@ public class InspectionGameManager9 : MonoBehaviour
     [SerializeField] private int trustPenalty = 5;
     [SerializeField] private int fuelCost = 2;
 
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private AudioClip spawnBoxSfx;      // 처음 상자 생성
+    [SerializeField] private AudioClip openBoxSfx;       // 상자 까기
+    [SerializeField] private AudioClip correctSfx;       // 정답
+    [SerializeField] private AudioClip wrongSfx;         // 오답
+
     //열지 않았어도 될 상자를 연건지.
     private bool openedWrongBox = false;
 
@@ -34,12 +42,22 @@ public class InspectionGameManager9 : MonoBehaviour
         GenerateQuestion();
     }
 
+    private void PlaySfx(AudioClip clip)
+    {
+        if (clip != null)
+            audioSource.PlayOneShot(clip);
+    }
+
     void GenerateQuestion()
     {
         openedWrongBox = false;
 
         currentAnswer = boxMatchManager.CreateNextMatch();
+
+        PlaySfx(spawnBoxSfx);   // 추가
+
         StartCoroutine(nextQuestionDelay());
+
         Debug.Log("==========================");
         Debug.Log($"새 문제 생성");
         Debug.Log($"정답 : {currentAnswer}");
@@ -60,9 +78,10 @@ public class InspectionGameManager9 : MonoBehaviour
 
     public void SelectOpened()
     {
+        PlaySfx(openBoxSfx);   // 추가
+
         boxButtons.SetActive(false);
 
-        // 원래 안 열어도 되는 박스를 열었는지 기록
         openedWrongBox = (currentAnswer == InspectionResult.Unopened);
 
         boxMatchManager.RemoveCurrentMatch();
@@ -124,6 +143,8 @@ public class InspectionGameManager9 : MonoBehaviour
 
         if (correct)
         {
+            PlaySfx(correctSfx);
+
             int reward = GetReward(currentAnswer);
 
             PlayerStatus.Instance.AddEarnings(reward);
@@ -132,6 +153,8 @@ public class InspectionGameManager9 : MonoBehaviour
         }
         else
         {
+            PlaySfx(wrongSfx);
+
             PlayerStatus.Instance.AddTrustChanges(-trustPenalty);
 
             Debug.Log($"오답! 신뢰도 -{trustPenalty}");
