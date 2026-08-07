@@ -270,7 +270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992434358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56339f9b360cb944d93421711495b28d, type: 3}
   m_Name: 
@@ -297,6 +297,92 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1136103061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1136103063}
+  - component: {fileID: 1136103062}
+  m_Layer: 0
+  m_Name: Motor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1136103062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136103061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3cdeda4a0563704c90a46b5414bd9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotorPropRandomSpawner
+  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnRotation: {x: 0, y: 0, z: 0}
+  spawnScale: {x: 1, y: 1, z: 1}
+  motorMaterials:
+  - optionName: Motor 0
+    material: {fileID: 2100000, guid: b38ded8dfcc0225468a4f91d879889c5, type: 2}
+    weight: 20
+    score: 0
+  - optionName: Motor 1
+    material: {fileID: 2100000, guid: db4a5bb7bc42d8046abdeda7d3d07be6, type: 2}
+    weight: 20
+    score: 1
+  - optionName: Motor 2
+    material: {fileID: 2100000, guid: cc1847174b54d1348a0d807b14a2d896, type: 2}
+    weight: 20
+    score: 1
+  - optionName: Motor 3
+    material: {fileID: 2100000, guid: f6e6a4c7296275e45b0ffa87fb4a3fb1, type: 2}
+    weight: 20
+    score: 1
+  - optionName: Motor 4
+    material: {fileID: 2100000, guid: 36aabe85620727b4f895eacffec3ac89, type: 2}
+    weight: 20
+    score: 1
+  propellerMaterials:
+  - optionName: PropellerFront 0
+    material: {fileID: 2100000, guid: 528c0f4885447484499dc6ec7ad44000, type: 2}
+    weight: 25
+  - optionName: PropellerFront 1
+    material: {fileID: 2100000, guid: 98d1e0d69a47fe648a7c0edbd59f800c, type: 2}
+    weight: 25
+  - optionName: PropellerFront 2
+    material: {fileID: 2100000, guid: 67877194287942c44b990f7d57b7a57a, type: 2}
+    weight: 25
+  - optionName: PropellerFront 3
+    material: {fileID: 2100000, guid: a4dc18865354b494393ad6f642d41f19, type: 2}
+    weight: 25
+  propPolyDeleteChance: 20
+  propPolyMaterialIndex: 0
+  propellerMaterialIndex: 1
+  missingPropPolyScore: 1
+  materialMismatchScore: 1
+--- !u!4 &1136103063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136103061}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00905, y: -0, z: 0.00962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -401,3 +487,4 @@ SceneRoots:
   - {fileID: 1570596384}
   - {fileID: 810509751}
   - {fileID: 992434360}
+  - {fileID: 1136103063}
