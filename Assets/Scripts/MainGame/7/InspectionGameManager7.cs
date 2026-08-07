@@ -1,7 +1,16 @@
 using UnityEngine;
+using System.Collections;
 
-public class InspectionGameManager : MonoBehaviour
+public class InspectionGameManager7 : MonoBehaviour
 {
+    [Header("Manager")]
+    [SerializeField] private BoxMatchManager boxMatchManager;
+    [SerializeField] private MotorMatchManager7 motorMatchManager;
+
+    [Header("Box / Motor")]
+    public GameObject boxButtons;
+    public GameObject motorButtons;
+
     [Header("Reward")]
     [SerializeField] private int unopenedReward = 3;
     [SerializeField] private int aReward = 2;
@@ -13,50 +22,105 @@ public class InspectionGameManager : MonoBehaviour
     [SerializeField] private int trustPenalty = 5;
     [SerializeField] private int fuelCost = 2;
 
+    //열지 않았어도 될 상자를 연건지.
+    private bool openedWrongBox = false;
+
     private InspectionResult currentAnswer;
 
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitUntil(() => boxMatchManager.IsReady && motorMatchManager.IsReady);
+
         GenerateQuestion();
     }
 
     void GenerateQuestion()
     {
-        currentAnswer = (InspectionResult)Random.Range(0, 5);
+        openedWrongBox = false;
 
-        Debug.Log("=================================");
+        currentAnswer = boxMatchManager.CreateNextMatch();
+        StartCoroutine(nextQuestionDelay());
+        Debug.Log("==========================");
+        Debug.Log($"새 문제 생성");
         Debug.Log($"정답 : {currentAnswer}");
+    }
+
+    // 다음 문제 버튼 활성화 딜레이. 피로도 덜하게 . . .
+    private IEnumerator nextQuestionDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        boxButtons.SetActive(true);
     }
 
     public void SelectUnopened()
     {
         CheckAnswer(InspectionResult.Unopened);
+        boxButtons.SetActive(false);
+    }
+
+    public void SelectOpened()
+    {
+        boxButtons.SetActive(false);
+
+        // 원래 안 열어도 되는 박스를 열었는지 기록
+        openedWrongBox = (currentAnswer == InspectionResult.Unopened);
+
+        boxMatchManager.RemoveCurrentMatch();
+        currentAnswer = motorMatchManager.CreateNextMatch();
+
+        motorButtons.SetActive(true);
+
+        Debug.Log($"모터 정답 : {currentAnswer}");
     }
 
     public void SelectA()
     {
+        motorButtons.SetActive(false);
         CheckAnswer(InspectionResult.A);
+
+        motorMatchManager.RemoveCurrentMotor();
     }
 
     public void SelectB()
     {
+        motorButtons.SetActive(false);
         CheckAnswer(InspectionResult.B);
+
+        motorMatchManager.RemoveCurrentMotor();
     }
 
     public void SelectC()
     {
+        motorButtons.SetActive(false);
         CheckAnswer(InspectionResult.C);
+
+        motorMatchManager.RemoveCurrentMotor();
     }
 
     public void SelectDiscard()
     {
+        motorButtons.SetActive(false);
         CheckAnswer(InspectionResult.Discard);
+
+        motorMatchManager.RemoveCurrentMotor();
     }
 
     void CheckAnswer(InspectionResult playerAnswer)
     {
-        Debug.Log($"선택 : {playerAnswer}, 현재정답 : {currentAnswer}");
-        bool correct = playerAnswer == currentAnswer;
+        bool correct;
+
+        if (openedWrongBox)
+        {
+            // 안 열어도 되는 박스를 열었으면 모터를 아무리 맞혀도 실패
+            correct = false;
+        }
+        else
+        {
+            correct = playerAnswer == currentAnswer;
+        }
+
+        Debug.Log($"선택 : {playerAnswer}");
+        Debug.Log($"정답 : {currentAnswer}");
 
         if (correct)
         {
@@ -90,7 +154,6 @@ public class InspectionGameManager : MonoBehaviour
         }
 
         GenerateQuestion();
-        Debug.Log($"새 정답 : {currentAnswer}");
     }
 
     int GetReward(InspectionResult result)

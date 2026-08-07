@@ -1,6 +1,7 @@
 public enum InspectionResult
 {
     Unopened, // ¹Ì°³ºÀ
+    Opened, // °³ºÀ
     A,
     B,
     C,

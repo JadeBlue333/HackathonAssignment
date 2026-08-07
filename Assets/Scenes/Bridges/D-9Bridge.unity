@@ -1043,7 +1043,7 @@ MonoBehaviour:
   textDuration: 1.5
   typingSpeed: 0.05
   fadeDuration: 1
-  nextSceneName: Background
+  nextSceneName: D-9
 --- !u!4 &1160622481
 Transform:
   m_ObjectHideFlags: 0

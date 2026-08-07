@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Progress.unity
     guid: 8bec7ab9e70748f48806b9a4448b2944
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Background.unity
     guid: cf3ad8fa02cc32f4694476842c22d488
   - enabled: 1
@@ -26,6 +26,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bridges/D-9Bridge.unity
     guid: a84661616163b6e4db9c2415eb2fc2da
+  - enabled: 1
+    path: Assets/Scenes/Bridges/D-8Bridge.unity
+    guid: 859c9434b222f1948bb7210e5bbb4884
+  - enabled: 1
+    path: Assets/Scenes/Bridges/D-7Bridge.unity
+    guid: 69495473e2153d040a4932cc81b6772b
+  - enabled: 1
+    path: Assets/Scenes/D-9.unity
+    guid: 72fde88486868874680b81d16e79956a
+  - enabled: 1
+    path: Assets/Scenes/D-8.unity
+    guid: fbe3ae04d28178f468bf5e5b05acd807
+  - enabled: 1
+    path: Assets/Scenes/D-7.unity
+    guid: 47120048afb313f49ac21e603a3f7caa
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

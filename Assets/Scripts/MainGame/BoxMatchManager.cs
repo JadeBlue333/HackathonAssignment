@@ -73,18 +73,6 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
-    // 생성 개수
-    // =========================================================
-
-    [Header("테스트 개수")]
-
-    [Min(1)]
-    [Tooltip("이번 테스트에서 확인할 총 Box 개수")]
-    [SerializeField]
-    private int totalBoxCount = 5;
-
-
-    // =========================================================
     // 확률
     // =========================================================
 
@@ -148,6 +136,7 @@ private float fineRotationSpeed = 30f;
     // =========================================================
 
     private bool isReady = false;
+    public bool IsReady => isReady;
     private bool testFinished = false;
 
     // 현재 보고 있는 상자 번호
@@ -165,14 +154,7 @@ private float fineRotationSpeed = 30f;
     private void Start()
     {
         HideAnchorCube();
-
         LoadPrefabs();
-
-        // 준비가 끝나면 첫 번째 Box 자동 생성
-        if (isReady)
-        {
-            CreateNextMatch();
-        }
     }
 
 
@@ -198,17 +180,6 @@ private float fineRotationSpeed = 30f;
         // -----------------------------------------------------
 
         HandleFineRotation();
-
-
-        // -----------------------------------------------------
-        // P키 = 다음 Box
-        // -----------------------------------------------------
-
-        if (Keyboard.current != null &&
-            Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            GoToNextBox();
-        }
     }
 
 
@@ -380,29 +351,10 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // P키 처리
-    // =========================================================
-
-    private void GoToNextBox()
-    {
-        // 현재 보고 있는 것이 마지막 Box라면 종료
-        if (currentBoxNumber >= totalBoxCount)
-        {
-            FinishTest();
-            return;
-        }
-
-
-        // 아직 다음 Box가 있으면 생성
-        CreateNextMatch();
-    }
-
-
-    // =========================================================
     // 랜덤 Box + Tape 생성
     // =========================================================
 
-    private void CreateNextMatch()
+    public InspectionResult CreateNextMatch()
     {
         RemoveCurrentMatch();
 
@@ -444,87 +396,36 @@ private float fineRotationSpeed = 30f;
         GameObject selectedBoxPrefab;
         GameObject selectedTapePrefab;
 
-        bool result;
+        InspectionResult answer;
 
 
-        // =====================================================
-        // Open Tape
-        // =====================================================
+        // 헌박스 (Opened)
 
         if (randomValue < safeOpenChance)
         {
-            selectedBoxPrefab =
-                GetRandomPrefab(
-                    normalBoxes
-                );
+            selectedBoxPrefab = GetRandomPrefab(normalBoxes);
+            selectedTapePrefab = GetRandomPrefab(openTapes);
 
-
-            selectedTapePrefab =
-                GetRandomPrefab(
-                    openTapes
-                );
-
-
-            result = true;
+            answer = InspectionResult.Opened;
         }
 
-
-        // =====================================================
-        // Demage Box
-        // =====================================================
-
-        else if (
-            randomValue <
-            safeOpenChance + safeDemageChance
-        )
+        else if (randomValue < safeOpenChance + safeDemageChance)
         {
-            selectedBoxPrefab =
-                GetRandomPrefab(
-                    demageBoxes
-                );
+            selectedBoxPrefab = GetRandomPrefab(demageBoxes);
+            selectedTapePrefab = GetRandomPrefab(closeTapes);
 
-
-            selectedTapePrefab =
-                GetRandomPrefab(
-                    closeTapes
-                );
-
-
-            result = true;
+            answer = InspectionResult.Opened;
         }
 
-
-        // =====================================================
-        // Normal + Close = False
-        // =====================================================
+        // 새 박스 (Unopened)
 
         else
         {
-            selectedBoxPrefab =
-                GetRandomPrefab(
-                    normalBoxes
-                );
+            selectedBoxPrefab = GetRandomPrefab(normalBoxes);
+            selectedTapePrefab = GetRandomPrefab(closeTapes);
 
-
-            selectedTapePrefab =
-                GetRandomPrefab(
-                    closeTapes
-                );
-
-
-            result = false;
+            answer = InspectionResult.Unopened;
         }
-
-
-        // =====================================================
-        // False Count
-        // =====================================================
-
-        if (result == false)
-        {
-            falseCount++;
-        }
-
 
         // =====================================================
         // Box + Tape를 한 묶음으로 만들 Holder 생성
@@ -598,17 +499,10 @@ private float fineRotationSpeed = 30f;
 
         currentTape.transform.localScale =
             tapeScale;
+
+        return answer;
     }
 
-
-    // =========================================================
-    // 마우스 드래그 회전
-    // =========================================================
-
-    // =========================================================
-    // 마우스 좌클릭 드래그 회전
-    // 전부 월드 기준
-    // =========================================================
 
     private void HandleMouseRotation()
     {
@@ -648,7 +542,7 @@ private float fineRotationSpeed = 30f;
         // 위 / 아래
         // 월드 X축 기준
         currentHolder.transform.Rotate(
-            Vector3.right,
+            Vector3.left,
             verticalRotation,
             Space.World
         );
@@ -733,20 +627,6 @@ private float fineRotationSpeed = 30f;
         }
     }
 
-    // =========================================================
-    // 테스트 종료
-    // =========================================================
-
-    private void FinishTest()
-    {
-        testFinished = true;
-
-
-        // 요청대로 다른 글자 없이
-        // False 개수 정수만 출력
-        Debug.Log(falseCount);
-    }
-
 
     // =========================================================
     // 랜덤 Prefab 선택
@@ -773,7 +653,7 @@ private float fineRotationSpeed = 30f;
     // 현재 Box 제거
     // =========================================================
 
-    private void RemoveCurrentMatch()
+    public void RemoveCurrentMatch()
     {
         if (currentHolder != null)
         {
@@ -812,13 +692,6 @@ private float fineRotationSpeed = 30f;
                 demageChance,
                 0f,
                 100f - openChance
-            );
-
-
-        totalBoxCount =
-            Mathf.Max(
-                1,
-                totalBoxCount
             );
 
 
