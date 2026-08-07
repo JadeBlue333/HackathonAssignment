@@ -2,44 +2,53 @@ using UnityEngine;
 
 public class BlackMarketUIManager : MonoBehaviour
 {
-    [Header("Main page")]
-    [SerializeField] private GameObject shopMainPanel;
+    [Header("Main Product Grid")]
+    [SerializeField] private GameObject productGrid;
 
-    [Header("Product detail pages")]
+    [Header("Product Detail Panels")]
     [SerializeField] private GameObject[] productDetailPanels;
 
     private void Start()
     {
-        ShowMainPage();
+        ShowProductGrid();
     }
 
-    public void ShowProductDetail(int productIndex)
+    // 상품 클릭
+    public void ShowProductDetail(int index)
     {
-        if (productIndex < 0 || productIndex >= productDetailPanels.Length)
+        if (index < 0 || index >= productDetailPanels.Length)
         {
-            Debug.LogWarning($"잘못된 상품 번호입니다: {productIndex}");
+            Debug.LogWarning("잘못된 상품 인덱스: " + index);
             return;
         }
 
-        shopMainPanel.SetActive(false);
+        // 상품 목록만 숨기기
+        productGrid.SetActive(false);
+
+        // 상세페이지 전부 끄기
         HideAllDetailPanels();
 
-        productDetailPanels[productIndex].SetActive(true);
+        // 선택한 상세페이지 켜기
+        productDetailPanels[index].SetActive(true);
     }
 
-    public void ShowMainPage()
+    // 뒤로가기
+    public void ShowProductGrid()
     {
-        shopMainPanel.SetActive(true);
+        // 상세페이지 전부 끄기
         HideAllDetailPanels();
+
+        // 상품 목록 다시 켜기
+        productGrid.SetActive(true);
     }
 
     private void HideAllDetailPanels()
     {
-        foreach (GameObject detailPanel in productDetailPanels)
+        foreach (GameObject panel in productDetailPanels)
         {
-            if (detailPanel != null)
+            if (panel != null)
             {
-                detailPanel.SetActive(false);
+                panel.SetActive(false);
             }
         }
     }
