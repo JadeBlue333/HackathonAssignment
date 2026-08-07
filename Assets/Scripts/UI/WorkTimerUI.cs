@@ -75,7 +75,7 @@ public class WorkTimerUI : MonoBehaviour
         int hour = startHour + Mathf.FloorToInt(currentGameMinutes / 60f);
         int minute = Mathf.FloorToInt(currentGameMinutes % 60f);
 
-        timeText.text = $"{hour:00}:{minute:00}";
+        timeText.text = $"{hour:00} : {minute:00}";
     }
 
     private void OnTimerEnd()

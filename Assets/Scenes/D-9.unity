@@ -3427,6 +3427,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetActive
   targetObject: {fileID: 2030823646}
+--- !u!114 &591349547 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1901561110367151776, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_PrefabInstance: {fileID: 1921510398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &617204944
 GameObject:
   m_ObjectHideFlags: 0
@@ -10600,6 +10611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CamUI_Pivot
       objectReference: {fileID: 0}
+    - target: {fileID: 9072141013101798156, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_Name
+      value: Money Earning Num
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10610,6 +10625,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2114575884692966844, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
   m_PrefabInstance: {fileID: 1921510398}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1921510400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2568699477060748507, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_PrefabInstance: {fileID: 1921510398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1961074745
 GameObject:
   m_ObjectHideFlags: 0
@@ -10642,8 +10668,8 @@ MonoBehaviour:
   dayText: {fileID: 907034867}
   timeText: {fileID: 242353723}
   goToThisScene: {fileID: 1746596813}
-  moneyText: {fileID: 883854320}
-  earningText: {fileID: 108884309}
+  moneyText: {fileID: 1921510400}
+  earningText: {fileID: 591349547}
   fuelBar: {fileID: 1386480211}
   fuelText: {fileID: 204122416}
   trustBar: {fileID: 990196985}

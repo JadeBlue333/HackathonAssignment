@@ -25,17 +25,12 @@ public class MainUI : MonoBehaviour
 
     private PlayerStatus player;
 
-    // ÇÏ·ç°¡ ½ÃÀÛµÈ ½Ã°¢
     private float elapsedTime;
-
-    //private bool dayEnded;
 
     private void Start()
     {
         player = PlayerStatus.Instance;
-
         elapsedTime = 0;
-        //dayEnded = false;
     }
 
     private void Update()
@@ -53,36 +48,44 @@ public class MainUI : MonoBehaviour
 
         float duration = player.dayDuration;
 
-        // ÇÏ·ç ÁøÇà·ü (0~1)
+        // í•˜ë£¨ ì§„í–‰ë¥  (0 ~ 1)
         float t = Mathf.Clamp01(elapsedTime / duration);
 
-        // 09:00 ~ 15:00 (ÃÑ 6½Ã°£)
+        // 09:00 ~ 15:00
         float currentHour = 9f + (6f * t);
 
         int hour24 = Mathf.FloorToInt(currentHour);
         int minute = Mathf.FloorToInt((currentHour - hour24) * 60f);
-        minute = (minute / 10) * 10;
 
-        // 24½Ã°£ -> 12½Ã°£(AM/PM) º¯È¯
-        string period = hour24 < 12 ? "AM" : "PM";
+        // 5ë¶„ ë‹¨ìœ„ í‘œì‹œ
+        minute = (minute / 5) * 5;
 
-        int hour12 = hour24;
-        if (hour12 == 0)
-            hour12 = 12;
-        else if (hour12 > 12)
-            hour12 -= 12;
+        // ê²Œì„ ë‚´ ì´ ì§„í–‰ ë¶„
+        // 09:00 ~ 15:00 = ì´ 360ë¶„
+        float totalGameMinutes = 360f * t;
 
-        string separator = (Mathf.FloorToInt(Time.time) % 2 == 0) ? ":" : " "; // 2ÃÊ¸¶´Ù : ±ô¹Ú°Å¸®´Â È¿°ú
-        timeText.text = $"{hour12:00}{separator}{minute:00} {period}";
+        // í˜„ì¬ 5ë¶„ êµ¬ê°„ ì•ˆì—ì„œì˜ ì§„í–‰ë¥ 
+        // 0 ~ 1
+        float fiveMinuteProgress = (totalGameMinutes % 5f) / 5f;
 
-        // ÇÏ·ç Á¾·á
+        // 5ë¶„ì— í•œ ë²ˆ ê¹œë¹¡ì„
+        // ì• 70%ëŠ” ì½œë¡  í‘œì‹œ
+        // ë’¤ 30%ëŠ” ì½œë¡  ìˆ¨ê¹€
+        // ë‹¤ìŒ 5ë¶„ìœ¼ë¡œ ë„˜ì–´ê°€ë©´ ë‹¤ì‹œ í‘œì‹œ
+        string separator = fiveMinuteProgress < 0.7f
+            ? " : "
+            : "   ";
+
+        timeText.text = $"{hour24:00}{separator}{minute:00}";
+
+        // í•˜ë£¨ ì¢…ë£Œ
         if (elapsedTime >= duration)
         {
-            Debug.Log("15:00 PM - ÇÏ·ç Á¾·á");
+            Debug.Log("15:00 - í•˜ë£¨ ì¢…ë£Œ");
 
             goToThisScene.nextSceneButton();
 
-            enabled = false;   // ¿©·¯ ¹ø È£Ãâ ¹æÁö
+            enabled = false;
         }
     }
 
@@ -90,13 +93,13 @@ public class MainUI : MonoBehaviour
     {
         dayText.text = $"D-{player.currentDay}";
 
-        moneyText.text = $"{player.money} Å©·¹Å¸";
+        moneyText.text = $"{player.money}";
         earningText.text = $"(+{player.earnings})";
 
         fuelBar.fillAmount = player.fuel / (float)PlayerStatus.MaxFuel;
-        fuelText.text = $"{player.fuel} ¿¬·á";
+        fuelText.text = $"{player.fuel} ì—°ë£Œ";
 
         trustBar.fillAmount = player.trust / (float)PlayerStatus.MaxTrust;
-        trustText.text = $"{player.trust} ½Å·Úµµ";
+        trustText.text = $"{player.trust} ì‹ ë¢°ë„";
     }
 }
