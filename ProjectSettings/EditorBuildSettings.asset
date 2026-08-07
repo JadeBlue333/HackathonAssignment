@@ -24,6 +24,15 @@ EditorBuildSettings:
     path: Assets/Scenes/BlackMarket.unity
     guid: e36a8b67423e3544a9817d9c56a57c7d
   - enabled: 1
+    path: Assets/Scenes/D-9.unity
+    guid: 72fde88486868874680b81d16e79956a
+  - enabled: 1
+    path: Assets/Scenes/D-8.unity
+    guid: fbe3ae04d28178f468bf5e5b05acd807
+  - enabled: 1
+    path: Assets/Scenes/D-7.unity
+    guid: 47120048afb313f49ac21e603a3f7caa
+  - enabled: 1
     path: Assets/Scenes/Bridges/D-9Bridge.unity
     guid: a84661616163b6e4db9c2415eb2fc2da
   - enabled: 1
@@ -33,14 +42,26 @@ EditorBuildSettings:
     path: Assets/Scenes/Bridges/D-7Bridge.unity
     guid: 69495473e2153d040a4932cc81b6772b
   - enabled: 1
-    path: Assets/Scenes/D-9.unity
-    guid: 72fde88486868874680b81d16e79956a
+    path: Assets/Scenes/Bridges/D-6Bridge.unity
+    guid: 1b16f881d6389a845be5230e68e525d8
   - enabled: 1
-    path: Assets/Scenes/D-8.unity
-    guid: fbe3ae04d28178f468bf5e5b05acd807
+    path: Assets/Scenes/Bridges/D-5Bridge.unity
+    guid: e63ada53522780e48a9982d11f99fbc3
   - enabled: 1
-    path: Assets/Scenes/D-7.unity
-    guid: 47120048afb313f49ac21e603a3f7caa
+    path: Assets/Scenes/Bridges/D-4Bridge.unity
+    guid: 0846dfcc0e00f5e4fa13533ea328531f
+  - enabled: 1
+    path: Assets/Scenes/Bridges/D-3Bridge.unity
+    guid: 8da40bd378c14ac459dcf6a96280fd27
+  - enabled: 1
+    path: Assets/Scenes/Bridges/D-2Bridge.unity
+    guid: 3379b0cf87777c443a290b9c1f787129
+  - enabled: 1
+    path: Assets/Scenes/Bridges/D-1Bridge.unity
+    guid: 24b1ead0a15da74469cee0dab4a83079
+  - enabled: 1
+    path: Assets/Scenes/Bridges/D-dayBridge.unity
+    guid: f34f572d940d21d4a8a919a2ba9f206d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
