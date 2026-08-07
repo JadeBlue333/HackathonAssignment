@@ -50,19 +50,63 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
     // =========================================================
-    // 생성 위치
+    // 표시 위치 기준 Cube
     // =========================================================
 
-    [Header("Spawn Settings")]
+    [Header("Motor Display Point")]
 
-    [Tooltip("motorProp 생성 위치")]
-    public Vector3 spawnPosition = Vector3.zero;
+    [Tooltip(
+        "Motor가 생성될 위치에 배치한 Cube를 넣으세요. " +
+        "실행 시 Cube Renderer는 자동으로 숨겨집니다."
+    )]
+    public Transform displayAnchor;
 
-    [Tooltip("motorProp 생성 회전값")]
-    public Vector3 spawnRotation = Vector3.zero;
 
-    [Tooltip("motorProp 생성 크기")]
-    public Vector3 spawnScale = Vector3.one;
+    // =========================================================
+    // Motor 위치 / 회전 / 크기 보정
+    // =========================================================
+
+    [Header("Motor Transform Offset")]
+
+    [Tooltip("Display Anchor 기준 Motor 위치")]
+    public Vector3 motorLocalPosition = Vector3.zero;
+
+    [Tooltip("Display Anchor 기준 Motor 초기 회전")]
+    public Vector3 motorLocalRotation = Vector3.zero;
+
+    [Tooltip("Motor 크기")]
+    public Vector3 motorScale = Vector3.one;
+
+
+    // =========================================================
+    // 생성 개수
+    // =========================================================
+
+    [Header("Test Count")]
+
+    [Min(1)]
+    [Tooltip("이번 테스트에서 생성할 Motor 총 개수")]
+    public int totalMotorCount = 5;
+
+
+    // =========================================================
+    // 마우스 회전
+    // =========================================================
+
+    [Header("Mouse Rotation")]
+
+    [Tooltip("좌클릭 드래그 회전 속도")]
+    public float mouseRotationSpeed = 0.2f;
+
+
+    // =========================================================
+    // WASD 미세 회전
+    // =========================================================
+
+    [Header("WASD Fine Rotation")]
+
+    [Tooltip("WASD 미세 회전 속도")]
+    public float fineRotationSpeed = 30f;
 
 
     // =========================================================
@@ -105,7 +149,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
     [Header("Propeller Settings")]
 
-    [Tooltip("Propeller의 변경할 Material Element 번호. Element 1이면 1")]
+    [Tooltip(
+        "Propeller에서 변경할 Material Element 번호. " +
+        "Element 1이면 1"
+    )]
     public int propellerMaterialIndex = 1;
 
 
@@ -120,7 +167,9 @@ public class MotorPropRandomSpawner : MonoBehaviour
     public int missingPropPolyScore = 1;
 
     [Range(0, 10)]
-    [Tooltip("Propeller와 prop poly의 Material이 다를 때 추가되는 점수")]
+    [Tooltip(
+        "Propeller와 prop poly Material이 다를 때 추가되는 점수"
+    )]
     public int materialMismatchScore = 1;
 
 
@@ -130,19 +179,42 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
     private GameObject motorPropPrefab;
 
+    // 회전 중심
+    private GameObject currentMotorHolder;
+
+    // 실제 motorProp
     private GameObject currentMotorProp;
 
 
+    // 현재 몇 번째 Motor인지
+    private int currentMotorNumber = 0;
+
+    private bool isReady = false;
+    private bool testFinished = false;
+
+
     // =========================================================
-    // 시작
+    // Start
     // =========================================================
 
-    void Start()
+    private void Start()
     {
-        // Assets/Resources/Motors+Prop/motorProp.prefab
-        // 을 자동으로 찾음
+        // -----------------------------------------------------
+        // 위치 기준 Cube 숨기기
+        // -----------------------------------------------------
+
+        HideDisplayAnchor();
+
+
+        // -----------------------------------------------------
+        // 기존 방식 그대로:
+        // Resources에서 motorProp 자동 로드
+        // -----------------------------------------------------
+
         motorPropPrefab =
-            Resources.Load<GameObject>("Motors+Prop/motorProp");
+            Resources.Load<GameObject>(
+                "Motors+Prop/motorProp"
+            );
 
 
         if (motorPropPrefab == null)
@@ -152,48 +224,133 @@ public class MotorPropRandomSpawner : MonoBehaviour
                 "Prefab 위치를 확인하세요:\n" +
                 "Assets/Resources/Motors+Prop/motorProp.prefab"
             );
+
+            return;
         }
+
+
+        // -----------------------------------------------------
+        // Display Anchor 확인
+        // -----------------------------------------------------
+
+        if (displayAnchor == null)
+        {
+            Debug.LogError(
+                "Motor Display Point가 설정되지 않았습니다.\n" +
+                "씬에 Cube를 만들고 Display Anchor에 연결하세요."
+            );
+
+            return;
+        }
+
+
+        isReady = true;
+
+
+        // -----------------------------------------------------
+        // 실행 직후 첫 번째 Motor 생성
+        // -----------------------------------------------------
+
+        SpawnNextMotor();
     }
 
 
     // =========================================================
-    // 화면 클릭 감지
+    // Update
     // =========================================================
 
-    void Update()
+    private void Update()
     {
-        bool clicked = false;
+        if (!isReady || testFinished)
+            return;
 
 
+        // 마우스 = 큰 회전
+        HandleMouseRotation();
+
+
+        // WASD = 미세 회전
+        HandleFineRotation();
+
+
+        // P = 다음 Motor
 #if ENABLE_INPUT_SYSTEM
 
-        // 새로운 Input System 사용
-        if (Mouse.current != null &&
-            Mouse.current.leftButton.wasPressedThisFrame)
+        if (Keyboard.current != null &&
+            Keyboard.current.pKey.wasPressedThisFrame)
         {
-            clicked = true;
+            GoToNextMotor();
         }
 
 #elif ENABLE_LEGACY_INPUT_MANAGER
 
-        // 기존 Input Manager 사용
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            clicked = true;
+            GoToNextMotor();
         }
 
 #endif
+    }
 
 
-        if (clicked)
+    // =========================================================
+    // Display Anchor Cube 숨기기
+    // =========================================================
+
+    private void HideDisplayAnchor()
+    {
+        if (displayAnchor == null)
+            return;
+
+
+        // Cube 포함 자식의 Renderer를 모두 숨김
+        Renderer[] renderers =
+            displayAnchor.GetComponentsInChildren<Renderer>(
+                true
+            );
+
+
+        foreach (Renderer renderer in renderers)
         {
-            SpawnMotorProp();
+            renderer.enabled = false;
         }
     }
 
 
     // =========================================================
-    // motorProp 생성 및 랜덤 설정
+    // P키
+    // =========================================================
+
+    private void GoToNextMotor()
+    {
+        // 마지막 Motor를 보고 있는 상태에서 P를 누르면 종료
+        if (currentMotorNumber >= totalMotorCount)
+        {
+            testFinished = true;
+
+            return;
+        }
+
+
+        // 다음 Motor 생성
+        SpawnNextMotor();
+    }
+
+
+    // =========================================================
+    // 다음 Motor
+    // =========================================================
+
+    private void SpawnNextMotor()
+    {
+        currentMotorNumber++;
+
+        SpawnMotorProp();
+    }
+
+
+    // =========================================================
+    // motorProp 생성
     // =========================================================
 
     public void SpawnMotorProp()
@@ -213,33 +370,68 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
         // -----------------------------------------------------
-        // 이전에 생성한 테스트용 motorProp 삭제
+        // 이전 Motor 제거
         // -----------------------------------------------------
 
-        if (currentMotorProp != null)
-        {
-            Destroy(currentMotorProp);
-        }
+        RemoveCurrentMotor();
 
 
-        // -----------------------------------------------------
-        // 새 motorProp 생성
-        // -----------------------------------------------------
+        // =====================================================
+        // 회전 중심 Holder 생성
+        // =====================================================
 
-        Quaternion rotation =
-            Quaternion.Euler(spawnRotation);
+        currentMotorHolder =
+            new GameObject(
+                "CurrentMotorHolder"
+            );
 
+
+        // Cube의 자식으로 들어감
+        currentMotorHolder.transform.SetParent(
+            displayAnchor,
+            false
+        );
+
+
+        // Cube 중심에 위치
+        currentMotorHolder.transform.localPosition =
+            Vector3.zero;
+
+
+        currentMotorHolder.transform.localRotation =
+            Quaternion.identity;
+
+
+        currentMotorHolder.transform.localScale =
+            Vector3.one;
+
+
+        // =====================================================
+        // 실제 motorProp 생성
+        // =====================================================
 
         currentMotorProp =
             Instantiate(
                 motorPropPrefab,
-                spawnPosition,
-                rotation
+                currentMotorHolder.transform
             );
 
 
+        // Cube 기준 상대 위치
+        currentMotorProp.transform.localPosition =
+            motorLocalPosition;
+
+
+        // 초기 회전
+        currentMotorProp.transform.localRotation =
+            Quaternion.Euler(
+                motorLocalRotation
+            );
+
+
+        // 크기
         currentMotorProp.transform.localScale =
-            spawnScale;
+            motorScale;
 
 
         // =====================================================
@@ -267,9 +459,9 @@ public class MotorPropRandomSpawner : MonoBehaviour
             );
 
 
-        // -----------------------------------------------------
+        // =====================================================
         // 필수 오브젝트 확인
-        // -----------------------------------------------------
+        // =====================================================
 
         if (acMotor == null)
         {
@@ -310,7 +502,6 @@ public class MotorPropRandomSpawner : MonoBehaviour
         }
 
 
-        // AC Motor의 Renderer 찾기
         MeshRenderer acMotorRenderer =
             acMotor.GetComponent<MeshRenderer>();
 
@@ -332,7 +523,6 @@ public class MotorPropRandomSpawner : MonoBehaviour
         }
 
 
-        // AC Motor Material 변경
         Material[] motorMats =
             acMotorRenderer.materials;
 
@@ -341,6 +531,7 @@ public class MotorPropRandomSpawner : MonoBehaviour
         {
             motorMats[0] =
                 selectedMotorOption.material;
+
 
             acMotorRenderer.materials =
                 motorMats;
@@ -356,7 +547,7 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
         // =====================================================
-        // 2. Propeller Element 1 Material 랜덤 선택
+        // 2. Propeller Element 1 Material 랜덤
         // =====================================================
 
         PropellerMaterialOption selectedPropellerOption =
@@ -400,7 +591,8 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
         if (propellerMaterialIndex < 0 ||
-            propellerMaterialIndex >= propellerMats.Length)
+            propellerMaterialIndex >=
+            propellerMats.Length)
         {
             Debug.LogError(
                 "Propeller Material Index가 잘못되었습니다.\n" +
@@ -414,7 +606,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
         }
 
 
-        propellerMats[propellerMaterialIndex] =
+        // Element 1만 변경
+        propellerMats[
+            propellerMaterialIndex
+        ] =
             selectedPropellerOption.material;
 
 
@@ -433,7 +628,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
         if (propPolyExists)
         {
             float randomValue =
-                Random.Range(0f, 100f);
+                Random.Range(
+                    0f,
+                    100f
+                );
 
 
             if (randomValue <
@@ -443,15 +641,15 @@ public class MotorPropRandomSpawner : MonoBehaviour
                     false;
 
 
-                // 실제 Prefab을 파괴하지 않고
-                // 이번에 생성된 복제본만 비활성화
-                propPoly.gameObject.SetActive(false);
+                propPoly.gameObject.SetActive(
+                    false
+                );
             }
         }
 
 
         // =====================================================
-        // 4. prop poly가 있으면 Material 랜덤 선택
+        // 4. prop poly Material 랜덤 선택
         // =====================================================
 
         Material selectedPropPolyMaterial =
@@ -460,8 +658,7 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
         if (propPolyExists)
         {
-            PropellerMaterialOption
-                selectedPropPolyOption =
+            PropellerMaterialOption selectedPropPolyOption =
                 GetRandomPropellerMaterial();
 
 
@@ -495,9 +692,11 @@ public class MotorPropRandomSpawner : MonoBehaviour
                         propPolyRenderer.materials;
 
 
-                    if (propPolyMaterialIndex >= 0 &&
+                    if (
+                        propPolyMaterialIndex >= 0 &&
                         propPolyMaterialIndex <
-                        propPolyMats.Length)
+                        propPolyMats.Length
+                    )
                     {
                         propPolyMats[
                             propPolyMaterialIndex
@@ -530,24 +729,12 @@ public class MotorPropRandomSpawner : MonoBehaviour
         int finalScore = 0;
 
 
-        // -----------------------------------------------------
-        // 조건 1
-        // Motor Material에 지정된 점수
-        //
-        // Motor 0 = 0
-        // 나머지 기본 1
-        // Inspector에서 0~10 변경 가능
-        // -----------------------------------------------------
-
+        // Motor Material 점수
         finalScore +=
             selectedMotorOption.score;
 
 
-        // -----------------------------------------------------
-        // 조건 2
-        // prop poly 존재 여부
-        // -----------------------------------------------------
-
+        // prop poly가 없으면 추가
         if (!propPolyExists)
         {
             finalScore +=
@@ -555,18 +742,18 @@ public class MotorPropRandomSpawner : MonoBehaviour
         }
 
 
-        // -----------------------------------------------------
-        // 조건 3
-        // Propeller Element 1과
-        // prop poly Material 일치 여부
-        // -----------------------------------------------------
+        // =====================================================
+        // Material 일치 여부
+        // =====================================================
 
         bool materialSame =
             false;
 
 
-        if (propPolyExists &&
-            selectedPropPolyMaterial != null)
+        if (
+            propPolyExists &&
+            selectedPropPolyMaterial != null
+        )
         {
             materialSame =
                 selectedPropellerOption.material ==
@@ -574,8 +761,7 @@ public class MotorPropRandomSpawner : MonoBehaviour
         }
 
 
-        // prop poly가 없으면
-        // Material 비교 조건도 실패로 처리
+        // 다르면 점수 추가
         if (!materialSame)
         {
             finalScore +=
@@ -584,22 +770,204 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
         // =====================================================
-        // 콘솔 출력
+        // 기존 Console 출력 유지
         // =====================================================
 
-        string propPolyStatus =
-            propPolyExists
-            ? "존재"
-            : "삭제됨";
-
-
-        string propPolyMaterialName =
-            selectedPropPolyMaterial != null
-            ? selectedPropPolyMaterial.name
-            : "없음";
-
-
         Debug.Log(finalScore);
+    }
+
+
+    // =========================================================
+    // 마우스 회전
+    // 전부 월드 기준
+    // =========================================================
+
+    private void HandleMouseRotation()
+    {
+        if (currentMotorHolder == null)
+            return;
+
+
+#if ENABLE_INPUT_SYSTEM
+
+        if (Mouse.current == null)
+            return;
+
+
+        if (!Mouse.current.leftButton.isPressed)
+            return;
+
+
+        Vector2 mouseDelta =
+            Mouse.current.delta.ReadValue();
+
+
+        // -----------------------------------------------------
+        // 좌우
+        // -----------------------------------------------------
+
+        float horizontalRotation =
+            mouseDelta.x *
+            -mouseRotationSpeed;
+
+
+        // -----------------------------------------------------
+        // 위아래
+        // -----------------------------------------------------
+
+        float verticalRotation =
+            mouseDelta.y *
+            mouseRotationSpeed;
+
+
+        // -----------------------------------------------------
+        // 월드 Y축 회전
+        // -----------------------------------------------------
+
+        currentMotorHolder.transform.Rotate(
+            Vector3.up,
+            horizontalRotation,
+            Space.World
+        );
+
+
+        // -----------------------------------------------------
+        // 월드 X축 회전
+        // -----------------------------------------------------
+
+        currentMotorHolder.transform.Rotate(
+            Vector3.right,
+            verticalRotation,
+            Space.World
+        );
+
+#endif
+    }
+
+
+    // =========================================================
+    // WASD 미세 회전
+    // 전부 월드 기준
+    // =========================================================
+
+    private void HandleFineRotation()
+    {
+        if (currentMotorHolder == null)
+            return;
+
+
+#if ENABLE_INPUT_SYSTEM
+
+        if (Keyboard.current == null)
+            return;
+
+
+        float verticalRotation = 0f;
+        float horizontalRotation = 0f;
+
+
+        // =====================================================
+        // W
+        // =====================================================
+
+        if (Keyboard.current.wKey.isPressed)
+        {
+            verticalRotation +=
+                fineRotationSpeed *
+                Time.deltaTime;
+        }
+
+
+        // =====================================================
+        // S
+        // =====================================================
+
+        if (Keyboard.current.sKey.isPressed)
+        {
+            verticalRotation -=
+                fineRotationSpeed *
+                Time.deltaTime;
+        }
+
+
+        // =====================================================
+        // A
+        // 좌우 반전 적용된 방향
+        // =====================================================
+
+        if (Keyboard.current.aKey.isPressed)
+        {
+            horizontalRotation +=
+                fineRotationSpeed *
+                Time.deltaTime;
+        }
+
+
+        // =====================================================
+        // D
+        // =====================================================
+
+        if (Keyboard.current.dKey.isPressed)
+        {
+            horizontalRotation -=
+                fineRotationSpeed *
+                Time.deltaTime;
+        }
+
+
+        // -----------------------------------------------------
+        // W / S
+        // 월드 X축
+        // -----------------------------------------------------
+
+        if (verticalRotation != 0f)
+        {
+            currentMotorHolder.transform.Rotate(
+                Vector3.right,
+                verticalRotation,
+                Space.World
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // A / D
+        // 월드 Y축
+        // -----------------------------------------------------
+
+        if (horizontalRotation != 0f)
+        {
+            currentMotorHolder.transform.Rotate(
+                Vector3.up,
+                horizontalRotation,
+                Space.World
+            );
+        }
+
+#endif
+    }
+
+
+    // =========================================================
+    // 이전 Motor 제거
+    // =========================================================
+
+    private void RemoveCurrentMotor()
+    {
+        if (currentMotorHolder != null)
+        {
+            Destroy(
+                currentMotorHolder
+            );
+
+
+            currentMotorHolder =
+                null;
+
+
+            currentMotorProp =
+                null;
+        }
     }
 
 
@@ -610,8 +978,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
     private MotorMaterialOption
         GetRandomMotorMaterial()
     {
-        if (motorMaterials == null ||
-            motorMaterials.Length == 0)
+        if (
+            motorMaterials == null ||
+            motorMaterials.Length == 0
+        )
         {
             return null;
         }
@@ -628,7 +998,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
             if (option != null)
             {
                 totalWeight +=
-                    Mathf.Max(0f, option.weight);
+                    Mathf.Max(
+                        0f,
+                        option.weight
+                    );
             }
         }
 
@@ -666,8 +1039,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
                 );
 
 
-            if (randomValue <=
-                currentWeight)
+            if (
+                randomValue <=
+                currentWeight
+            )
             {
                 return option;
             }
@@ -687,8 +1062,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
     private PropellerMaterialOption
         GetRandomPropellerMaterial()
     {
-        if (propellerMaterials == null ||
-            propellerMaterials.Length == 0)
+        if (
+            propellerMaterials == null ||
+            propellerMaterials.Length == 0
+        )
         {
             return null;
         }
@@ -747,8 +1124,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
                 );
 
 
-            if (randomValue <=
-                currentWeight)
+            if (
+                randomValue <=
+                currentWeight
+            )
             {
                 return option;
             }
@@ -762,7 +1141,7 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
     // =========================================================
-    // 하위 오브젝트 이름으로 찾기
+    // 하위 오브젝트 이름 검색
     // =========================================================
 
     private Transform FindChildRecursive(
@@ -775,8 +1154,10 @@ public class MotorPropRandomSpawner : MonoBehaviour
             in parent
         )
         {
-            if (child.name ==
-                targetName)
+            if (
+                child.name ==
+                targetName
+            )
             {
                 return child;
             }
@@ -797,5 +1178,41 @@ public class MotorPropRandomSpawner : MonoBehaviour
 
 
         return null;
+    }
+
+
+    // =========================================================
+    // Inspector 값 제한
+    // =========================================================
+
+    private void OnValidate()
+    {
+        totalMotorCount =
+            Mathf.Max(
+                1,
+                totalMotorCount
+            );
+
+
+        mouseRotationSpeed =
+            Mathf.Max(
+                0f,
+                mouseRotationSpeed
+            );
+
+
+        fineRotationSpeed =
+            Mathf.Max(
+                0f,
+                fineRotationSpeed
+            );
+
+
+        propPolyDeleteChance =
+            Mathf.Clamp(
+                propPolyDeleteChance,
+                0f,
+                100f
+            );
     }
 }
