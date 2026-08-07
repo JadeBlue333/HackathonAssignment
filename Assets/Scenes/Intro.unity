@@ -164,7 +164,7 @@ MonoBehaviour:
   textDuration: 1.5
   typingSpeed: 0.05
   fadeDuration: 1
-  nextSceneName: Progress
+  nextSceneName: D-9
 --- !u!4 &70508093
 Transform:
   m_ObjectHideFlags: 0
