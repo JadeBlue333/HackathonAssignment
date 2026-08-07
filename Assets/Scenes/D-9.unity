@@ -1167,6 +1167,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas_ScreenSpace
       objectReference: {fileID: 0}
+    - target: {fileID: 1680057367669358406, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c63855ba507d4004a46694e682ee60a, type: 2}
+    - target: {fileID: 1680057367669358406, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8955872932828745792, guid: 4c63855ba507d4004a46694e682ee60a, type: 2}
+    - target: {fileID: 1680057367669358406, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3115490336060183786, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_SortingOrder
       value: -5
@@ -1174,6 +1186,18 @@ PrefabInstance:
     - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_text
       value: D - 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c63855ba507d4004a46694e682ee60a, type: 2}
+    - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8955872932828745792, guid: 4c63855ba507d4004a46694e682ee60a, type: 2}
+    - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7786992597302942462, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Pivot.x
