@@ -2,55 +2,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class BoxMatchManager : MonoBehaviour
 {
     // =========================================================
-    // Resources °æ·Î
+    // Resources ê²½ë¡œ
     // =========================================================
 
-    [Header("Resources Æú´õ ³»ºÎ °æ·Î")]
+    [Header("Resources ê²½ë¡œ ì„¤ì •")]
 
-    [Tooltip("Assets/Resources¸¦ Á¦¿ÜÇÑ Boxes Æú´õ °æ·Î")]
+    [Tooltip("Assets/Resources ì•ˆì— ìˆëŠ” Boxes í´ë” ê²½ë¡œ")]
     [SerializeField]
     private string boxesResourcePath = "Box+Tape/Boxes";
 
-    [Tooltip("Assets/Resources¸¦ Á¦¿ÜÇÑ Tapes Æú´õ °æ·Î")]
+    [Tooltip("Assets/Resources ì•ˆì— ìˆëŠ” Tapes í´ë” ê²½ë¡œ")]
     [SerializeField]
     private string tapesResourcePath = "Box+Tape/Tapes";
 
 
     // =========================================================
-    // Ç¥½Ã ±âÁØÁ¡
+    // ìƒí’ˆ í‘œì‹œ ìœ„ì¹˜
     // =========================================================
 
-    [Header("¼ÒÇ° Ç¥½Ã À§Ä¡")]
+    [Header("ìƒí’ˆ í‘œì‹œ ìœ„ì¹˜")]
 
-    [Tooltip("À§Ä¡ ±âÁØÀ¸·Î »ç¿ëÇÒ Cube¸¦ ³ÖÀ¸¼¼¿ä. CubeÀÇ Mesh Renderer´Â ÀÚµ¿À¸·Î ²¨Áı´Ï´Ù.")]
+    [Tooltip("ë°•ìŠ¤/í…Œì´í”„ê°€ ìƒì„±ë  ê¸°ì¤€ Transform")]
     [SerializeField]
     private Transform displayAnchor;
 
 
     // =========================================================
-    // Box / Tape »ó´ë À§Ä¡
+    // Box / Tape ê¸°ë³¸ ìœ„ì¹˜
     // =========================================================
 
-    [Header("Box / Tape À§Ä¡ º¸Á¤")]
+    [Header("Box / Tape ìœ„ì¹˜ ì„¤ì •")]
 
-    [Tooltip("Anchor¸¦ ±âÁØÀ¸·Î ÇÑ BoxÀÇ »ó´ë À§Ä¡")]
+    [Tooltip("Anchor ê¸°ì¤€ Box ë¡œì»¬ ìœ„ì¹˜")]
     [SerializeField]
     private Vector3 boxLocalPosition = Vector3.zero;
 
-    [Tooltip("Anchor¸¦ ±âÁØÀ¸·Î ÇÑ TapeÀÇ »ó´ë À§Ä¡")]
+    [Tooltip("Anchor ê¸°ì¤€ Tape ë¡œì»¬ ìœ„ì¹˜")]
     [SerializeField]
     private Vector3 tapeLocalPosition = Vector3.zero;
 
 
     // =========================================================
-    // È¸Àü
+    // Box / Tape ê¸°ë³¸ íšŒì „
     // =========================================================
 
-    [Header("Box / Tape È¸Àü º¸Á¤")]
+    [Header("Box / Tape íšŒì „ ì„¤ì •")]
 
     [SerializeField]
     private Vector3 boxLocalRotation = Vector3.zero;
@@ -60,10 +59,10 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
-    // Å©±â
+    // Box / Tape ê¸°ë³¸ í¬ê¸°
     // =========================================================
 
-    [Header("Box / Tape Å©±â")]
+    [Header("Box / Tape í¬ê¸°")]
 
     [SerializeField]
     private Vector3 boxScale = Vector3.one;
@@ -73,46 +72,67 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
-    // È®·ü
+    // ìƒì„± í™•ë¥ 
     // =========================================================
 
-    [Header("°á°ú È®·ü")]
+    [Header("ìƒì„± í™•ë¥ ")]
 
-    [Tooltip("Open Å×ÀÌÇÁ°¡ ¼±ÅÃµÉ È®·ü")]
+    [Tooltip("Open ìƒíƒœê°€ ì„ íƒë  í™•ë¥ ")]
     [Range(0f, 100f)]
     [SerializeField]
     private float openChance = 30f;
 
-    [Tooltip("Demage ¹Ú½º°¡ ¼±ÅÃµÉ È®·ü")]
+    [Tooltip("Damage ë°•ìŠ¤ê°€ ì„ íƒë  í™•ë¥ ")]
     [Range(0f, 100f)]
     [SerializeField]
     private float demageChance = 30f;
 
 
     // =========================================================
-    // È¸Àü Á¶ÀÛ
+    // ë§ˆìš°ìŠ¤ íšŒì „
     // =========================================================
 
-    [Header("¸¶¿ì½º È¸Àü")]
+    [Header("ë§ˆìš°ìŠ¤ íšŒì „")]
 
-    [Tooltip("ÁÂÅ¬¸¯ µå·¡±× È¸Àü ¼Óµµ")]
+    [Tooltip("ì¢Œí´ë¦­ ë“œë˜ê·¸ íšŒì „ ê°ë„")]
     [SerializeField]
     private float mouseRotationSpeed = 0.2f;
 
 
     // =========================================================
-    // WASD À§Ä¡ Á¶ÀÛ
+    // ë§ˆìš°ìŠ¤ ì¤Œ
     // =========================================================
 
-    [Header("WASD ¹Ì¼¼ È¸Àü")]
+    [Header("ë§ˆìš°ìŠ¤ ì¤Œ")]
 
-[Tooltip("WASD ¹Ì¼¼ È¸Àü ¼Óµµ")]
-[SerializeField]
-private float fineRotationSpeed = 30f;
+    [Tooltip("ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€/ì¶•ì†Œ ì†ë„")]
+    [SerializeField]
+    private float zoomSpeed = 0.15f;
+
+    [Tooltip("ìµœì†Œ í™•ëŒ€ ë¹„ìœ¨")]
+    [SerializeField]
+    private float minZoomScale = 0.9f;
+
+    [Tooltip("ìµœëŒ€ í™•ëŒ€ ë¹„ìœ¨")]
+    [SerializeField]
+    private float maxZoomScale = 1.7f;
+
+    private float currentZoomScale = 1f;
 
 
     // =========================================================
-    // Prefab ¸ñ·Ï
+    // WASD ë¯¸ì„¸ íšŒì „
+    // =========================================================
+
+    [Header("WASD ë¯¸ì„¸ íšŒì „")]
+
+    [Tooltip("WASD ë¯¸ì„¸ íšŒì „ ì†ë„")]
+    [SerializeField]
+    private float fineRotationSpeed = 30f;
+
+
+    // =========================================================
+    // Prefab ëª©ë¡
     // =========================================================
 
     private readonly List<GameObject> normalBoxes = new();
@@ -123,7 +143,7 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // ÇöÀç »ı¼ºµÈ ¿ÀºêÁ§Æ®
+    // í˜„ì¬ ìƒì„±ëœ ì˜¤ë¸Œì íŠ¸
     // =========================================================
 
     private GameObject currentHolder;
@@ -132,18 +152,16 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // ÁøÇà »óÅÂ
+    // ì§„í–‰ ìƒíƒœ
     // =========================================================
 
     private bool isReady = false;
     public bool IsReady => isReady;
+
     private bool testFinished = false;
 
-    // ÇöÀç º¸°í ÀÖ´Â »óÀÚ ¹øÈ£
-    // Ã¹ ¹øÂ° »óÀÚ = 1
     private int currentBoxNumber = 0;
 
-    // False ÃÑ °³¼ö
     private int falseCount = 0;
 
 
@@ -167,24 +185,19 @@ private float fineRotationSpeed = 30f;
         if (!isReady || testFinished)
             return;
 
-
-        // -----------------------------------------------------
-        // ¸¶¿ì½º ÁÂÅ¬¸¯ µå·¡±× È¸Àü
-        // -----------------------------------------------------
-
+        // ì¢Œí´ë¦­ ë“œë˜ê·¸ íšŒì „
         HandleMouseRotation();
 
+        // ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€ / ì¶•ì†Œ
+        HandleMouseZoom();
 
-        // -----------------------------------------------------
-        // WASD À§Ä¡ ¹Ì¼¼ Á¶Àı
-        // -----------------------------------------------------
-
+        // WASD ë¯¸ì„¸ íšŒì „
         HandleFineRotation();
     }
 
 
     // =========================================================
-    // Anchor Cube ¼û±â±â
+    // Anchor Cube ìˆ¨ê¸°ê¸°
     // =========================================================
 
     private void HideAnchorCube()
@@ -192,8 +205,6 @@ private float fineRotationSpeed = 30f;
         if (displayAnchor == null)
             return;
 
-
-        // Cube ÀÚÃ¼ Renderer
         MeshRenderer renderer =
             displayAnchor.GetComponent<MeshRenderer>();
 
@@ -202,8 +213,6 @@ private float fineRotationSpeed = 30f;
             renderer.enabled = false;
         }
 
-
-        // È¤½Ã ÀÚ½Ä Renderer°¡ ÀÖ´Ù¸é °°ÀÌ ¼û±è
         MeshRenderer[] childRenderers =
             displayAnchor.GetComponentsInChildren<MeshRenderer>();
 
@@ -215,7 +224,7 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // Prefab ·Îµù
+    // Prefab ë¡œë“œ
     // =========================================================
 
     private void LoadPrefabs()
@@ -226,12 +235,10 @@ private float fineRotationSpeed = 30f;
         closeTapes.Clear();
         openTapes.Clear();
 
-
         GameObject[] allBoxes =
             Resources.LoadAll<GameObject>(
                 boxesResourcePath
             );
-
 
         GameObject[] allTapes =
             Resources.LoadAll<GameObject>(
@@ -240,14 +247,13 @@ private float fineRotationSpeed = 30f;
 
 
         // -----------------------------------------------------
-        // Box ºĞ·ù
+        // Box ë¶„ë¥˜
         // -----------------------------------------------------
 
         foreach (GameObject boxPrefab in allBoxes)
         {
             string lowerName =
                 boxPrefab.name.ToLowerInvariant();
-
 
             if (lowerName.Contains("demage") ||
                 lowerName.Contains("damage"))
@@ -262,14 +268,13 @@ private float fineRotationSpeed = 30f;
 
 
         // -----------------------------------------------------
-        // Tape ºĞ·ù
+        // Tape ë¶„ë¥˜
         // -----------------------------------------------------
 
         foreach (GameObject tapePrefab in allTapes)
         {
             string lowerName =
                 tapePrefab.name.ToLowerInvariant();
-
 
             if (lowerName.Contains("open"))
             {
@@ -281,93 +286,81 @@ private float fineRotationSpeed = 30f;
             }
         }
 
-
         isReady =
             ValidatePrefabLists();
     }
 
 
     // =========================================================
-    // Prefab È®ÀÎ
+    // Prefab ìœ íš¨ì„± ê²€ì‚¬
     // =========================================================
 
     private bool ValidatePrefabLists()
     {
         bool valid = true;
 
-
         if (normalBoxes.Count == 0)
         {
             Debug.LogError(
-                $"ÀÏ¹İ Box°¡ ¾ø½À´Ï´Ù. Resources/{boxesResourcePath}"
+                $"ì¼ë°˜ Boxê°€ ì—†ìŠµë‹ˆë‹¤. Resources/{boxesResourcePath}"
             );
 
             valid = false;
         }
-
 
         if (demageBoxes.Count == 0)
         {
             Debug.LogError(
-                $"Demage Box°¡ ¾ø½À´Ï´Ù. Resources/{boxesResourcePath}"
+                $"Damage Boxê°€ ì—†ìŠµë‹ˆë‹¤. Resources/{boxesResourcePath}"
             );
 
             valid = false;
         }
-
 
         if (closeTapes.Count == 0)
         {
             Debug.LogError(
-                $"Close Tape°¡ ¾ø½À´Ï´Ù. Resources/{tapesResourcePath}"
+                $"Close Tapeê°€ ì—†ìŠµë‹ˆë‹¤. Resources/{tapesResourcePath}"
             );
 
             valid = false;
         }
-
 
         if (openTapes.Count == 0)
         {
             Debug.LogError(
-                $"Open Tape°¡ ¾ø½À´Ï´Ù. Resources/{tapesResourcePath}"
+                $"Open Tapeê°€ ì—†ìŠµë‹ˆë‹¤. Resources/{tapesResourcePath}"
             );
 
             valid = false;
         }
-
 
         if (displayAnchor == null)
         {
             Debug.LogError(
-                "Display Anchor°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù."
+                "Display Anchorê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
             );
 
             valid = false;
         }
-
 
         return valid;
     }
 
 
     // =========================================================
-    // ·£´ı Box + Tape »ı¼º
+    // ë‹¤ìŒ Box + Tape ìƒì„±
     // =========================================================
 
     public InspectionResult CreateNextMatch()
     {
         RemoveCurrentMatch();
 
-
-        // -----------------------------------------------------
-        // ÁøÇà ¹øÈ£ Áõ°¡
-        // -----------------------------------------------------
-
         currentBoxNumber++;
 
 
         // -----------------------------------------------------
-        // È®·ü º¸Á¤
+        // í™•ë¥  ê³„ì‚°
         // -----------------------------------------------------
 
         float safeOpenChance =
@@ -377,7 +370,6 @@ private float fineRotationSpeed = 30f;
                 100f
             );
 
-
         float safeDemageChance =
             Mathf.Clamp(
                 demageChance,
@@ -385,13 +377,11 @@ private float fineRotationSpeed = 30f;
                 100f - safeOpenChance
             );
 
-
         float randomValue =
             Random.Range(
                 0f,
                 100f
             );
-
 
         GameObject selectedBoxPrefab;
         GameObject selectedTapePrefab;
@@ -399,36 +389,61 @@ private float fineRotationSpeed = 30f;
         InspectionResult answer;
 
 
-        // Çå¹Ú½º (Opened)
+        // -----------------------------------------------------
+        // Opened
+        // -----------------------------------------------------
 
         if (randomValue < safeOpenChance)
         {
-            selectedBoxPrefab = GetRandomPrefab(normalBoxes);
-            selectedTapePrefab = GetRandomPrefab(openTapes);
+            selectedBoxPrefab =
+                GetRandomPrefab(normalBoxes);
 
-            answer = InspectionResult.Opened;
+            selectedTapePrefab =
+                GetRandomPrefab(openTapes);
+
+            answer =
+                InspectionResult.Opened;
         }
 
-        else if (randomValue < safeOpenChance + safeDemageChance)
+        // -----------------------------------------------------
+        // Damage Box
+        // ë‚´ë¶€ ì†ìƒ ë°•ìŠ¤ì´ë¯€ë¡œ ê²°êµ­ ê°œë´‰ í•„ìš”
+        // -----------------------------------------------------
+
+        else if (
+            randomValue <
+            safeOpenChance + safeDemageChance
+        )
         {
-            selectedBoxPrefab = GetRandomPrefab(demageBoxes);
-            selectedTapePrefab = GetRandomPrefab(closeTapes);
+            selectedBoxPrefab =
+                GetRandomPrefab(demageBoxes);
 
-            answer = InspectionResult.Opened;
+            selectedTapePrefab =
+                GetRandomPrefab(closeTapes);
+
+            answer =
+                InspectionResult.Opened;
         }
 
-        // »õ ¹Ú½º (Unopened)
+        // -----------------------------------------------------
+        // ì •ìƒ ë¯¸ê°œë´‰
+        // -----------------------------------------------------
 
         else
         {
-            selectedBoxPrefab = GetRandomPrefab(normalBoxes);
-            selectedTapePrefab = GetRandomPrefab(closeTapes);
+            selectedBoxPrefab =
+                GetRandomPrefab(normalBoxes);
 
-            answer = InspectionResult.Unopened;
+            selectedTapePrefab =
+                GetRandomPrefab(closeTapes);
+
+            answer =
+                InspectionResult.Unopened;
         }
 
+
         // =====================================================
-        // Box + Tape¸¦ ÇÑ ¹­À½À¸·Î ¸¸µé Holder »ı¼º
+        // Box + Tape ê³µí†µ Holder ìƒì„±
         // =====================================================
 
         currentHolder =
@@ -436,23 +451,27 @@ private float fineRotationSpeed = 30f;
                 "CurrentBoxHolder"
             );
 
-
         currentHolder.transform.SetParent(
             displayAnchor,
             false
         );
 
-
         currentHolder.transform.localPosition =
             Vector3.zero;
-
 
         currentHolder.transform.localRotation =
             Quaternion.identity;
 
 
+        // ìƒˆ ë°•ìŠ¤ ìƒì„± ì‹œ ì¤Œ ì´ˆê¸°í™”
+        currentZoomScale = 1f;
+
+        currentHolder.transform.localScale =
+            Vector3.one;
+
+
         // =====================================================
-        // Box »ı¼º
+        // Box ìƒì„±
         // =====================================================
 
         currentBox =
@@ -461,23 +480,20 @@ private float fineRotationSpeed = 30f;
                 currentHolder.transform
             );
 
-
         currentBox.transform.localPosition =
             boxLocalPosition;
-
 
         currentBox.transform.localRotation =
             Quaternion.Euler(
                 boxLocalRotation
             );
 
-
         currentBox.transform.localScale =
             boxScale;
 
 
         // =====================================================
-        // Tape »ı¼º
+        // Tape ìƒì„±
         // =====================================================
 
         currentTape =
@@ -486,23 +502,25 @@ private float fineRotationSpeed = 30f;
                 currentHolder.transform
             );
 
-
         currentTape.transform.localPosition =
             tapeLocalPosition;
-
 
         currentTape.transform.localRotation =
             Quaternion.Euler(
                 tapeLocalRotation
             );
 
-
         currentTape.transform.localScale =
             tapeScale;
+
 
         return answer;
     }
 
+
+    // =========================================================
+    // ë§ˆìš°ìŠ¤ ì¢Œí´ë¦­ ë“œë˜ê·¸ íšŒì „
+    // =========================================================
 
     private void HandleMouseRotation()
     {
@@ -515,23 +533,20 @@ private float fineRotationSpeed = 30f;
         if (!Mouse.current.leftButton.isPressed)
             return;
 
-
         Vector2 mouseDelta =
             Mouse.current.delta.ReadValue();
-
 
         float horizontalRotation =
             -mouseDelta.x *
             mouseRotationSpeed;
-
 
         float verticalRotation =
             mouseDelta.y *
             mouseRotationSpeed;
 
 
-        // ÁÂ / ¿ì
-        // ¿ùµå YÃà ±âÁØ
+        // ì¢Œ / ìš°
+        // World Yì¶• íšŒì „
         currentHolder.transform.Rotate(
             Vector3.up,
             horizontalRotation,
@@ -539,8 +554,8 @@ private float fineRotationSpeed = 30f;
         );
 
 
-        // À§ / ¾Æ·¡
-        // ¿ùµå XÃà ±âÁØ
+        // ìœ„ / ì•„ë˜
+        // World Xì¶• íšŒì „
         currentHolder.transform.Rotate(
             Vector3.left,
             verticalRotation,
@@ -550,8 +565,47 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // WASD ¹Ì¼¼ È¸Àü
-    // ÀüºÎ ¿ùµå ±âÁØ
+    // ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€ / ì¶•ì†Œ
+    // =========================================================
+
+    private void HandleMouseZoom()
+    {
+        if (currentHolder == null)
+            return;
+
+        if (Mouse.current == null)
+            return;
+
+        float scrollValue =
+            Mouse.current.scroll.ReadValue().y;
+
+        if (Mathf.Abs(scrollValue) < 0.01f)
+            return;
+
+
+        // íœ  ìœ„ = í™•ëŒ€
+        // íœ  ì•„ë˜ = ì¶•ì†Œ
+        currentZoomScale +=
+            Mathf.Sign(scrollValue) *
+            zoomSpeed;
+
+
+        currentZoomScale =
+            Mathf.Clamp(
+                currentZoomScale,
+                minZoomScale,
+                maxZoomScale
+            );
+
+
+        currentHolder.transform.localScale =
+            Vector3.one *
+            currentZoomScale;
+    }
+
+
+    // =========================================================
+    // WASD ë¯¸ì„¸ íšŒì „
     // =========================================================
 
     private void HandleFineRotation()
@@ -562,12 +616,11 @@ private float fineRotationSpeed = 30f;
         if (Keyboard.current == null)
             return;
 
-
         float verticalRotation = 0f;
         float horizontalRotation = 0f;
 
 
-        // W = À§ÂÊ È¸Àü
+        // W = ìœ„ìª½ íšŒì „
         if (Keyboard.current.wKey.isPressed)
         {
             verticalRotation +=
@@ -576,7 +629,7 @@ private float fineRotationSpeed = 30f;
         }
 
 
-        // S = ¾Æ·¡ÂÊ È¸Àü
+        // S = ì•„ë˜ìª½ íšŒì „
         if (Keyboard.current.sKey.isPressed)
         {
             verticalRotation -=
@@ -585,7 +638,7 @@ private float fineRotationSpeed = 30f;
         }
 
 
-        // A = ¿ŞÂÊ È¸Àü
+        // A = ì™¼ìª½ íšŒì „
         if (Keyboard.current.aKey.isPressed)
         {
             horizontalRotation +=
@@ -594,7 +647,7 @@ private float fineRotationSpeed = 30f;
         }
 
 
-        // D = ¿À¸¥ÂÊ È¸Àü
+        // D = ì˜¤ë¥¸ìª½ íšŒì „
         if (Keyboard.current.dKey.isPressed)
         {
             horizontalRotation -=
@@ -604,7 +657,6 @@ private float fineRotationSpeed = 30f;
 
 
         // W / S
-        // ¿ùµå XÃà ±âÁØ
         if (verticalRotation != 0f)
         {
             currentHolder.transform.Rotate(
@@ -616,7 +668,6 @@ private float fineRotationSpeed = 30f;
 
 
         // A / D
-        // ¿ùµå YÃà ±âÁØ
         if (horizontalRotation != 0f)
         {
             currentHolder.transform.Rotate(
@@ -629,7 +680,7 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // ·£´ı Prefab ¼±ÅÃ
+    // ëœë¤ Prefab ì„ íƒ
     // =========================================================
 
     private GameObject GetRandomPrefab(
@@ -642,7 +693,6 @@ private float fineRotationSpeed = 30f;
                 prefabList.Count
             );
 
-
         return prefabList[
             randomIndex
         ];
@@ -650,7 +700,7 @@ private float fineRotationSpeed = 30f;
 
 
     // =========================================================
-    // ÇöÀç Box Á¦°Å
+    // í˜„ì¬ Box ì œê±°
     // =========================================================
 
     public void RemoveCurrentMatch()
@@ -669,12 +719,15 @@ private float fineRotationSpeed = 30f;
 
             currentTape =
                 null;
+
+            currentZoomScale =
+                1f;
         }
     }
 
 
     // =========================================================
-    // Inspector °ª Á¦ÇÑ
+    // Inspector ê°’ ë³´ì •
     // =========================================================
 
     private void OnValidate()
@@ -686,7 +739,6 @@ private float fineRotationSpeed = 30f;
                 100f
             );
 
-
         demageChance =
             Mathf.Clamp(
                 demageChance,
@@ -694,17 +746,34 @@ private float fineRotationSpeed = 30f;
                 100f - openChance
             );
 
-
         fineRotationSpeed =
-    Mathf.Max(
-        0f,
-        fineRotationSpeed
-    );
+            Mathf.Max(
+                0f,
+                fineRotationSpeed
+            );
 
         mouseRotationSpeed =
             Mathf.Max(
                 0f,
                 mouseRotationSpeed
+            );
+
+        zoomSpeed =
+            Mathf.Max(
+                0f,
+                zoomSpeed
+            );
+
+        minZoomScale =
+            Mathf.Max(
+                0.1f,
+                minZoomScale
+            );
+
+        maxZoomScale =
+            Mathf.Max(
+                minZoomScale,
+                maxZoomScale
             );
     }
 }
