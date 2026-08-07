@@ -22,6 +22,7 @@ public class MainUI : MonoBehaviour
     [Header("Trust")]
     [SerializeField] private Image trustBar;
     [SerializeField] private TMP_Text trustText;
+    [SerializeField] private TMP_Text trustGradeText;
 
     private PlayerStatus player;
 
@@ -61,17 +62,12 @@ public class MainUI : MonoBehaviour
         minute = (minute / 5) * 5;
 
         // 게임 내 총 진행 분
-        // 09:00 ~ 15:00 = 총 360분
         float totalGameMinutes = 360f * t;
 
         // 현재 5분 구간 안에서의 진행률
-        // 0 ~ 1
         float fiveMinuteProgress = (totalGameMinutes % 5f) / 5f;
 
         // 5분에 한 번 깜빡임
-        // 앞 70%는 콜론 표시
-        // 뒤 30%는 콜론 숨김
-        // 다음 5분으로 넘어가면 다시 표시
         string separator = fiveMinuteProgress < 0.7f
             ? " : "
             : "   ";
@@ -91,15 +87,20 @@ public class MainUI : MonoBehaviour
 
     void UpdateUI()
     {
+        // Date
         dayText.text = $"D-{player.currentDay}";
 
+        // Money
         moneyText.text = $"{player.money}";
         earningText.text = $"(+{player.earnings})";
 
+        // Fuel
         fuelBar.fillAmount = player.fuel / (float)PlayerStatus.MaxFuel;
-        fuelText.text = $"{player.fuel} 연료";
+        fuelText.text = $"{player.fuel} / {PlayerStatus.MaxFuel}";
 
+        // Trust
         trustBar.fillAmount = player.trust / (float)PlayerStatus.MaxTrust;
-        trustText.text = $"{player.trust} 신뢰도";
+        trustText.text = $"{player.trust} / {PlayerStatus.MaxTrust}";
+        trustGradeText.text = player.GetTrustGrade();
     }
 }

@@ -21,132 +21,241 @@ public class PlayerStatus : MonoBehaviour
 
     private void Initialize()
     {
-        currentDay = 9;     // D-9 ½ÃÀÛ
-        money = 20;          
+        // ì´ˆê¸° ìƒíƒœ
+        currentDay = 9;     // D-9
+        money = 20;
+
         fuel = 70;
         trust = 50;
+
+        earnings = 0;
+        trustChange = 0;
     }
 
-    [Header("ÀÎ½ºÆåÅÍ¿¡¼­ º¯¼ö Á¶Á¤ÇÏ´Â °ÍÀº ÀÇ¹Ì X. ½ÃÀÛ º¯¼ö °íÄ¡·Á¸é ÄÚµåÀÇ Initialize()¿¡¼­ º¯°æÇÒ °Í.")]
+    [Header("Inspectorì—ì„œ ìˆ˜ì •í•´ë„ ê²Œì„ ì‹œì‘ ì‹œ Initialize ê°’ìœ¼ë¡œ ì´ˆê¸°í™”ë©ë‹ˆë‹¤.")]
 
-    // 1. ³¯Â¥
+    // =========================================================
+    // Date
+    // =========================================================
+
     [Header("Date")]
     [Range(0, 9)]
     public int currentDay;      // 9 -> 0 (D-Day)
 
-    // 2. µ·
+
+    // =========================================================
+    // Money
+    // =========================================================
+
     [Header("Money")]
     public int money;
-    public int earnings; // ÀÌ¹ø ³¯ Á¤»êÀ¸·Î ¾òÀº µ·
 
-    // 3. ¿¬·á
+    // ì´ë²ˆ í•˜ë£¨ ë™ì•ˆ ë²Œì–´ë“¤ì¸ ê¸ˆì•¡
+    public int earnings;
+
+
+    // =========================================================
+    // Fuel
+    // =========================================================
+
     [Header("Fuel")]
     [Range(0, 100)]
     public int fuel;
 
     public const int MaxFuel = 100;
 
-    // 4. ½Å·Úµµ
+
+    // =========================================================
+    // Trust
+    // =========================================================
+
     [Header("Trust")]
     [Range(0, 100)]
     public int trust;
-    public int trustChange; // ÀÌ¹ø ³¯ Á¤»êÀ¸·Î ¾òÀº ½Å·Úµµ º¯È­
+
+    // ì´ë²ˆ í•˜ë£¨ ë™ì•ˆ ë°œìƒí•œ ì‹ ë¢°ë„ ë³€í™”ëŸ‰
+    public int trustChange;
 
     public const int MaxTrust = 100;
 
-    // 5. °­È­ ¾ÆÀÌÅÛ ±¸¸Å ¿©ºÎ
+    // ì‹ ë¢°ë„ ë“±ê¸‰ ê¸°ì¤€
+    public const int TrustGradeA = 70;
+    public const int TrustGradeB = 40;
+
+
+    // =========================================================
+    // Enhancement Items
+    // =========================================================
+
     [Header("Enhancement Items")]
     public bool[] enhancementItems = new bool[3];
 
-    // 6. ¾÷±×·¹ÀÌµå ´Ü°è (½ºÅ³Æ®¸®)
+
+    // =========================================================
+    // Skill Tree
+    // =========================================================
+
     [Header("Skill Tree")]
     public bool[] upgrades = new bool[4];
 
-    // 7. ÀÎ°£È­ ºÎÇ° ±¸¸Å ¿©ºÎ
+
+    // =========================================================
+    // Human Parts
+    // =========================================================
+
     [Header("Human Parts")]
     public bool[] humanParts = new bool[3];
 
+
+    // =========================================================
+    // Time
+    // =========================================================
+
     [Header("Time")]
-    [Tooltip("Çö½Ç ½Ã°£ ±âÁØ ÇÏ·ç ±æÀÌ(ÃÊ)")]
+    [Tooltip("í•˜ë£¨ ì‹¤ì œ í”Œë ˆì´ ì‹œê°„(ì´ˆ)")]
     public float dayDuration = 180f;
 
-    // ---------------------------------------------------------------------
 
-    // ÀÌ¹ø ³¯ ¼öÀÍ ´©Àû
+    // =========================================================
+    // Money Functions
+    // =========================================================
+
+    // ì´ë²ˆ í•˜ë£¨ ìˆ˜ìµ ì¶”ê°€
     public void AddEarnings(int amount)
     {
         earnings += amount;
     }
 
-    // ÀÌ¹ø ³¯ ¼öÀÍ ÃÊ±âÈ­
+    // ì´ë²ˆ í•˜ë£¨ ìˆ˜ìµ ì´ˆê¸°í™”
     public void ResetEarnings()
     {
         earnings = 0;
     }
 
-    // Á¤»ê ¿Ï·á ÀÌ ÇÔ¼ö ÇÏ³ª¸¸ È£ÃâÇÏ¸é µÊ
+    // í•˜ë£¨ ì¢…ë£Œ ì‹œ ìˆ˜ìµì„ ì‹¤ì œ ë³´ìœ  ê¸ˆì•¡ì— ë°˜ì˜
     public void ApplyEarnings()
     {
         AddMoney(earnings);
         ResetEarnings();
     }
 
+    // ëˆ ì¶”ê°€
     public void AddMoney(int amount)
     {
         money += amount;
     }
 
+    // ëˆ ì‚¬ìš©
     public bool SpendMoney(int amount)
     {
         if (money < amount)
+        {
+            Debug.Log("ëˆì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
             return false;
+        }
 
         money -= amount;
-        Debug.Log($"{amount}¾²°í " + $"{money} ³²À½");
+
+        Debug.Log(
+            $"{amount} ì‚¬ìš© / í˜„ì¬ ë³´ìœ  ê¸ˆì•¡: {money}"
+        );
+
         return true;
     }
 
+
+    // =========================================================
+    // Fuel Functions
+    // =========================================================
+
+    // ì—°ë£Œ ì¶”ê°€
     public void AddFuel(int amount)
     {
-        fuel = Mathf.Clamp(fuel + amount, 0, MaxFuel);
+        fuel = Mathf.Clamp(
+            fuel + amount,
+            0,
+            MaxFuel
+        );
     }
 
+    // ì—°ë£Œ ê°ì†Œ
     public void ReduceFuel(int amount)
     {
-        fuel = Mathf.Clamp(fuel - amount, 0, MaxFuel);
+        fuel = Mathf.Clamp(
+            fuel - amount,
+            0,
+            MaxFuel
+        );
     }
 
+
+    // =========================================================
+    // Trust Functions
+    // =========================================================
+
+    // ì‹ ë¢°ë„ ì¦‰ì‹œ ë³€ê²½
     public void AddTrust(int amount)
     {
-        trust = Mathf.Clamp(trust + amount, 0, MaxTrust);
+        trust = Mathf.Clamp(
+            trust + amount,
+            0,
+            MaxTrust
+        );
     }
 
+    // ì´ë²ˆ í•˜ë£¨ ì‹ ë¢°ë„ ë³€í™”ëŸ‰ ëˆ„ì 
     public void AddTrustChanges(int amount)
     {
         trustChange += amount;
     }
 
+    // ì‹ ë¢°ë„ ë³€í™”ëŸ‰ ì´ˆê¸°í™”
     public void ResetTrustChanges()
     {
         trustChange = 0;
     }
 
+    // í•˜ë£¨ ì¢…ë£Œ ì‹œ ì‹ ë¢°ë„ ë³€í™” ì ìš©
     public void ApplyTrustChanges()
     {
         AddTrust(trustChange);
         ResetTrustChanges();
     }
 
+    // í˜„ì¬ ì‹ ë¢°ë„ ë“±ê¸‰ ë°˜í™˜
+    public string GetTrustGrade()
+    {
+        if (trust >= TrustGradeA)
+        {
+            return "A";
+        }
+
+        if (trust >= TrustGradeB)
+        {
+            return "B";
+        }
+
+        return "C";
+    }
+
+
+    // =========================================================
+    // Day
+    // =========================================================
+
     public void NextDay()
     {
         if (currentDay > 0)
         {
             currentDay--;
-            Debug.Log($"´ÙÀ½ ³¯! ÇöÀç ³¯Â¥ : D-{currentDay}");
+
+            Debug.Log(
+                $"ë‹¤ìŒ ë‚ ! í˜„ì¬ ë‚ ì§œ : D-{currentDay}"
+            );
         }
         else
         {
-            Debug.Log("D-DayÀÔ´Ï´Ù.");
+            Debug.Log("D-Dayì…ë‹ˆë‹¤.");
         }
     }
 }
