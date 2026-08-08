@@ -4670,7 +4670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddee9d4597c1434ebe76fc55fd1069e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoToThisScene
-  sceneName: DailyReport
+  sceneName: BlackMarketTransition
   blackImage: {fileID: 1982218831}
   fadeDuration: 1
   progress: 0
