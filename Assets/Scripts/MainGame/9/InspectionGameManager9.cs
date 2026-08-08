@@ -25,161 +25,303 @@ public class InspectionGameManager9 : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
 
-    [SerializeField] private AudioClip spawnBoxSfx;      // √≥¿Ω ªÛ¿⁄ ª˝º∫
-    [SerializeField] private AudioClip openBoxSfx;       // ªÛ¿⁄ ±Ó±‚
-    [SerializeField] private AudioClip correctSfx;       // ¡§¥‰
-    [SerializeField] private AudioClip wrongSfx;         // ø¿¥‰
+    [Header("Spawn Box SFX")]
+    [SerializeField] private AudioClip spawnBoxSfx;
 
-    //ø≠¡ˆ æ æ“æÓµµ µ… ªÛ¿⁄∏¶ ø¨∞«¡ˆ.
+    [Range(0f, 1f)]
+    [SerializeField] private float spawnBoxVolume = 1f;
+
+    [Header("Open Box SFX")]
+    [SerializeField] private AudioClip openBoxSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float openBoxVolume = 1f;
+
+    [Header("Correct SFX")]
+    [SerializeField] private AudioClip correctSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float correctVolume = 1f;
+
+    [Header("Wrong SFX")]
+    [SerializeField] private AudioClip wrongSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float wrongVolume = 1f;
+
+
+    // Ï†ïÏÉÅ Î∞ïÏä§Î•º Ïó¥Ïñ¥Î≤ÑÎ†∏ÎäîÏßÄ Ïó¨Î∂Ä
     private bool openedWrongBox = false;
 
     private InspectionResult currentAnswer;
 
+
     private IEnumerator Start()
     {
-        yield return new WaitUntil(() => boxMatchManager.IsReady && motorMatchManager.IsReady);
+        yield return new WaitUntil(
+            () => boxMatchManager.IsReady &&
+                  motorMatchManager.IsReady
+        );
 
         GenerateQuestion();
     }
 
-    private void PlaySfx(AudioClip clip)
+
+    // =========================================================
+    // Sound
+    // =========================================================
+
+    private void PlaySfx(
+        AudioClip clip,
+        float volume
+    )
     {
-        if (clip != null)
-            audioSource.PlayOneShot(clip);
+        if (audioSource == null || clip == null)
+            return;
+
+        audioSource.PlayOneShot(
+            clip,
+            volume
+        );
     }
+
+
+    // =========================================================
+    // Generate Question
+    // =========================================================
 
     void GenerateQuestion()
     {
         openedWrongBox = false;
 
-        currentAnswer = boxMatchManager.CreateNextMatch();
+        currentAnswer =
+            boxMatchManager.CreateNextMatch();
 
-        PlaySfx(spawnBoxSfx);   // √ﬂ∞°
+        PlaySfx(
+            spawnBoxSfx,
+            spawnBoxVolume
+        );
 
-        StartCoroutine(nextQuestionDelay());
+        StartCoroutine(
+            nextQuestionDelay()
+        );
 
         Debug.Log("==========================");
-        Debug.Log($"ªı πÆ¡¶ ª˝º∫");
-        Debug.Log($"¡§¥‰ : {currentAnswer}");
+        Debug.Log("ÏÉà Î¨∏Ï†ú ÏÉùÏÑ±");
+        Debug.Log($"Ï†ïÎãµ : {currentAnswer}");
     }
 
-    // ¥Ÿ¿Ω πÆ¡¶ πˆ∆∞ »∞º∫»≠ µÙ∑π¿Ã. ««∑Œµµ ¥˙«œ∞‘ . . .
+
     private IEnumerator nextQuestionDelay()
     {
         yield return new WaitForSeconds(0.5f);
+
         boxButtons.SetActive(true);
     }
 
+
+    // =========================================================
+    // Box Selection
+    // =========================================================
+
     public void SelectUnopened()
     {
-        CheckAnswer(InspectionResult.Unopened);
+        CheckAnswer(
+            InspectionResult.Unopened
+        );
+
         boxButtons.SetActive(false);
     }
+
 
     public void SelectOpened()
     {
-        PlaySfx(openBoxSfx);   // √ﬂ∞°
+        PlaySfx(
+            openBoxSfx,
+            openBoxVolume
+        );
 
         boxButtons.SetActive(false);
 
-        openedWrongBox = (currentAnswer == InspectionResult.Unopened);
+        openedWrongBox =
+            currentAnswer ==
+            InspectionResult.Unopened;
 
         boxMatchManager.RemoveCurrentMatch();
-        currentAnswer = motorMatchManager.CreateNextMatch();
+
+        currentAnswer =
+            motorMatchManager.CreateNextMatch();
 
         motorButtons.SetActive(true);
 
-        Debug.Log($"∏≈Õ ¡§¥‰ : {currentAnswer}");
+        Debug.Log(
+            $"ÎÇ¥Î∂Ä Ï†ïÎãµ : {currentAnswer}"
+        );
     }
+
+
+    // =========================================================
+    // Motor Selection
+    // =========================================================
 
     public void SelectA()
     {
         motorButtons.SetActive(false);
-        CheckAnswer(InspectionResult.A);
+
+        CheckAnswer(
+            InspectionResult.A
+        );
 
         motorMatchManager.RemoveCurrentMotor();
     }
+
 
     public void SelectB()
     {
         motorButtons.SetActive(false);
-        CheckAnswer(InspectionResult.B);
+
+        CheckAnswer(
+            InspectionResult.B
+        );
 
         motorMatchManager.RemoveCurrentMotor();
     }
+
 
     public void SelectC()
     {
         motorButtons.SetActive(false);
-        CheckAnswer(InspectionResult.C);
+
+        CheckAnswer(
+            InspectionResult.C
+        );
 
         motorMatchManager.RemoveCurrentMotor();
     }
+
 
     public void SelectDiscard()
     {
         motorButtons.SetActive(false);
-        CheckAnswer(InspectionResult.Discard);
+
+        CheckAnswer(
+            InspectionResult.Discard
+        );
 
         motorMatchManager.RemoveCurrentMotor();
     }
 
-    void CheckAnswer(InspectionResult playerAnswer)
+
+    // =========================================================
+    // Answer Check
+    // =========================================================
+
+    void CheckAnswer(
+        InspectionResult playerAnswer
+    )
     {
         bool correct;
 
         if (openedWrongBox)
         {
-            // æ» ø≠æÓµµ µ«¥¬ π⁄Ω∫∏¶ ø≠æ˙¿∏∏È ∏≈Õ∏¶ æ∆π´∏Æ ∏¬«Ùµµ Ω«∆–
             correct = false;
         }
         else
         {
-            correct = playerAnswer == currentAnswer;
+            correct =
+                playerAnswer ==
+                currentAnswer;
         }
 
-        Debug.Log($"º±≈√ : {playerAnswer}");
-        Debug.Log($"¡§¥‰ : {currentAnswer}");
+        Debug.Log(
+            $"ÏÑ†ÌÉù : {playerAnswer}"
+        );
+
+        Debug.Log(
+            $"Ï†ïÎãµ : {currentAnswer}"
+        );
+
 
         if (correct)
         {
-            PlaySfx(correctSfx);
+            PlaySfx(
+                correctSfx,
+                correctVolume
+            );
 
-            int reward = GetReward(currentAnswer);
+            int reward =
+                GetReward(
+                    currentAnswer
+                );
 
-            PlayerStatus.Instance.AddEarnings(reward);
+            PlayerStatus.Instance
+                .AddEarnings(
+                    reward
+                );
 
-            Debug.Log($"¡§¥‰! +{reward} ≈©∑π≈∏");
+            Debug.Log(
+                $"Ï†ïÎãµ! +{reward}"
+            );
         }
         else
         {
-            PlaySfx(wrongSfx);
+            PlaySfx(
+                wrongSfx,
+                wrongVolume
+            );
 
-            PlayerStatus.Instance.AddTrustChanges(-trustPenalty);
+            PlayerStatus.Instance
+                .AddTrustChanges(
+                    -trustPenalty
+                );
 
-            Debug.Log($"ø¿¥‰! Ω≈∑⁄µµ -{trustPenalty}");
+            Debug.Log(
+                $"Ïò§Îãµ! Ïã†Î¢∞ÎèÑ -{trustPenalty}"
+            );
         }
 
-        PlayerStatus.Instance.AddFuel(-fuelCost);
 
-        Debug.Log($"ø¨∑· -{fuelCost}");
+        PlayerStatus.Instance
+            .AddFuel(
+                -fuelCost
+            );
+
+        Debug.Log(
+            $"Ïó∞Î£å -{fuelCost}"
+        );
+
 
         if (PlayerStatus.Instance.trust <= 0)
         {
-            Debug.Log("GAME OVER - Ω≈∑⁄µµ ∫Œ¡∑");
+            Debug.Log(
+                "GAME OVER - Ïã†Î¢∞ÎèÑ Î∂ÄÏ°±"
+            );
+
             return;
         }
 
+
         if (PlayerStatus.Instance.fuel <= 0)
         {
-            Debug.Log("GAME OVER - ø¨∑· ∫Œ¡∑");
+            Debug.Log(
+                "GAME OVER - Ïó∞Î£å Î∂ÄÏ°±"
+            );
+
             return;
         }
+
 
         GenerateQuestion();
     }
 
-    int GetReward(InspectionResult result)
+
+    // =========================================================
+    // Reward
+    // =========================================================
+
+    int GetReward(
+        InspectionResult result
+    )
     {
         switch (result)
         {
