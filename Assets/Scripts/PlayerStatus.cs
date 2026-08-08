@@ -258,4 +258,6 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("D-Day입니다.");
         }
     }
+
+
 }
