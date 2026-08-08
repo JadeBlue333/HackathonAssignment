@@ -1,209 +1,723 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class MainUI : MonoBehaviour
 {
+    // =========================================================
+    // Date
+    // =========================================================
+
     [Header("Date")]
     [SerializeField] private TMP_Text dayText;
 
+
+    // =========================================================
+    // Clock
+    // =========================================================
+
     [Header("Clock")]
     [SerializeField] private TMP_Text timeText;
+
+
+    // =========================================================
+    // Work Time Range
+    // =========================================================
+
+    [Header("Work Time Range")]
+    [SerializeField] private TMP_Text workTimeRangeText;
+
+
+    // =========================================================
+    // Clock Pointer
+    // =========================================================
 
     [Header("Clock Pointer")]
     [SerializeField] private RectTransform timerPointer;
     [SerializeField] private RectTransform startPoint;
     [SerializeField] private RectTransform endPoint;
 
-    public GoToThisScene goToThisScene;
+
+    // =========================================================
+    // Scene
+    // =========================================================
+
+    [Header("Scene")]
+    [SerializeField] private GoToThisScene goToThisScene;
+
+
+    // =========================================================
+    // Money
+    // =========================================================
 
     [Header("Money")]
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text earningText;
 
+
+    // =========================================================
+    // Fuel
+    // =========================================================
+
     [Header("Fuel")]
-    //[SerializeField] private Image fuelBar;
     [SerializeField] private TMP_Text fuelText;
 
+
+    // =========================================================
+    // Trust
+    // =========================================================
+
     [Header("Trust")]
-    //[SerializeField] private Image trustBar;
     [SerializeField] private TMP_Text trustText;
     [SerializeField] private TMP_Text trustGradeText;
 
+
+    // =========================================================
+    // Chat Event
+    // =========================================================
+
     [Header("채팅 이벤트 등장")]
     [SerializeField] private GameObject randomEventObject;
+
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip randomEventSfx;
 
     [Range(0f, 1f)]
     [SerializeField] private float randomEventVolume = 1f;
 
-    // 랜덤 이벤트 시간 범위
+    [Tooltip("채팅 이벤트 발생 가능 시작 시간")]
     [SerializeField] private float eventStartTime = 11f;
+
+    [Tooltip("채팅 이벤트 발생 가능 종료 시간")]
     [SerializeField] private float eventEndTime = 12f;
 
     [SerializeField] private GameObject chatPopUp;
 
+
+    // =========================================================
+    // Skill Panel
+    // =========================================================
+
     [Header("Skill Panel")]
     [SerializeField] private GameObject skillPanel;
 
-    private bool chatOpened = false;
 
-    private float randomEventTime;
-    private bool randomEventTriggered = false;
+    // =========================================================
+    // Runtime
+    // =========================================================
 
     private PlayerStatus player;
 
     private float elapsedTime;
 
+    private float randomEventTime;
+
+    private bool randomEventTriggered = false;
+
+    private bool chatOpened = false;
+
+    private bool dayEnding = false;
+
+
+    // =========================================================
+    // Start
+    // =========================================================
+
     private void Start()
     {
         player = PlayerStatus.Instance;
-        elapsedTime = 0;
 
-        // 설정된 시간 범위에서 랜덤한 이벤트 발생 시간 결정
+        elapsedTime = 0f;
+
+
+        // 랜덤 채팅 이벤트 시간 결정
         randomEventTime = Random.Range(
             eventStartTime,
             eventEndTime
         );
 
-        // 시작할 때 비활성화
+
+        // 랜덤 이벤트 아이콘 초기화
         if (randomEventObject != null)
         {
             randomEventObject.SetActive(false);
         }
+
+
+        // 채팅 팝업 초기화
+        if (chatPopUp != null)
+        {
+            chatPopUp.SetActive(false);
+        }
+
+        chatOpened = false;
+
+
+        // 스킬 패널 초기화
+        if (skillPanel != null)
+        {
+            skillPanel.SetActive(false);
+        }
+
+
+        // UI 초기화
+        UpdateClock();
+        UpdateUI();
     }
+
+
+    // =========================================================
+    // Update
+    // =========================================================
 
     private void Update()
     {
         if (player == null)
             return;
 
+        if (dayEnding)
+            return;
+
+
         UpdateClock();
+
         UpdateUI();
 
-        // Tab 홀딩 중 Skill Panel 표시
-        if (Keyboard.current != null)
-        {
-            if (Keyboard.current.tabKey.isPressed)
-            {
-                skillPanel.SetActive(true);
-            }
-            else
-            {
-                skillPanel.SetActive(false);
-            }
-        }
+        HandleSkillPanelInput();
 
-        // T키로 팝업 열기
-        if (Keyboard.current != null &&
-            Keyboard.current.tKey.wasPressedThisFrame)
+        HandleChatInput();
+    }
+
+
+    // =========================================================
+    // Skill Panel Input
+    // =========================================================
+
+    private void HandleSkillPanelInput()
+    {
+        if (Keyboard.current == null)
+            return;
+
+
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            //열기 전이면 팝업을 생성
-            if (!chatOpened)
-            {
-                randomEventObject.SetActive(false);
-                chatPopUp.SetActive(true);
-                chatOpened = true;
-            }
-            //열고난 후면 팝업을 닫기
-            else
-            {
-                chatPopUp.SetActive(false);
-            }
+            ToggleSkillPanel();
         }
     }
 
-    void UpdateClock()
+
+    // =========================================================
+    // Skill Panel Toggle
+    // =========================================================
+
+    public void ToggleSkillPanel()
     {
+        if (skillPanel == null)
+            return;
+
+
+        skillPanel.SetActive(
+            !skillPanel.activeSelf
+        );
+    }
+
+
+    public void OpenSkillPanel()
+    {
+        if (skillPanel == null)
+            return;
+
+
+        skillPanel.SetActive(true);
+    }
+
+
+    public void CloseSkillPanel()
+    {
+        if (skillPanel == null)
+            return;
+
+
+        skillPanel.SetActive(false);
+    }
+
+
+    // =========================================================
+    // Chat Input
+    // =========================================================
+
+    private void HandleChatInput()
+    {
+        if (Keyboard.current == null)
+            return;
+
+
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            ToggleChatPopUp();
+        }
+    }
+
+
+    // =========================================================
+    // Chat Toggle
+    // =========================================================
+
+    public void ToggleChatPopUp()
+    {
+        if (chatPopUp == null)
+            return;
+
+
+        if (!chatOpened)
+        {
+            if (randomEventObject != null)
+            {
+                randomEventObject.SetActive(false);
+            }
+
+
+            chatPopUp.SetActive(true);
+
+            chatOpened = true;
+        }
+        else
+        {
+            chatPopUp.SetActive(
+                !chatPopUp.activeSelf
+            );
+        }
+    }
+
+
+    // =========================================================
+    // Clock
+    // =========================================================
+
+    private void UpdateClock()
+    {
+        if (player == null)
+            return;
+
+
         elapsedTime += Time.deltaTime;
 
-        float duration = player.dayDuration;
 
-        // 하루 진행률 (0 ~ 1)
-        float t = Mathf.Clamp01(elapsedTime / duration);
+        float duration =
+            player.dayDuration;
 
-        // 포인터 이동
-        timerPointer.anchoredPosition = Vector2.Lerp(
-            startPoint.anchoredPosition,
-            endPoint.anchoredPosition,
-            t
-        );
 
-        // 09:00 ~ 15:00
-        float currentHour = 9f + (6f * t);
+        if (duration <= 0f)
+            return;
 
-        int hour24 = Mathf.FloorToInt(currentHour);
-        int minute = Mathf.FloorToInt((currentHour - hour24) * 60f);
+
+        // =====================================================
+        // Game Time
+        //
+        // 실제 180초
+        // =
+        // 게임 내 09:00 ~ 15:00
+        //
+        // 실제 1초
+        // =
+        // 게임 내 2분
+        // =====================================================
+
+        float gameMinutesPassed =
+            elapsedTime * 2f;
+
+
+        // 09:00
+        int startTimeMinutes =
+            9 * 60;
+
+
+        // 작업 연장 스킬 적용 종료시간
+        //
+        // Lv.0 = 15:00
+        // Lv.1 = 15:30
+        // Lv.2 = 16:00
+        // Lv.3 = 16:30
+
+        int endTimeMinutes =
+            player.GetWorkEndTimeMinutes();
+
+
+        int totalWorkGameMinutes =
+            endTimeMinutes -
+            startTimeMinutes;
+
+
+        // =====================================================
+        // Progress
+        // =====================================================
+
+        float progress = 0f;
+
+
+        if (totalWorkGameMinutes > 0)
+        {
+            progress =
+                Mathf.Clamp01(
+                    gameMinutesPassed /
+                    totalWorkGameMinutes
+                );
+        }
+
+
+        // =====================================================
+        // Clock Pointer
+        // =====================================================
+
+        if (timerPointer != null &&
+            startPoint != null &&
+            endPoint != null)
+        {
+            timerPointer.anchoredPosition =
+                Vector2.Lerp(
+                    startPoint.anchoredPosition,
+                    endPoint.anchoredPosition,
+                    progress
+                );
+        }
+
+
+        // =====================================================
+        // Current Time
+        // =====================================================
+
+        float currentTotalMinutes =
+            startTimeMinutes +
+            gameMinutesPassed;
+
+
+        currentTotalMinutes =
+            Mathf.Min(
+                currentTotalMinutes,
+                endTimeMinutes
+            );
+
+
+        int hour24 =
+            Mathf.FloorToInt(
+                currentTotalMinutes / 60f
+            );
+
+
+        int minute =
+            Mathf.FloorToInt(
+                currentTotalMinutes % 60f
+            );
+
 
         // 5분 단위 표시
-        minute = (minute / 5) * 5;
+        minute =
+            (minute / 5) * 5;
 
-        // 게임 내 총 진행 분
-        float totalGameMinutes = 360f * t;
 
-        // 현재 5분 구간 안에서의 진행률
-        float fiveMinuteProgress = (totalGameMinutes % 5f) / 5f;
+        // =====================================================
+        // Colon Blink
+        // =====================================================
 
-        // 5분에 한 번 깜빡임
-        string separator = fiveMinuteProgress < 0.7f
+        float fiveMinuteProgress =
+            (gameMinutesPassed % 5f) /
+            5f;
+
+
+        string separator =
+            fiveMinuteProgress < 0.7f
             ? " : "
             : "   ";
 
-        timeText.text = $"{hour24:00}{separator}{minute:00}";
 
-        // 랜덤 채팅 이벤트
+        if (timeText != null)
+        {
+            timeText.text =
+                $"{hour24:00}{separator}{minute:00}";
+        }
+
+
+        // =====================================================
+        // Random Chat Event
+        // =====================================================
+
+        float currentHour =
+            currentTotalMinutes /
+            60f;
+
+
         if (!randomEventTriggered &&
             currentHour >= randomEventTime)
         {
             randomEventTriggered = true;
+
 
             if (randomEventObject != null)
             {
                 randomEventObject.SetActive(true);
             }
 
-            if (randomEventSfx != null)
+
+            if (audioSource != null &&
+                randomEventSfx != null)
             {
                 audioSource.PlayOneShot(
-    randomEventSfx,
-    randomEventVolume
-);
+                    randomEventSfx,
+                    randomEventVolume
+                );
             }
+
 
             Debug.Log(
                 $"★★★ 랜덤 채팅 이벤트 발생! 현재 시간: {currentHour:F2}"
             );
         }
 
-        // 하루 종료
+
+        // =====================================================
+        // 자동 하루 종료
+        // =====================================================
+
         if (elapsedTime >= duration)
         {
-            Debug.Log("15:00 - 하루 종료");
+            elapsedTime = duration;
 
-            goToThisScene.nextSceneButton();
 
-            enabled = false;
+            int endHour =
+                endTimeMinutes / 60;
+
+
+            int endMinute =
+                endTimeMinutes % 60;
+
+
+            if (timeText != null)
+            {
+                timeText.text =
+                    $"{endHour:00} : {endMinute:00}";
+            }
+
+
+            if (timerPointer != null &&
+                endPoint != null)
+            {
+                timerPointer.anchoredPosition =
+                    endPoint.anchoredPosition;
+            }
+
+
+            EndWorkDay();
         }
     }
 
-    void UpdateUI()
+
+    // =========================================================
+    // 업무 중단 / 하루 종료
+    // =========================================================
+
+    public void EndWorkDay()
     {
+        if (dayEnding)
+            return;
+
+
+        dayEnding = true;
+
+
+        // 현재 게임 시각 계산
+        int startTimeMinutes =
+            9 * 60;
+
+
+        float gameMinutesPassed =
+            elapsedTime * 2f;
+
+
+        int currentTimeMinutes =
+            Mathf.FloorToInt(
+                startTimeMinutes +
+                gameMinutesPassed
+            );
+
+
+        // 최대 종료시간을 넘지 않도록
+        int maxEndTimeMinutes =
+            player != null
+            ? player.GetWorkEndTimeMinutes()
+            : 15 * 60;
+
+
+        currentTimeMinutes =
+            Mathf.Min(
+                currentTimeMinutes,
+                maxEndTimeMinutes
+            );
+
+
+        int hour =
+            currentTimeMinutes / 60;
+
+
+        int minute =
+            currentTimeMinutes % 60;
+
+
+        // 5분 단위
+        minute =
+            (minute / 5) * 5;
+
+
+        Debug.Log(
+            $"업무 종료 - {hour:00}:{minute:00}"
+        );
+
+
+        if (goToThisScene != null)
+        {
+            goToThisScene.nextSceneButton();
+        }
+
+
+        enabled = false;
+    }
+
+
+    // =========================================================
+    // UI
+    // =========================================================
+
+    private void UpdateUI()
+    {
+        if (player == null)
+            return;
+
+
         // Date
-        dayText.text = $"D - {player.currentDay}";
+        if (dayText != null)
+        {
+            dayText.text =
+                $"D - {player.currentDay}";
+        }
+
 
         // Money
-        moneyText.text = $"{player.money}";
-        earningText.text = $"+ {player.earnings}";
+        if (moneyText != null)
+        {
+            moneyText.text =
+                $"{player.money}";
+        }
+
+
+        if (earningText != null)
+        {
+            earningText.text =
+                $"+ {player.earnings}";
+        }
+
 
         // Fuel
-        //fuelBar.fillAmount = player.fuel / (float)PlayerStatus.MaxFuel;
-        fuelText.text = $"{player.fuel} / {PlayerStatus.MaxFuel}";
+        if (fuelText != null)
+        {
+            fuelText.text =
+                $"{player.fuel} / " +
+                $"{PlayerStatus.MaxFuel}";
+        }
+
 
         // Trust
-        //trustBar.fillAmount = player.trust / (float)PlayerStatus.MaxTrust;
-        trustText.text = $"{player.trust + player.trustChange} / {PlayerStatus.MaxTrust}";
-        trustGradeText.text = player.GetTrustGrade();
+        if (trustText != null)
+        {
+            int displayedTrust =
+                Mathf.Clamp(
+                    player.trust +
+                    player.trustChange,
+                    0,
+                    PlayerStatus.MaxTrust
+                );
+
+
+            trustText.text =
+                $"{displayedTrust} / " +
+                $"{PlayerStatus.MaxTrust}";
+        }
+
+
+        if (trustGradeText != null)
+        {
+            trustGradeText.text =
+                GetDisplayedTrustGrade();
+        }
+
+
+        // Work Time Range
+        UpdateWorkTimeRangeText();
+    }
+
+
+    // =========================================================
+    // Work Time Range
+    // =========================================================
+
+    private void UpdateWorkTimeRangeText()
+    {
+        if (workTimeRangeText == null ||
+            player == null)
+        {
+            return;
+        }
+
+
+        int startHour = 9;
+        int startMinute = 0;
+
+
+        int endTimeMinutes =
+            player.GetWorkEndTimeMinutes();
+
+
+        int endHour =
+            endTimeMinutes / 60;
+
+
+        int endMinute =
+            endTimeMinutes % 60;
+
+
+        workTimeRangeText.text =
+            $"{startHour:00}:{startMinute:00} - " +
+            $"{endHour:00}:{endMinute:00}";
+    }
+
+
+    // =========================================================
+    // Displayed Trust Grade
+    // =========================================================
+
+    private string GetDisplayedTrustGrade()
+    {
+        int displayedTrust =
+            Mathf.Clamp(
+                player.trust +
+                player.trustChange,
+                0,
+                PlayerStatus.MaxTrust
+            );
+
+
+        if (displayedTrust >=
+            PlayerStatus.TrustGradeA)
+        {
+            return "A";
+        }
+
+
+        if (displayedTrust >=
+            PlayerStatus.TrustGradeB)
+        {
+            return "B";
+        }
+
+
+        return "C";
     }
 }

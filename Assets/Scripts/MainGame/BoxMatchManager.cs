@@ -94,9 +94,16 @@ public class BoxMatchManager : MonoBehaviour
 
     [Header("마우스 회전")]
 
-    [Tooltip("좌클릭 드래그 회전 감도")]
+    [Tooltip("기본 좌클릭 드래그 회전 속도")]
     [SerializeField]
-    private float mouseRotationSpeed = 0.2f;
+    private float baseMouseRotationSpeed = 0.2f;
+
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 물체 회전 감도")]
+    [SerializeField]
+    private float defaultObjectRotationSensitivity = 1f;
+
+    private const string ObjectRotationSensitivityKey =
+        "ObjectRotationSensitivity";
 
 
     // =========================================================
@@ -185,13 +192,10 @@ public class BoxMatchManager : MonoBehaviour
         if (!isReady || testFinished)
             return;
 
-        // 좌클릭 드래그 회전
         HandleMouseRotation();
 
-        // 마우스 휠 확대 / 축소
         HandleMouseZoom();
 
-        // WASD 미세 회전
         HandleFineRotation();
     }
 
@@ -246,10 +250,6 @@ public class BoxMatchManager : MonoBehaviour
             );
 
 
-        // -----------------------------------------------------
-        // Box 분류
-        // -----------------------------------------------------
-
         foreach (GameObject boxPrefab in allBoxes)
         {
             string lowerName =
@@ -266,10 +266,6 @@ public class BoxMatchManager : MonoBehaviour
             }
         }
 
-
-        // -----------------------------------------------------
-        // Tape 분류
-        // -----------------------------------------------------
 
         foreach (GameObject tapePrefab in allTapes)
         {
@@ -359,10 +355,6 @@ public class BoxMatchManager : MonoBehaviour
         currentBoxNumber++;
 
 
-        // -----------------------------------------------------
-        // 확률 계산
-        // -----------------------------------------------------
-
         float safeOpenChance =
             Mathf.Clamp(
                 openChance,
@@ -389,10 +381,6 @@ public class BoxMatchManager : MonoBehaviour
         InspectionResult answer;
 
 
-        // -----------------------------------------------------
-        // Opened
-        // -----------------------------------------------------
-
         if (randomValue < safeOpenChance)
         {
             selectedBoxPrefab =
@@ -404,12 +392,6 @@ public class BoxMatchManager : MonoBehaviour
             answer =
                 InspectionResult.Opened;
         }
-
-        // -----------------------------------------------------
-        // Damage Box
-        // 내부 손상 박스이므로 결국 개봉 필요
-        // -----------------------------------------------------
-
         else if (
             randomValue <
             safeOpenChance + safeDemageChance
@@ -424,11 +406,6 @@ public class BoxMatchManager : MonoBehaviour
             answer =
                 InspectionResult.Opened;
         }
-
-        // -----------------------------------------------------
-        // 정상 미개봉
-        // -----------------------------------------------------
-
         else
         {
             selectedBoxPrefab =
@@ -441,10 +418,6 @@ public class BoxMatchManager : MonoBehaviour
                 InspectionResult.Unopened;
         }
 
-
-        // =====================================================
-        // Box + Tape 공통 Holder 생성
-        // =====================================================
 
         currentHolder =
             new GameObject(
@@ -463,16 +436,11 @@ public class BoxMatchManager : MonoBehaviour
             Quaternion.identity;
 
 
-        // 새 박스 생성 시 줌 초기화
         currentZoomScale = 1f;
 
         currentHolder.transform.localScale =
             Vector3.one;
 
-
-        // =====================================================
-        // Box 생성
-        // =====================================================
 
         currentBox =
             Instantiate(
@@ -491,10 +459,6 @@ public class BoxMatchManager : MonoBehaviour
         currentBox.transform.localScale =
             boxScale;
 
-
-        // =====================================================
-        // Tape 생성
-        // =====================================================
 
         currentTape =
             Instantiate(
@@ -533,20 +497,32 @@ public class BoxMatchManager : MonoBehaviour
         if (!Mouse.current.leftButton.isPressed)
             return;
 
+
         Vector2 mouseDelta =
             Mouse.current.delta.ReadValue();
 
+
+        float objectRotationSensitivity =
+            PlayerPrefs.GetFloat(
+                ObjectRotationSensitivityKey,
+                defaultObjectRotationSensitivity
+            );
+
+
+        float finalRotationSpeed =
+            baseMouseRotationSpeed *
+            objectRotationSensitivity;
+
+
         float horizontalRotation =
             -mouseDelta.x *
-            mouseRotationSpeed;
+            finalRotationSpeed;
 
         float verticalRotation =
             mouseDelta.y *
-            mouseRotationSpeed;
+            finalRotationSpeed;
 
 
-        // 좌 / 우
-        // World Y축 회전
         currentHolder.transform.Rotate(
             Vector3.up,
             horizontalRotation,
@@ -554,8 +530,6 @@ public class BoxMatchManager : MonoBehaviour
         );
 
 
-        // 위 / 아래
-        // World X축 회전
         currentHolder.transform.Rotate(
             Vector3.left,
             verticalRotation,
@@ -576,15 +550,22 @@ public class BoxMatchManager : MonoBehaviour
         if (Mouse.current == null)
             return;
 
+
         float scrollValue =
             Mouse.current.scroll.ReadValue().y;
+
+
+        // 환경설정에서 스크롤 반전 체크했으면 방향 반전
+        if (ScrollInvertSetting.IsScrollInverted())
+        {
+            scrollValue *= -1f;
+        }
+
 
         if (Mathf.Abs(scrollValue) < 0.01f)
             return;
 
 
-        // 휠 위 = 확대
-        // 휠 아래 = 축소
         currentZoomScale +=
             Mathf.Sign(scrollValue) *
             zoomSpeed;
@@ -620,7 +601,6 @@ public class BoxMatchManager : MonoBehaviour
         float horizontalRotation = 0f;
 
 
-        // W = 위쪽 회전
         if (Keyboard.current.wKey.isPressed)
         {
             verticalRotation +=
@@ -629,7 +609,6 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        // S = 아래쪽 회전
         if (Keyboard.current.sKey.isPressed)
         {
             verticalRotation -=
@@ -638,7 +617,6 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        // A = 왼쪽 회전
         if (Keyboard.current.aKey.isPressed)
         {
             horizontalRotation +=
@@ -647,7 +625,6 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        // D = 오른쪽 회전
         if (Keyboard.current.dKey.isPressed)
         {
             horizontalRotation -=
@@ -656,7 +633,6 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        // W / S
         if (verticalRotation != 0f)
         {
             currentHolder.transform.Rotate(
@@ -667,7 +643,6 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        // A / D
         if (horizontalRotation != 0f)
         {
             currentHolder.transform.Rotate(
@@ -711,17 +686,11 @@ public class BoxMatchManager : MonoBehaviour
                 currentHolder
             );
 
-            currentHolder =
-                null;
+            currentHolder = null;
+            currentBox = null;
+            currentTape = null;
 
-            currentBox =
-                null;
-
-            currentTape =
-                null;
-
-            currentZoomScale =
-                1f;
+            currentZoomScale = 1f;
         }
     }
 
@@ -752,10 +721,16 @@ public class BoxMatchManager : MonoBehaviour
                 fineRotationSpeed
             );
 
-        mouseRotationSpeed =
+        baseMouseRotationSpeed =
             Mathf.Max(
                 0f,
-                mouseRotationSpeed
+                baseMouseRotationSpeed
+            );
+
+        defaultObjectRotationSensitivity =
+            Mathf.Max(
+                0f,
+                defaultObjectRotationSensitivity
             );
 
         zoomSpeed =

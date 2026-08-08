@@ -42,13 +42,21 @@ public class MotorMatchManager9 : MonoBehaviour
     // =====================================================
 
     [Header("Rotation")]
-    [Tooltip("좌클릭 드래그 회전 감도")]
+
+    [Tooltip("기본 좌클릭 드래그 회전 속도")]
     [SerializeField]
-    private float mouseRotationSpeed = 0.2f;
+    private float baseMouseRotationSpeed = 0.2f;
+
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 물체 회전 감도")]
+    [SerializeField]
+    private float defaultObjectRotationSensitivity = 1f;
 
     [Tooltip("WASD 미세 회전 속도")]
     [SerializeField]
     private float fineRotationSpeed = 30f;
+
+    private const string ObjectRotationSensitivityKey =
+        "ObjectRotationSensitivity";
 
 
     // =====================================================
@@ -56,6 +64,7 @@ public class MotorMatchManager9 : MonoBehaviour
     // =====================================================
 
     [Header("Zoom")]
+
     [Tooltip("마우스 휠 확대/축소 속도")]
     [SerializeField]
     private float zoomSpeed = 0.15f;
@@ -76,6 +85,7 @@ public class MotorMatchManager9 : MonoBehaviour
     // =====================================================
 
     [Header("Propeller")]
+
     [SerializeField]
     private string frontPropellerName = "P_Front";
 
@@ -91,6 +101,7 @@ public class MotorMatchManager9 : MonoBehaviour
     // =====================================================
 
     [Header("Material Index")]
+
     [SerializeField]
     private int frontMaterialIndex = 0;
 
@@ -103,6 +114,7 @@ public class MotorMatchManager9 : MonoBehaviour
     // =====================================================
 
     [Header("Question")]
+
     [Range(0f, 100f)]
     [SerializeField]
     private float sameColorChance = 50f;
@@ -132,7 +144,8 @@ public class MotorMatchManager9 : MonoBehaviour
 
         LoadPrefab();
 
-        isReady = ValidateData();
+        isReady =
+            ValidateData();
     }
 
 
@@ -233,10 +246,6 @@ public class MotorMatchManager9 : MonoBehaviour
         RemoveCurrentMotor();
 
 
-        // -------------------------------------------------
-        // Holder 생성
-        // -------------------------------------------------
-
         currentHolder =
             new GameObject(
                 "CurrentMotorHolder"
@@ -254,16 +263,11 @@ public class MotorMatchManager9 : MonoBehaviour
             Quaternion.identity;
 
 
-        // 확대/축소 초기화
         currentZoomScale = 1f;
 
         currentHolder.transform.localScale =
             Vector3.one;
 
-
-        // -------------------------------------------------
-        // Motor 생성
-        // -------------------------------------------------
 
         currentMotor =
             Instantiate(
@@ -282,10 +286,6 @@ public class MotorMatchManager9 : MonoBehaviour
         currentMotor.transform.localScale =
             motorScale;
 
-
-        // -------------------------------------------------
-        // 프로펠러 찾기
-        // -------------------------------------------------
 
         Transform front =
             FindChildRecursive(
@@ -326,10 +326,6 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        // -------------------------------------------------
-        // 앞 프로펠러 Material 선택
-        // -------------------------------------------------
-
         int frontIndex =
             Random.Range(
                 0,
@@ -338,10 +334,6 @@ public class MotorMatchManager9 : MonoBehaviour
 
         int backIndex;
 
-
-        // -------------------------------------------------
-        // 정상 / 불량 결정
-        // -------------------------------------------------
 
         bool sameColor =
             Random.Range(
@@ -368,10 +360,6 @@ public class MotorMatchManager9 : MonoBehaviour
             while (backIndex == frontIndex);
         }
 
-
-        // -------------------------------------------------
-        // Material 적용
-        // -------------------------------------------------
 
         Material[] frontMats =
             frontRenderer.materials;
@@ -499,16 +487,27 @@ public class MotorMatchManager9 : MonoBehaviour
             Mouse.current.delta.ReadValue();
 
 
+        float objectRotationSensitivity =
+            PlayerPrefs.GetFloat(
+                ObjectRotationSensitivityKey,
+                defaultObjectRotationSensitivity
+            );
+
+
+        float finalRotationSpeed =
+            baseMouseRotationSpeed *
+            objectRotationSensitivity;
+
+
         float horizontalRotation =
             -mouseDelta.x *
-            mouseRotationSpeed;
+            finalRotationSpeed;
 
         float verticalRotation =
             mouseDelta.y *
-            mouseRotationSpeed;
+            finalRotationSpeed;
 
 
-        // 좌우 회전
         currentHolder.transform.Rotate(
             Vector3.up,
             horizontalRotation,
@@ -516,7 +515,6 @@ public class MotorMatchManager9 : MonoBehaviour
         );
 
 
-        // 위아래 회전
         currentHolder.transform.Rotate(
             Vector3.left,
             verticalRotation,
@@ -542,11 +540,17 @@ public class MotorMatchManager9 : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
+        // 환경설정에서 스크롤 반전 체크했으면 방향 반전
+        if (ScrollInvertSetting.IsScrollInverted())
+        {
+            scrollValue *= -1f;
+        }
+
+
         if (Mathf.Abs(scrollValue) < 0.01f)
             return;
 
 
-        // 휠 방향에 따라 확대 / 축소
         currentZoomScale +=
             Mathf.Sign(scrollValue) *
             zoomSpeed;
@@ -560,7 +564,6 @@ public class MotorMatchManager9 : MonoBehaviour
             );
 
 
-        // Holder 전체 크기 변경
         currentHolder.transform.localScale =
             Vector3.one *
             currentZoomScale;
@@ -651,10 +654,17 @@ public class MotorMatchManager9 : MonoBehaviour
             );
 
 
-        mouseRotationSpeed =
+        baseMouseRotationSpeed =
             Mathf.Max(
                 0f,
-                mouseRotationSpeed
+                baseMouseRotationSpeed
+            );
+
+
+        defaultObjectRotationSensitivity =
+            Mathf.Max(
+                0f,
+                defaultObjectRotationSensitivity
             );
 
 

@@ -68,6 +68,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bridges/BlackMarketTransition.unity
     guid: ec65f33f7d65df048a48c2f603c6acc3
+  - enabled: 1
+    path: Assets/Scenes/Endings/CEO.unity
+    guid: d7506a6e5429208478f4f8492c63dfc7
+  - enabled: 1
+    path: Assets/Scenes/Endings/Ending1.unity
+    guid: 24750da0a636b53488696dda32ddd688
+  - enabled: 1
+    path: Assets/Scenes/Endings/Ending2.unity
+    guid: eca639843d09db44d98993a2fc7eaf3d
+  - enabled: 1
+    path: Assets/Scenes/Endings/Ending3.unity
+    guid: 273afcaf7d2e0564b90b5271fb9769a6
+  - enabled: 1
+    path: Assets/Scenes/Endings/Ending4.unity
+    guid: 160eabf3e7deff94e96b11e9335f7939
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
