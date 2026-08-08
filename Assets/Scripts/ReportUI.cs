@@ -50,7 +50,7 @@ public class ReportUI : MonoBehaviour
             totalMoney -= FuelPrice;
         }
 
-        fuelLeftText.text = $"≥≤¿∫ ø¨∑·: {fuel}";
+        fuelLeftText.text = $"ÎÇ®ÏùÄ Ïó∞Î£å: {fuel}";
 
         originalMoneyText.text = $"{ps.money}C";
         earnedMoneyText.text = $"{ps.earnings}C";
