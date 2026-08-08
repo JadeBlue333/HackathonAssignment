@@ -647,8 +647,8 @@ MonoBehaviour:
   animator: {fileID: 919573245}
   triggerName: Knock
   audioSource: {fileID: 1140698141}
-  knockSound: {fileID: 8300000, guid: 89da37eb51cb5724781bfda349a30541, type: 3}
-  doorOpenSound: {fileID: 8300000, guid: 89da37eb51cb5724781bfda349a30541, type: 3}
+  knockSound: {fileID: 8300000, guid: c09968aa1a520f543bce595f956f9397, type: 3}
+  doorOpenSound: {fileID: 8300000, guid: 15d6032aae4863f4fa46ac317ca0f4c3, type: 3}
   startDelay: 3
   afterKnock: 1
   animationTime: 2

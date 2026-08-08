@@ -39,6 +39,8 @@ public class PlayerStatus : MonoBehaviour
         comboNumber = 0;
         mistakeNumber = 0;
 
+        isHuman = false;
+
         // 스킬 초기화
         fuelRecoveryLevel = 0;
         trustRecoveryLevel = 0;
@@ -105,22 +107,16 @@ public class PlayerStatus : MonoBehaviour
     public const int TrustGradeA = 70;
     public const int TrustGradeB = 40;
 
-
-    // =========================================================
-    // Enhancement Items
-    // =========================================================
-
-    [Header("Enhancement Items")]
-    public bool[] enhancementItems = new bool[3];
-
-
     // =========================================================
     // Human Parts
     // =========================================================
 
     [Header("Human Parts")]
-    public bool[] humanParts = new bool[3];
+    public bool humanBody = false;
+    public bool humanHead = false;
+    public bool humanHeart = false;
 
+    public bool isHuman = false;
 
     // =========================================================
     // Skill Tree - Current Levels
@@ -605,6 +601,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void NextDay()
     {
+        if (humanBody && humanHead && humanHeart)
+        {
+            isHuman = true;
+        }
+
         mistakeNumber = 0;
         comboNumber = 0;
 
