@@ -4691,6 +4691,14 @@ PrefabInstance:
       propertyPath: currentDay
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: fuelRecoveryLevel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: highRiskHighReturnLevel
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3486529519853747709, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
