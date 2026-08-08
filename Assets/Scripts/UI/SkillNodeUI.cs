@@ -1,15 +1,20 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillNodeUI : MonoBehaviour
 {
+    // =========================================================
+    // Skill Type
+    // =========================================================
+
     public enum SkillType
     {
-        FuelRecovery,
-        TrustRecovery,
-        ConcealProtocol,
-        HighRiskHighReturn,
-        WorkTime
+        FuelRecovery,          // 자가 충전 회로
+        TrustRecovery,         // 평판 보정 모듈
+        ConcealProtocol,       // 은폐 프로토콜
+        HighRiskHighReturn,    // 과부하 계약
+        WorkTime               // 작업 연장 모듈
     }
 
 
@@ -17,22 +22,25 @@ public class SkillNodeUI : MonoBehaviour
     // Skill Data
     // =========================================================
 
-    [Header("Skill")]
-    public SkillType skillType;
+    [Header("Skill Data")]
 
-    [Tooltip("이 노드의 단계. 1부터 시작")]
+    [SerializeField]
+    private SkillType skillType;
+
+    [Tooltip("해당 스킬의 단계. I = 1, II = 2, III = 3")]
     [Min(1)]
-    public int level = 1;
+    [SerializeField]
+    private int level = 1;
 
-
-    [Header("Info")]
-
-    public string skillName;
+    [SerializeField]
+    private string skillName;
 
     [TextArea(3, 8)]
-    public string description;
+    [SerializeField]
+    private string description;
 
-    public int price = 1400;
+    [SerializeField]
+    private int price = 1400;
 
 
     // =========================================================
@@ -41,47 +49,82 @@ public class SkillNodeUI : MonoBehaviour
 
     [Header("UI")]
 
-    [Tooltip("이 스킬을 구매했을 때 켜질 이미지")]
+    [Tooltip("이 슬롯을 클릭하기 위한 Button")]
     [SerializeField]
-    private GameObject purchasedImage;
+    private Button nodeButton;
 
-    [Tooltip("현재 스킬 노드의 Button")]
+    [Tooltip("구매 완료 후 활성화할 이미지 오브젝트")]
     [SerializeField]
-    private Button button;
+    private GameObject purchasedTargetImage;
+
+    [Tooltip("이 스킬의 가격을 표시할 TMP 텍스트")]
+    [SerializeField]
+    private TMP_Text priceText;
+
+
+    // =========================================================
+    // Price Display
+    // =========================================================
+
+    [Header("Price Display")]
+
+    [Tooltip("가격 뒤에 붙일 문자열")]
+    [SerializeField]
+    private string priceSuffix = " C";
+
+
+    // =========================================================
+    // Public Properties
+    // =========================================================
+
+    public SkillType Type => skillType;
+
+    public int Level => level;
+
+    public string SkillName => skillName;
+
+    public string Description => description;
+
+    public int Price => price;
+
+
+    // =========================================================
+    // Awake
+    // =========================================================
+
+    private void Awake()
+    {
+        if (nodeButton == null)
+        {
+            nodeButton = GetComponent<Button>();
+        }
+
+        if (nodeButton != null)
+        {
+            nodeButton.onClick.AddListener(
+                OnNodeClicked
+            );
+        }
+    }
 
 
     // =========================================================
     // Start
     // =========================================================
 
-    private void Awake()
-    {
-        if (button == null)
-        {
-            button =
-                GetComponent<Button>();
-        }
-
-        if (button != null)
-        {
-            button.onClick.AddListener(
-                OnClickNode
-            );
-        }
-    }
-
-
     private void Start()
     {
-        RefreshPurchasedVisual();
+        RefreshPriceText();
+
+        RefreshPurchasedImage();
     }
 
 
     // =========================================================
-    // Click
+    // Node Click
     // =========================================================
 
-    private void OnClickNode()
+    private void OnNodeClicked()
     {
         if (SkillTreeUIManager.Instance == null)
             return;
@@ -93,7 +136,21 @@ public class SkillNodeUI : MonoBehaviour
 
 
     // =========================================================
-    // Purchased
+    // Price UI
+    // =========================================================
+
+    public void RefreshPriceText()
+    {
+        if (priceText == null)
+            return;
+
+        priceText.text =
+            $"{price}{priceSuffix}";
+    }
+
+
+    // =========================================================
+    // Purchased Check
     // =========================================================
 
     public bool IsPurchased()
@@ -105,28 +162,33 @@ public class SkillNodeUI : MonoBehaviour
         switch (skillType)
         {
             case SkillType.FuelRecovery:
+
                 return PlayerStatus.Instance
-                           .fuelRecoveryLevel >= level;
+                    .fuelRecoveryLevel >= level;
 
 
             case SkillType.TrustRecovery:
+
                 return PlayerStatus.Instance
-                           .trustRecoveryLevel >= level;
+                    .trustRecoveryLevel >= level;
 
 
             case SkillType.ConcealProtocol:
+
                 return PlayerStatus.Instance
-                           .concealItemLevel >= level;
+                    .concealItemLevel >= level;
 
 
             case SkillType.HighRiskHighReturn:
+
                 return PlayerStatus.Instance
-                           .highRiskHighReturnLevel >= level;
+                    .highRiskHighReturnLevel >= level;
 
 
             case SkillType.WorkTime:
+
                 return PlayerStatus.Instance
-                           .workTimeLevel >= level;
+                    .workTimeLevel >= level;
         }
 
 
@@ -135,12 +197,12 @@ public class SkillNodeUI : MonoBehaviour
 
 
     // =========================================================
-    // Previous Level
+    // Previous Level Check
     // =========================================================
 
     public bool IsPreviousLevelPurchased()
     {
-        // Lv.1은 이전 스킬이 없으므로 바로 해금
+        // I 단계는 선행 스킬 없음
         if (level <= 1)
             return true;
 
@@ -149,38 +211,78 @@ public class SkillNodeUI : MonoBehaviour
             return false;
 
 
-        int previousLevel =
+        int requiredLevel =
             level - 1;
 
 
         switch (skillType)
         {
             case SkillType.FuelRecovery:
+
                 return PlayerStatus.Instance
-                           .fuelRecoveryLevel >= previousLevel;
+                    .fuelRecoveryLevel >= requiredLevel;
 
 
             case SkillType.TrustRecovery:
+
                 return PlayerStatus.Instance
-                           .trustRecoveryLevel >= previousLevel;
+                    .trustRecoveryLevel >= requiredLevel;
 
 
             case SkillType.ConcealProtocol:
+
                 return PlayerStatus.Instance
-                           .concealItemLevel >= previousLevel;
+                    .concealItemLevel >= requiredLevel;
 
 
             case SkillType.HighRiskHighReturn:
+
                 return true;
 
 
             case SkillType.WorkTime:
+
                 return PlayerStatus.Instance
-                           .workTimeLevel >= previousLevel;
+                    .workTimeLevel >= requiredLevel;
         }
 
 
         return false;
+    }
+
+
+    // =========================================================
+    // Money Check
+    // =========================================================
+
+    public bool HasEnoughMoney()
+    {
+        if (PlayerStatus.Instance == null)
+            return false;
+
+        return PlayerStatus.Instance.money >= price;
+    }
+
+
+    // =========================================================
+    // Purchase Available
+    // =========================================================
+
+    public bool CanPurchase()
+    {
+        if (PlayerStatus.Instance == null)
+            return false;
+
+        if (IsPurchased())
+            return false;
+
+        if (!IsPreviousLevelPurchased())
+            return false;
+
+        if (!HasEnoughMoney())
+            return false;
+
+        return true;
     }
 
 
@@ -190,17 +292,7 @@ public class SkillNodeUI : MonoBehaviour
 
     public bool Purchase()
     {
-        if (PlayerStatus.Instance == null)
-            return false;
-
-
-        // 이미 구매
-        if (IsPurchased())
-            return false;
-
-
-        // 이전 단계 미구매
-        if (!IsPreviousLevelPurchased())
+        if (!CanPurchase())
             return false;
 
 
@@ -209,6 +301,10 @@ public class SkillNodeUI : MonoBehaviour
 
         switch (skillType)
         {
+            // -------------------------------------------------
+            // 자가 충전 회로
+            // -------------------------------------------------
+
             case SkillType.FuelRecovery:
 
                 success =
@@ -219,6 +315,10 @@ public class SkillNodeUI : MonoBehaviour
 
                 break;
 
+
+            // -------------------------------------------------
+            // 평판 보정 모듈
+            // -------------------------------------------------
 
             case SkillType.TrustRecovery:
 
@@ -231,6 +331,10 @@ public class SkillNodeUI : MonoBehaviour
                 break;
 
 
+            // -------------------------------------------------
+            // 은폐 프로토콜
+            // -------------------------------------------------
+
             case SkillType.ConcealProtocol:
 
                 success =
@@ -242,6 +346,10 @@ public class SkillNodeUI : MonoBehaviour
                 break;
 
 
+            // -------------------------------------------------
+            // 과부하 계약
+            // -------------------------------------------------
+
             case SkillType.HighRiskHighReturn:
 
                 success =
@@ -252,6 +360,10 @@ public class SkillNodeUI : MonoBehaviour
 
                 break;
 
+
+            // -------------------------------------------------
+            // 작업 연장 모듈
+            // -------------------------------------------------
 
             case SkillType.WorkTime:
 
@@ -265,9 +377,14 @@ public class SkillNodeUI : MonoBehaviour
         }
 
 
+        // 구매 성공
         if (success)
         {
-            RefreshPurchasedVisual();
+            RefreshPurchasedImage();
+
+            Debug.Log(
+                $"스킬 구매 완료 : {skillName}"
+            );
         }
 
 
@@ -276,17 +393,41 @@ public class SkillNodeUI : MonoBehaviour
 
 
     // =========================================================
-    // Visual
+    // Purchased Visual
     // =========================================================
 
-    public void RefreshPurchasedVisual()
+    public void RefreshPurchasedImage()
     {
-        if (purchasedImage == null)
+        if (purchasedTargetImage == null)
             return;
 
-
-        purchasedImage.SetActive(
+        purchasedTargetImage.SetActive(
             IsPurchased()
         );
+    }
+
+
+    // =========================================================
+    // Inspector
+    // =========================================================
+
+    private void OnValidate()
+    {
+        price =
+            Mathf.Max(
+                0,
+                price
+            );
+
+        level =
+            Mathf.Max(
+                1,
+                level
+            );
+
+
+        // 에디터에서 가격을 수정했을 때도
+        // 연결된 텍스트가 바로 변경됨
+        RefreshPriceText();
     }
 }

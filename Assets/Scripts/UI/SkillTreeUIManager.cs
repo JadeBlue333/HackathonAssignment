@@ -17,12 +17,16 @@ public class SkillTreeUIManager : MonoBehaviour
 
     [Header("Detail Panel")]
 
-    [Tooltip("아래쪽 상품 설명 전체 Panel")]
+    [Tooltip("아래쪽 설명/구매창 전체")]
     [SerializeField]
     private GameObject detailPanel;
 
 
-    [Header("Texts")]
+    // =========================================================
+    // Text
+    // =========================================================
+
+    [Header("Text")]
 
     [SerializeField]
     private TMP_Text skillNameText;
@@ -30,8 +34,9 @@ public class SkillTreeUIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text descriptionText;
 
+    [Tooltip("현재 선택한 스킬의 가격 표시")]
     [SerializeField]
-    private TMP_Text priceText;
+    private TMP_Text selectedPriceText;
 
 
     // =========================================================
@@ -45,6 +50,33 @@ public class SkillTreeUIManager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text purchaseButtonText;
+
+
+    // =========================================================
+    // Audio
+    // =========================================================
+
+    [Header("Purchase Audio")]
+
+    [SerializeField]
+    private AudioSource audioSource;
+
+    [Tooltip("구매 성공 효과음")]
+    [SerializeField]
+    private AudioClip purchaseSuccessSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float purchaseSuccessVolume = 1f;
+
+
+    [Tooltip("구매 불가 효과음")]
+    [SerializeField]
+    private AudioClip purchaseFailSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField]
+    private float purchaseFailVolume = 1f;
 
 
     // =========================================================
@@ -66,7 +98,7 @@ public class SkillTreeUIManager : MonoBehaviour
         if (purchaseButton != null)
         {
             purchaseButton.onClick.AddListener(
-                PurchaseSelectedSkill
+                OnPurchaseButtonClicked
             );
         }
     }
@@ -78,19 +110,17 @@ public class SkillTreeUIManager : MonoBehaviour
 
     private void Start()
     {
-        // 처음에는 설명창 숨김
         if (detailPanel != null)
         {
             detailPanel.SetActive(false);
         }
-
 
         RefreshAllNodes();
     }
 
 
     // =========================================================
-    // Select
+    // Select Node
     // =========================================================
 
     public void SelectNode(
@@ -101,8 +131,7 @@ public class SkillTreeUIManager : MonoBehaviour
             return;
 
 
-        selectedNode =
-            node;
+        selectedNode = node;
 
 
         if (detailPanel != null)
@@ -116,7 +145,7 @@ public class SkillTreeUIManager : MonoBehaviour
 
 
     // =========================================================
-    // Detail
+    // Detail Panel
     // =========================================================
 
     private void RefreshDetailPanel()
@@ -125,49 +154,36 @@ public class SkillTreeUIManager : MonoBehaviour
             return;
 
 
-        // ---------------------------------------------
         // 이름
-        // ---------------------------------------------
-
         if (skillNameText != null)
         {
             skillNameText.text =
-                selectedNode.skillName;
+                selectedNode.SkillName;
         }
 
 
-        // ---------------------------------------------
         // 설명
-        // ---------------------------------------------
-
         if (descriptionText != null)
         {
             descriptionText.text =
-                selectedNode.description;
+                selectedNode.Description;
         }
 
 
-        // ---------------------------------------------
         // 가격
-        // ---------------------------------------------
-
-        if (priceText != null)
+        if (selectedPriceText != null)
         {
-            priceText.text =
-                $"{selectedNode.price} C";
+            selectedPriceText.text =
+                $"{selectedNode.Price} C";
         }
 
-
-        // ---------------------------------------------
-        // 구매 상태
-        // ---------------------------------------------
 
         RefreshPurchaseButton();
     }
 
 
     // =========================================================
-    // Purchase Button
+    // Purchase Button State
     // =========================================================
 
     private void RefreshPurchaseButton()
@@ -179,15 +195,12 @@ public class SkillTreeUIManager : MonoBehaviour
             return;
 
 
-        // =============================================
-        // 이미 구매됨
-        // =============================================
+        purchaseButton.interactable = true;
 
+
+        // 이미 구매 완료
         if (selectedNode.IsPurchased())
         {
-            purchaseButton.interactable =
-                false;
-
             SetPurchaseButtonText(
                 "구매완료"
             );
@@ -196,15 +209,9 @@ public class SkillTreeUIManager : MonoBehaviour
         }
 
 
-        // =============================================
         // 이전 단계 미구매
-        // =============================================
-
         if (!selectedNode.IsPreviousLevelPurchased())
         {
-            purchaseButton.interactable =
-                false;
-
             SetPurchaseButtonText(
                 "구매불가"
             );
@@ -213,17 +220,9 @@ public class SkillTreeUIManager : MonoBehaviour
         }
 
 
-        // =============================================
         // 돈 부족
-        // =============================================
-
-        if (PlayerStatus.Instance == null ||
-            PlayerStatus.Instance.money <
-            selectedNode.price)
+        if (!selectedNode.HasEnoughMoney())
         {
-            purchaseButton.interactable =
-                false;
-
             SetPurchaseButtonText(
                 "구매불가"
             );
@@ -232,63 +231,136 @@ public class SkillTreeUIManager : MonoBehaviour
         }
 
 
-        // =============================================
         // 구매 가능
-        // =============================================
-
-        purchaseButton.interactable =
-            true;
-
         SetPurchaseButtonText(
             "구매하기"
         );
     }
 
 
-    private void SetPurchaseButtonText(
-        string text
-    )
-    {
-        if (purchaseButtonText != null)
-        {
-            purchaseButtonText.text =
-                text;
-        }
-    }
-
-
     // =========================================================
-    // Purchase
+    // Purchase Button Click
     // =========================================================
 
-    private void PurchaseSelectedSkill()
+    private void OnPurchaseButtonClicked()
     {
         if (selectedNode == null)
             return;
 
 
-        bool success =
-            selectedNode.Purchase();
-
-
-        if (!success)
+        // 이미 구매한 스킬
+        if (selectedNode.IsPurchased())
         {
-            RefreshPurchaseButton();
             return;
         }
 
 
-        Debug.Log(
-            $"{selectedNode.skillName} 구매 완료"
+        // 이전 단계가 안 열림
+        if (!selectedNode.IsPreviousLevelPurchased())
+        {
+            PlaySfx(
+                purchaseFailSfx,
+                purchaseFailVolume
+            );
+
+            Debug.Log(
+                "구매 불가 - 이전 단계 스킬이 필요합니다."
+            );
+
+            return;
+        }
+
+
+        // 돈 부족
+        if (!selectedNode.HasEnoughMoney())
+        {
+            PlaySfx(
+                purchaseFailSfx,
+                purchaseFailVolume
+            );
+
+            Debug.Log(
+                "구매 불가 - 돈이 부족합니다."
+            );
+
+            return;
+        }
+
+
+        // 구매 시도
+        bool success =
+            selectedNode.Purchase();
+
+
+        // 구매 성공
+        if (success)
+        {
+            PlaySfx(
+                purchaseSuccessSfx,
+                purchaseSuccessVolume
+            );
+
+
+            Debug.Log(
+                $"{selectedNode.SkillName} 구매 완료"
+            );
+
+
+            RefreshAllNodes();
+
+            RefreshDetailPanel();
+
+            return;
+        }
+
+
+        // 예상하지 못한 구매 실패
+        PlaySfx(
+            purchaseFailSfx,
+            purchaseFailVolume
         );
 
 
-        // 모든 노드 상태 다시 갱신
-        RefreshAllNodes();
-
-
-        // 현재 설명창 갱신
         RefreshDetailPanel();
+    }
+
+
+    // =========================================================
+    // Button Text
+    // =========================================================
+
+    private void SetPurchaseButtonText(
+        string value
+    )
+    {
+        if (purchaseButtonText != null)
+        {
+            purchaseButtonText.text =
+                value;
+        }
+    }
+
+
+    // =========================================================
+    // Audio
+    // =========================================================
+
+    private void PlaySfx(
+        AudioClip clip,
+        float volume
+    )
+    {
+        if (audioSource == null)
+            return;
+
+        if (clip == null)
+            return;
+
+
+        audioSource.PlayOneShot(
+            clip,
+            volume
+        );
     }
 
 
@@ -299,14 +371,15 @@ public class SkillTreeUIManager : MonoBehaviour
     public void RefreshAllNodes()
     {
         SkillNodeUI[] nodes =
-            GetComponentsInChildren<SkillNodeUI>(
-                true
+            FindObjectsByType<SkillNodeUI>(
+                FindObjectsInactive.Include,
+                FindObjectsSortMode.None
             );
 
 
         foreach (SkillNodeUI node in nodes)
         {
-            node.RefreshPurchasedVisual();
+            node.RefreshPurchasedImage();
         }
     }
 
