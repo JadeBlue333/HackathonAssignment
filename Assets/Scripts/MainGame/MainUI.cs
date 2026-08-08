@@ -21,6 +21,14 @@ public class MainUI : MonoBehaviour
 
 
     // =========================================================
+    // Work Time Range
+    // =========================================================
+
+    [Header("Work Time Range")]
+    [SerializeField] private TMP_Text workTimeRangeText;
+
+
+    // =========================================================
     // Clock Pointer
     // =========================================================
 
@@ -69,7 +77,6 @@ public class MainUI : MonoBehaviour
     // =========================================================
 
     [Header("채팅 이벤트 등장")]
-
     [SerializeField] private GameObject randomEventObject;
 
     [SerializeField] private AudioSource audioSource;
@@ -78,13 +85,11 @@ public class MainUI : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float randomEventVolume = 1f;
 
-
     [Tooltip("채팅 이벤트 발생 가능 시작 시간")]
     [SerializeField] private float eventStartTime = 11f;
 
     [Tooltip("채팅 이벤트 발생 가능 종료 시간")]
     [SerializeField] private float eventEndTime = 12f;
-
 
     [SerializeField] private GameObject chatPopUp;
 
@@ -94,7 +99,6 @@ public class MainUI : MonoBehaviour
     // =========================================================
 
     [Header("Skill Panel")]
-
     [SerializeField] private GameObject skillPanel;
 
 
@@ -112,6 +116,8 @@ public class MainUI : MonoBehaviour
 
     private bool chatOpened = false;
 
+    private bool dayEnding = false;
+
 
     // =========================================================
     // Start
@@ -124,53 +130,37 @@ public class MainUI : MonoBehaviour
         elapsedTime = 0f;
 
 
-        // -----------------------------------------------------
         // 랜덤 채팅 이벤트 시간 결정
-        // -----------------------------------------------------
-
         randomEventTime = Random.Range(
             eventStartTime,
             eventEndTime
         );
 
 
-        // -----------------------------------------------------
         // 랜덤 이벤트 아이콘 초기화
-        // -----------------------------------------------------
-
         if (randomEventObject != null)
         {
             randomEventObject.SetActive(false);
         }
 
 
-        // -----------------------------------------------------
         // 채팅 팝업 초기화
-        // -----------------------------------------------------
-
         if (chatPopUp != null)
         {
             chatPopUp.SetActive(false);
         }
 
-
         chatOpened = false;
 
 
-        // -----------------------------------------------------
         // 스킬 패널 초기화
-        // -----------------------------------------------------
-
         if (skillPanel != null)
         {
             skillPanel.SetActive(false);
         }
 
 
-        // -----------------------------------------------------
-        // 처음 UI 갱신
-        // -----------------------------------------------------
-
+        // UI 초기화
         UpdateClock();
         UpdateUI();
     }
@@ -183,6 +173,9 @@ public class MainUI : MonoBehaviour
     private void Update()
     {
         if (player == null)
+            return;
+
+        if (dayEnding)
             return;
 
 
@@ -206,8 +199,6 @@ public class MainUI : MonoBehaviour
             return;
 
 
-        // Tab을 한 번 누를 때마다
-        // 스킬 패널 열기 / 닫기
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             ToggleSkillPanel();
@@ -231,10 +222,6 @@ public class MainUI : MonoBehaviour
     }
 
 
-    // =========================================================
-    // Skill Panel Open
-    // =========================================================
-
     public void OpenSkillPanel()
     {
         if (skillPanel == null)
@@ -244,10 +231,6 @@ public class MainUI : MonoBehaviour
         skillPanel.SetActive(true);
     }
 
-
-    // =========================================================
-    // Skill Panel Close
-    // =========================================================
 
     public void CloseSkillPanel()
     {
@@ -286,8 +269,6 @@ public class MainUI : MonoBehaviour
             return;
 
 
-        // 처음 열 때
-        // 랜덤 이벤트 알림 아이콘 끄기
         if (!chatOpened)
         {
             if (randomEventObject != null)
@@ -302,12 +283,8 @@ public class MainUI : MonoBehaviour
         }
         else
         {
-            bool newState =
-                !chatPopUp.activeSelf;
-
-
             chatPopUp.SetActive(
-                newState
+                !chatPopUp.activeSelf
             );
         }
     }
@@ -323,8 +300,7 @@ public class MainUI : MonoBehaviour
             return;
 
 
-        elapsedTime +=
-            Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
 
         float duration =
@@ -338,7 +314,6 @@ public class MainUI : MonoBehaviour
         // =====================================================
         // Game Time
         //
-        // 기본:
         // 실제 180초
         // =
         // 게임 내 09:00 ~ 15:00
@@ -408,7 +383,7 @@ public class MainUI : MonoBehaviour
 
 
         // =====================================================
-        // Current Game Time
+        // Current Time
         // =====================================================
 
         float currentTotalMinutes =
@@ -435,10 +410,7 @@ public class MainUI : MonoBehaviour
             );
 
 
-        // =====================================================
         // 5분 단위 표시
-        // =====================================================
-
         minute =
             (minute / 5) * 5;
 
@@ -497,20 +469,18 @@ public class MainUI : MonoBehaviour
 
 
             Debug.Log(
-                $"★★★ 랜덤 채팅 이벤트 발생! " +
-                $"현재 시간: {currentHour:F2}"
+                $"★★★ 랜덤 채팅 이벤트 발생! 현재 시간: {currentHour:F2}"
             );
         }
 
 
         // =====================================================
-        // Day End
+        // 자동 하루 종료
         // =====================================================
 
         if (elapsedTime >= duration)
         {
-            elapsedTime =
-                duration;
+            elapsedTime = duration;
 
 
             int endHour =
@@ -521,7 +491,6 @@ public class MainUI : MonoBehaviour
                 endTimeMinutes % 60;
 
 
-            // 종료 시각 정확히 표시
             if (timeText != null)
             {
                 timeText.text =
@@ -529,7 +498,6 @@ public class MainUI : MonoBehaviour
             }
 
 
-            // 포인터 정확히 끝점
             if (timerPointer != null &&
                 endPoint != null)
             {
@@ -538,19 +506,79 @@ public class MainUI : MonoBehaviour
             }
 
 
-            Debug.Log(
-                $"{endHour:00}:{endMinute:00} - 하루 종료"
+            EndWorkDay();
+        }
+    }
+
+
+    // =========================================================
+    // 업무 중단 / 하루 종료
+    // =========================================================
+
+    public void EndWorkDay()
+    {
+        if (dayEnding)
+            return;
+
+
+        dayEnding = true;
+
+
+        // 현재 게임 시각 계산
+        int startTimeMinutes =
+            9 * 60;
+
+
+        float gameMinutesPassed =
+            elapsedTime * 2f;
+
+
+        int currentTimeMinutes =
+            Mathf.FloorToInt(
+                startTimeMinutes +
+                gameMinutesPassed
             );
 
 
-            if (goToThisScene != null)
-            {
-                goToThisScene.nextSceneButton();
-            }
+        // 최대 종료시간을 넘지 않도록
+        int maxEndTimeMinutes =
+            player != null
+            ? player.GetWorkEndTimeMinutes()
+            : 15 * 60;
 
 
-            enabled = false;
+        currentTimeMinutes =
+            Mathf.Min(
+                currentTimeMinutes,
+                maxEndTimeMinutes
+            );
+
+
+        int hour =
+            currentTimeMinutes / 60;
+
+
+        int minute =
+            currentTimeMinutes % 60;
+
+
+        // 5분 단위
+        minute =
+            (minute / 5) * 5;
+
+
+        Debug.Log(
+            $"업무 종료 - {hour:00}:{minute:00}"
+        );
+
+
+        if (goToThisScene != null)
+        {
+            goToThisScene.nextSceneButton();
         }
+
+
+        enabled = false;
     }
 
 
@@ -564,10 +592,7 @@ public class MainUI : MonoBehaviour
             return;
 
 
-        // -----------------------------------------------------
         // Date
-        // -----------------------------------------------------
-
         if (dayText != null)
         {
             dayText.text =
@@ -575,10 +600,7 @@ public class MainUI : MonoBehaviour
         }
 
 
-        // -----------------------------------------------------
         // Money
-        // -----------------------------------------------------
-
         if (moneyText != null)
         {
             moneyText.text =
@@ -593,10 +615,7 @@ public class MainUI : MonoBehaviour
         }
 
 
-        // -----------------------------------------------------
         // Fuel
-        // -----------------------------------------------------
-
         if (fuelText != null)
         {
             fuelText.text =
@@ -605,10 +624,7 @@ public class MainUI : MonoBehaviour
         }
 
 
-        // -----------------------------------------------------
         // Trust
-        // -----------------------------------------------------
-
         if (trustText != null)
         {
             int displayedTrust =
@@ -631,6 +647,45 @@ public class MainUI : MonoBehaviour
             trustGradeText.text =
                 GetDisplayedTrustGrade();
         }
+
+
+        // Work Time Range
+        UpdateWorkTimeRangeText();
+    }
+
+
+    // =========================================================
+    // Work Time Range
+    // =========================================================
+
+    private void UpdateWorkTimeRangeText()
+    {
+        if (workTimeRangeText == null ||
+            player == null)
+        {
+            return;
+        }
+
+
+        int startHour = 9;
+        int startMinute = 0;
+
+
+        int endTimeMinutes =
+            player.GetWorkEndTimeMinutes();
+
+
+        int endHour =
+            endTimeMinutes / 60;
+
+
+        int endMinute =
+            endTimeMinutes % 60;
+
+
+        workTimeRangeText.text =
+            $"{startHour:00}:{startMinute:00} - " +
+            $"{endHour:00}:{endMinute:00}";
     }
 
 
