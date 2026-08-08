@@ -20,8 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DailyReport.unity
     guid: e895b6bad2c559f4a93de8ca84d38f23
-  - enabled: 0
-    path: Assets/Scenes/BlackMarket_org.unity
+  - enabled: 1
+    path: Assets/Scenes/Test_Daeun/BlackMarket_org.unity
     guid: e36a8b67423e3544a9817d9c56a57c7d
   - enabled: 1
     path: Assets/Scenes/D-9.unity
