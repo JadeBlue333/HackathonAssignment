@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class InspectionGameManager9 : MonoBehaviour
 {
@@ -55,6 +56,13 @@ public class InspectionGameManager9 : MonoBehaviour
 
     private InspectionResult currentAnswer;
 
+    // =========================================================
+    // Combo / Statistics
+    // =========================================================
+
+    private int correctCount = 0;
+    private int wrongCount = 0;
+    private int comboCount = 0;
 
     private IEnumerator Start()
     {
@@ -64,6 +72,46 @@ public class InspectionGameManager9 : MonoBehaviour
         );
 
         GenerateQuestion();
+    }
+
+    private void Update()
+    {
+        // Box 선택 단계
+        if (boxButtons.activeSelf)
+        {
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                SelectUnopened();
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                SelectOpened();
+            }
+
+            return;
+        }
+
+
+        // Motor 선택 단계
+        if (motorButtons.activeSelf)
+        {
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                SelectA();
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                SelectB();
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                SelectC();
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                SelectDiscard();
+            }
+        }
     }
 
 
@@ -143,20 +191,27 @@ public class InspectionGameManager9 : MonoBehaviour
 
         boxButtons.SetActive(false);
 
+        // 미개봉 박스를 잘못 열었는지 기록
         openedWrongBox =
-            currentAnswer ==
-            InspectionResult.Unopened;
+            currentAnswer == InspectionResult.Unopened;
 
+        // 박스 제거
         boxMatchManager.RemoveCurrentMatch();
 
+        // 모터 생성
         currentAnswer =
             motorMatchManager.CreateNextMatch();
 
-        motorButtons.SetActive(true);
+        Debug.Log(
+            $"박스 개봉 완료 / 잘못 연 박스: {openedWrongBox}"
+        );
 
         Debug.Log(
-            $"내부 정답 : {currentAnswer}"
+            $"내부 정답: {currentAnswer}"
         );
+
+        // 모터 선택 가능
+        motorButtons.SetActive(true);
     }
 
 
@@ -217,21 +272,31 @@ public class InspectionGameManager9 : MonoBehaviour
     // =========================================================
 
     void CheckAnswer(
-        InspectionResult playerAnswer
-    )
+    InspectionResult playerAnswer
+)
     {
         bool correct;
 
+        // =====================================================
+        // 정답 판정
+        // =====================================================
+
+        // 미개봉 박스를 잘못 열었다면
+        // 모터 정답과 상관없이 무조건 오답
         if (openedWrongBox)
         {
             correct = false;
+
+            Debug.Log(
+                "미개봉 박스를 개봉함 → 모터 선택과 관계없이 오답"
+            );
         }
         else
         {
             correct =
-                playerAnswer ==
-                currentAnswer;
+                playerAnswer == currentAnswer;
         }
+
 
         Debug.Log(
             $"선택 : {playerAnswer}"
@@ -242,6 +307,10 @@ public class InspectionGameManager9 : MonoBehaviour
         );
 
 
+        // =====================================================
+        // 정답 / 오답 처리
+        // =====================================================
+
         if (correct)
         {
             PlaySfx(
@@ -249,19 +318,44 @@ public class InspectionGameManager9 : MonoBehaviour
                 correctVolume
             );
 
+            // 정답 개수 증가
+            correctCount++;
+
+            // 콤보 증가
+            comboCount++;
+
             int reward =
-                GetReward(
-                    currentAnswer
-                );
+                GetReward(currentAnswer);
 
             PlayerStatus.Instance
-                .AddEarnings(
-                    reward
-                );
+                .AddEarnings(reward);
 
             Debug.Log(
                 $"정답! +{reward}"
             );
+
+            Debug.Log(
+                $"현재 콤보 : {comboCount}"
+            );
+
+
+            // =================================================
+            // 3콤보 달성
+            // =================================================
+
+            if (comboCount == 3)
+            {
+                PlayerStatus.Instance
+                    .AddTrustChanges(2);
+
+                Debug.Log(
+                    "★★★ 3 COMBO! 신뢰도 +2 ★★★"
+                );
+
+                PlayerStatus.Instance.comboNumber++;
+
+                comboCount = 0;
+            }
         }
         else
         {
@@ -269,6 +363,13 @@ public class InspectionGameManager9 : MonoBehaviour
                 wrongSfx,
                 wrongVolume
             );
+
+            // 오답 개수 증가
+            wrongCount++;
+            PlayerStatus.Instance.mistakeNumber++;
+
+            // 콤보 초기화
+            comboCount = 0;
 
             PlayerStatus.Instance
                 .AddTrustChanges(
@@ -278,18 +379,37 @@ public class InspectionGameManager9 : MonoBehaviour
             Debug.Log(
                 $"오답! 신뢰도 -{trustPenalty}"
             );
+
+            Debug.Log(
+                "콤보가 초기화되었습니다."
+            );
         }
 
 
+        // =====================================================
+        // 연료
+        // =====================================================
+
         PlayerStatus.Instance
-            .AddFuel(
-                -fuelCost
-            );
+            .AddFuel(-fuelCost);
 
         Debug.Log(
             $"연료 -{fuelCost}"
         );
 
+
+        // =====================================================
+        // 통계
+        // =====================================================
+
+        Debug.Log(
+            $"[검사 통계] 정답: {correctCount} / 오답: {wrongCount} / 현재 콤보: {comboCount}"
+        );
+
+
+        // =====================================================
+        // Game Over
+        // =====================================================
 
         if (PlayerStatus.Instance.trust <= 0)
         {
@@ -300,7 +420,6 @@ public class InspectionGameManager9 : MonoBehaviour
             return;
         }
 
-
         if (PlayerStatus.Instance.fuel <= 0)
         {
             Debug.Log(
@@ -310,6 +429,10 @@ public class InspectionGameManager9 : MonoBehaviour
             return;
         }
 
+
+        // =====================================================
+        // 다음 문제
+        // =====================================================
 
         GenerateQuestion();
     }

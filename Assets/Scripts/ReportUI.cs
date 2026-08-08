@@ -11,7 +11,8 @@ public class ReportUI : MonoBehaviour
     [SerializeField] private TMP_Text finalMoneyText;
 
     [Header("Trust")]
-    [SerializeField] private TMP_Text trustChangeText;
+    [SerializeField] private TMP_Text comboNum;
+    [SerializeField] private TMP_Text mistakeNum;
     [SerializeField] private TMP_Text finalTrustText;
 
     [Header("Fuel Purchase")]
@@ -55,7 +56,8 @@ public class ReportUI : MonoBehaviour
         earnedMoneyText.text = $"{ps.earnings}C";
         finalMoneyText.text = $"{totalMoney}C";
 
-        trustChangeText.text = $"{(ps.trustChange >= 0 ? "+" : "")}{ps.trustChange}";
+        comboNum.text = $"{ps.comboNumber * 2}";
+        mistakeNum.text = $"{ps.mistakeNumber * -5}";
         finalTrustText.text = $"{ps.trust + ps.trustChange}";
     }
 }

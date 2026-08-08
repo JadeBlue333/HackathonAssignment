@@ -102,9 +102,7 @@ public class MotorMatchManager8 : MonoBehaviour
     private GameObject currentMotor;
 
     private bool isReady;
-
     public bool IsReady => isReady;
-
 
     // =====================================================
     // Start

@@ -20,6 +20,10 @@ public class IntroManager : MonoBehaviour
     [Header("Fade")]
     [SerializeField] private float fadeDuration = 1f;
 
+    [Header("BGM")]
+    [SerializeField] private AudioSource bgm;
+    [SerializeField] private float bgmFadeDuration = 1f;
+
     [Header("Scene")]
     [SerializeField] private string nextSceneName;
 
@@ -28,6 +32,11 @@ public class IntroManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(IntroSequence());
+
+        if (bgm != null)
+        {
+            bgm.Play();
+        }
     }
 
     /// <summary>
@@ -110,6 +119,31 @@ public class IntroManager : MonoBehaviour
 
         color.a = 1;
         blackImage.color = color;
+
+        if (bgm == null)
+            yield break;
+
+        //BGM ÆäÀÌµå¾Æ¿ô
+
+        float startVolume = bgm.volume;
+
+        float t2 = 0f;
+
+        while (t2 < bgmFadeDuration)
+        {
+            t2 += Time.deltaTime;
+
+            bgm.volume = Mathf.Lerp(
+                startVolume,
+                0f,
+                t2 / bgmFadeDuration
+            );
+
+            yield return null;
+        }
+
+        bgm.volume = 0f;
+        bgm.Stop();
     }
 
     /// <summary>

@@ -884,7 +884,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: af7b6aaf30d44994b9eb10a80767b57b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1030,6 +1030,8 @@ MonoBehaviour:
   textDuration: 1.5
   typingSpeed: 0.05
   fadeDuration: 1
+  bgm: {fileID: 1096878460}
+  bgmFadeDuration: 1
   nextSceneName: D-7
 --- !u!4 &1160622481
 Transform:

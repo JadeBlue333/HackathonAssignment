@@ -30,6 +30,9 @@ public class PlayerStatus : MonoBehaviour
 
         earnings = 0;
         trustChange = 0;
+
+        comboNumber = 0;
+        mistakeNumber = 0;
     }
 
     [Header("Inspector에서 수정해도 게임 시작 시 Initialize 값으로 초기화됩니다.")]
@@ -115,6 +118,10 @@ public class PlayerStatus : MonoBehaviour
     [Tooltip("하루 실제 플레이 시간(초)")]
     public float dayDuration = 180f;
 
+
+    [Header("콤보 / 실수")]
+    public int comboNumber = 0;
+    public int mistakeNumber = 0;
 
     // =========================================================
     // Money Functions
@@ -245,6 +252,9 @@ public class PlayerStatus : MonoBehaviour
 
     public void NextDay()
     {
+        mistakeNumber = 0;
+        comboNumber = 0;
+
         if (currentDay > 0)
         {
             currentDay--;

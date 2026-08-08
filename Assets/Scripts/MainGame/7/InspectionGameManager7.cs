@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class InspectionGameManager7 : MonoBehaviour
 {
@@ -25,10 +26,22 @@ public class InspectionGameManager7 : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
 
-    [SerializeField] private AudioClip spawnBoxSfx;      // 처음 상자 생성
-    [SerializeField] private AudioClip openBoxSfx;       // 상자 까기
-    [SerializeField] private AudioClip correctSfx;       // 정답
-    [SerializeField] private AudioClip wrongSfx;         // 오답
+    [SerializeField] private AudioClip spawnBoxSfx;
+    [Range(0f, 1f)]
+    [SerializeField] private float spawnBoxVolume = 1f;
+    [SerializeField] private AudioClip openBoxSfx;
+    [Range(0f, 1f)]
+    [SerializeField] private float openBoxVolume = 1f;
+    [SerializeField] private AudioClip correctSfx;
+    [Range(0f, 1f)]
+    [SerializeField] private float correctVolume = 1f;
+    [SerializeField] private AudioClip wrongSfx;
+    [Range(0f, 1f)]
+    [SerializeField] private float wrongVolume = 1f;
+
+    private int correctCount = 0;
+    private int wrongCount = 0;
+    private int comboCount = 0;
 
     //열지 않았어도 될 상자를 연건지.
     private bool openedWrongBox = false;
@@ -42,18 +55,67 @@ public class InspectionGameManager7 : MonoBehaviour
         GenerateQuestion();
     }
 
-    private void PlaySfx(AudioClip clip)
+    private void Update()
     {
-        if (clip != null)
-            audioSource.PlayOneShot(clip);
+        if (boxButtons.activeSelf)
+        {
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                SelectUnopened();
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                SelectOpened();
+            }
+
+            return;
+        }
+
+        if (motorButtons.activeSelf)
+        {
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                SelectA();
+            }
+            else if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                SelectB();
+            }
+            else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            {
+                SelectC();
+            }
+            else if (Keyboard.current.digit4Key.wasPressedThisFrame)
+            {
+                SelectDiscard();
+            }
+        }
     }
+
+    private void PlaySfx(
+        AudioClip clip,
+        float volume
+    )
+    {
+        if (audioSource == null || clip == null)
+            return;
+
+        audioSource.PlayOneShot(
+            clip,
+            volume
+        );
+    }
+
     void GenerateQuestion()
     {
         openedWrongBox = false;
 
         currentAnswer = boxMatchManager.CreateNextMatch();
 
-        PlaySfx(spawnBoxSfx);   // 추가
+        PlaySfx(
+            spawnBoxSfx,
+            spawnBoxVolume
+        );
 
         StartCoroutine(nextQuestionDelay());
 
@@ -77,7 +139,10 @@ public class InspectionGameManager7 : MonoBehaviour
 
     public void SelectOpened()
     {
-        PlaySfx(openBoxSfx);   // 추가
+        PlaySfx(
+            openBoxSfx,
+            openBoxVolume
+        );
 
         boxButtons.SetActive(false);
 
@@ -142,7 +207,30 @@ public class InspectionGameManager7 : MonoBehaviour
 
         if (correct)
         {
-            PlaySfx(correctSfx);
+            PlaySfx(
+                correctSfx,
+                correctVolume
+            );
+
+            // 정답 개수 증가
+            correctCount++;
+
+            // 콤보 증가
+            comboCount++;
+
+            if (comboCount == 3)
+            {
+                PlayerStatus.Instance
+                    .AddTrustChanges(2);
+
+                Debug.Log(
+                    "★★★ 3 COMBO! 신뢰도 +2 ★★★"
+                );
+
+                PlayerStatus.Instance.comboNumber++;
+
+                comboCount = 0;
+            }
 
             int reward = GetReward(currentAnswer);
 
@@ -152,7 +240,15 @@ public class InspectionGameManager7 : MonoBehaviour
         }
         else
         {
-            PlaySfx(wrongSfx);
+            PlaySfx(
+                wrongSfx,
+                wrongVolume
+            );
+
+            wrongCount++;
+            PlayerStatus.Instance.mistakeNumber++;
+
+            comboCount = 0;
 
             PlayerStatus.Instance.AddTrustChanges(-trustPenalty);
 
