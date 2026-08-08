@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MainUI : MonoBehaviour
 {
@@ -103,6 +104,38 @@ public class MainUI : MonoBehaviour
 
 
     // =========================================================
+    // Shortcut Buttons
+    // =========================================================
+
+    [Header("Shortcut Buttons")]
+
+    [Tooltip("P 키로 실행할 업무 종료 버튼")]
+    [SerializeField] private Button endWorkButton;
+
+    [Tooltip("Space 키로 실행할 메뉴얼 버튼")]
+    [SerializeField] private Button manualButton;
+
+    [Tooltip("ESC 키로 실행할 환경설정 버튼")]
+    [SerializeField] private Button settingsButton;
+
+
+    // =========================================================
+    // Shortcut Panels
+    // =========================================================
+
+    [Header("Shortcut Panels")]
+
+    [Tooltip("업무 종료 확인창 전체 오브젝트")]
+    [SerializeField] private GameObject endWorkPanel;
+
+    [Tooltip("메뉴얼 전체 오브젝트")]
+    [SerializeField] private GameObject manualPanel;
+
+    [Tooltip("환경설정 전체 오브젝트")]
+    [SerializeField] private GameObject settingsPanel;
+
+
+    // =========================================================
     // Runtime
     // =========================================================
 
@@ -131,10 +164,11 @@ public class MainUI : MonoBehaviour
 
 
         // 랜덤 채팅 이벤트 시간 결정
-        randomEventTime = Random.Range(
-            eventStartTime,
-            eventEndTime
-        );
+        randomEventTime =
+            Random.Range(
+                eventStartTime,
+                eventEndTime
+            );
 
 
         // 랜덤 이벤트 아이콘 초기화
@@ -186,6 +220,88 @@ public class MainUI : MonoBehaviour
         HandleSkillPanelInput();
 
         HandleChatInput();
+
+        HandleShortcutInput();
+    }
+
+
+    // =========================================================
+    // Shortcut Input
+    // =========================================================
+
+    private void HandleShortcutInput()
+    {
+        if (Keyboard.current == null)
+            return;
+
+
+        // =====================================================
+        // P = 업무 종료 확인창
+        // =====================================================
+
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            // 이미 열려 있으면 닫기
+            if (endWorkPanel != null &&
+                endWorkPanel.activeSelf)
+            {
+                endWorkPanel.SetActive(false);
+            }
+
+            // 닫혀 있으면 실제 업무 종료 버튼 클릭
+            else if (endWorkButton != null &&
+                     endWorkButton.interactable &&
+                     endWorkButton.gameObject.activeInHierarchy)
+            {
+                endWorkButton.onClick.Invoke();
+            }
+        }
+
+
+        // =====================================================
+        // Space = 메뉴얼
+        // =====================================================
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            // 이미 열려 있으면 닫기
+            if (manualPanel != null &&
+                manualPanel.activeSelf)
+            {
+                manualPanel.SetActive(false);
+            }
+
+            // 닫혀 있으면 실제 메뉴얼 버튼 클릭
+            else if (manualButton != null &&
+                     manualButton.interactable &&
+                     manualButton.gameObject.activeInHierarchy)
+            {
+                manualButton.onClick.Invoke();
+            }
+        }
+
+
+        // =====================================================
+        // ESC = 환경설정
+        // =====================================================
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            // 이미 열려 있으면 닫기
+            if (settingsPanel != null &&
+                settingsPanel.activeSelf)
+            {
+                settingsPanel.SetActive(false);
+            }
+
+            // 닫혀 있으면 실제 환경설정 버튼 클릭
+            else if (settingsButton != null &&
+                     settingsButton.interactable &&
+                     settingsButton.gameObject.activeInHierarchy)
+            {
+                settingsButton.onClick.Invoke();
+            }
+        }
     }
 
 
@@ -331,13 +447,6 @@ public class MainUI : MonoBehaviour
         int startTimeMinutes =
             9 * 60;
 
-
-        // 작업 연장 스킬 적용 종료시간
-        //
-        // Lv.0 = 15:00
-        // Lv.1 = 15:30
-        // Lv.2 = 16:00
-        // Lv.3 = 16:30
 
         int endTimeMinutes =
             player.GetWorkEndTimeMinutes();
@@ -524,7 +633,6 @@ public class MainUI : MonoBehaviour
         dayEnding = true;
 
 
-        // 현재 게임 시각 계산
         int startTimeMinutes =
             9 * 60;
 
@@ -540,7 +648,6 @@ public class MainUI : MonoBehaviour
             );
 
 
-        // 최대 종료시간을 넘지 않도록
         int maxEndTimeMinutes =
             player != null
             ? player.GetWorkEndTimeMinutes()
@@ -562,7 +669,6 @@ public class MainUI : MonoBehaviour
             currentTimeMinutes % 60;
 
 
-        // 5분 단위
         minute =
             (minute / 5) * 5;
 
@@ -649,7 +755,6 @@ public class MainUI : MonoBehaviour
         }
 
 
-        // Work Time Range
         UpdateWorkTimeRangeText();
     }
 
