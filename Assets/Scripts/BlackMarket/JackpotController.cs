@@ -12,6 +12,12 @@ public class JackpotController : MonoBehaviour
     [SerializeField] private TMP_Text numberText2;
     [SerializeField] private TMP_Text numberText3;
 
+    [Header("최종 소지금 UI")]
+    [SerializeField] private GameObject totalMoneyObject;
+    [SerializeField] private TMP_Text totalMoneyText;
+
+    [SerializeField] private int inputMoney = 0;
+
     [Header("7 등장 확률 (%)")]
     [Range(0f, 100f)]
     [SerializeField] private float sevenChance = 20f;
@@ -24,10 +30,37 @@ public class JackpotController : MonoBehaviour
     [SerializeField] private float secondStopTime = 0.8f;
     [SerializeField] private float thirdStopTime = 1.1f;
 
+
+    // =====================================================
+    // Sound
+    // =====================================================
+
+    [Header("사운드")]
+    [SerializeField] private AudioSource audioSource;
+
+    [Header("룰렛 회전 사운드")]
+    [SerializeField] private AudioClip spinSound;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float spinVolume = 1f;
+
+    [Header("잭팟 성공 사운드")]
+    [SerializeField] private AudioClip jackpotSound;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float jackpotVolume = 1f;
+
+    [Header("잭팟 실패 사운드")]
+    [SerializeField] private AudioClip failSound;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float failVolume = 1f;
+
+
     private bool isSpinning = false;
 
+
     // ================================
-    // 나중에 다른 시스템으로 넘길 잭팟 결과값
     // 777이면 true
     // 그 외 모든 결과는 false
     // ================================
@@ -39,6 +72,22 @@ public class JackpotController : MonoBehaviour
         if (isSpinning)
             return;
 
+        inputMoney = PlayerStatus.Instance.money;
+
+        // 시작하는 순간 돈 다 써버림
+        PlayerStatus.Instance.money = 0;
+
+        Debug.Log(
+            $"잭팟 시작! 현재 소지금: {PlayerStatus.Instance.money} / " +
+            $"잭팟에 사용한 금액: {inputMoney}"
+        );
+
+        // 결과 소지금 UI 숨기기
+        if (totalMoneyObject != null)
+        {
+            totalMoneyObject.SetActive(false);
+        }
+
         if (jackpotPanel != null)
         {
             jackpotPanel.SetActive(true);
@@ -47,6 +96,7 @@ public class JackpotController : MonoBehaviour
         StartCoroutine(SpinRoutine());
     }
 
+
     private IEnumerator SpinRoutine()
     {
         isSpinning = true;
@@ -54,10 +104,27 @@ public class JackpotController : MonoBehaviour
         // 새로운 게임 시작 시 이전 결과 초기화
         IsJackpot = false;
 
+
+        // =====================================================
+        // 룰렛 회전 사운드 시작
+        // =====================================================
+
+        if (audioSource != null && spinSound != null)
+        {
+            audioSource.PlayOneShot(spinSound, spinVolume);
+        }
+
+
+        // =====================================================
         // 최종 결과 미리 결정
-        int result1 = GetRandomNumber();
-        int result2 = GetRandomNumber();
+        // 앞의 두 숫자는 무조건 7
+        // 마지막 숫자만 확률 적용
+        // =====================================================
+
+        int result1 = 7;
+        int result2 = 7;
         int result3 = GetRandomNumber();
+
 
         float startTime = Time.time;
 
@@ -65,9 +132,15 @@ public class JackpotController : MonoBehaviour
         bool secondStopped = false;
         bool thirdStopped = false;
 
+
+        // =====================================================
+        // 룰렛 돌리기
+        // =====================================================
+
         while (!thirdStopped)
         {
             float elapsedTime = Time.time - startTime;
+
 
             // 첫 번째 숫자
             if (!firstStopped)
@@ -83,6 +156,7 @@ public class JackpotController : MonoBehaviour
                 }
             }
 
+
             // 두 번째 숫자
             if (!secondStopped)
             {
@@ -96,6 +170,7 @@ public class JackpotController : MonoBehaviour
                     numberText2.text = Random.Range(0, 10).ToString();
                 }
             }
+
 
             // 세 번째 숫자
             if (!thirdStopped)
@@ -111,37 +186,76 @@ public class JackpotController : MonoBehaviour
                 }
             }
 
+
             yield return new WaitForSeconds(numberChangeInterval);
         }
 
-        // ================================
-        // [데이터 전달용 결과 저장 부분]
-        //
-        // 3개의 결과가 모두 7이면 true
-        // 하나라도 7이 아니면 false
-        //
-        // 나중에 다른 스크립트에서
-        // jackpotController.IsJackpot
-        // 으로 이 값을 가져가면 됨.
-        // ================================
+
+        // =====================================================
+        // 잭팟 결과 판정
+        // =====================================================
+
         IsJackpot =
             result1 == 7 &&
             result2 == 7 &&
             result3 == 7;
 
 
-        // 테스트용 콘솔 출력
+        // =====================================================
+        // 성공 / 실패 처리
+        // =====================================================
+
         if (IsJackpot)
         {
-            Debug.Log("JACKPOT! 777 / Result = True");
+            int result = inputMoney * 7;
+
+            PlayerStatus.Instance.AddMoney(result);
+
+            Debug.Log(
+                $"JACKPOT! 777 / Result = True / 획득 금액: {result}C"
+            );
+
+
+            // 성공 사운드
+            if (audioSource != null && jackpotSound != null)
+            {
+                audioSource.PlayOneShot(jackpotSound, jackpotVolume);
+            }
         }
         else
         {
-            Debug.Log($"결과: {result1}{result2}{result3} / Result = False");
+            Debug.Log(
+                $"결과: {result1}{result2}{result3} / Result = False"
+            );
+
+
+            // 실패 사운드
+            if (audioSource != null && failSound != null)
+            {
+                audioSource.PlayOneShot(failSound, failVolume);
+            }
         }
+
+
+        // =====================================================
+        // 최종 소지금 표시
+        // =====================================================
+
+        if (totalMoneyText != null)
+        {
+            totalMoneyText.text =
+                $"총 소지금 : {PlayerStatus.Instance.money} C";
+        }
+
+        if (totalMoneyObject != null)
+        {
+            totalMoneyObject.SetActive(true);
+        }
+
 
         isSpinning = false;
     }
+
 
     private int GetRandomNumber()
     {

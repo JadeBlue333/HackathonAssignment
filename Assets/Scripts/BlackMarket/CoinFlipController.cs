@@ -7,16 +7,51 @@ public class CoinFlipController : MonoBehaviour
     [Header("코인 플립 페이지")]
     [SerializeField] private GameObject coinFlipPanel;
 
+
     [Header("결과 표시 텍스트")]
     [SerializeField] private TMP_Text resultText;
+
+
+    [Header("최종 소지금 UI")]
+    [SerializeField] private GameObject totalMoneyObject;
+    [SerializeField] private TMP_Text totalMoneyText;
+
 
     [Header("연출 설정")]
     [SerializeField] private float flipDuration = 1.5f;
     [SerializeField] private float changeInterval = 0.1f;
 
+
     [Header("최종 결과 확률 (%)")]
     [Range(0f, 100f)]
     [SerializeField] private float frontChance = 50f;
+
+
+    [Header("코인 비용 / 보상")]
+    [SerializeField] private int flipCost = 10;
+    [SerializeField] private int successReward = 20;
+
+
+    [Header("사운드")]
+    [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private AudioClip coinFlipSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float coinFlipVolume = 1f;
+
+
+    [SerializeField] private AudioClip successSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float successVolume = 1f;
+
+
+    [SerializeField] private AudioClip failSfx;
+
+    [Range(0f, 1f)]
+    [SerializeField] private float failVolume = 1f;
+
 
     private bool isFlipping = false;
 
@@ -24,7 +59,7 @@ public class CoinFlipController : MonoBehaviour
 
 
     // ================================
-    // 나중에 다른 시스템으로 넘길 결과값
+    // 결과값
     //
     // 플레이어가 맞추면 true
     // 플레이어가 틀리면 false
@@ -35,11 +70,19 @@ public class CoinFlipController : MonoBehaviour
     // ================================
     public bool IsCorrect { get; private set; } = false;
 
-
     private enum CoinSide
     {
         Front,
         Back
+    }
+
+    private void Start()
+    {
+        // 게임 시작 시 총 소지금 UI는 숨김
+        if (totalMoneyObject != null)
+        {
+            totalMoneyObject.SetActive(false);
+        }
     }
 
 
@@ -49,6 +92,10 @@ public class CoinFlipController : MonoBehaviour
     public void ChooseFront()
     {
         if (isFlipping)
+            return;
+
+        // 돈이 부족하면 시작하지 않음
+        if (!CanAffordFlip())
             return;
 
         playerChoice = CoinSide.Front;
@@ -65,18 +112,66 @@ public class CoinFlipController : MonoBehaviour
         if (isFlipping)
             return;
 
+        // 돈이 부족하면 시작하지 않음
+        if (!CanAffordFlip())
+            return;
+
         playerChoice = CoinSide.Back;
 
         OpenAndStartFlip();
     }
 
 
+    // ================================
+    // 코인 플립 비용을 낼 수 있는지 확인
+    // ================================
+    private bool CanAffordFlip()
+    {
+        if (PlayerStatus.Instance == null)
+            return false;
+
+        if (PlayerStatus.Instance.money < flipCost)
+        {
+            Debug.Log("Coin Flip 실패 : 소지금이 부족합니다.");
+            return false;
+        }
+
+        return true;
+    }
+
+
+    // ================================
+    // 코인 플립 시작
+    // ================================
     private void OpenAndStartFlip()
     {
+        // 결과가 나오기 전까지
+        // 최종 소지금 UI 숨기기
+        if (totalMoneyObject != null)
+        {
+            totalMoneyObject.SetActive(false);
+        }
+
+
+        // 코인 플립 패널 활성화
         if (coinFlipPanel != null)
         {
             coinFlipPanel.SetActive(true);
         }
+
+
+        // ================================
+        // 코인 돌아가는 소리
+        // 시작할 때 한 번만 재생
+        // ================================
+        if (audioSource != null && coinFlipSfx != null)
+        {
+            audioSource.PlayOneShot(
+                coinFlipSfx,
+                coinFlipVolume
+            );
+        }
+
 
         StartCoroutine(FlipRoutine());
     }
@@ -86,12 +181,17 @@ public class CoinFlipController : MonoBehaviour
     {
         isFlipping = true;
 
+
+        // ================================
         // 이전 결과 초기화
+        // ================================
         IsCorrect = false;
+
 
         float startTime = Time.time;
 
         bool showFront = true;
+
 
         // ================================
         // 앞 / 뒤가 빠르게 번갈아 보이는 연출
@@ -117,7 +217,7 @@ public class CoinFlipController : MonoBehaviour
         // 최종 코인 결과 결정
         //
         // Front Chance 값에 따라
-        // 앞면이 나올 확률을 Inspector에서 조절 가능
+        // 앞면이 나올 확률을 결정
         // ================================
         CoinSide finalResult;
 
@@ -131,7 +231,9 @@ public class CoinFlipController : MonoBehaviour
         }
 
 
+        // ================================
         // 최종 결과 화면에 표시
+        // ================================
         if (finalResult == CoinSide.Front)
         {
             resultText.text = "앞";
@@ -143,29 +245,71 @@ public class CoinFlipController : MonoBehaviour
 
 
         // ================================
-        // [데이터 전달용 결과 저장 부분]
-        //
-        // 플레이어가 선택한 앞/뒤와
-        // 실제 결과가 같으면 true
-        //
-        // 다르면 false
-        //
-        // 나중에 다른 시스템에서
-        // coinFlipController.IsCorrect
-        // 로 가져가면 됨.
+        // 플레이어 선택과 실제 결과 비교
         // ================================
         IsCorrect = playerChoice == finalResult;
 
 
-        // 테스트용 콘솔 출력
+        // ================================
+        // 성공 / 실패 처리
+        // ================================
         if (IsCorrect)
         {
-            Debug.Log("Coin Flip 성공 / Result = True");
+            // 성공하면 20C 지급
+            PlayerStatus.Instance.AddMoney(successReward);
+
+
+            // 성공 효과음
+            if (audioSource != null && successSfx != null)
+            {
+                audioSource.PlayOneShot(
+                    successSfx,
+                    successVolume
+                );
+            }
+
+
+            Debug.Log(
+                "Coin Flip 성공 / Result = True / +"
+                + successReward
+                + "C"
+            );
         }
         else
         {
-            Debug.Log("Coin Flip 실패 / Result = False");
+            // 실패 효과음
+            if (audioSource != null && failSfx != null)
+            {
+                audioSource.PlayOneShot(
+                    failSfx,
+                    failVolume
+                );
+            }
+
+
+            Debug.Log(
+                "Coin Flip 실패 / Result = False"
+            );
         }
+
+
+        // ================================
+        // 최종 소지금 표시
+        // ================================
+        if (totalMoneyText != null)
+        {
+            totalMoneyText.text =
+                "총 소지금 : "
+                + PlayerStatus.Instance.money
+                + " C";
+        }
+
+
+        if (totalMoneyObject != null)
+        {
+            totalMoneyObject.SetActive(true);
+        }
+
 
         isFlipping = false;
     }
