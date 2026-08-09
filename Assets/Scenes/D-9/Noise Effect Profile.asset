@@ -23,22 +23,22 @@ MonoBehaviour:
     m_Value: 16
   offset:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.3
     min: 0
     max: 10
   distortion:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.05
     min: 0
     max: 2
   distortionSpeed:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 1
     min: 0
     max: 100
   distortionDensity:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
     min: 0
     max: 10
   distortionAmplitude:
