@@ -678,12 +678,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlackMarketTransition
   goToThisScene: {fileID: 1746596813}
   animator: {fileID: 919573245}
-  triggerName: Knock
+  animationStateName: Knock
   audioSource: {fileID: 1140698141}
   knockSound: {fileID: 8300000, guid: c09968aa1a520f543bce595f956f9397, type: 3}
   doorOpenSound: {fileID: 8300000, guid: 15d6032aae4863f4fa46ac317ca0f4c3, type: 3}
-  startDelay: 3
-  afterKnock: 1
+  knockDelay: 1.9
   animationTime: 4.1
 --- !u!4 &240650262
 Transform:
@@ -1096,6 +1095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FadeOut
   blackImage: {fileID: 322350482}
   fadeDuration: 1
+  blackHoldTime: 1
 --- !u!1 &329198324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,12 +1463,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486833723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -841.918, y: -0.00001, z: -12061.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 691875448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &497846453
 PrefabInstance:
@@ -1992,6 +1992,7 @@ Transform:
   - {fileID: 2058768562}
   - {fileID: 1277167173}
   - {fileID: 569358867}
+  - {fileID: 486833726}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &758498478
@@ -5459,6 +5460,7 @@ MonoBehaviour:
   sceneName: BlackMarket
   blackImage: {fileID: 322350482}
   fadeDuration: 1
+  blackHoldTime: 0.5
   progress: 0
   buttonDay: 9
   report: 0
@@ -6331,7 +6333,6 @@ SceneRoots:
   - {fileID: 919573244}
   - {fileID: 284175525}
   - {fileID: 691875448}
-  - {fileID: 486833726}
   - {fileID: 1746596814}
   - {fileID: 1140698142}
   - {fileID: 1670545905}

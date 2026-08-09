@@ -10,31 +10,38 @@ public class FadeOut : MonoBehaviour
     [Header("Fade")]
     [SerializeField] private float fadeDuration = 1f;
 
+    [Header("Black Screen")]
+    [SerializeField] private float blackHoldTime = 0.5f;
+
     private void Start()
     {
         StartCoroutine(ImageFadeOut());
     }
 
-
     /// <summary>
-    /// 검정에서 화면으로 페이드아웃
+    /// 검은 화면 → 게임 화면
+    /// 실제 동작은 페이드 인처럼 보임
     /// </summary>
     public IEnumerator ImageFadeOut()
     {
         float t = 0f;
-        Color color = blackImage.color;
-        color.a = 1;
-        blackImage.color = color;
 
+        Color color = blackImage.color;
+        color.a = 1f;
+        blackImage.color = color;
+        yield return new WaitForSeconds(blackHoldTime);
         while (t < fadeDuration)
         {
             t += Time.deltaTime;
-            color.a = Mathf.Lerp(1, 0, t / fadeDuration);
+
+            color.a = Mathf.Lerp(1f, 0f, t / fadeDuration);
             blackImage.color = color;
+
             yield return null;
         }
 
-        color.a = 0;
+        color.a = 0f;
         blackImage.color = color;
     }
+
 }

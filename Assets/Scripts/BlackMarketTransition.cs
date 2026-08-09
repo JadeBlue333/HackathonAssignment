@@ -8,7 +8,7 @@ public class BlackMarketTransition : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
-    [SerializeField] private string triggerName = "Knock";
+    [SerializeField] private string animationStateName = "Knock";
 
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
@@ -16,8 +16,7 @@ public class BlackMarketTransition : MonoBehaviour
     [SerializeField] private AudioClip doorOpenSound;
 
     [Header("Timing")]
-    [SerializeField] private float startDelay = 3f;
-    [SerializeField] private float afterKnock= 0.5f;
+    [SerializeField] private float knockDelay = 1f;
     [SerializeField] private float animationTime = 5f;
 
     private void Start()
@@ -27,33 +26,36 @@ public class BlackMarketTransition : MonoBehaviour
 
     private IEnumerator DoorSequence()
     {
-        // 1. 씬 시작 후 3초 대기
-        yield return new WaitForSeconds(startDelay);
+        // 1. 씬 시작 즉시 애니메이션 재생
+        if (animator != null)
+        {
+            animator.Play(animationStateName);
+        }
 
-        // 2. 노크 효과음 재생
+        // 2. 노크 소리까지 대기
+        yield return new WaitForSeconds(knockDelay);
+
+        // 3. 노크 소리 재생
         if (audioSource != null && knockSound != null)
         {
             audioSource.PlayOneShot(knockSound);
         }
 
-        // 3. 노크 후 잠깐 대기
-        yield return new WaitForSeconds(afterKnock);
+        // 4. 애니메이션의 남은 시간 대기
+        float remainingTime = animationTime - knockDelay;
 
-        // 4. 문 열리는 애니메이션 재생
-        if (animator != null)
+        if (remainingTime > 0f)
         {
-            animator.SetTrigger(triggerName);
+            yield return new WaitForSeconds(remainingTime);
         }
 
-        yield return new WaitForSeconds(animationTime);
-
-        // 5. 문 열리는 효과음 재생
+        // 5. 문 열리는 소리
         if (audioSource != null && doorOpenSound != null)
         {
             audioSource.PlayOneShot(doorOpenSound);
         }
 
-        // 7. 기존 GoToThisScene의 nextSceneButton() 호출
+        // 6. 다음 씬 이동
         if (goToThisScene != null)
         {
             goToThisScene.nextSceneButton();

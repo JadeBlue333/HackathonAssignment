@@ -11,6 +11,7 @@ public class GoToThisScene : MonoBehaviour
     [Header("Fade")]
     public Image blackImage;
     public float fadeDuration = 1f;
+    public float blackHoldTime = 1f;
 
 
     // =========================================================
@@ -64,6 +65,11 @@ public class GoToThisScene : MonoBehaviour
                     fadeDuration
                 );
 
+                // 검은 화면 유지
+                yield return new WaitForSeconds(
+                    blackHoldTime
+                );
+
                 SceneManager.LoadScene(
                     sceneName
                 );
@@ -87,6 +93,11 @@ public class GoToThisScene : MonoBehaviour
 
             yield return new WaitForSeconds(
                 fadeDuration
+            );
+
+            // 검은 화면 유지
+            yield return new WaitForSeconds(
+                blackHoldTime
             );
 
 
@@ -183,6 +194,11 @@ public class GoToThisScene : MonoBehaviour
 
             yield return new WaitForSeconds(
                 fadeDuration
+            );
+
+            // 검은 화면 유지
+            yield return new WaitForSeconds(
+                blackHoldTime
             );
 
             SceneManager.LoadScene(
