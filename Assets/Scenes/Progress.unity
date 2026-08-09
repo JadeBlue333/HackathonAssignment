@@ -11163,6 +11163,30 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: fuelRecoveryLv1
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: fuelRecoveryLv2
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: fuelRecoveryLv3
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: trustRecoveryLv1
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: trustRecoveryLv2
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
+      propertyPath: trustRecoveryLv3
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
       propertyPath: fuelRecoveryLevel
       value: 0
       objectReference: {fileID: 0}

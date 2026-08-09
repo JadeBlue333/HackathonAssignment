@@ -62,9 +62,6 @@ public class Monologue : MonoBehaviour
         if (choiceButton2 != null)
             choiceButton2.onClick.AddListener(SelectChoice2);
 
-        // 돈에 따라 선택지 1 활성/비활성
-        UpdateChoice1Interactable();
-
         // 첫 대사 출력
         if (lines.Count > 0)
         {
@@ -187,8 +184,7 @@ public class Monologue : MonoBehaviour
             if (buttonText != null)
                 buttonText.text = choice1Text;
 
-            // 돈에 따라 선택지 1 활성/비활성
-            UpdateChoice1Interactable();
+            choiceButton1.interactable = true;
         }
 
         if (choiceButton2 != null)
@@ -206,36 +202,10 @@ public class Monologue : MonoBehaviour
     }
 
 
-    private void UpdateChoice1Interactable()
-    {
-        if (choiceButton1 == null)
-            return;
-
-        if (PlayerStatus.Instance == null)
-        {
-            choiceButton1.interactable = false;
-            return;
-        }
-
-        choiceButton1.interactable =
-            PlayerStatus.Instance.money >= choice1Cost;
-    }
-
-
     public void SelectChoice1()
     {
         if (choiceSelected)
             return;
-
-        // 돈이 부족하면 선택 불가능
-        if (PlayerStatus.Instance == null ||
-            PlayerStatus.Instance.money < choice1Cost)
-        {
-            return;
-        }
-
-        // 50C 지불
-        PlayerStatus.Instance.SpendMoney(choice1Cost);
 
         choiceSelected = true;
 

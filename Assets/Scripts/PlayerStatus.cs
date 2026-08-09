@@ -618,12 +618,13 @@ public class PlayerStatus : MonoBehaviour
             );
         }
 
-
+        //기본 연료 10 소모
+        fuel -= 10;
         mistakeNumber = 0;
         comboNumber = 0;
 
 
-        if (currentDay > 0)
+        if (currentDay > 0 || currentDay < 0)
         {
             currentDay--;
 
