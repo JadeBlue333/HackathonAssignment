@@ -48,10 +48,10 @@ MonoBehaviour:
   motorMatchManager: {fileID: 0}
   boxButtons: {fileID: 0}
   motorButtons: {fileID: 0}
-  unopenedReward: 3
-  aReward: 2
-  bReward: 1
-  cReward: 1
+  unopenedReward: 7
+  aReward: 5
+  bReward: 3
+  cReward: 3
   discardReward: 0
   trustPenalty: 5
   fuelCost: 2

@@ -46,11 +46,40 @@ public class MotorMatchManager7 : MonoBehaviour
 
     [Header("Rotation")]
 
+    [Tooltip("ê¸°ë³¸ ì¢Œí´ë¦­ ë“œë˜ê·¸ íšŒì „ ì†ë„")]
     [SerializeField]
-    private float mouseRotationSpeed = 0.2f;
+    private float baseMouseRotationSpeed = 0.2f;
+
+    [Tooltip("í™˜ê²½ì„¤ì • ê°’ì´ ì—†ì„ ë•Œ ì‚¬ìš©í•  ê¸°ë³¸ ë¬¼ì²´ íšŒì „ ê°ë„")]
+    [SerializeField]
+    private float defaultObjectRotationSensitivity = 1f;
 
     [SerializeField]
     private float fineRotationSpeed = 30f;
+
+    private const string ObjectRotationSensitivityKey =
+        "ObjectRotationSensitivity";
+
+
+    // =====================================================
+    // Zoom
+    // =====================================================
+
+    [Header("Zoom")]
+
+    [Tooltip("ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€/ì¶•ì†Œ ì†ë„")]
+    [SerializeField]
+    private float zoomSpeed = 0.15f;
+
+    [Tooltip("ìµœì†Œ í™•ëŒ€ ë¹„ìœ¨")]
+    [SerializeField]
+    private float minZoomScale = 0.7f;
+
+    [Tooltip("ìµœëŒ€ í™•ëŒ€ ë¹„ìœ¨")]
+    [SerializeField]
+    private float maxZoomScale = 2.0f;
+
+    private float currentZoomScale = 1f;
 
 
     // =====================================================
@@ -65,7 +94,10 @@ public class MotorMatchManager7 : MonoBehaviour
     [SerializeField]
     private string backPropellerName = "P_Back";
 
-    // °ÔÀÓ ¸ŞÀÎ º¯¼öÆÄÆ®.
+
+    // =====================================================
+    // Color
+    // =====================================================
 
     [Header("Color")]
 
@@ -82,11 +114,21 @@ public class MotorMatchManager7 : MonoBehaviour
     [SerializeField]
     private int backMaterialIndex = 0;
 
+
+    // =====================================================
+    // Missing Part
+    // =====================================================
+
     [Header("Missing Part")]
 
     [Range(0f, 100f)]
     [SerializeField]
     private float completeChance = 50f;
+
+
+    // =====================================================
+    // Stain
+    // =====================================================
 
     [Header("Stain")]
 
@@ -140,6 +182,8 @@ public class MotorMatchManager7 : MonoBehaviour
 
         HandleMouseRotation();
 
+        HandleMouseZoom();
+
         HandleFineRotation();
     }
 
@@ -184,41 +228,55 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (motorPrefab == null)
         {
-            Debug.LogError("Motor PrefabÀÌ ¾ø½À´Ï´Ù.");
+            Debug.LogError(
+                "Motor Prefabì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+            );
+
             valid = false;
         }
 
         if (displayAnchor == null)
         {
-            Debug.LogError("DisplayAnchor°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError(
+                "DisplayAnchorê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
+            );
+
             valid = false;
         }
 
         if (propellerMaterials.Count < 2)
         {
-            Debug.LogError("MaterialÀ» 2°³ ÀÌ»ó ³Ö¾îÁÖ¼¼¿ä.");
+            Debug.LogError(
+                "Propeller Materialì„ 2ê°œ ì´ìƒ ë„£ì–´ì£¼ì„¸ìš”."
+            );
+
             valid = false;
         }
 
         if (bodyMaterials.Count < 5)
         {
-            Debug.LogError("Body Material 5°³ ³Ö¾î¾ß ÇÔ.");
+            Debug.LogError(
+                "Body Materialì„ 5ê°œ ì´ìƒ ë„£ì–´ì£¼ì„¸ìš”."
+            );
+
             valid = false;
         }
 
         return valid;
     }
 
+
     // =====================================================
-    // ¹®Á¦ »ı¼º
+    // ë¬¸ì œ ìƒì„±
     // =====================================================
 
     public InspectionResult CreateNextMatch()
     {
         RemoveCurrentMotor();
 
+
         // -------------------------------------------------
-        // Holder »ı¼º
+        // Holder ìƒì„±
         // -------------------------------------------------
 
         currentHolder =
@@ -239,7 +297,18 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
         // -------------------------------------------------
-        // Motor »ı¼º
+        // Zoom ì´ˆê¸°í™”
+        // -------------------------------------------------
+
+        currentZoomScale =
+            1f;
+
+        currentHolder.transform.localScale =
+            Vector3.one;
+
+
+        // -------------------------------------------------
+        // Motor ìƒì„±
         // -------------------------------------------------
 
         currentMotor =
@@ -261,7 +330,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
         // -------------------------------------------------
-        // ÇÁ·ÎÆç·¯ Ã£±â
+        // í”„ë¡œí ëŸ¬ ì°¾ê¸°
         // -------------------------------------------------
 
         Transform front =
@@ -278,7 +347,9 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (front == null || back == null)
         {
-            Debug.LogError("ÇÁ·ÎÆç·¯¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogError(
+                "í”„ë¡œí ëŸ¬ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+            );
         }
 
         MeshRenderer frontRenderer =
@@ -290,18 +361,27 @@ public class MotorMatchManager7 : MonoBehaviour
         if (frontRenderer == null ||
             backRenderer == null)
         {
-            Debug.LogError("MeshRenderer¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogError(
+                "í”„ë¡œí ëŸ¬ MeshRendererë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+            );
         }
 
+
+        // -------------------------------------------------
+        // Body ì°¾ê¸°
+        // -------------------------------------------------
+
         Transform body =
-    FindChildRecursive(
-        currentMotor.transform,
-        bodyMeshName
-    );
+            FindChildRecursive(
+                currentMotor.transform,
+                bodyMeshName
+            );
 
         if (body == null)
         {
-            Debug.LogError("Body¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogError(
+                "Bodyë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
+            );
         }
 
         MeshRenderer bodyRenderer =
@@ -309,12 +389,14 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (bodyRenderer == null)
         {
-            Debug.LogError("Body MeshRenderer°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogError(
+                "Body MeshRendererê°€ ì—†ìŠµë‹ˆë‹¤."
+            );
         }
 
 
         // -------------------------------------------------
-        // ¾Õ ÇÁ·ÎÆç·¯ Material ¼±ÅÃ
+        // ê° í”„ë¡œí ëŸ¬ Material ê²°ì •
         // -------------------------------------------------
 
         int frontIndex =
@@ -327,7 +409,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
         // -------------------------------------------------
-        // Á¤»ó / ºÒ·® °áÁ¤
+        // ì •ìƒ / ë¶ˆëŸ‰ ê²°ì •
         // -------------------------------------------------
 
         bool sameColor =
@@ -337,17 +419,29 @@ public class MotorMatchManager7 : MonoBehaviour
             ) < sameColorChance;
 
         bool isComplete =
-    Random.Range(0f, 100f) < completeChance;
+            Random.Range(
+                0f,
+                100f
+            ) < completeChance;
 
 
-        // ¸öÅë ¸ÓÅÍ¸®¾ó ¾ó·è °áÁ¤
+        // -------------------------------------------------
+        // Body Material ëœë¤ ê²°ì •
+        // -------------------------------------------------
 
         int bodyIndex =
-    Random.Range(0, bodyMaterials.Count);
+            Random.Range(
+                0,
+                bodyMaterials.Count
+            );
 
         bool noStain =
             bodyIndex == 0;
 
+
+        // -------------------------------------------------
+        // í”„ë¡œí ëŸ¬ ìƒ‰ìƒ ê²°ì •
+        // -------------------------------------------------
 
         if (sameColor)
         {
@@ -362,10 +456,14 @@ public class MotorMatchManager7 : MonoBehaviour
                         0,
                         propellerMaterials.Count
                     );
-
             }
             while (backIndex == frontIndex);
         }
+
+
+        // -------------------------------------------------
+        // ë¶€í’ˆ ëˆ„ë½ ê²°ì •
+        // -------------------------------------------------
 
         if (isComplete)
         {
@@ -374,36 +472,52 @@ public class MotorMatchManager7 : MonoBehaviour
         }
         else
         {
-            int missingType = Random.Range(0, 3);
+            int missingType =
+                Random.Range(
+                    0,
+                    3
+                );
 
             switch (missingType)
             {
-                // ¾Õ¸¸ ¾øÀ½
+                // ì•ìª½ ëˆ„ë½
                 case 0:
+
                     front.gameObject.SetActive(false);
                     back.gameObject.SetActive(true);
+
                     break;
 
-                // µÚ¸¸ ¾øÀ½
+
+                // ë’¤ìª½ ëˆ„ë½
                 case 1:
+
                     front.gameObject.SetActive(true);
                     back.gameObject.SetActive(false);
+
                     break;
 
-                // µÑ ´Ù ¾øÀ½
+
+                // ë‘˜ ë‹¤ ëˆ„ë½
                 case 2:
+
                     front.gameObject.SetActive(false);
                     back.gameObject.SetActive(false);
+
                     break;
             }
         }
 
+
         // -------------------------------------------------
-        // Material Àû¿ë
+        // Material ì ìš©
         // -------------------------------------------------
 
-        Material[] frontMats = frontRenderer.materials;
-        Material[] backMats = backRenderer.materials;
+        Material[] frontMats =
+            frontRenderer.materials;
+
+        Material[] backMats =
+            backRenderer.materials;
 
         frontMats[frontMaterialIndex] =
             propellerMaterials[frontIndex];
@@ -411,13 +525,19 @@ public class MotorMatchManager7 : MonoBehaviour
         backMats[backMaterialIndex] =
             propellerMaterials[backIndex];
 
-        frontRenderer.materials = frontMats;
-        backRenderer.materials = backMats;
+        frontRenderer.materials =
+            frontMats;
+
+        backRenderer.materials =
+            backMats;
 
 
-        //¸ÓÅÍ¸®¾ó ¸öÅë ¾ó·è Àû¿ë
+        // -------------------------------------------------
+        // Body Material ì ìš©
+        // -------------------------------------------------
+
         Material[] bodyMats =
-    bodyRenderer.materials;
+            bodyRenderer.materials;
 
         bodyMats[bodyMaterialIndex] =
             bodyMaterials[bodyIndex];
@@ -436,72 +556,100 @@ public class MotorMatchManager7 : MonoBehaviour
 
         InspectionResult result;
 
-        // ºÎÇ°ÀÌ ÇÏ³ª¶óµµ ºüÁ³À¸¸é ¹«Á¶°Ç Æó±â
+
+        // -------------------------------------------------
+        // ë¶€í’ˆì´ í•˜ë‚˜ë¼ë„ ëˆ„ë½ë˜ë©´ íê¸°
+        // -------------------------------------------------
+
         if (!isComplete)
         {
-            result = InspectionResult.Discard;
+            result =
+                InspectionResult.Discard;
         }
         else
         {
-            // ºÎÇ°ÀÌ ¿Ï¼ºµÈ °æ¿ì¿¡¸¸ »ö»ó/¾ó·èÀ¸·Î µî±Ş °áÁ¤
+            // ì™„ì œí’ˆì¼ ê²½ìš° ìƒ‰ìƒ / ì–¼ë£© ì—¬ë¶€ ê³„ì‚°
             if (sameColor)
                 passCount++;
 
             if (noStain)
                 passCount++;
 
-            // ¿Ï¼º ¿©ºÎ´Â ÀÌ¹Ì È®ÀÎÇßÀ¸¹Ç·Î +1
+            // ì™„ì„± ì—¬ë¶€ëŠ” ì´ë¯¸ í™•ì¸ë˜ì—ˆìœ¼ë¯€ë¡œ +1
             passCount++;
+
 
             switch (passCount)
             {
                 case 3:
-                    result = InspectionResult.A;
+
+                    result =
+                        InspectionResult.A;
+
                     break;
+
 
                 case 2:
-                    result = InspectionResult.B;
+
+                    result =
+                        InspectionResult.B;
+
                     break;
+
 
                 case 1:
-                    result = InspectionResult.C;
+
+                    result =
+                        InspectionResult.C;
+
                     break;
 
+
                 default:
-                    result = InspectionResult.Discard;
+
+                    result =
+                        InspectionResult.Discard;
+
                     break;
             }
         }
 
+
         Debug.Log(
-    $"Color : {(sameColor ? "Same" : "Different")} | " +
-    $"Part : {(isComplete ? "Complete" : "Missing")} | " +
-    $"Stain : {(noStain ? "Clean" : "Dirty")} | " +
-    $"Pass : {passCount}/3 | " +
-    $"Result : {result}"
-);
+            $"Color : {(sameColor ? "Same" : "Different")} | " +
+            $"Part : {(isComplete ? "Complete" : "Missing")} | " +
+            $"Stain : {(noStain ? "Clean" : "Dirty")} | " +
+            $"Pass : {passCount}/3 | " +
+            $"Result : {result}"
+        );
 
         return result;
     }
 
+
     // =====================================================
-    // ÇöÀç Motor Á¦°Å
+    // í˜„ì¬ Motor ì œê±°
     // =====================================================
 
     public void RemoveCurrentMotor()
     {
         if (currentHolder != null)
         {
-            Destroy(currentHolder);
+            Destroy(
+                currentHolder
+            );
 
             currentHolder = null;
             currentMotor = null;
         }
+
+        currentZoomScale =
+            1f;
     }
 
 
     // =====================================================
-    // ÀÌ¸§À¸·Î ÀÚ½Ä Ã£±â
+    // ì´ë¦„ìœ¼ë¡œ ìì‹ ì°¾ê¸°
     // =====================================================
 
     private Transform FindChildRecursive(
@@ -529,7 +677,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
     // =====================================================
-    // ¸¶¿ì½º È¸Àü
+    // ë§ˆìš°ìŠ¤ íšŒì „
     // =====================================================
 
     private void HandleMouseRotation()
@@ -543,25 +691,41 @@ public class MotorMatchManager7 : MonoBehaviour
         if (!Mouse.current.leftButton.isPressed)
             return;
 
+
         Vector2 mouseDelta =
             Mouse.current.delta.ReadValue();
 
+
+        float objectRotationSensitivity =
+            PlayerPrefs.GetFloat(
+                ObjectRotationSensitivityKey,
+                defaultObjectRotationSensitivity
+            );
+
+
+        float finalRotationSpeed =
+            baseMouseRotationSpeed *
+            objectRotationSensitivity;
+
+
         float horizontalRotation =
             -mouseDelta.x *
-            mouseRotationSpeed;
+            finalRotationSpeed;
 
         float verticalRotation =
             mouseDelta.y *
-            mouseRotationSpeed;
+            finalRotationSpeed;
 
-        // ÁÂ¿ì
+
+        // ì¢Œìš°
         currentHolder.transform.Rotate(
             Vector3.up,
             horizontalRotation,
             Space.World
         );
 
-        // À§¾Æ·¡
+
+        // ìœ„ì•„ë˜
         currentHolder.transform.Rotate(
             Vector3.left,
             verticalRotation,
@@ -571,7 +735,54 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
     // =====================================================
-    // WASD È¸Àü
+    // ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€ / ì¶•ì†Œ
+    // =====================================================
+
+    private void HandleMouseZoom()
+    {
+        if (currentHolder == null)
+            return;
+
+        if (Mouse.current == null)
+            return;
+
+
+        float scrollValue =
+            Mouse.current.scroll.ReadValue().y;
+
+
+        // í™˜ê²½ì„¤ì •ì—ì„œ ìŠ¤í¬ë¡¤ ë°˜ì „ì´ ì¼œì ¸ ìˆìœ¼ë©´ ë°©í–¥ ë°˜ì „
+        if (ScrollInvertSetting.IsScrollInverted())
+        {
+            scrollValue *= -1f;
+        }
+
+
+        if (Mathf.Abs(scrollValue) < 0.01f)
+            return;
+
+
+        currentZoomScale +=
+            Mathf.Sign(scrollValue) *
+            zoomSpeed;
+
+
+        currentZoomScale =
+            Mathf.Clamp(
+                currentZoomScale,
+                minZoomScale,
+                maxZoomScale
+            );
+
+
+        currentHolder.transform.localScale =
+            Vector3.one *
+            currentZoomScale;
+    }
+
+
+    // =====================================================
+    // WASD ë¯¸ì„¸ íšŒì „
     // =====================================================
 
     private void HandleFineRotation()
@@ -582,8 +793,10 @@ public class MotorMatchManager7 : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
+
         float verticalRotation = 0f;
         float horizontalRotation = 0f;
+
 
         if (Keyboard.current.wKey.isPressed)
         {
@@ -592,12 +805,14 @@ public class MotorMatchManager7 : MonoBehaviour
                 Time.deltaTime;
         }
 
+
         if (Keyboard.current.sKey.isPressed)
         {
             verticalRotation -=
                 fineRotationSpeed *
                 Time.deltaTime;
         }
+
 
         if (Keyboard.current.aKey.isPressed)
         {
@@ -606,12 +821,14 @@ public class MotorMatchManager7 : MonoBehaviour
                 Time.deltaTime;
         }
 
+
         if (Keyboard.current.dKey.isPressed)
         {
             horizontalRotation -=
                 fineRotationSpeed *
                 Time.deltaTime;
         }
+
 
         if (verticalRotation != 0f)
         {
@@ -621,6 +838,7 @@ public class MotorMatchManager7 : MonoBehaviour
                 Space.World
             );
         }
+
 
         if (horizontalRotation != 0f)
         {
@@ -632,8 +850,9 @@ public class MotorMatchManager7 : MonoBehaviour
         }
     }
 
+
     // =====================================================
-    // Inspector Á¦ÇÑ
+    // Inspector ê°’ ë³´ì •
     // =====================================================
 
     private void OnValidate()
@@ -645,16 +864,46 @@ public class MotorMatchManager7 : MonoBehaviour
                 100f
             );
 
-        mouseRotationSpeed =
+
+        baseMouseRotationSpeed =
             Mathf.Max(
                 0f,
-                mouseRotationSpeed
+                baseMouseRotationSpeed
             );
+
+
+        defaultObjectRotationSensitivity =
+            Mathf.Max(
+                0f,
+                defaultObjectRotationSensitivity
+            );
+
 
         fineRotationSpeed =
             Mathf.Max(
                 0f,
                 fineRotationSpeed
+            );
+
+
+        zoomSpeed =
+            Mathf.Max(
+                0f,
+                zoomSpeed
+            );
+
+
+        minZoomScale =
+            Mathf.Max(
+                0.1f,
+                minZoomScale
+            );
+
+
+        maxZoomScale =
+            Mathf.Max(
+                minZoomScale,
+                maxZoomScale
             );
     }
 }

@@ -4134,7 +4134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &246820692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4426,7 +4426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &265425201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4528,10 +4528,10 @@ RectTransform:
   - {fileID: 1439471796}
   m_Father: {fileID: 239666262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185, y: -200}
-  m_SizeDelta: {x: 290, y: 320}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267281130
 MonoBehaviour:
@@ -10865,6 +10865,7 @@ GameObject:
   - component: {fileID: 766488469}
   - component: {fileID: 766488472}
   - component: {fileID: 766488473}
+  - component: {fileID: 766488474}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -10959,9 +10960,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 285070609}
-        m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
-        m_MethodName: nextSceneButton
+      - m_Target: {fileID: 766488474}
+        m_TargetAssemblyTypeName: SuspiciousShopToProgress, Assembly-CSharp
+        m_MethodName: GoToProgress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11035,6 +11036,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetActive
   targetObject: {fileID: 1318488954}
+--- !u!114 &766488474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766488467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: add5755501a4f4a938d081b936e8dffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SuspiciousShopToProgress
+  progressSceneName: Progress
 --- !u!1 &771194979
 GameObject:
   m_ObjectHideFlags: 0
@@ -12726,10 +12740,10 @@ RectTransform:
   - {fileID: 445213762}
   m_Father: {fileID: 239666262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 505, y: -540}
-  m_SizeDelta: {x: 290, y: 320}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &923132971
 MonoBehaviour:
@@ -15197,10 +15211,10 @@ RectTransform:
   - {fileID: 1421753058}
   m_Father: {fileID: 239666262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 505, y: -200}
-  m_SizeDelta: {x: 290, y: 320}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1118158736
 MonoBehaviour:
@@ -18158,10 +18172,10 @@ RectTransform:
   - {fileID: 1152422441}
   m_Father: {fileID: 239666262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185, y: -540}
-  m_SizeDelta: {x: 290, y: 320}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1353662491
 MonoBehaviour:

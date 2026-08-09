@@ -6372,10 +6372,10 @@ MonoBehaviour:
   motorMatchManager: {fileID: 2000313725}
   boxButtons: {fileID: 277148465}
   motorButtons: {fileID: 1099938106}
-  unopenedReward: 3
-  aReward: 2
-  bReward: 1
-  cReward: 1
+  unopenedReward: 7
+  aReward: 5
+  bReward: 3
+  cReward: 3
   discardReward: 0
   trustPenalty: 5
   fuelCost: 2
@@ -9975,7 +9975,8 @@ MonoBehaviour:
   motorLocalPosition: {x: 0, y: 0, z: 0}
   motorLocalRotation: {x: 0, y: 0, z: 0}
   motorScale: {x: 25, y: 25, z: 25}
-  mouseRotationSpeed: 0.2
+  baseMouseRotationSpeed: 0.2
+  defaultObjectRotationSensitivity: 1
   fineRotationSpeed: 30
   frontPropellerName: P_Front
   backPropellerName: P_Back

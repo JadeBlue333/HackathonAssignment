@@ -1186,6 +1186,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 6416128617549723406, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6559084658330084321, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Name
       value: 2_Opened
@@ -6365,10 +6369,10 @@ MonoBehaviour:
   motorMatchManager: {fileID: 2000313723}
   boxButtons: {fileID: 277148465}
   motorButtons: {fileID: 1099938106}
-  unopenedReward: 3
-  aReward: 2
-  bReward: 1
-  cReward: 1
+  unopenedReward: 7
+  aReward: 5
+  bReward: 3
+  cReward: 3
   discardReward: 0
   trustPenalty: 5
   fuelCost: 2
