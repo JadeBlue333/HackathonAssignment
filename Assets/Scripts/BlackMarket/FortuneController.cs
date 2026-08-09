@@ -8,9 +8,6 @@ public class FortuneController : MonoBehaviour
     {
         [TextArea(2, 5)]
         public string fortuneText;
-
-        [Tooltip("돈 증감값. 예: 100 = +100 / -50 = -50")]
-        public int moneyChange;
     }
 
     [Header("오늘의 운세 페이지")]
@@ -24,28 +21,20 @@ public class FortuneController : MonoBehaviour
 
 
     // ================================
-    // 나중에 다른 시스템으로 넘길 데이터
-    // 선택된 운세의 돈 증감값
-    //
-    // 예:
-    // +100 → 돈 100 증가
-    // -50  → 돈 50 감소
-    //
-    // 다른 스크립트에서
-    // fortuneController.MoneyChange
-    // 로 가져가면 됨.
+    // 선택된 운세의 돈 변화량
     // ================================
     public int MoneyChange { get; private set; } = 0;
 
 
     // ================================
-    // 어떤 운세가 선택됐는지 저장
-    // 0부터 시작
+    // 선택된 운세 인덱스
     // ================================
     public int SelectedFortuneIndex { get; private set; } = -1;
 
 
-    // 버튼에서 이 함수 호출
+    // ================================
+    // 버튼에서 호출
+    // ================================
     public void OpenFortune()
     {
         if (fortunePanel != null)
@@ -65,14 +54,13 @@ public class FortuneController : MonoBehaviour
             return;
         }
 
-        // 운세 중 하나 랜덤 선택
+        // 모든 운세 동일 확률
         SelectedFortuneIndex = Random.Range(0, fortunes.Length);
 
-        FortuneData selectedFortune =
-            fortunes[SelectedFortuneIndex];
+        FortuneData selectedFortune = fortunes[SelectedFortuneIndex];
 
 
-        // 화면에 운세 문구 표시
+        // 운세 문구 표시
         if (fortuneText != null)
         {
             fortuneText.text = selectedFortune.fortuneText;
@@ -80,20 +68,48 @@ public class FortuneController : MonoBehaviour
 
 
         // ================================
-        // [데이터 전달용 결과 저장 부분]
-        //
-        // 선택된 운세에 설정된 돈 증감값 저장
-        //
-        // 나중에 실제 플레이어 돈 시스템에
-        // 이 값을 전달하면 됨.
+        // 운세에 따른 실제 돈 처리
         // ================================
-        MoneyChange = selectedFortune.moneyChange;
+
+        // --------------------------------
+        // 첫 번째 운세 (인덱스 0)
+        // 가진 돈 2배
+        // --------------------------------
+        if (SelectedFortuneIndex == 0)
+        {
+            int currentMoney = PlayerStatus.Instance.money;
+
+            PlayerStatus.Instance.AddMoney(currentMoney);
+
+            Debug.Log(
+                $"대박! 가진 돈이 2배가 되었습니다. " +
+                $"현재 소지금: {PlayerStatus.Instance.money}"
+            );
+        }
 
 
-        // 테스트용
+        // --------------------------------
+        // 마지막 운세 (인덱스 9)
+        // 가진 돈 전부 몰수
+        // --------------------------------
+        else if (SelectedFortuneIndex == fortunes.Length - 1)
+        {
+            int currentMoney = PlayerStatus.Instance.money;
+
+            PlayerStatus.Instance.SpendMoney(currentMoney);
+
+            Debug.Log(
+                $"최악의 운세! 가진 돈을 전부 몰수당했습니다. " +
+                $"현재 소지금: {PlayerStatus.Instance.money}"
+            );
+        }
+
+        // 테스트용 로그
         Debug.Log(
             $"오늘의 운세: {selectedFortune.fortuneText} / " +
-            $"돈 변화: {MoneyChange}"
+            $"인덱스: {SelectedFortuneIndex} / " +
+            $"돈 변화: {MoneyChange} / " +
+            $"현재 소지금: {PlayerStatus.Instance.money}"
         );
     }
 }

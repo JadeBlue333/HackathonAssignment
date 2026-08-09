@@ -15,6 +15,12 @@ public class FadeOut : MonoBehaviour
 
     private void Start()
     {
+        // Black Image가 들어있는 GameObject가 비활성화되어 있다면 활성화
+        if (!blackImage.gameObject.activeSelf)
+        {
+            blackImage.gameObject.SetActive(true);
+        }
+
         StartCoroutine(ImageFadeOut());
     }
 
@@ -29,7 +35,9 @@ public class FadeOut : MonoBehaviour
         Color color = blackImage.color;
         color.a = 1f;
         blackImage.color = color;
+
         yield return new WaitForSeconds(blackHoldTime);
+
         while (t < fadeDuration)
         {
             t += Time.deltaTime;
@@ -43,5 +51,4 @@ public class FadeOut : MonoBehaviour
         color.a = 0f;
         blackImage.color = color;
     }
-
 }

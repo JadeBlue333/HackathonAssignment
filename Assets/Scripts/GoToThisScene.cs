@@ -15,6 +15,18 @@ public class GoToThisScene : MonoBehaviour
 
 
     // =========================================================
+    // BGM
+    // =========================================================
+
+    [Header("BGM (선택사항)")]
+    [Tooltip("연결되어 있으면 씬 전환 시 BGM이 페이드아웃됩니다.")]
+    public AudioSource bgmSource;
+
+    [Tooltip("BGM 페이드아웃 시간")]
+    public float bgmFadeDuration = 1f;
+
+
+    // =========================================================
     // Progress
     // =========================================================
 
@@ -61,6 +73,9 @@ public class GoToThisScene : MonoBehaviour
             {
                 StartCoroutine(FadeIn());
 
+                // BGM 페이드아웃 시작
+                StartBGMFadeOut();
+
                 yield return new WaitForSeconds(
                     fadeDuration
                 );
@@ -90,6 +105,9 @@ public class GoToThisScene : MonoBehaviour
         else if (report)
         {
             StartCoroutine(FadeIn());
+
+            // BGM 페이드아웃 시작
+            StartBGMFadeOut();
 
             yield return new WaitForSeconds(
                 fadeDuration
@@ -139,9 +157,7 @@ public class GoToThisScene : MonoBehaviour
                 // 돈이 충분할 때만 구매
                 if (PlayerStatus.Instance.SpendMoney(20))
                 {
-                    PlayerStatus.Instance.AddFuel(
-                        30
-                    );
+                    PlayerStatus.Instance.AddFuel(30);
 
                     Debug.Log(
                         "연료 구매 완료 / 연료 +30"
@@ -192,6 +208,9 @@ public class GoToThisScene : MonoBehaviour
         {
             StartCoroutine(FadeIn());
 
+            // BGM 페이드아웃 시작
+            StartBGMFadeOut();
+
             yield return new WaitForSeconds(
                 fadeDuration
             );
@@ -205,6 +224,71 @@ public class GoToThisScene : MonoBehaviour
                 sceneName
             );
         }
+    }
+
+
+    // =========================================================
+    // BGM Fade Out
+    // =========================================================
+
+    private void StartBGMFadeOut()
+    {
+        // BGM이 연결되어 있지 않으면 아무것도 하지 않음
+        if (bgmSource == null)
+        {
+            return;
+        }
+
+        // 재생 중이 아니면 아무것도 하지 않음
+        if (!bgmSource.isPlaying)
+        {
+            return;
+        }
+
+        StartCoroutine(FadeOutBGM());
+    }
+
+
+    private IEnumerator FadeOutBGM()
+    {
+        float startVolume = bgmSource.volume;
+        float t = 0f;
+
+        // 페이드 시간에 0을 넣어도 오류 없이 처리
+        if (bgmFadeDuration <= 0f)
+        {
+            bgmSource.volume = 0f;
+            bgmSource.Stop();
+            bgmSource.volume = startVolume;
+
+            yield break;
+        }
+
+        while (t < bgmFadeDuration)
+        {
+            // AudioSource가 삭제되었으면 종료
+            if (bgmSource == null)
+            {
+                yield break;
+            }
+
+            t += Time.deltaTime;
+
+            bgmSource.volume = Mathf.Lerp(
+                startVolume,
+                0f,
+                t / bgmFadeDuration
+            );
+
+            yield return null;
+        }
+
+        bgmSource.volume = 0f;
+        bgmSource.Stop();
+
+        // 혹시 같은 AudioSource를 다시 사용할 경우를 위해
+        // 원래 볼륨으로 복구
+        bgmSource.volume = startVolume;
     }
 
 
