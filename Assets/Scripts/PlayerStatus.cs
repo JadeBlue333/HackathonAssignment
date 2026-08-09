@@ -39,18 +39,19 @@ public class PlayerStatus : MonoBehaviour
         comboNumber = 0;
         mistakeNumber = 0;
 
+        // 인간 파츠 초기화
+        humanBody = false;
+        humanHead = false;
+        humanHeart = false;
+
         isHuman = false;
+
 
         // 스킬 초기화
         fuelRecoveryLevel = 0;
         trustRecoveryLevel = 0;
-        concealItemLevel = 0;
         highRiskHighReturnLevel = 0;
         workTimeLevel = 0;
-
-
-        // 은폐 아이템 사용 횟수 초기화
-        concealUsesToday = 0;
 
 
         // 기본 작업 시간 적용
@@ -77,7 +78,6 @@ public class PlayerStatus : MonoBehaviour
     [Header("Money")]
     public int money;
 
-    // 이번 하루 동안 벌어들인 금액
     public int earnings;
 
 
@@ -107,16 +107,25 @@ public class PlayerStatus : MonoBehaviour
     public const int TrustGradeA = 70;
     public const int TrustGradeB = 40;
 
+
     // =========================================================
     // Human Parts
     // =========================================================
 
     [Header("Human Parts")]
+
+    [Tooltip("인간의 몸 파츠 보유 여부")]
     public bool humanBody = false;
+
+    [Tooltip("인간의 머리 파츠 보유 여부")]
     public bool humanHead = false;
+
+    [Tooltip("인간의 심장 파츠 보유 여부")]
     public bool humanHeart = false;
 
+    [Tooltip("인간이 되었는지 여부")]
     public bool isHuman = false;
+
 
     // =========================================================
     // Skill Tree - Current Levels
@@ -131,10 +140,6 @@ public class PlayerStatus : MonoBehaviour
     [Tooltip("신뢰도 자동 회복 Lv.0~3")]
     [Range(0, 3)]
     public int trustRecoveryLevel = 0;
-
-    [Tooltip("하자 은폐 아이템 사용횟수 증가 Lv.0~3")]
-    [Range(0, 3)]
-    public int concealItemLevel = 0;
 
     [Tooltip("하이리스크 하이리턴 Lv.0~1")]
     [Range(0, 1)]
@@ -184,31 +189,6 @@ public class PlayerStatus : MonoBehaviour
 
 
     // =========================================================
-    // Skill Tree - Conceal Item
-    // =========================================================
-
-    [Header("Skill - Conceal Item")]
-
-    [Tooltip("스킬이 없을 때 기본 은폐 아이템 사용 가능 횟수")]
-    [SerializeField]
-    private int baseConcealUses = 1;
-
-    [Tooltip("Lv.1 추가 횟수")]
-    [SerializeField]
-    private int concealBonusLv1 = 1;
-
-    [Tooltip("Lv.2 추가 횟수")]
-    [SerializeField]
-    private int concealBonusLv2 = 2;
-
-    [Tooltip("Lv.3 추가 횟수")]
-    [SerializeField]
-    private int concealBonusLv3 = 3;
-
-    public int concealUsesToday = 0;
-
-
-    // =========================================================
     // Skill Tree - Work Time
     // =========================================================
 
@@ -233,9 +213,14 @@ public class PlayerStatus : MonoBehaviour
     public float dayDuration = 180f;
 
 
+    // =========================================================
+    // Combo / Mistake
+    // =========================================================
+
     [Header("콤보 / 실수")]
     public int comboNumber = 0;
     public int mistakeNumber = 0;
+
 
     // =========================================================
     // Money Functions
@@ -369,6 +354,66 @@ public class PlayerStatus : MonoBehaviour
 
 
     // =========================================================
+    // Human Parts Functions
+    // =========================================================
+
+    public void ObtainHumanHead()
+    {
+        if (humanHead)
+            return;
+
+        humanHead = true;
+
+        Debug.Log("인간 파츠 획득: 머리");
+
+        RefreshHumanPartUI();
+    }
+
+
+    public void ObtainHumanBody()
+    {
+        if (humanBody)
+            return;
+
+        humanBody = true;
+
+        Debug.Log("인간 파츠 획득: 몸");
+
+        RefreshHumanPartUI();
+    }
+
+
+    public void ObtainHumanHeart()
+    {
+        if (humanHeart)
+            return;
+
+        humanHeart = true;
+
+        Debug.Log("인간 파츠 획득: 심장");
+
+        RefreshHumanPartUI();
+    }
+
+
+    private void RefreshHumanPartUI()
+    {
+        if (HumanPartInventoryUI.Instance != null)
+        {
+            HumanPartInventoryUI.Instance.RefreshAll();
+        }
+    }
+
+
+    public bool HasAllHumanParts()
+    {
+        return humanBody &&
+               humanHead &&
+               humanHeart;
+    }
+
+
+    // =========================================================
     // Skill - Fuel Recovery
     // =========================================================
 
@@ -415,77 +460,6 @@ public class PlayerStatus : MonoBehaviour
 
 
     // =========================================================
-    // Skill - Conceal Item
-    // =========================================================
-
-    public int GetMaxConcealUses()
-    {
-        int bonus = 0;
-
-        switch (concealItemLevel)
-        {
-            case 1:
-                bonus = concealBonusLv1;
-                break;
-
-            case 2:
-                bonus = concealBonusLv2;
-                break;
-
-            case 3:
-                bonus = concealBonusLv3;
-                break;
-        }
-
-        return baseConcealUses + bonus;
-    }
-
-
-    public int GetRemainingConcealUses()
-    {
-        return Mathf.Max(
-            0,
-            GetMaxConcealUses() - concealUsesToday
-        );
-    }
-
-
-    public bool CanUseConcealItem()
-    {
-        return concealUsesToday <
-               GetMaxConcealUses();
-    }
-
-
-    public bool UseConcealItem()
-    {
-        if (!CanUseConcealItem())
-        {
-            Debug.Log(
-                "오늘 사용할 수 있는 하자 은폐 횟수를 모두 사용했습니다."
-            );
-
-            return false;
-        }
-
-        concealUsesToday++;
-
-        Debug.Log(
-            $"하자 은폐 사용 " +
-            $"{concealUsesToday} / {GetMaxConcealUses()}"
-        );
-
-        return true;
-    }
-
-
-    private void ResetConcealUses()
-    {
-        concealUsesToday = 0;
-    }
-
-
-    // =========================================================
     // Skill - High Risk High Return
     // =========================================================
 
@@ -507,21 +481,6 @@ public class PlayerStatus : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 현재 작업 종료 시각을 게임 내 "분" 기준으로 반환.
-    ///
-    /// 기본:
-    /// 15:00 = 900분
-    ///
-    /// Lv.1:
-    /// 15:30 = 930분
-    ///
-    /// Lv.2:
-    /// 16:00 = 960분
-    ///
-    /// Lv.3:
-    /// 16:30 = 990분
-    /// </summary>
     public int GetWorkEndTimeMinutes()
     {
         int baseEndMinutes =
@@ -580,10 +539,6 @@ public class PlayerStatus : MonoBehaviour
         }
 
 
-        // 은폐 아이템 사용 횟수 초기화
-        ResetConcealUses();
-
-
         // 작업시간 재계산
         UpdateDayDuration();
 
@@ -601,13 +556,21 @@ public class PlayerStatus : MonoBehaviour
 
     public void NextDay()
     {
-        if (humanBody && humanHead && humanHeart)
+        // 세 파츠를 전부 가진 상태에서
+        // 다음 날로 넘어갈 때만 인간 상태 활성화
+        if (HasAllHumanParts())
         {
             isHuman = true;
+
+            Debug.Log(
+                "모든 인간 파츠를 보유했습니다. 인간 상태가 활성화됩니다."
+            );
         }
+
 
         mistakeNumber = 0;
         comboNumber = 0;
+
 
         if (currentDay > 0)
         {
@@ -619,13 +582,15 @@ public class PlayerStatus : MonoBehaviour
         }
         else
         {
-            Debug.Log("D-Day입니다.");
+            Debug.Log(
+                "D-Day입니다."
+            );
         }
     }
 
 
     // =========================================================
-    // Skill Purchase
+    // Skill Purchase - Fuel Recovery
     // =========================================================
 
     public bool PurchaseFuelRecovery(int cost)
@@ -639,18 +604,26 @@ public class PlayerStatus : MonoBehaviour
             return false;
         }
 
+
         if (!SpendMoney(cost))
             return false;
 
+
         fuelRecoveryLevel++;
+
 
         Debug.Log(
             $"연료 자동회복 Lv.{fuelRecoveryLevel} 구매"
         );
 
+
         return true;
     }
 
+
+    // =========================================================
+    // Skill Purchase - Trust Recovery
+    // =========================================================
 
     public bool PurchaseTrustRecovery(int cost)
     {
@@ -663,42 +636,26 @@ public class PlayerStatus : MonoBehaviour
             return false;
         }
 
+
         if (!SpendMoney(cost))
             return false;
 
+
         trustRecoveryLevel++;
+
 
         Debug.Log(
             $"신뢰 자동회복 Lv.{trustRecoveryLevel} 구매"
         );
 
-        return true;
-    }
-
-
-    public bool PurchaseConcealItem(int cost)
-    {
-        if (concealItemLevel >= 3)
-        {
-            Debug.Log(
-                "하자 은폐 스킬은 최대 레벨입니다."
-            );
-
-            return false;
-        }
-
-        if (!SpendMoney(cost))
-            return false;
-
-        concealItemLevel++;
-
-        Debug.Log(
-            $"하자 은폐 Lv.{concealItemLevel} 구매"
-        );
 
         return true;
     }
 
+
+    // =========================================================
+    // Skill Purchase - High Risk High Return
+    // =========================================================
 
     public bool PurchaseHighRiskHighReturn(int cost)
     {
@@ -711,22 +668,29 @@ public class PlayerStatus : MonoBehaviour
             return false;
         }
 
+
         if (!SpendMoney(cost))
             return false;
 
+
         highRiskHighReturnLevel = 1;
+
 
         Debug.Log(
             "하이리스크 하이리턴 구매"
         );
 
+
         return true;
     }
 
 
+    // =========================================================
+    // Skill Purchase - Work Time
+    // =========================================================
+
     public bool PurchaseWorkTime(int cost)
     {
-        // ★ Lv.3까지
         if (workTimeLevel >= 3)
         {
             Debug.Log(
@@ -736,18 +700,23 @@ public class PlayerStatus : MonoBehaviour
             return false;
         }
 
+
         if (!SpendMoney(cost))
             return false;
 
+
         workTimeLevel++;
 
+
         UpdateDayDuration();
+
 
         Debug.Log(
             $"작업시간 증가 Lv.{workTimeLevel} 구매 / " +
             $"실제 작업시간 {dayDuration}초 / " +
             $"종료시각 {GetWorkEndHour():00}:{GetWorkEndMinute():00}"
         );
+
 
         return true;
     }

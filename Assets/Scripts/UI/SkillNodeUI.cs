@@ -12,7 +12,6 @@ public class SkillNodeUI : MonoBehaviour
     {
         FuelRecovery,          // 자가 충전 회로
         TrustRecovery,         // 평판 보정 모듈
-        ConcealProtocol,       // 은폐 프로토콜
         HighRiskHighReturn,    // 과부하 계약
         WorkTime               // 작업 연장 모듈
     }
@@ -109,6 +108,21 @@ public class SkillNodeUI : MonoBehaviour
 
 
     // =========================================================
+    // OnDestroy
+    // =========================================================
+
+    private void OnDestroy()
+    {
+        if (nodeButton != null)
+        {
+            nodeButton.onClick.RemoveListener(
+                OnNodeClicked
+            );
+        }
+    }
+
+
+    // =========================================================
     // Start
     // =========================================================
 
@@ -161,11 +175,19 @@ public class SkillNodeUI : MonoBehaviour
 
         switch (skillType)
         {
+            // -------------------------------------------------
+            // 자가 충전 회로
+            // -------------------------------------------------
+
             case SkillType.FuelRecovery:
 
                 return PlayerStatus.Instance
                     .fuelRecoveryLevel >= level;
 
+
+            // -------------------------------------------------
+            // 평판 보정 모듈
+            // -------------------------------------------------
 
             case SkillType.TrustRecovery:
 
@@ -173,17 +195,19 @@ public class SkillNodeUI : MonoBehaviour
                     .trustRecoveryLevel >= level;
 
 
-            case SkillType.ConcealProtocol:
-
-                return PlayerStatus.Instance
-                    .concealItemLevel >= level;
-
+            // -------------------------------------------------
+            // 과부하 계약
+            // -------------------------------------------------
 
             case SkillType.HighRiskHighReturn:
 
                 return PlayerStatus.Instance
                     .highRiskHighReturnLevel >= level;
 
+
+            // -------------------------------------------------
+            // 작업 연장 모듈
+            // -------------------------------------------------
 
             case SkillType.WorkTime:
 
@@ -217,11 +241,19 @@ public class SkillNodeUI : MonoBehaviour
 
         switch (skillType)
         {
+            // -------------------------------------------------
+            // 자가 충전 회로
+            // -------------------------------------------------
+
             case SkillType.FuelRecovery:
 
                 return PlayerStatus.Instance
                     .fuelRecoveryLevel >= requiredLevel;
 
+
+            // -------------------------------------------------
+            // 평판 보정 모듈
+            // -------------------------------------------------
 
             case SkillType.TrustRecovery:
 
@@ -229,16 +261,19 @@ public class SkillNodeUI : MonoBehaviour
                     .trustRecoveryLevel >= requiredLevel;
 
 
-            case SkillType.ConcealProtocol:
-
-                return PlayerStatus.Instance
-                    .concealItemLevel >= requiredLevel;
-
+            // -------------------------------------------------
+            // 과부하 계약
+            // 단일 스킬이므로 선행 조건 없음
+            // -------------------------------------------------
 
             case SkillType.HighRiskHighReturn:
 
                 return true;
 
+
+            // -------------------------------------------------
+            // 작업 연장 모듈
+            // -------------------------------------------------
 
             case SkillType.WorkTime:
 
@@ -273,14 +308,18 @@ public class SkillNodeUI : MonoBehaviour
         if (PlayerStatus.Instance == null)
             return false;
 
+
         if (IsPurchased())
             return false;
+
 
         if (!IsPreviousLevelPurchased())
             return false;
 
+
         if (!HasEnoughMoney())
             return false;
+
 
         return true;
     }
@@ -325,21 +364,6 @@ public class SkillNodeUI : MonoBehaviour
                 success =
                     PlayerStatus.Instance
                         .PurchaseTrustRecovery(
-                            price
-                        );
-
-                break;
-
-
-            // -------------------------------------------------
-            // 은폐 프로토콜
-            // -------------------------------------------------
-
-            case SkillType.ConcealProtocol:
-
-                success =
-                    PlayerStatus.Instance
-                        .PurchaseConcealItem(
                             price
                         );
 
@@ -401,6 +425,7 @@ public class SkillNodeUI : MonoBehaviour
         if (purchasedTargetImage == null)
             return;
 
+
         purchasedTargetImage.SetActive(
             IsPurchased()
         );
@@ -419,6 +444,7 @@ public class SkillNodeUI : MonoBehaviour
                 price
             );
 
+
         level =
             Mathf.Max(
                 1,
@@ -426,8 +452,8 @@ public class SkillNodeUI : MonoBehaviour
             );
 
 
-        // 에디터에서 가격을 수정했을 때도
-        // 연결된 텍스트가 바로 변경됨
+        // 에디터에서 가격 수정 시
+        // 연결된 텍스트 바로 갱신
         RefreshPriceText();
     }
 }
