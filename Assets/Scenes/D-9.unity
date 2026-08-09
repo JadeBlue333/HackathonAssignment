@@ -1050,6 +1050,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1244279058}
+    - target: {fileID: 1954592976970970205, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2279079438988674714, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -9490,6 +9494,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3610665012300117836, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: chatPopUp
+      value: 
+      objectReference: {fileID: 14884785}
     - target: {fileID: 3826705655921370925, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: rotationTarget
       value: 
@@ -9532,7 +9540,7 @@ PrefabInstance:
       objectReference: {fileID: 1921510401}
     - target: {fileID: 6943558571293508360, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7395413098346636766, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_Camera
