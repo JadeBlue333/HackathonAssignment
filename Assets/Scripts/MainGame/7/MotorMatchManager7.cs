@@ -431,31 +431,46 @@ public class MotorMatchManager7 : MonoBehaviour
         if (sameColor)
             passCount++;
 
-        if (isComplete)
-            passCount++;
-
         if (noStain)
             passCount++;
 
         InspectionResult result;
 
-        switch (passCount)
+        // 부품이 하나라도 빠졌으면 무조건 폐기
+        if (!isComplete)
         {
-            case 3:
-                result = InspectionResult.A;
-                break;
+            result = InspectionResult.Discard;
+        }
+        else
+        {
+            // 부품이 완성된 경우에만 색상/얼룩으로 등급 결정
+            if (sameColor)
+                passCount++;
 
-            case 2:
-                result = InspectionResult.B;
-                break;
+            if (noStain)
+                passCount++;
 
-            case 1:
-                result = InspectionResult.C;
-                break;
+            // 완성 여부는 이미 확인했으므로 +1
+            passCount++;
 
-            default:
-                result = InspectionResult.Discard;
-                break;
+            switch (passCount)
+            {
+                case 3:
+                    result = InspectionResult.A;
+                    break;
+
+                case 2:
+                    result = InspectionResult.B;
+                    break;
+
+                case 1:
+                    result = InspectionResult.C;
+                    break;
+
+                default:
+                    result = InspectionResult.Discard;
+                    break;
+            }
         }
 
         Debug.Log(

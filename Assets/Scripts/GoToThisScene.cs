@@ -11,7 +11,7 @@ public class GoToThisScene : MonoBehaviour
     [Header("Fade")]
     public Image blackImage;
     public float fadeDuration = 1f;
-    public float blackHoldTime = 1f;
+    public float blackHoldTime = 0.25f;
 
 
     // =========================================================
@@ -85,9 +85,20 @@ public class GoToThisScene : MonoBehaviour
                     blackHoldTime
                 );
 
+                //저장된 날짜와 현재 날짜가 다르면 Progress SnapShot을 저장.
+                if (PlayerStatus.Instance.IsProgressSnapshotDifferentDay())
+                {
+                    PlayerStatus.Instance.SaveProgressSnapshot();
+                }
+                //저장된 날짜와 현재 날짜가 같으면 Progress SnapShot을 불러옴.
+                else
+                {
+                    PlayerStatus.Instance.LoadProgressSnapshot();
+                }
+
                 SceneManager.LoadScene(
-                    sceneName
-                );
+                        sceneName
+                    );
             }
             else
             {

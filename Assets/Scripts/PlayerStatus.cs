@@ -1,7 +1,53 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStatus : MonoBehaviour
 {
+    //게임 오버 이후 다시 시작하는 용도로 쓰임
+    [System.Serializable]
+    public class ProgressSnapshot
+    {
+        public bool hasData = false;
+
+        // Date
+        public int currentDay;
+
+        // Money
+        public int money;
+        public int earnings;
+
+        // Fuel
+        public int fuel;
+
+        // Trust
+        public int trust;
+        public int trustChange;
+
+        // Combo / Mistake
+        public int comboNumber;
+        public int mistakeNumber;
+
+        // Human Parts
+        public bool humanBody;
+        public bool humanHead;
+        public bool humanHeart;
+        public bool isHuman;
+
+        // Skill
+        public int fuelRecoveryLevel;
+        public int trustRecoveryLevel;
+        public int highRiskHighReturnLevel;
+        public int workTimeLevel;
+
+        // Time
+        public float dayDuration;
+    }
+
+    [Header("Progress Save")]
+
+    [SerializeField]
+    private ProgressSnapshot progressSnapshot = new ProgressSnapshot();
+
     public static PlayerStatus Instance { get; private set; }
 
     private void Awake()
@@ -17,6 +63,11 @@ public class PlayerStatus : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         Initialize();
+    }
+
+    private void Update()
+    {
+        
     }
 
 
@@ -719,5 +770,189 @@ public class PlayerStatus : MonoBehaviour
 
 
         return true;
+    }
+
+    // =========================================================
+    // Save Progress Snapshot
+    // =========================================================
+
+    public void SaveProgressSnapshot()
+    {
+        if (progressSnapshot == null)
+        {
+            progressSnapshot = new ProgressSnapshot();
+        }
+
+        // Date
+        progressSnapshot.currentDay = currentDay;
+
+        // Money
+        progressSnapshot.money = money;
+        progressSnapshot.earnings = earnings;
+
+        // Fuel
+        progressSnapshot.fuel = fuel;
+
+        // Trust
+        progressSnapshot.trust = trust;
+        progressSnapshot.trustChange = trustChange;
+
+        // Combo / Mistake
+        progressSnapshot.comboNumber = comboNumber;
+        progressSnapshot.mistakeNumber = mistakeNumber;
+
+        // Human Parts
+        progressSnapshot.humanBody = humanBody;
+        progressSnapshot.humanHead = humanHead;
+        progressSnapshot.humanHeart = humanHeart;
+        progressSnapshot.isHuman = isHuman;
+
+        // Skill
+        progressSnapshot.fuelRecoveryLevel = fuelRecoveryLevel;
+        progressSnapshot.trustRecoveryLevel = trustRecoveryLevel;
+        progressSnapshot.highRiskHighReturnLevel = highRiskHighReturnLevel;
+        progressSnapshot.workTimeLevel = workTimeLevel;
+
+        // Time
+        progressSnapshot.dayDuration = dayDuration;
+
+        progressSnapshot.hasData = true;
+
+
+        Debug.Log(
+            $"Progress Snapshot 저장 완료 / D-{currentDay} / " +
+            $"Money:{money} / Fuel:{fuel} / Trust:{trust}"
+        );
+    }
+
+    // =========================================================
+    // Load Progress Snapshot
+    // =========================================================
+
+    public bool LoadProgressSnapshot()
+    {
+        if (progressSnapshot == null ||
+            !progressSnapshot.hasData)
+        {
+            Debug.LogWarning(
+                "불러올 Progress Snapshot이 없습니다."
+            );
+            return false;
+        }
+
+
+        // =====================================================
+        // Date
+        // =====================================================
+
+        currentDay =
+            progressSnapshot.currentDay;
+
+
+        // =====================================================
+        // Money
+        // =====================================================
+
+        money =
+            progressSnapshot.money;
+
+        earnings =
+            progressSnapshot.earnings;
+
+
+        // =====================================================
+        // Fuel
+        // =====================================================
+
+        fuel =
+            progressSnapshot.fuel;
+
+
+        // =====================================================
+        // Trust
+        // =====================================================
+
+        trust =
+            progressSnapshot.trust;
+
+        trustChange =
+            progressSnapshot.trustChange;
+
+
+        // =====================================================
+        // Combo / Mistake
+        // =====================================================
+
+        comboNumber =
+            progressSnapshot.comboNumber;
+
+        mistakeNumber =
+            progressSnapshot.mistakeNumber;
+
+
+        // =====================================================
+        // Human Parts
+        // =====================================================
+
+        humanBody =
+            progressSnapshot.humanBody;
+
+        humanHead =
+            progressSnapshot.humanHead;
+
+        humanHeart =
+            progressSnapshot.humanHeart;
+
+        isHuman =
+            progressSnapshot.isHuman;
+
+
+        // =====================================================
+        // Skill
+        // =====================================================
+
+        fuelRecoveryLevel =
+            progressSnapshot.fuelRecoveryLevel;
+
+        trustRecoveryLevel =
+            progressSnapshot.trustRecoveryLevel;
+
+        highRiskHighReturnLevel =
+            progressSnapshot.highRiskHighReturnLevel;
+
+        workTimeLevel =
+            progressSnapshot.workTimeLevel;
+
+
+        // =====================================================
+        // Time
+        // =====================================================
+
+        dayDuration =
+            progressSnapshot.dayDuration;
+
+
+        Debug.Log(
+            $"Progress Snapshot 불러오기 완료 / " +
+            $"D-{currentDay} / " +
+            $"Money:{money} / " +
+            $"Fuel:{fuel} / " +
+            $"Trust:{trust}"
+        );
+
+        return true;
+    }
+
+    public bool IsProgressSnapshotDifferentDay()
+    {
+        // 저장된 정보가 아직 없다면 저장
+        if (progressSnapshot == null ||
+            !progressSnapshot.hasData)
+        {
+            return true;
+        }
+
+        // 현재 날짜와 저장된 날짜가 다르면 저장
+        return currentDay != progressSnapshot.currentDay;
     }
 }
