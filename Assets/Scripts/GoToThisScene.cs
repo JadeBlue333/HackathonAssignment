@@ -5,76 +5,232 @@ using System.Collections;
 
 public class GoToThisScene : MonoBehaviour
 {
+    [Header("Scene")]
     public string sceneName;
+
+    [Header("Fade")]
     public Image blackImage;
     public float fadeDuration = 1f;
 
-    [Header("ÁøÇàµµ È­¸é¿¡¼­ »ç¿ëÇÒ ¶§¸¸ true·Î ÇÒ °Í")]
+
+    // =========================================================
+    // Progress
+    // =========================================================
+
+    [Header("Progress í™”ë©´ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê²½ìš° true")]
     public bool progress = false;
+
     public int buttonDay = 9;
 
-    [Header("Á¤»ê È­¸é¿¡¼­ »ç¿ëÇÒ ¶§¸¸ true·Î ÇÒ °Í.\nÁ¤»êÇÏ°í ´ÙÀ½ ³¯ ³Ñ¾î°¥¶§ÀÇ º¯¼ö ÀÌ ¾È¿¡¼­ °íÄ¥ ¼ö ÀÖÀ½.")]
+
+    // =========================================================
+    // Report
+    // =========================================================
+
+    [Header("Report í™”ë©´ì—ì„œ ì‚¬ìš©í•˜ëŠ” ê²½ìš° true")]
     public bool report = false;
+
     public ReportUI reportUI;
+
+
+    // =========================================================
+    // Button
+    // =========================================================
 
     public void nextSceneButton()
     {
         StartCoroutine(nextScene());
     }
 
+
+    // =========================================================
+    // Scene Change
+    // =========================================================
+
     public IEnumerator nextScene()
     {
+        // =====================================================
+        // Progress
+        // =====================================================
+
         if (progress)
         {
-            if (PlayerStatus.Instance.currentDay == buttonDay)
+            if (PlayerStatus.Instance != null &&
+                PlayerStatus.Instance.currentDay == buttonDay)
             {
                 StartCoroutine(FadeIn());
-                yield return new WaitForSeconds(fadeDuration);
-                SceneManager.LoadScene(sceneName);
+
+                yield return new WaitForSeconds(
+                    fadeDuration
+                );
+
+                SceneManager.LoadScene(
+                    sceneName
+                );
             }
             else
             {
-                Debug.Log("ÀÌ¹Ì Áö³­ ³¯ÀÔ´Ï´Ù.");
+                Debug.Log(
+                    "ì´ë¯¸ ì§€ë‚œ ë‚ ì§œì…ë‹ˆë‹¤."
+                );
             }
         }
+
+
+        // =====================================================
+        // Report
+        // =====================================================
+
         else if (report)
         {
             StartCoroutine(FadeIn());
-            yield return new WaitForSeconds(fadeDuration);
 
-            //ÀÌºÎºĞ¿¡¼­ NextDay()¿Í µ·/½Å·Úµµ offset¼³Á¤ ÇÔ¼ö¸¦ È£ÃâÇÏ¿© ³¯Â¥ ¹Ù²Ù°í ±× ÈÄ¿¡ ¾ÀÀ» ·Îµå
-            PlayerStatus.Instance.NextDay();
-            PlayerStatus.Instance.ApplyEarnings();
-            PlayerStatus.Instance.ApplyTrustChanges();
-            if (reportUI.fuelToggle.isOn)
+            yield return new WaitForSeconds(
+                fadeDuration
+            );
+
+
+            if (PlayerStatus.Instance == null)
             {
-                PlayerStatus.Instance.fuel += 30;
-                PlayerStatus.Instance.money -= 20;
+                Debug.LogError(
+                    "PlayerStatus.Instanceê°€ ì—†ìŠµë‹ˆë‹¤."
+                );
+
+                yield break;
             }
-            SceneManager.LoadScene(sceneName);
+
+
+            // =================================================
+            // 1. ì˜¤ëŠ˜ ë²ˆ ëˆ ì ìš©
+            // =================================================
+
+            PlayerStatus.Instance.ApplyEarnings();
+
+
+            // =================================================
+            // 2. ì˜¤ëŠ˜ ì‹ ë¢°ë„ ë³€í™” ì ìš©
+            // =================================================
+
+            PlayerStatus.Instance.ApplyTrustChanges();
+
+
+            // =================================================
+            // 3. ì—°ë£Œ êµ¬ë§¤
+            //
+            // ì—°ë£Œ +30
+            // ëˆ -20
+            // =================================================
+
+            if (reportUI != null &&
+                reportUI.fuelToggle != null &&
+                reportUI.fuelToggle.isOn)
+            {
+                // ëˆì´ ì¶©ë¶„í•  ë•Œë§Œ êµ¬ë§¤
+                if (PlayerStatus.Instance.SpendMoney(20))
+                {
+                    PlayerStatus.Instance.AddFuel(
+                        30
+                    );
+
+                    Debug.Log(
+                        "ì—°ë£Œ êµ¬ë§¤ ì™„ë£Œ / ì—°ë£Œ +30"
+                    );
+                }
+                else
+                {
+                    Debug.Log(
+                        "ì—°ë£Œ êµ¬ë§¤ ì‹¤íŒ¨ / ëˆ ë¶€ì¡±"
+                    );
+                }
+            }
+
+
+            // =================================================
+            // 4. ë‚ ì§œ ë³€ê²½
+            // =================================================
+
+            PlayerStatus.Instance.NextDay();
+
+
+            // =================================================
+            // 5. ë‹¤ìŒ ë‚  ì‹œì‘ íš¨ê³¼ ì ìš©
+            //
+            // Fuel Recovery
+            // Trust Recovery
+            // Work Time ì¬ê³„ì‚°
+            // =================================================
+
+            PlayerStatus.Instance.StartDay();
+
+
+            // =================================================
+            // 6. ë‹¤ìŒ ì”¬ ì´ë™
+            // =================================================
+
+            SceneManager.LoadScene(
+                sceneName
+            );
         }
+
+
+        // =====================================================
+        // Normal Scene Change
+        // =====================================================
+
         else
         {
             StartCoroutine(FadeIn());
-            yield return new WaitForSeconds(fadeDuration);
-            SceneManager.LoadScene(sceneName);
+
+            yield return new WaitForSeconds(
+                fadeDuration
+            );
+
+            SceneManager.LoadScene(
+                sceneName
+            );
         }
     }
 
+
+    // =========================================================
+    // Fade
+    // =========================================================
+
     public IEnumerator FadeIn()
     {
+        if (blackImage == null)
+        {
+            yield break;
+        }
+
+
         float t = 0f;
-        Color color = blackImage.color;
+
+        Color color =
+            blackImage.color;
+
 
         while (t < fadeDuration)
         {
             t += Time.deltaTime;
-            color.a = Mathf.Lerp(0, 1, t / fadeDuration);
-            blackImage.color = color;
+
+            color.a =
+                Mathf.Lerp(
+                    0f,
+                    1f,
+                    t / fadeDuration
+                );
+
+            blackImage.color =
+                color;
+
             yield return null;
         }
 
-        color.a = 1;
-        blackImage.color = color;
+
+        color.a = 1f;
+
+        blackImage.color =
+            color;
     }
 }
