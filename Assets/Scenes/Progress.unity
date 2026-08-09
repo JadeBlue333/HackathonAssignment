@@ -521,6 +521,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 75520919}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &75520917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +590,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1001 &95630216
@@ -1099,6 +1114,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 199870812}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &199870810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,6 +1183,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1001 &207816170
@@ -1329,6 +1359,7 @@ RectTransform:
   m_Children:
   - {fileID: 241368560}
   - {fileID: 283133573}
+  - {fileID: 1932532957}
   m_Father: {fileID: 1047323252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2269,6 +2300,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 7
   report: 0
@@ -2461,6 +2494,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 8
   report: 0
@@ -2847,7 +2882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 584.96906, y: 31.062489}
+  m_AnchoredPosition: {x: 584.96906, y: 36}
   m_SizeDelta: {x: 626.7766, y: 173.5688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &549471098
@@ -2897,6 +2932,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1595935559}
         m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
         m_MethodName: nextSceneButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 549471101}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2963,6 +3010,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1001 &571302029
@@ -3263,6 +3313,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 5
   report: 0
@@ -3460,7 +3512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &710031063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3475,10 +3527,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1047323252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000045776, y: 0.000022888}
-  m_SizeDelta: {x: 800, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &710031064
 MonoBehaviour:
@@ -3629,6 +3681,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 719045375}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &719045373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3686,6 +3750,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1 &725005650
@@ -3819,6 +3886,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 749401722}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &749401720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3876,6 +3955,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1 &759451565
@@ -3974,6 +4056,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 759451570}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &759451568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4031,6 +4125,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1001 &785311757
@@ -4199,6 +4296,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 1
   report: 0
@@ -4251,6 +4350,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 0
   report: 0
@@ -4633,7 +4734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -783.0912, y: 31.0626}
+  m_AnchoredPosition: {x: -780, y: 36}
   m_SizeDelta: {x: 626.7766, y: 173.5688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &856320348
@@ -4683,6 +4784,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1352119992}
         m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
         m_MethodName: nextSceneButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 856320351}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4749,6 +4862,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1001 &856785253
@@ -5094,6 +5210,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 2
   report: 0
@@ -5756,6 +5874,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 4
   report: 0
@@ -5871,6 +5991,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1006179531}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1006179529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5928,6 +6060,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1 &1017239965
@@ -6578,85 +6713,6 @@ Transform:
   - {fileID: 359763585}
   m_Father: {fileID: 803683598}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1212713934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1212713937}
-  - component: {fileID: 1212713936}
-  - component: {fileID: 1212713935}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1212713935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212713934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
---- !u!114 &1212713936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212713934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1212713937
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1212713934}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1255076168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7074,6 +7130,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 9
   report: 0
@@ -7910,6 +7968,135 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b28f41e54eeab764cbc6309b89424785, type: 3}
   m_PrefabInstance: {fileID: 1527097739}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1527392958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1527392960}
+  - component: {fileID: 1527392959}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1527392959
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527392958}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1527392960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527392958}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 627.5891, y: 697.3228, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1528691370
 GameObject:
   m_ObjectHideFlags: 0
@@ -8070,6 +8257,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 6
   report: 0
@@ -8532,6 +8721,8 @@ MonoBehaviour:
   blackImage: {fileID: 710031064}
   fadeDuration: 1
   blackHoldTime: 1
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
   progress: 1
   buttonDay: 3
   report: 0
@@ -9230,8 +9421,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294104669
-  m_fontColor: {r: 0.3647059, g: 0.8392157, b: 0.9490196, a: 1}
+    rgba: 4280379378
+  m_fontColor: {r: 0.9490196, g: 0.40392157, b: 0.12941177, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9438,6 +9629,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912238354}
   m_CullTransparentMesh: 1
+--- !u!1 &1932532956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1932532957}
+  - component: {fileID: 1932532959}
+  - component: {fileID: 1932532958}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1932532957
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932532956}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 241469978}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1820, y: 980}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1932532958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932532956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a19d5e29c6dc4694bbfc70755ac2d87f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1932532959
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932532956}
+  m_CullTransparentMesh: 1
 --- !u!1 &1968274605
 GameObject:
   m_ObjectHideFlags: 0
@@ -9475,7 +9741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -423.4181, y: 31.062489}
+  m_AnchoredPosition: {x: -420, y: 36}
   m_SizeDelta: {x: 626.7766, y: 173.5688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1968274607
@@ -9525,6 +9791,18 @@ MonoBehaviour:
       - m_Target: {fileID: 455535810}
         m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
         m_MethodName: nextSceneButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1968274610}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9591,6 +9869,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1 &1970844655
@@ -9630,7 +9911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -67.694, y: 31.0626}
+  m_AnchoredPosition: {x: -60.3, y: 36}
   m_SizeDelta: {x: 626.7766, y: 173.5688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1970844657
@@ -9680,6 +9961,18 @@ MonoBehaviour:
       - m_Target: {fileID: 426480417}
         m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
         m_MethodName: nextSceneButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1970844660}
+        m_TargetAssemblyTypeName: ProgressDayButton, Assembly-CSharp
+        m_MethodName: ClickEffect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9746,6 +10039,9 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  audioSource: {fileID: 1527392959}
+  hoverSound: {fileID: 8300000, guid: b41110e8a2c3c4ae2b4749e1e384b311, type: 3}
+  clickSound: {fileID: 8300000, guid: a8b004b5203085d488edf6435d49a333, type: 3}
   pressedColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   pressedDuration: 0.15
 --- !u!1001 &1970983774
@@ -10577,7 +10873,6 @@ SceneRoots:
   - {fileID: 1402177747}
   - {fileID: 867399497}
   - {fileID: 1047323252}
-  - {fileID: 1212713937}
   - {fileID: 1352119993}
   - {fileID: 455535811}
   - {fileID: 426480418}
@@ -10592,3 +10887,4 @@ SceneRoots:
   - {fileID: 7092490068867927918}
   - {fileID: 1552629268}
   - {fileID: 803683598}
+  - {fileID: 1527392960}
