@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5642914071655844641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6561670603296641876}
+  - component: {fileID: 3576332288357460690}
+  m_Layer: 0
+  m_Name: MainGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6561670603296641876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642914071655844641}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1815.701, y: 965.44415, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3576332288357460690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642914071655844641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ec62d7f953214478de4803b03f035c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectionGameManager7
+  boxMatchManager: {fileID: 0}
+  motorMatchManager: {fileID: 0}
+  boxButtons: {fileID: 0}
+  motorButtons: {fileID: 0}
+  unopenedReward: 3
+  aReward: 2
+  bReward: 1
+  cReward: 1
+  discardReward: 0
+  trustPenalty: 5
+  fuelCost: 2
+  trustComboThreshold: 3
+  comboTrustReward: 2
+  audioSource: {fileID: 0}
+  spawnBoxSfx: {fileID: 8300000, guid: a9c6cdb89fc3c3b4381090c32ad80e6f, type: 3}
+  spawnBoxVolume: 0.544
+  openBoxSfx: {fileID: 8300000, guid: 4ac5e3d6013358f478e655abb0f3739c, type: 3}
+  openBoxVolume: 0.513
+  correctSfx: {fileID: 8300000, guid: 303220ade792b794188fea5779f6cc38, type: 3}
+  correctVolume: 0.674
+  wrongSfx: {fileID: 8300000, guid: e6300747557a8df4287ccfc0e3e2a4b9, type: 3}
+  wrongVolume: 0.18

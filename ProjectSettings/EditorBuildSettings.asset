@@ -31,10 +31,10 @@ EditorBuildSettings:
     guid: 72fde88486868874680b81d16e79956a
   - enabled: 1
     path: Assets/Scenes/D-8.unity
-    guid: fbe3ae04d28178f468bf5e5b05acd807
+    guid: f2b34210e6fd1b340822c2c755e9b1e1
   - enabled: 1
     path: Assets/Scenes/D-7.unity
-    guid: 47120048afb313f49ac21e603a3f7caa
+    guid: d4105060adcf64644b18db7e6d4a0ac7
   - enabled: 1
     path: Assets/Scenes/Bridges/D-9Bridge.unity
     guid: a84661616163b6e4db9c2415eb2fc2da
@@ -95,6 +95,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Endings/ZeroFuel.unity
     guid: 90a6e163e7c6bdb469c3352b79928bba
+  - enabled: 1
+    path: Assets/Scenes/D-1.unity
+    guid: 410a23f1a81293043904b0af7e574efb
+  - enabled: 1
+    path: Assets/Scenes/D-2.unity
+    guid: 5430c90f8c110ac4faca20b0615e82d0
+  - enabled: 1
+    path: Assets/Scenes/D-4.unity
+    guid: 783a271127ffb11498835d1df0d70490
+  - enabled: 1
+    path: Assets/Scenes/D-5.unity
+    guid: f14b204ea4ce9ad458cdf566498b39ba
+  - enabled: 1
+    path: Assets/Scenes/D-6.unity
+    guid: ce75e1f18ca40384db0a14f368c695c6
+  - enabled: 1
+    path: Assets/Scenes/D-day.unity
+    guid: 66522391ddc517945bd077deff0194d5
+  - enabled: 1
+    path: Assets/Scenes/Bridges/PromoteTransition.unity
+    guid: 08669bdb16ce8e14c9755fbbd965b278
+  - enabled: 1
+    path: Assets/Scenes/Endings/DATE.unity
+    guid: 9e0b05727aedafd498e719324c65b4a6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -8,6 +8,11 @@ public class GoToThisScene : MonoBehaviour
     [Header("Scene")]
     public string sceneName;
 
+
+    // =========================================================
+    // Fade
+    // =========================================================
+
     [Header("Fade")]
     public Image blackImage;
     public float fadeDuration = 1f;
@@ -85,20 +90,20 @@ public class GoToThisScene : MonoBehaviour
                     blackHoldTime
                 );
 
-                //저장된 날짜와 현재 날짜가 다르면 Progress SnapShot을 저장.
+                // 저장된 날짜와 현재 날짜가 다르면 Progress Snapshot 저장
                 if (PlayerStatus.Instance.IsProgressSnapshotDifferentDay())
                 {
                     PlayerStatus.Instance.SaveProgressSnapshot();
                 }
-                //저장된 날짜와 현재 날짜가 같으면 Progress SnapShot을 불러옴.
+                // 저장된 날짜와 현재 날짜가 같으면 Progress Snapshot 불러옴
                 else
                 {
                     PlayerStatus.Instance.LoadProgressSnapshot();
                 }
 
                 SceneManager.LoadScene(
-                        sceneName
-                    );
+                    sceneName
+                );
             }
             else
             {
@@ -130,6 +135,10 @@ public class GoToThisScene : MonoBehaviour
             );
 
 
+            // =================================================
+            // PlayerStatus 확인
+            // =================================================
+
             if (PlayerStatus.Instance == null)
             {
                 Debug.LogError(
@@ -138,6 +147,23 @@ public class GoToThisScene : MonoBehaviour
 
                 yield break;
             }
+
+
+            // =================================================
+            // 정산 전 날짜 확인
+            // =================================================
+
+            // D-Day인지 미리 저장
+            // NextDay()를 실행하면 currentDay가 변경되기 때문
+            bool isFinalDay =
+                PlayerStatus.Instance.currentDay == 0;
+
+
+            // 블랙마켓 날짜인지 확인
+            bool goToBlackMarket =
+                PlayerStatus.Instance.currentDay == 7 ||
+                PlayerStatus.Instance.currentDay == 5 ||
+                PlayerStatus.Instance.currentDay == 1;
 
 
             // =================================================
@@ -191,7 +217,7 @@ public class GoToThisScene : MonoBehaviour
 
 
             // =================================================
-            // 5. 다음 날 시작 효과 적용
+            // 5. 다음 날 시작 효과
             //
             // Fuel Recovery
             // Trust Recovery
@@ -205,9 +231,78 @@ public class GoToThisScene : MonoBehaviour
             // 6. 다음 씬 이동
             // =================================================
 
-            SceneManager.LoadScene(
-                sceneName
-            );
+            // -------------------------------------------------
+            // D-Day 정산
+            // -------------------------------------------------
+
+            if (isFinalDay)
+            {
+                // 인간화된 경우
+                if (PlayerStatus.Instance.isHuman)
+                {
+                    Debug.Log(
+                        "D-Day 정산 완료 → DATE"
+                    );
+
+                    SceneManager.LoadScene(
+                        "DATE"
+                    );
+                }
+
+                // 인간화되지 않았고
+                // 최종 신뢰도가 70 이상인 경우
+                else if (PlayerStatus.Instance.trust >= 70)
+                {
+                    Debug.Log(
+                        "D-Day 정산 완료 → PromoteTransition"
+                    );
+
+                    SceneManager.LoadScene(
+                        "PromoteTransition"
+                    );
+                }
+
+                // 인간화도 아니고
+                // 신뢰도도 70 미만인 경우
+                else
+                {
+                    Debug.Log(
+                        "D-Day 정산 완료 → Ending2"
+                    );
+
+                    SceneManager.LoadScene(
+                        "Ending2"
+                    );
+                }
+            }
+
+
+            // -------------------------------------------------
+            // Black Market 날짜
+            // -------------------------------------------------
+
+            else if (goToBlackMarket)
+            {
+                Debug.Log(
+                    "Black Market 날짜 → BlackMarketTransition"
+                );
+
+                SceneManager.LoadScene(
+                    "BlackMarketTransition"
+                );
+            }
+
+
+            // -------------------------------------------------
+            // 일반 날짜
+            // -------------------------------------------------
+
+            else
+            {
+                SceneManager.LoadScene(
+                    sceneName
+                );
+            }
         }
 
 
@@ -256,24 +351,33 @@ public class GoToThisScene : MonoBehaviour
             return;
         }
 
-        StartCoroutine(FadeOutBGM());
+        StartCoroutine(
+            FadeOutBGM()
+        );
     }
 
 
     private IEnumerator FadeOutBGM()
     {
-        float startVolume = bgmSource.volume;
+        float startVolume =
+            bgmSource.volume;
+
         float t = 0f;
+
 
         // 페이드 시간에 0을 넣어도 오류 없이 처리
         if (bgmFadeDuration <= 0f)
         {
             bgmSource.volume = 0f;
+
             bgmSource.Stop();
-            bgmSource.volume = startVolume;
+
+            bgmSource.volume =
+                startVolume;
 
             yield break;
         }
+
 
         while (t < bgmFadeDuration)
         {
@@ -285,21 +389,25 @@ public class GoToThisScene : MonoBehaviour
 
             t += Time.deltaTime;
 
-            bgmSource.volume = Mathf.Lerp(
-                startVolume,
-                0f,
-                t / bgmFadeDuration
-            );
+            bgmSource.volume =
+                Mathf.Lerp(
+                    startVolume,
+                    0f,
+                    t / bgmFadeDuration
+                );
 
             yield return null;
         }
 
+
         bgmSource.volume = 0f;
+
         bgmSource.Stop();
 
         // 혹시 같은 AudioSource를 다시 사용할 경우를 위해
         // 원래 볼륨으로 복구
-        bgmSource.volume = startVolume;
+        bgmSource.volume =
+            startVolume;
     }
 
 

@@ -36,14 +36,12 @@ public class GameOverManager : MonoBehaviour
             {
                 Debug.LogWarning("Fuel Zero Scene에 연결된 GoToThisScene이 없습니다.");
             }
-
-            return;
         }
 
         // ==========================================
         // 2. Fuel이 0이 아니면 Trust 검사
         // ==========================================
-        if (PlayerStatus.Instance.trust <= 0)
+        if (PlayerStatus.Instance.trust + PlayerStatus.Instance.trustChange <= 0)
         {
             sceneChanging = true;
 
@@ -55,8 +53,6 @@ public class GameOverManager : MonoBehaviour
             {
                 Debug.LogWarning("Trust Zero Scene에 연결된 GoToThisScene이 없습니다.");
             }
-
-            return;
         }
     }
 }

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1784303229076481576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6015801979680342271}
+  - component: {fileID: 378803345310003140}
+  m_Layer: 0
+  m_Name: BoxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6015801979680342271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784303229076481576}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2062.9717, y: 942.026, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378803345310003140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784303229076481576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56339f9b360cb944d93421711495b28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoxMatchManager
+  boxesResourcePath: Box+Tape/Boxes
+  tapesResourcePath: Box+Tape/Tapes
+  displayAnchor: {fileID: 0}
+  boxLocalPosition: {x: 0, y: 0, z: 0}
+  tapeLocalPosition: {x: 0, y: 0, z: 0}
+  boxLocalRotation: {x: 0, y: 0, z: 0}
+  tapeLocalRotation: {x: 0, y: 0, z: 0}
+  boxScale: {x: 120, y: 120, z: 120}
+  tapeScale: {x: 120, y: 120, z: 120}
+  openChance: 60
+  demageChance: 25
+  baseMouseRotationSpeed: 0.2
+  defaultObjectRotationSensitivity: 1
+  zoomSpeed: 0.15
+  minZoomScale: 0.9
+  maxZoomScale: 1.7
+  fineRotationSpeed: 30
