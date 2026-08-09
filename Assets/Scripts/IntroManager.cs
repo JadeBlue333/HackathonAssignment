@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
@@ -27,11 +28,12 @@ public class IntroManager : MonoBehaviour
     [Header("Scene")]
     [SerializeField] private string nextSceneName;
 
+    private bool isSpacePressed = false;
     private bool isSkipping = false;
 
     private void Start()
     {
-        StartCoroutine(IntroSequence());
+        StartCoroutine(PlayIntroTexts());
 
         if (bgm != null)
         {
@@ -39,25 +41,17 @@ public class IntroManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 전체 인트로 진행
-    /// </summary>
-    private IEnumerator IntroSequence()
+    private void Update()
     {
-        // 시작 시 검정 -> 투명
-        yield return FadeOut();
-
-        // 텍스트 순차 출력
-        yield return PlayIntroTexts();
-
-        // 마지막에 검정으로 페이드
-        yield return FadeIn();
-
-        SceneManager.LoadScene(nextSceneName);
+        if (Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            isSpacePressed = true;
+        }
     }
 
     /// <summary>
-    /// 인트로 텍스트 출력
+    /// 전체 인트로 진행
     /// </summary>
     private IEnumerator PlayIntroTexts()
     {
@@ -68,14 +62,33 @@ public class IntroManager : MonoBehaviour
             if (isSkipping)
                 yield break;
 
+            isSpacePressed = false;
+
             // 타이핑
             yield return StartCoroutine(TypeText(text));
 
-            // 다 출력된 후 잠깐 유지
-            yield return new WaitForSeconds(textDuration);
+            if (isSkipping)
+                yield break;
+
+            // 타이핑 중 Space를 눌렀다면
+            // 이번 프레임의 입력을 소비
+            if (isSpacePressed)
+            {
+                isSpacePressed = false;
+            }
+
+            // 스페이스바를 누를 때까지 대기
+            yield return new WaitUntil(() => isSpacePressed);
+
+            isSpacePressed = false;
         }
 
         introText.gameObject.SetActive(false);
+
+        // 마지막 대사까지 끝났으면 다음 씬
+        yield return FadeIn();
+
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private IEnumerator TypeText(string text)
@@ -87,11 +100,18 @@ public class IntroManager : MonoBehaviour
             if (isSkipping)
                 yield break;
 
+            // 스페이스를 누르면 타이핑 즉시 완료
+            if (isSpacePressed)
+            {
+                introText.text = text;
+                yield break;
+            }
+
             introText.text += c;
 
             float delay = typingSpeed;
 
-            //문장부호가 나오면 타이핑 속도를 늦춤
+            // 문장부호가 나오면 타이핑 속도를 늦춤
             if (c == ',' || c == '.')
                 delay *= 4f;
             else if (c == '!' || c == '?')
