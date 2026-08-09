@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReportAnimation : MonoBehaviour
 {
-    [Header("Á¤»ê Ç×¸ñÀ» ¸ðµÎ ÀÌ ¸®½ºÆ®¿¡ Ãß°¡ÇÒ °Í. ¼ø¼­´ë·Î ³ª¿À°Ô µÈ´Ù.")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.")]
     [SerializeField] private List<GameObject> reportItems = new();
 
     [Header("Notice")]
@@ -15,12 +15,12 @@ public class ReportAnimation : MonoBehaviour
     [Header("Next Button")]
     [SerializeField] private GameObject nextButton;
 
-    [Header("³ª¿À´Â °£°Ý Á¶Àý")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private float interval = 0.5f;
 
     private void Start()
     {
-        // Ã³À½¿¡´Â ¸ðµÎ ¼û±è
+        // Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (GameObject item in reportItems)
         {
             if (item != null)
@@ -38,7 +38,7 @@ public class ReportAnimation : MonoBehaviour
 
     private IEnumerator ShowReport()
     {
-        // Notice ±ôºýÀÌ±â
+        // Notice ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
         if (notice != null)
         {
             for (int i = 0; i < blinkCount; i++)
@@ -47,7 +47,7 @@ public class ReportAnimation : MonoBehaviour
                 yield return new WaitForSeconds(blinkInterval);
             }
 
-            // ¸¶Áö¸·¿¡´Â ÄÑÁø »óÅÂ À¯Áö
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             notice.SetActive(true);
         }
 

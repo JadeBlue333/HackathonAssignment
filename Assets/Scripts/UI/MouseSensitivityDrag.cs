@@ -14,7 +14,7 @@ public class MouseSensitivityDrag : MonoBehaviour,
 
     [Header("Sensitivity")]
     [SerializeField] private float minSensitivity = 0.1f;
-    [SerializeField] private float maxSensitivity = 5f;
+    [SerializeField] private float maxSensitivity = 20f;
     [SerializeField] private float defaultSensitivity = 2f;
 
     private RectTransform parentRect;
