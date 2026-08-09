@@ -8,26 +8,39 @@ public class ProgressDayButton : MonoBehaviour,
     IPointerExitHandler
 {
     [Header("Day")]
-    [Tooltip("D-9 버튼이면 9, D-8이면 8, D-0이면 0")]
+    [Tooltip("D-9 버튼이면 9, D-8이면 8, D-Day면 0")]
     [SerializeField] private int buttonDay;
+
 
     [Header("Button")]
     [SerializeField] private Button button;
 
+
     [Header("Image")]
     [SerializeField] private Image buttonImage;
 
-    [Tooltip("기본 버튼 이미지")]
+    [Tooltip("현재 날짜 기본 이미지")]
     [SerializeField] private Sprite normalSprite;
 
-    [Tooltip("현재 날짜 버튼에 마우스를 올렸을 때 이미지")]
+    [Tooltip("현재 날짜 호버 이미지")]
     [SerializeField] private Sprite hoverSprite;
 
-    [Tooltip("이미 지나간 날짜의 이미지")]
+    [Tooltip("이미 지난 날짜 이미지")]
     [SerializeField] private Sprite completedSprite;
 
     [Tooltip("아직 오지 않은 날짜 이미지")]
     [SerializeField] private Sprite lockedSprite;
+
+
+    [Header("Sound")]
+    [SerializeField] private AudioSource audioSource;
+
+    [Tooltip("마우스 호버 시 재생")]
+    [SerializeField] private AudioClip hoverSound;
+
+    [Tooltip("버튼 클릭 시 재생")]
+    [SerializeField] private AudioClip clickSound;
+
 
     [Header("Click Effect")]
     [SerializeField]
@@ -38,7 +51,6 @@ public class ProgressDayButton : MonoBehaviour,
 
 
     private bool isCurrentDay = false;
-    private bool isCompletedDay = false;
 
     private Coroutine clickCoroutine;
 
@@ -50,7 +62,7 @@ public class ProgressDayButton : MonoBehaviour,
 
 
     // =========================================================
-    // 현재 날짜 확인
+    // 날짜 상태 갱신
     // =========================================================
 
     public void Refresh()
@@ -58,12 +70,11 @@ public class ProgressDayButton : MonoBehaviour,
         if (PlayerStatus.Instance == null)
         {
             Debug.LogWarning(
-                $"ProgressDayButton : PlayerStatus.Instance가 없습니다. / {gameObject.name}"
+                $"PlayerStatus.Instance가 없습니다. / {gameObject.name}"
             );
 
             return;
         }
-
 
         int currentDay = PlayerStatus.Instance.currentDay;
 
@@ -75,7 +86,6 @@ public class ProgressDayButton : MonoBehaviour,
         if (buttonDay == currentDay)
         {
             isCurrentDay = true;
-            isCompletedDay = false;
 
             button.interactable = true;
 
@@ -90,14 +100,14 @@ public class ProgressDayButton : MonoBehaviour,
         // =====================================================
         // 이미 지난 날짜
         //
-        // D-9 → D-8 → D-7 순서이므로
-        // 현재가 D-6이면 7,8,9는 이미 지난 날짜
+        // 예:
+        // 현재 D-6이면
+        // D-9, D-8, D-7은 이미 지난 날짜
         // =====================================================
 
         else if (buttonDay > currentDay)
         {
             isCurrentDay = false;
-            isCompletedDay = true;
 
             button.interactable = false;
 
@@ -111,12 +121,15 @@ public class ProgressDayButton : MonoBehaviour,
 
         // =====================================================
         // 미래 날짜
+        //
+        // 예:
+        // 현재 D-6이면
+        // D-5 ~ D-Day는 미래 날짜
         // =====================================================
 
         else
         {
             isCurrentDay = false;
-            isCompletedDay = false;
 
             button.interactable = false;
 
@@ -136,23 +149,36 @@ public class ProgressDayButton : MonoBehaviour,
 
 
     // =========================================================
-    // Hover
+    // Mouse Hover
     // =========================================================
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // 현재 날짜 버튼만 Hover 가능
+        // 현재 날짜 버튼만 작동
         if (!isCurrentDay)
             return;
 
 
+        // 호버 이미지 변경
         if (buttonImage != null &&
             hoverSprite != null)
         {
             buttonImage.sprite = hoverSprite;
         }
+
+
+        // 호버 사운드
+        if (audioSource != null &&
+            hoverSound != null)
+        {
+            audioSource.PlayOneShot(hoverSound);
+        }
     }
 
+
+    // =========================================================
+    // Mouse Exit
+    // =========================================================
 
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -160,6 +186,7 @@ public class ProgressDayButton : MonoBehaviour,
             return;
 
 
+        // 기본 이미지로 복귀
         if (buttonImage != null &&
             normalSprite != null)
         {
@@ -179,15 +206,29 @@ public class ProgressDayButton : MonoBehaviour,
             return;
 
 
+        // 클릭 사운드
+        if (audioSource != null &&
+            clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
+
+
+        // 기존 클릭 효과가 실행 중이면 중지
         if (clickCoroutine != null)
         {
             StopCoroutine(clickCoroutine);
         }
 
+
         clickCoroutine =
             StartCoroutine(ClickEffectCoroutine());
     }
 
+
+    // =========================================================
+    // Click Color Effect
+    // =========================================================
 
     private IEnumerator ClickEffectCoroutine()
     {
@@ -199,7 +240,7 @@ public class ProgressDayButton : MonoBehaviour,
             buttonImage.color;
 
 
-        // 살짝 어둡게
+        // 클릭 순간 살짝 어둡게
         buttonImage.color =
             pressedColor;
 
@@ -209,7 +250,7 @@ public class ProgressDayButton : MonoBehaviour,
         );
 
 
-        // 원래 색으로
+        // 원래 색으로 복귀
         buttonImage.color =
             originalColor;
 
