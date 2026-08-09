@@ -1121,6 +1121,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 5787761698909811912, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b1c5c6b89f7e1bc42bfe3d99d5cecd00, type: 3}
     - target: {fileID: 5853079651437692504, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6960,7 +6964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9405,6 +9409,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1351998166}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: "\uD558.. \uC81C\uC815\uC2E0 \uC544\uB2CC \uB0A9\uD488\uC5C5\uCCB4\uB4E4\uC774
+        \uC11E\uC600\uC5B4.\n\uBAA8\uD130 \uBAB8\uD1B5\uCABD\uC5D0 \uBD80\uC2DD\uB41C
+        \uC790\uAD6D\uC774 \uBCF4\uC778\uB2E4\uBA74\n\uBCF4\uC774\uB294 \uB4F1\uAE09\uC5D0\uC11C
+        \uD558\uB098 \uB354 \uB0AE\uCD94\uB3C4\uB85D. "
+      objectReference: {fileID: 0}
+    - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
@@ -10131,7 +10142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2084862958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10564,6 +10575,10 @@ PrefabInstance:
       propertyPath: motorButtons
       value: 
       objectReference: {fileID: 1099938106}
+    - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: discardReward
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: boxMatchManager
       value: 

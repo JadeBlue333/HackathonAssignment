@@ -480,7 +480,6 @@ public class MotorMatchManager7 : MonoBehaviour
 
             switch (missingType)
             {
-                // 앞쪽 누락
                 case 0:
 
                     front.gameObject.SetActive(false);
@@ -489,7 +488,6 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                // 뒤쪽 누락
                 case 1:
 
                     front.gameObject.SetActive(true);
@@ -498,7 +496,6 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                // 둘 다 누락
                 case 2:
 
                     front.gameObject.SetActive(false);
@@ -568,14 +565,12 @@ public class MotorMatchManager7 : MonoBehaviour
         }
         else
         {
-            // 완제품일 경우 색상 / 얼룩 여부 계산
             if (sameColor)
                 passCount++;
 
             if (noStain)
                 passCount++;
 
-            // 완성 여부는 이미 확인되었으므로 +1
             passCount++;
 
 
@@ -615,13 +610,15 @@ public class MotorMatchManager7 : MonoBehaviour
         }
 
 
+        // =====================================================
+        // Debug
+        // 정답만 표시
+        // =====================================================
+
         Debug.Log(
-            $"Color : {(sameColor ? "Same" : "Different")} | " +
-            $"Part : {(isComplete ? "Complete" : "Missing")} | " +
-            $"Stain : {(noStain ? "Clean" : "Dirty")} | " +
-            $"Pass : {passCount}/3 | " +
-            $"Result : {result}"
+            $"정답 : {result}"
         );
+
 
         return result;
     }
@@ -717,7 +714,6 @@ public class MotorMatchManager7 : MonoBehaviour
             finalRotationSpeed;
 
 
-        // 좌우
         currentHolder.transform.Rotate(
             Vector3.up,
             horizontalRotation,
@@ -725,7 +721,6 @@ public class MotorMatchManager7 : MonoBehaviour
         );
 
 
-        // 위아래
         currentHolder.transform.Rotate(
             Vector3.left,
             verticalRotation,
@@ -751,7 +746,6 @@ public class MotorMatchManager7 : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
-        // 환경설정에서 스크롤 반전이 켜져 있으면 방향 반전
         if (ScrollInvertSetting.IsScrollInverted())
         {
             scrollValue *= -1f;

@@ -1118,6 +1118,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 5787761698909811912, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0abe3e7b9de562b46887b96195ed86b1, type: 3}
     - target: {fileID: 5853079651437692504, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -9376,6 +9380,13 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1351998166}
+    - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: "\uBB50? \uC81C\uB300\uB85C \uCC98\uB9AC\uD588\uB294\uB370 \uC65C \uD2C0\uB838\uB2E4\uACE0
+        \uD558\uB0D0\uACE0?\n\uBBF8\uAC1C\uBD09 \uC81C\uD488\uC744 \uAC1C\uBD09\uD574\uBC84\uB9AC\uBA74
+        \uC5B4\uB5A1\uD558\uB0D0?\n\uC774 \uC9C8\uBB38\uC744 \uD55C \uB140\uC11D\uC740
+        \uD3D0\uAE30\uCC98\uB9AC\uD588\uB2E4. \uCC38\uACE0\uD558\uB3C4\uB85D."
+      objectReference: {fileID: 0}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset
       value: 

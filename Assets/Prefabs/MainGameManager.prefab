@@ -52,7 +52,7 @@ MonoBehaviour:
   aReward: 5
   bReward: 3
   cReward: 3
-  discardReward: 0
+  discardReward: 2
   trustPenalty: 5
   fuelCost: 2
   trustComboThreshold: 3

@@ -102,6 +102,9 @@ EditorBuildSettings:
     path: Assets/Scenes/D-2.unity
     guid: 5430c90f8c110ac4faca20b0615e82d0
   - enabled: 1
+    path: Assets/Scenes/D-3.unity
+    guid: 7a73c2bf545c7a843a90673a793b6469
+  - enabled: 1
     path: Assets/Scenes/D-4.unity
     guid: 783a271127ffb11498835d1df0d70490
   - enabled: 1
