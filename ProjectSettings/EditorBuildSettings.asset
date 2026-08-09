@@ -86,6 +86,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Endings/Ending4.unity
     guid: 160eabf3e7deff94e96b11e9335f7939
+  - enabled: 1
+    path: Assets/Scenes/Bridges/ZeroTrustTransition.unity
+    guid: 6ba394d98d8c95942aa63dea0ce4aee9
+  - enabled: 1
+    path: Assets/Scenes/Endings/ZeroTrust.unity
+    guid: 21b3813a15d8bfb48909a4103a30fdf0
+  - enabled: 1
+    path: Assets/Scenes/Endings/ZeroFuel.unity
+    guid: 90a6e163e7c6bdb469c3352b79928bba
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

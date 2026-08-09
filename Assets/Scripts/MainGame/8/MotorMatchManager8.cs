@@ -376,16 +376,19 @@ public class MotorMatchManager8 : MonoBehaviour
 
         InspectionResult result;
 
-        if (sameColor && isComplete)
+        if (!isComplete)
         {
-            result = InspectionResult.A;
+            // 부품이 하나라도 없으면 무조건 폐기
+            result = InspectionResult.Discard;
         }
-        else if (!sameColor && !isComplete)
+        else if (sameColor)
         {
-            result = InspectionResult.C;
+            // 부품 완성 + 색깔 정상
+            result = InspectionResult.A;
         }
         else
         {
+            // 부품 완성 + 색깔 비정상
             result = InspectionResult.B;
         }
 
