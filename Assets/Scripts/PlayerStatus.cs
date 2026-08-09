@@ -78,7 +78,7 @@ public class PlayerStatus : MonoBehaviour
     private void Initialize()
     {
         // 기본 상태
-        currentDay = 9;
+        currentDay = 0;
         money = 20;
 
         fuel = 70;
@@ -95,7 +95,7 @@ public class PlayerStatus : MonoBehaviour
         humanHead = false;
         humanHeart = false;
 
-        isHuman = false;
+        isHuman = true;
 
 
         // 스킬 초기화
@@ -618,12 +618,13 @@ public class PlayerStatus : MonoBehaviour
             );
         }
 
-
+        //기본 연료 10 소모
+        fuel -= 10;
         mistakeNumber = 0;
         comboNumber = 0;
 
 
-        if (currentDay > 0)
+        if (currentDay > 0 || currentDay < 0)
         {
             currentDay--;
 

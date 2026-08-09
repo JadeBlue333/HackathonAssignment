@@ -42,6 +42,11 @@ public class ShopPurchaseController : MonoBehaviour
     [SerializeField]
     private List<MoneyItem> moneyItems = new List<MoneyItem>();
 
+    [Header("인간 파츠 Sold Out 표시")]
+    [SerializeField] private GameObject humanBodySoldOut;
+    [SerializeField] private GameObject humanHeadSoldOut;
+    [SerializeField] private GameObject humanHeartSoldOut;
+
     [Header("기름으로 구매하는 아이템")]
     [SerializeField]
     private FuelItem fuelItem;
@@ -67,8 +72,51 @@ public class ShopPurchaseController : MonoBehaviour
 
     private void Update()
     {
-        playerStat.text = $"가진 돈: {PlayerStatus.Instance.money} C  연료: {PlayerStatus.Instance.fuel} / 100";
-        playerStat2.text = $"가진 돈: {PlayerStatus.Instance.money} C  연료: {PlayerStatus.Instance.fuel} / 100";
+        playerStat.text =
+            $"가진 돈: {PlayerStatus.Instance.money} C  연료: {PlayerStatus.Instance.fuel} / 100";
+
+        playerStat2.text =
+            $"가진 돈: {PlayerStatus.Instance.money} C  연료: {PlayerStatus.Instance.fuel} / 100";
+
+
+        // =========================================================
+        // 인간 파츠 구매 여부 확인
+        // =========================================================
+
+        // 몸통 - moneyItems[3]
+        if (moneyItems.Count > 3)
+        {
+            bool soldOut = PlayerStatus.Instance.humanBody;
+
+            moneyItems[3].button.interactable = !soldOut;
+
+            if (humanBodySoldOut != null)
+                humanBodySoldOut.SetActive(soldOut);
+        }
+
+
+        // 머리 - moneyItems[4]
+        if (moneyItems.Count > 4)
+        {
+            bool soldOut = PlayerStatus.Instance.humanHead;
+
+            moneyItems[4].button.interactable = !soldOut;
+
+            if (humanHeadSoldOut != null)
+                humanHeadSoldOut.SetActive(soldOut);
+        }
+
+
+        // 심장 - moneyItems[5]
+        if (moneyItems.Count > 5)
+        {
+            bool soldOut = PlayerStatus.Instance.humanHeart;
+
+            moneyItems[5].button.interactable = !soldOut;
+
+            if (humanHeartSoldOut != null)
+                humanHeartSoldOut.SetActive(soldOut);
+        }
     }
 
 
@@ -235,7 +283,7 @@ public class ShopPurchaseController : MonoBehaviour
             return;
 
         // 기름 부족하면 아무것도 하지 않음
-        if (PlayerStatus.Instance.fuel < fuelItem.fuelCost)
+        if (PlayerStatus.Instance.fuel <= fuelItem.fuelCost)
             return;
 
         // 기름 차감
@@ -310,6 +358,21 @@ public class ShopPurchaseController : MonoBehaviour
             if (item.cannotPurchaseNotice != null)
                 item.cannotPurchaseNotice.SetActive(true);
         }
+    }
+
+    public void PurchaseHumanHead()
+    {
+        PlayerStatus.Instance.ObtainHumanHead();
+    }
+
+    public void PurchaseHumanBody()
+    {
+        PlayerStatus.Instance.ObtainHumanBody();
+    }
+
+    public void PurchaseHumanHeart()
+    {
+        PlayerStatus.Instance.ObtainHumanHeart();
     }
 
 
