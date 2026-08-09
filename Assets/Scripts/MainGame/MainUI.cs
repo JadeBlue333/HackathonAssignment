@@ -99,6 +99,7 @@ public class MainUI : MonoBehaviour
 
     [Header("채팅 이벤트 등장")]
 
+    [Tooltip("시간이 되면 활성화될 BalSajang 등의 채팅 이벤트 오브젝트")]
     [SerializeField]
     private GameObject randomEventObject;
 
@@ -119,9 +120,6 @@ public class MainUI : MonoBehaviour
     [Tooltip("채팅 이벤트 발생 가능 종료 시간")]
     [SerializeField]
     private float eventEndTime = 12f;
-
-    [SerializeField]
-    private GameObject chatPopUp;
 
 
     // =========================================================
@@ -202,8 +200,6 @@ public class MainUI : MonoBehaviour
 
     private bool randomEventTriggered = false;
 
-    private bool chatOpened = false;
-
     private bool dayEnding = false;
 
 
@@ -240,7 +236,12 @@ public class MainUI : MonoBehaviour
 
 
         // =====================================================
-        // 랜덤 이벤트 아이콘 초기화
+        // 랜덤 이벤트 오브젝트 초기화
+        //
+        // 게임 시작 시 OFF
+        // 시간이 되면 MainUI가 ON
+        // 이후 BalSajang의 OnEnable()에서
+        // ChatController를 활성화하는 구조
         // =====================================================
 
         if (randomEventObject != null)
@@ -249,22 +250,6 @@ public class MainUI : MonoBehaviour
                 false
             );
         }
-
-
-        // =====================================================
-        // 채팅 팝업 초기화
-        // =====================================================
-
-        if (chatPopUp != null)
-        {
-            chatPopUp.SetActive(
-                false
-            );
-        }
-
-
-        chatOpened =
-            false;
 
 
         // =====================================================
@@ -309,15 +294,13 @@ public class MainUI : MonoBehaviour
 
 
         // =====================================================
-        // 먼저 입력 처리
+        // 입력 처리
         //
-        // 이번 프레임에 창을 열면
-        // 바로 그 프레임부터 시간이 멈춤
+        // 채팅 T 입력은 MainUI에서 처리하지 않음
+        // ChatController가 별도로 담당
         // =====================================================
 
         HandleSkillPanelInput();
-
-        HandleChatInput();
 
         HandleShortcutInput();
 
@@ -364,8 +347,6 @@ public class MainUI : MonoBehaviour
                 continue;
 
 
-            // 현재 GameObject의 Layer가
-            // timePauseLayer에 포함되어 있는지 확인
             bool isPauseLayer =
                 (
                     timePauseLayer.value &
@@ -391,9 +372,6 @@ public class MainUI : MonoBehaviour
 
     // =========================================================
     // Refresh Pause UI Cache
-    //
-    // 런타임 중 새로운 PauseUI 오브젝트가 생성될 경우
-    // 필요할 때 호출 가능
     // =========================================================
 
     public void RefreshTimePauseObjects()
@@ -422,7 +400,6 @@ public class MainUI : MonoBehaviour
                 continue;
 
 
-            // Hierarchy에서 실제로 활성 상태인지 확인
             if (obj.activeInHierarchy)
             {
                 return true;
@@ -453,7 +430,6 @@ public class MainUI : MonoBehaviour
                 .wasPressedThisFrame
         )
         {
-            // 이미 열려 있으면 닫기
             if (
                 endWorkPanel != null &&
                 endWorkPanel.activeSelf
@@ -464,7 +440,6 @@ public class MainUI : MonoBehaviour
                 );
             }
 
-            // 닫혀 있으면 실제 업무 종료 버튼 클릭
             else if (
                 endWorkButton != null &&
                 endWorkButton.interactable &&
@@ -600,63 +575,6 @@ public class MainUI : MonoBehaviour
         skillPanel.SetActive(
             false
         );
-    }
-
-
-    // =========================================================
-    // Chat Input
-    // =========================================================
-
-    private void HandleChatInput()
-    {
-        if (Keyboard.current == null)
-            return;
-
-
-        if (
-            Keyboard.current.tKey
-                .wasPressedThisFrame
-        )
-        {
-            ToggleChatPopUp();
-        }
-    }
-
-
-    // =========================================================
-    // Chat Toggle
-    // =========================================================
-
-    public void ToggleChatPopUp()
-    {
-        if (chatPopUp == null)
-            return;
-
-
-        if (!chatOpened)
-        {
-            if (randomEventObject != null)
-            {
-                randomEventObject.SetActive(
-                    false
-                );
-            }
-
-
-            chatPopUp.SetActive(
-                true
-            );
-
-
-            chatOpened =
-                true;
-        }
-        else
-        {
-            chatPopUp.SetActive(
-                !chatPopUp.activeSelf
-            );
-        }
     }
 
 
@@ -819,6 +737,9 @@ public class MainUI : MonoBehaviour
 
         // =====================================================
         // Random Chat Event
+        //
+        // 시간이 되면 BalSajang 활성화
+        // MainUI에서는 여기까지만 담당
         // =====================================================
 
         float currentHour =

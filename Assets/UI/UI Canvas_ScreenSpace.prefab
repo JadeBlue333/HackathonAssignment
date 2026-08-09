@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 6639472087722877152}
   - component: {fileID: 5483357924715101299}
   - component: {fileID: 219337580453301823}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Back Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1363,7 +1363,7 @@ GameObject:
   - component: {fileID: 6995700106618698244}
   - component: {fileID: 5599191748515450959}
   - component: {fileID: 8293338409998836836}
-  - component: {fileID: 7338558002189529794}
+  - component: {fileID: 1093967263637486958}
   m_Layer: 9
   m_Name: Goto Progress
   m_TagString: Untagged
@@ -1474,9 +1474,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainUI, Assembly-CSharp
-        m_MethodName: EndWorkDay
+      - m_Target: {fileID: 1093967263637486958}
+        m_TargetAssemblyTypeName: ReturnToProgress, Assembly-CSharp
+        m_MethodName: ReturnProgress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1498,7 +1498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0794c1653d62e744791e6db9f8c23c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetActive
-  targetObject: {fileID: 0}
+  targetObject: {fileID: 789534985300986603}
 --- !u!114 &5599191748515450959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverGuideText
   targetText: {fileID: 8354877564166220345}
   fadeDuration: 0.2
---- !u!114 &7338558002189529794
+--- !u!114 &1093967263637486958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1540,10 +1540,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 789534985300986603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebc75b4dc975948f19a130c8cc81e96d, type: 3}
+  m_Script: {fileID: 11500000, guid: f6be95a4b97454fc886d318602f2ade8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
-  sceneName: Progress
+  m_EditorClassIdentifier: Assembly-CSharp::ReturnToProgress
+  progressSceneName: Progress
 --- !u!1 &796277388020905003
 GameObject:
   m_ObjectHideFlags: 0
@@ -3423,7 +3423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8124626611435788078}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Chat Log (Need Image Set)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7876,7 +7876,7 @@ GameObject:
   - component: {fileID: 5787761698909811912}
   - component: {fileID: 4109626004497724869}
   - component: {fileID: 1103276835156726394}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Chat Log (Need Image Change)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12653,7 +12653,7 @@ GameObject:
   - component: {fileID: 1354317111775824968}
   - component: {fileID: 8812905880197703677}
   - component: {fileID: 4802556998257282037}
-  m_Layer: 9
+  m_Layer: 5
   m_Name: Back Black (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

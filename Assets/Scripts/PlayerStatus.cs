@@ -78,7 +78,7 @@ public class PlayerStatus : MonoBehaviour
     private void Initialize()
     {
         // 기본 상태
-        currentDay = 0;
+        currentDay = 9;
         money = 20;
 
         fuel = 70;
@@ -95,7 +95,7 @@ public class PlayerStatus : MonoBehaviour
         humanHead = false;
         humanHeart = false;
 
-        isHuman = true;
+        isHuman = false;
 
 
         // 스킬 초기화
