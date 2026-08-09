@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &14884785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1954592976970970205, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &16518645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7755328529171751637, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
@@ -1085,10 +1090,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1244279058}
+    - target: {fileID: 3644208782681109480, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3975945098402215779, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 4148086308237257722, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_Name
+      value: Chat Log (Need Image Change)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148086308237257722, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5050926098569868271, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: rotationTarget
       value: 
@@ -9606,7 +9623,7 @@ MonoBehaviour:
   randomEventVolume: 0.7
   eventStartTime: 11
   eventEndTime: 12
-  chatPopUp: {fileID: 501368716}
+  chatPopUp: {fileID: 14884785}
   skillPanel: {fileID: 1786241175}
   endWorkButton: {fileID: 1429134501}
   manualButton: {fileID: 450991361}
