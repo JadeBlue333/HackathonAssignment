@@ -78,7 +78,7 @@ public class PlayerStatus : MonoBehaviour
     private void Initialize()
     {
         // 기본 상태
-        currentDay = 7;
+        currentDay = 8;
         money = 20;
 
         fuel = 70;
