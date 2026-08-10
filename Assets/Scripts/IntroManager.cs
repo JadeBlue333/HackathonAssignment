@@ -28,11 +28,18 @@ public class IntroManager : MonoBehaviour
     [Header("Scene")]
     [SerializeField] private string nextSceneName;
 
+    [Header("엔딩 화면일때 true")]
+    public bool endOfGame = false;
+
     private bool isSpacePressed = false;
     private bool isSkipping = false;
 
     private void Start()
     {
+        // 게임이 끝나는 씬이면 PlayerStatus 삭제
+        if (endOfGame)
+            Destroy(PlayerStatus.Instance.gameObject);
+        
         StartCoroutine(PlayIntroTexts());
 
         if (bgm != null)

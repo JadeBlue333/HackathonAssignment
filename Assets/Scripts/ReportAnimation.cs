@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ReportAnimation : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class ReportAnimation : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip reportItemSfx;
 
+    [Header("Next Button Sound Effect")]
+    [SerializeField] private AudioClip nextButtonSfx;
+    [Range(0f, 1f)]
+    [SerializeField] private float nextButtonSfxVolume = 1f;
+
     private Coroutine reportCoroutine;
     private bool isShowingReport = true;
     private bool isSkipped = false;
@@ -40,7 +46,17 @@ public class ReportAnimation : MonoBehaviour
             notice.SetActive(false);
 
         if (nextButton != null)
+        {
             nextButton.SetActive(false);
+
+            // Next Button 클릭 리스너 추가
+            Button button = nextButton.GetComponent<Button>();
+
+            if (button != null)
+            {
+                button.onClick.AddListener(PlayNextButtonSfx);
+            }
+        }
 
         reportCoroutine = StartCoroutine(ShowReport());
     }
@@ -95,7 +111,6 @@ public class ReportAnimation : MonoBehaviour
 
     private void SkipAnimation()
     {
-        // 이미 스킵했다면 아무것도 하지 않음
         if (isSkipped)
             return;
 
@@ -120,7 +135,7 @@ public class ReportAnimation : MonoBehaviour
                 item.SetActive(true);
         }
 
-        // 스킵할 때는 SFX 딱 한 번
+        // 스킵할 때 SFX 딱 한 번
         PlayReportSfx();
 
         // Next Button 표시
@@ -133,6 +148,29 @@ public class ReportAnimation : MonoBehaviour
         if (audioSource != null && reportItemSfx != null)
         {
             audioSource.PlayOneShot(reportItemSfx);
+        }
+    }
+
+    // Next Button 전용 효과음
+    private void PlayNextButtonSfx()
+    {
+        if (audioSource != null && nextButtonSfx != null)
+        {
+            audioSource.PlayOneShot(nextButtonSfx, nextButtonSfxVolume);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // 리스너 중복 등록 방지 및 정리
+        if (nextButton != null)
+        {
+            Button button = nextButton.GetComponent<Button>();
+
+            if (button != null)
+            {
+                button.onClick.RemoveListener(PlayNextButtonSfx);
+            }
         }
     }
 }

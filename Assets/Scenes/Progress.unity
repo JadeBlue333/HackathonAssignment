@@ -171,7 +171,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &6191569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,22 +179,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6191568}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abc6c3315ad4fee409529b1cd529cc91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowProgress
-  dayButtons:
-  - {fileID: 856320348}
-  - {fileID: 1968274607}
-  - {fileID: 1970844657}
-  - {fileID: 549471098}
-  - {fileID: 1006179528}
-  - {fileID: 75520916}
-  - {fileID: 199870809}
-  - {fileID: 749401719}
-  - {fileID: 719045372}
-  - {fileID: 759451567}
+  targetButton: {fileID: 759451567}
+  hoverText: {fileID: 1784577773}
 --- !u!4 &6191570
 Transform:
   m_ObjectHideFlags: 0
@@ -586,7 +577,7 @@ MonoBehaviour:
   buttonDay: 4
   button: {fileID: 75520916}
   buttonImage: {fileID: 75520917}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -1233,7 +1224,7 @@ MonoBehaviour:
   buttonDay: 3
   button: {fileID: 199870809}
   buttonImage: {fileID: 199870810}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -1365,7 +1356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8435274bb29684a4fb33f497fa7f942f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5380263569114675994392a4fa04a03, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3060,7 +3051,7 @@ MonoBehaviour:
   buttonDay: 6
   button: {fileID: 549471098}
   buttonImage: {fileID: 549471099}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -3566,7 +3557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &710031063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3800,7 +3791,7 @@ MonoBehaviour:
   buttonDay: 1
   button: {fileID: 719045372}
   buttonImage: {fileID: 719045373}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -4005,7 +3996,7 @@ MonoBehaviour:
   buttonDay: 2
   button: {fileID: 749401719}
   buttonImage: {fileID: 749401720}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -4047,6 +4038,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 349667664}
+  - {fileID: 1784577774}
   m_Father: {fileID: 1047323252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4175,7 +4167,7 @@ MonoBehaviour:
   buttonDay: 0
   button: {fileID: 759451567}
   buttonImage: {fileID: 759451568}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -4912,7 +4904,7 @@ MonoBehaviour:
   buttonDay: 9
   button: {fileID: 856320348}
   buttonImage: {fileID: 856320349}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -6110,7 +6102,7 @@ MonoBehaviour:
   buttonDay: 5
   button: {fileID: 1006179528}
   buttonImage: {fileID: 1006179529}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -9511,6 +9503,145 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1784577773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1784577774}
+  - component: {fileID: 1784577776}
+  - component: {fileID: 1784577775}
+  m_Layer: 5
+  m_Name: text (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1784577774
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784577773}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 759451566}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -143, y: -177}
+  m_SizeDelta: {x: 304.08, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1784577775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784577773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uC624\uB298 \uC5D4\uB529\uC744 \uB9DE\uC774\uD558\uACE0 \uB098\uBA74
+    \uAC8C\uC784\uC774 \uCD08\uAE30\uD654\uB429\uB2C8\uB2E4.\n\uC2E0\uC911\uD558\uAC8C
+    \uC120\uD0DD\uD558\uC138\uC694."
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: bd335c2ad9232934b84cde3e8a9b6207, type: 2}
+  m_sharedMaterial: {fileID: 1949642620578753918, guid: bd335c2ad9232934b84cde3e8a9b6207, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 45.3
+  m_fontSizeBase: 45.3
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1784577776
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784577773}
+  m_CullTransparentMesh: 1
 --- !u!1 &1787986700
 GameObject:
   m_ObjectHideFlags: 0
@@ -10215,7 +10346,7 @@ MonoBehaviour:
   buttonDay: 8
   button: {fileID: 1968274607}
   buttonImage: {fileID: 1968274608}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
@@ -10385,7 +10516,7 @@ MonoBehaviour:
   buttonDay: 7
   button: {fileID: 1970844657}
   buttonImage: {fileID: 1970844658}
-  normalSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
+  normalSprite: {fileID: 21300000, guid: 741df5e2e27086147bf72ff66ca99874, type: 3}
   hoverSprite: {fileID: 21300000, guid: 0c007cb5e19d14240b72d3cbd985b853, type: 3}
   completedSprite: {fileID: 21300000, guid: 12dce1b152f71f94ab3f5bf6d2ddcbc9, type: 3}
   lockedSprite: {fileID: 21300000, guid: 5d50f3bc86482ed45a60aedd497bef4c, type: 3}
