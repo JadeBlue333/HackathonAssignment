@@ -77,6 +77,8 @@ public class PlayerStatus : MonoBehaviour
 
     private void Initialize()
     {
+        hasStarted = true;
+
         // 기본 상태
         currentDay = 8;
         money = 20;
@@ -118,6 +120,8 @@ public class PlayerStatus : MonoBehaviour
     // =========================================================
 
     [Header("Date")]
+    public bool hasStarted = false;
+
     [Range(0, 9)]
     public int currentDay;
 
