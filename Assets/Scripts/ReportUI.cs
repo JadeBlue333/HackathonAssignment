@@ -53,11 +53,12 @@ public class ReportUI : MonoBehaviour
         {
             fuelToggle.interactable = availableMoney >= FuelPrice;
 
-            // 돈이 부족해졌다면 강제로 해제
-            if (availableMoney <= FuelPrice && fuelToggle.isOn)
+            /*
+            if (availableMoney < FuelPrice && fuelToggle.isOn)
             {
                 fuelToggle.isOn = false;
             }
+            */
         }
 
         // 연료 구매 선택

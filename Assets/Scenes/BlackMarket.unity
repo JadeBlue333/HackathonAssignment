@@ -430,21 +430,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 159542803}
-        m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
-        m_MethodName: SpendMoney20
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 159542803}
-        m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
-        m_MethodName: SpendMoney20
+      - m_Target: {fileID: 1311638755}
+        m_TargetAssemblyTypeName: ShopPurchaseController, Assembly-CSharp
+        m_MethodName: PurchaseHumanBody
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1927,10 +1915,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0AC\uB78C\uC774 \uB418\uAE30 \uC704\uD55C \uCCAB \uAC78\uC74C\uC744
-    \uB0B4\uB51B\uC744 \uB2F9\uC2E0\uC744 \uC704\uD55C \uD504\uB9AC\uBBF8\uC5C4 \uBC14\uB514\uCF00\uC774\uC2A4.
-    \uB2F9\uC2E0\uC758 \uC601\uD63C\uC744 \uB2F4\uC744 \uBC14\uB514\uCF00\uC774\uC2A4\uB97C
-    \uAD6C\uB9E4\uD558\uC138\uC694!"
+  m_text: "\uC778\uAC04\uC774 \uB418\uAE30 \uC704\uD55C \uC544\uC8FC \uC911\uC694\uD558\uACE0
+    \uD575\uC2EC\uC801\uC778 \uBD80\uD488\uC785\uB2C8\uB2E4.\n\uB728\uAC70\uC6B4
+    \uC2EC\uC7A5\uC73C\uB85C \uB290\uB07C\uB294 \uC0B6\uC758 \uD76C\uB178\uC560\uB77D\uC740
+    \uB364\uC785\uB2C8\uB2E4!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
   m_sharedMaterial: {fileID: 5683225789139700101, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
@@ -3356,18 +3344,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1311638755}
-        m_TargetAssemblyTypeName: ShopPurchaseController, Assembly-CSharp
-        m_MethodName: PurchaseHumanHeart
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5463,21 +5439,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 159542803}
-        m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
-        m_MethodName: SpendMoney20
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 159542803}
-        m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
-        m_MethodName: SpendMoney20
+      - m_Target: {fileID: 1311638755}
+        m_TargetAssemblyTypeName: ShopPurchaseController, Assembly-CSharp
+        m_MethodName: PurchaseHumanHead
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8061,10 +8025,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0AC\uB78C\uC774 \uB418\uAE30 \uC704\uD55C \uCCAB \uAC78\uC74C\uC744
-    \uB0B4\uB51B\uC744 \uB2F9\uC2E0\uC744 \uC704\uD55C \uD504\uB9AC\uBBF8\uC5C4 \uBC14\uB514\uCF00\uC774\uC2A4.
-    \uB2F9\uC2E0\uC758 \uC601\uD63C\uC744 \uB2F4\uC744 \uBC14\uB514\uCF00\uC774\uC2A4\uB97C
-    \uAD6C\uB9E4\uD558\uC138\uC694!"
+  m_text: "\uB450\uBD80\uC0C1? \uC544\uB78D\uC0C1? \uB2F9\uC2E0\uC774 \uC6D0\uD558\uB294
+    \uC778\uC0C1\uC758 \uC5BC\uAD74\uC774\uB77C\uBA74 \uC5EC\uAE30\uC5D0 \uC804\uBD80
+    \uC900\uBE44\uB418\uC5B4\uC788\uC2B5\uB2C8\uB2E4. \uD06C\uB808\uD0C0\uB9CC \uC788\uB2E4\uBA74
+    \uB9D0\uC774\uC8E0."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
   m_sharedMaterial: {fileID: 5683225789139700101, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
@@ -8552,18 +8516,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1311638755}
-        m_TargetAssemblyTypeName: ShopPurchaseController, Assembly-CSharp
-        m_MethodName: PurchaseHumanBody
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &525542195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8755,7 +8707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC11C\uAC15\uC900"
+  m_text: "\uC870\uAC01\uBBF8\uC778"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bd335c2ad9232934b84cde3e8a9b6207, type: 2}
   m_sharedMaterial: {fileID: 1949642620578753918, guid: bd335c2ad9232934b84cde3e8a9b6207, type: 2}
@@ -9126,21 +9078,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 159542803}
-        m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
-        m_MethodName: SpendMoney20
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 159542803}
-        m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
-        m_MethodName: SpendMoney20
+      - m_Target: {fileID: 1311638755}
+        m_TargetAssemblyTypeName: ShopPurchaseController, Assembly-CSharp
+        m_MethodName: PurchaseHumanHeart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24415,18 +24355,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1311638755}
-        m_TargetAssemblyTypeName: ShopPurchaseController, Assembly-CSharp
-        m_MethodName: PurchaseHumanHead
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
