@@ -137,6 +137,24 @@ public class MotorMatchManager8 : MonoBehaviour
 
 
     // =====================================================
+    // Current Inspection State
+    // =====================================================
+
+    public bool CurrentSameColor
+    {
+        get;
+        private set;
+    }
+
+
+    public bool CurrentIsComplete
+    {
+        get;
+        private set;
+    }
+
+
+    // =====================================================
     // Runtime
     // =====================================================
 
@@ -408,6 +426,18 @@ public class MotorMatchManager8 : MonoBehaviour
                 0f,
                 100f
             ) < completeChance;
+
+
+        // =====================================================
+        // 현재 문제 상태 저장
+        // =====================================================
+
+        CurrentSameColor =
+            sameColor;
+
+
+        CurrentIsComplete =
+            isComplete;
 
 
         // -------------------------------------------------
@@ -754,10 +784,13 @@ public class MotorMatchManager8 : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
-        // 환경설정에서 스크롤 반전 체크했으면 방향 반전
-        if (ScrollInvertSetting.IsScrollInverted())
+        if (
+            ScrollInvertSetting
+                .IsScrollInverted()
+        )
         {
-            scrollValue *= -1f;
+            scrollValue *=
+                -1f;
         }
 
 
@@ -794,8 +827,6 @@ public class MotorMatchManager8 : MonoBehaviour
 
     // =====================================================
     // WASD 미세 회전
-    //
-    // 환경설정 감도의 영향을 받지 않음
     // =====================================================
 
     private void HandleFineRotation()

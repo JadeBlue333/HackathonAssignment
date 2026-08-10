@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8284452344683343329}
-  - component: {fileID: 6445554324817940939}
   - component: {fileID: 1712899416518834253}
+  - component: {fileID: 8977908748708655239}
   m_Layer: 0
   m_Name: BGMManager
   m_TagString: Untagged
@@ -33,27 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6445554324817940939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5595149201694573444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cd8665ec5c7d478c81e7af0a4a9f622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ThreeSceneBGM
-  audioSource: {fileID: 1712899416518834253}
-  scene1Name: D-3
-  scene1BGM: {fileID: 8300000, guid: c346fa77844584b8a96baf11b6478ef6, type: 3}
-  scene2Name: SuspiciousShop
-  scene2BGM: {fileID: 8300000, guid: c346fa77844584b8a96baf11b6478ef6, type: 3}
-  scene3Name: Progress
-  fadeInDuration: 1.5
-  fadeOutDuration: 1.5
-  maxVolume: 0.6
 --- !u!82 &1712899416518834253
 AudioSource:
   m_ObjectHideFlags: 0
@@ -151,3 +130,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8977908748708655239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5595149201694573444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff86e7deefc24868b28bd2457e61632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DailyReportBGM
+  audioSource: {fileID: 1712899416518834253}
+  bgm: {fileID: 8300000, guid: c346fa77844584b8a96baf11b6478ef6, type: 3}
+  dailyReportSceneName: DailyReport
+  fadeInDuration: 1.5
+  fadeOutDuration: 1.5
+  maxVolume: 1
