@@ -1044,6 +1044,14 @@ PrefabInstance:
     - target: {fileID: 1799993431143987742, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 704462583}
+    - target: {fileID: 1799993431143987742, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectA
+      objectReference: {fileID: 0}
+    - target: {fileID: 1799993431143987742, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1954592976970970205, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_IsActive
@@ -1052,6 +1060,14 @@ PrefabInstance:
     - target: {fileID: 2279079438988674714, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 704462583}
+    - target: {fileID: 2279079438988674714, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectB
+      objectReference: {fileID: 0}
+    - target: {fileID: 2279079438988674714, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2349187090510857088, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1096,6 +1112,14 @@ PrefabInstance:
     - target: {fileID: 3612577759179194810, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 704462583}
+    - target: {fileID: 3612577759179194810, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612577759179194810, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3975945098402215779, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
@@ -1112,10 +1136,26 @@ PrefabInstance:
     - target: {fileID: 5167146101561423449, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 704462583}
+    - target: {fileID: 5167146101561423449, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectUnopened
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167146101561423449, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5433326241479257086, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 704462583}
+    - target: {fileID: 5433326241479257086, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectDiscard
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433326241479257086, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5587465445796366463, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
@@ -1128,6 +1168,14 @@ PrefabInstance:
     - target: {fileID: 5853079651437692504, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 704462583}
+    - target: {fileID: 5853079651437692504, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectOpened
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853079651437692504, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6200580541700901110, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Enabled
@@ -3523,6 +3571,17 @@ Transform:
   - {fileID: 569358867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &704462583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+  m_PrefabInstance: {fileID: 3801493218913883263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ec62d7f953214478de4803b03f035c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectionGameManager7
 --- !u!1 &722573565
 GameObject:
   m_ObjectHideFlags: 0
@@ -6964,7 +7023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10142,7 +10201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2084862958
 RectTransform:
   m_ObjectHideFlags: 0
