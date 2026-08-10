@@ -1957,6 +1957,8 @@ MonoBehaviour:
   interval: 0.5
   audioSource: {fileID: 1800954460}
   reportItemSfx: {fileID: 8300000, guid: b14182096982048c99f75b715634f7d7, type: 3}
+  nextButtonSfx: {fileID: 8300000, guid: 2652aa11a0d7adb4f8fc0879ac9fe437, type: 3}
+  nextButtonSfxVolume: 0.5
 --- !u!4 &235413206
 Transform:
   m_ObjectHideFlags: 0

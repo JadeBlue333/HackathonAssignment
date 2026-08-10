@@ -15,8 +15,8 @@ public class IntroManager : MonoBehaviour
     [Header("Intro")]
     [TextArea]
     [SerializeField] private List<string> introTexts = new();
-    [SerializeField] private float textDuration = 1f; // 텍스트가 다 출력된 후 유지되는 시간
-    [SerializeField] private float typingSpeed = 0.05f; // 타이핑 속도
+    [SerializeField] private float textDuration = 1f;
+    [SerializeField] private float typingSpeed = 0.05f;
 
     [Header("Fade")]
     [SerializeField] private float fadeDuration = 1f;
@@ -28,14 +28,31 @@ public class IntroManager : MonoBehaviour
     [Header("Scene")]
     [SerializeField] private string nextSceneName;
 
+    [Header("맨 처음 인트로 화면일때 true")]
+    public bool startOfGame = false;
+    [SerializeField] private GameObject chatImg;
+
+    [Header("엔딩 화면일때 true")]
+    public bool endOfGame = false;
+
     private bool isSpacePressed = false;
     private bool isSkipping = false;
 
+    // 엔딩용 텍스트 색상
+    private readonly Color endTextColor = new Color32(0x5D, 0xD6, 0xF2, 0xFF);
+
     private void Start()
     {
+        // 게임이 끝나는 씬이면 PlayerStatus 삭제
+        if (endOfGame)
+        {
+            Destroy(PlayerStatus.Instance.gameObject);
+        }
+
         StartCoroutine(PlayIntroTexts());
 
-        if (bgm != null)
+        // 엔딩이 아닐 때만 처음부터 BGM 재생
+        if (!endOfGame && bgm != null)
         {
             bgm.Play();
         }
@@ -57,15 +74,44 @@ public class IntroManager : MonoBehaviour
     {
         introText.gameObject.SetActive(true);
 
-        foreach (string text in introTexts)
+        for (int i = 0; i < introTexts.Count; i++)
         {
             if (isSkipping)
                 yield break;
 
+            // 처음 게임 시작이고,
+            // 마지막에서 두 번째 텍스트일 때 chatImg 활성화
+            if (startOfGame && i == introTexts.Count - 2)
+            {
+                if (chatImg != null)
+                    chatImg.SetActive(true);
+            }
+
+            // 엔딩일 경우
+            if (endOfGame)
+            {
+                // 첫 번째 문장 → 흰색
+                // 두 번째 문장부터 → #5DD6F2
+                if (i == 0)
+                {
+                    introText.color = Color.white;
+                }
+                else
+                {
+                    introText.color = endTextColor;
+
+                    // 두 번째 문장이 시작될 때 BGM 재생
+                    if (i == 1 && bgm != null)
+                    {
+                        bgm.Play();
+                    }
+                }
+            }
+
             isSpacePressed = false;
 
             // 타이핑
-            yield return StartCoroutine(TypeText(text));
+            yield return StartCoroutine(TypeText(introTexts[i]));
 
             if (isSkipping)
                 yield break;
@@ -143,10 +189,8 @@ public class IntroManager : MonoBehaviour
         if (bgm == null)
             yield break;
 
-        //BGM 페이드아웃
-
+        // BGM 페이드아웃
         float startVolume = bgm.volume;
-
         float t2 = 0f;
 
         while (t2 < bgmFadeDuration)

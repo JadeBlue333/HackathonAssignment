@@ -11,7 +11,8 @@ public class SetActive : MonoBehaviour
     /// <param name="isActive">true면 활성화, false면 비활성화</param>
     public void SetObjectActive(bool isActive)
     {
-        targetObject.SetActive(isActive);
+        if (targetObject != null)
+            targetObject.SetActive(isActive);
     }
 
     /*
