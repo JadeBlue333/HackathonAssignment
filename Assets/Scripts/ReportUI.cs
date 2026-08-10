@@ -29,7 +29,8 @@ public class ReportUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        fuelToggle.onValueChanged.RemoveListener(OnFuelToggleChanged);
+        if (fuelToggle != null)
+            fuelToggle.onValueChanged.RemoveListener(OnFuelToggleChanged);
     }
 
     private void OnFuelToggleChanged(bool isOn)
@@ -44,13 +45,29 @@ public class ReportUI : MonoBehaviour
         int fuel = ps.fuel;
         int totalMoney = ps.money + ps.earnings;
 
+        // 현재 보유 가능한 돈
+        int availableMoney = ps.money + ps.earnings;
+
+        // 돈이 FuelPrice보다 많을 때만 토글 가능
+        if (fuelToggle != null)
+        {
+            fuelToggle.interactable = availableMoney >= FuelPrice;
+
+            // 돈이 부족해졌다면 강제로 해제
+            if (availableMoney <= FuelPrice && fuelToggle.isOn)
+            {
+                fuelToggle.isOn = false;
+            }
+        }
+
+        // 연료 구매 선택
         if (fuelToggle != null && fuelToggle.isOn)
         {
             fuel += FuelAmount;
             totalMoney -= FuelPrice;
         }
 
-        fuelLeftText.text = $"남은 연료: {fuel-10}";
+        fuelLeftText.text = $"남은 연료: {fuel - 10}";
 
         originalMoneyText.text = $"{ps.money}C";
         earnedMoneyText.text = $"{ps.earnings}C";
