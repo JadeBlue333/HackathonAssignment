@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 using System.Collections;
 
 public class ProgressDayButton : MonoBehaviour,
@@ -8,7 +9,7 @@ public class ProgressDayButton : MonoBehaviour,
     IPointerExitHandler
 {
     [Header("Day")]
-    [Tooltip("D-9 ¹öÆ°ÀÌ¸é 9, D-8ÀÌ¸é 8, D-Day¸é 0")]
+    [Tooltip("D-9 ë²„íŠ¼ì´ë©´ 9, D-8ì´ë©´ 8, D-Dayë©´ 0")]
     [SerializeField] private int buttonDay;
 
 
@@ -19,26 +20,38 @@ public class ProgressDayButton : MonoBehaviour,
     [Header("Image")]
     [SerializeField] private Image buttonImage;
 
-    [Tooltip("ÇöÀç ³¯Â¥ ±âº» ÀÌ¹ÌÁö")]
+    [Tooltip("í˜„ì¬ ë‚ ì§œ ê¸°ë³¸ ì´ë¯¸ì§€")]
     [SerializeField] private Sprite normalSprite;
 
-    [Tooltip("ÇöÀç ³¯Â¥ È£¹ö ÀÌ¹ÌÁö")]
+    [Tooltip("í˜„ì¬ ë‚ ì§œ í˜¸ë²„ ì´ë¯¸ì§€")]
     [SerializeField] private Sprite hoverSprite;
 
-    [Tooltip("ÀÌ¹Ì Áö³­ ³¯Â¥ ÀÌ¹ÌÁö")]
+    [Tooltip("ì´ë¯¸ ì™„ë£Œí•œ ë‚ ì§œ ì´ë¯¸ì§€")]
     [SerializeField] private Sprite completedSprite;
 
-    [Tooltip("¾ÆÁ÷ ¿ÀÁö ¾ÊÀº ³¯Â¥ ÀÌ¹ÌÁö")]
+    [Tooltip("ì•„ì§ ì§„í–‰ ì „ì¸ ë‚ ì§œ ì´ë¯¸ì§€")]
     [SerializeField] private Sprite lockedSprite;
+
+
+    [Header("Text")]
+    [SerializeField] private TMP_Text dayText;
+
+    [Tooltip("í˜„ì¬ ì§„í–‰í•´ì•¼ í•˜ëŠ” ë‚ ì§œ í…ìŠ¤íŠ¸ íˆ¬ëª…ë„")]
+    [Range(0f, 1f)]
+    [SerializeField] private float currentTextAlpha = 1f;
+
+    [Tooltip("ì™„ë£Œí–ˆê±°ë‚˜ ì•„ì§ ì§„í–‰ ì „ì¸ ë‚ ì§œ í…ìŠ¤íŠ¸ íˆ¬ëª…ë„")]
+    [Range(0f, 1f)]
+    [SerializeField] private float inactiveTextAlpha = 0.2f;
 
 
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
 
-    [Tooltip("¸¶¿ì½º È£¹ö ½Ã Àç»ı")]
+    [Tooltip("ë§ˆìš°ìŠ¤ í˜¸ë²„ ì‹œ ì‚¬ìš´ë“œ")]
     [SerializeField] private AudioClip hoverSound;
 
-    [Tooltip("¹öÆ° Å¬¸¯ ½Ã Àç»ı")]
+    [Tooltip("ë²„íŠ¼ í´ë¦­ ì‹œ ì‚¬ìš´ë“œ")]
     [SerializeField] private AudioClip clickSound;
 
 
@@ -62,7 +75,7 @@ public class ProgressDayButton : MonoBehaviour,
 
 
     // =========================================================
-    // ³¯Â¥ »óÅÂ °»½Å
+    // ë‚ ì§œ ìƒíƒœ ê°±ì‹ 
     // =========================================================
 
     public void Refresh()
@@ -70,7 +83,7 @@ public class ProgressDayButton : MonoBehaviour,
         if (PlayerStatus.Instance == null)
         {
             Debug.LogWarning(
-                $"PlayerStatus.Instance°¡ ¾ø½À´Ï´Ù. / {gameObject.name}"
+                $"PlayerStatus.Instanceê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. / {gameObject.name}"
             );
 
             return;
@@ -80,7 +93,7 @@ public class ProgressDayButton : MonoBehaviour,
 
 
         // =====================================================
-        // ÇöÀç ³¯Â¥
+        // í˜„ì¬ ë‚ ì§œ
         // =====================================================
 
         if (buttonDay == currentDay)
@@ -88,6 +101,8 @@ public class ProgressDayButton : MonoBehaviour,
             isCurrentDay = true;
 
             button.interactable = true;
+
+            SetTextAlpha(currentTextAlpha);
 
             if (buttonImage != null &&
                 normalSprite != null)
@@ -98,11 +113,11 @@ public class ProgressDayButton : MonoBehaviour,
 
 
         // =====================================================
-        // ÀÌ¹Ì Áö³­ ³¯Â¥
+        // ì´ë¯¸ ì™„ë£Œí•œ ë‚ ì§œ
         //
-        // ¿¹:
-        // ÇöÀç D-6ÀÌ¸é
-        // D-9, D-8, D-7Àº ÀÌ¹Ì Áö³­ ³¯Â¥
+        // ì˜ˆ:
+        // í˜„ì¬ D-6ì´ë©´
+        // D-9, D-8, D-7ì€ ì´ë¯¸ ì™„ë£Œí•œ ë‚ ì§œ
         // =====================================================
 
         else if (buttonDay > currentDay)
@@ -110,6 +125,8 @@ public class ProgressDayButton : MonoBehaviour,
             isCurrentDay = false;
 
             button.interactable = false;
+
+            SetTextAlpha(inactiveTextAlpha);
 
             if (buttonImage != null &&
                 completedSprite != null)
@@ -120,11 +137,11 @@ public class ProgressDayButton : MonoBehaviour,
 
 
         // =====================================================
-        // ¹Ì·¡ ³¯Â¥
+        // ë¯¸ë˜ ë‚ ì§œ
         //
-        // ¿¹:
-        // ÇöÀç D-6ÀÌ¸é
-        // D-5 ~ D-Day´Â ¹Ì·¡ ³¯Â¥
+        // ì˜ˆ:
+        // í˜„ì¬ D-6ì´ë©´
+        // D-5 ~ D-DayëŠ” ë¯¸ë˜ ë‚ ì§œ
         // =====================================================
 
         else
@@ -132,6 +149,8 @@ public class ProgressDayButton : MonoBehaviour,
             isCurrentDay = false;
 
             button.interactable = false;
+
+            SetTextAlpha(inactiveTextAlpha);
 
             if (buttonImage != null)
             {
@@ -149,17 +168,37 @@ public class ProgressDayButton : MonoBehaviour,
 
 
     // =========================================================
+    // Text Alpha
+    // =========================================================
+
+    private void SetTextAlpha(float alpha)
+    {
+        if (dayText == null)
+            return;
+
+        Color color = dayText.color;
+
+        color.r = 1f;
+        color.g = 1f;
+        color.b = 1f;
+        color.a = alpha;
+
+        dayText.color = color;
+    }
+
+
+    // =========================================================
     // Mouse Hover
     // =========================================================
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // ÇöÀç ³¯Â¥ ¹öÆ°¸¸ ÀÛµ¿
+        // í˜„ì¬ ë‚ ì§œ ë²„íŠ¼ë§Œ ì‘ë™
         if (!isCurrentDay)
             return;
 
 
-        // È£¹ö ÀÌ¹ÌÁö º¯°æ
+        // í˜¸ë²„ ì´ë¯¸ì§€ ë³€ê²½
         if (buttonImage != null &&
             hoverSprite != null)
         {
@@ -167,7 +206,7 @@ public class ProgressDayButton : MonoBehaviour,
         }
 
 
-        // È£¹ö »ç¿îµå
+        // í˜¸ë²„ ì‚¬ìš´ë“œ
         if (audioSource != null &&
             hoverSound != null)
         {
@@ -186,7 +225,7 @@ public class ProgressDayButton : MonoBehaviour,
             return;
 
 
-        // ±âº» ÀÌ¹ÌÁö·Î º¹±Í
+        // ê¸°ë³¸ ì´ë¯¸ì§€ë¡œ ë³µê·€
         if (buttonImage != null &&
             normalSprite != null)
         {
@@ -201,12 +240,12 @@ public class ProgressDayButton : MonoBehaviour,
 
     public void ClickEffect()
     {
-        // ÇöÀç ³¯Â¥ ¹öÆ°¸¸ Å¬¸¯ È¿°ú
+        // í˜„ì¬ ë‚ ì§œ ë²„íŠ¼ë§Œ í´ë¦­ íš¨ê³¼
         if (!isCurrentDay)
             return;
 
 
-        // Å¬¸¯ »ç¿îµå
+        // í´ë¦­ ì‚¬ìš´ë“œ
         if (audioSource != null &&
             clickSound != null)
         {
@@ -214,7 +253,7 @@ public class ProgressDayButton : MonoBehaviour,
         }
 
 
-        // ±âÁ¸ Å¬¸¯ È¿°ú°¡ ½ÇÇà ÁßÀÌ¸é ÁßÁö
+        // ê¸°ì¡´ í´ë¦­ íš¨ê³¼ê°€ ì‹¤í–‰ ì¤‘ì´ë©´ ì •ì§€
         if (clickCoroutine != null)
         {
             StopCoroutine(clickCoroutine);
@@ -240,7 +279,7 @@ public class ProgressDayButton : MonoBehaviour,
             buttonImage.color;
 
 
-        // Å¬¸¯ ¼ø°£ »ìÂ¦ ¾îµÓ°Ô
+        // í´ë¦­ ìˆœê°„ ì ê¹ ì–´ë‘¡ê²Œ
         buttonImage.color =
             pressedColor;
 
@@ -250,7 +289,7 @@ public class ProgressDayButton : MonoBehaviour,
         );
 
 
-        // ¿ø·¡ »öÀ¸·Î º¹±Í
+        // ì›ë˜ ìƒ‰ìƒìœ¼ë¡œ ë³µê·€
         buttonImage.color =
             originalColor;
 
