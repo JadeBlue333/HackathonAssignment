@@ -162,7 +162,7 @@ public class GoToThisScene : MonoBehaviour
             // 블랙마켓 날짜인지 확인
             bool goToBlackMarket =
                 PlayerStatus.Instance.currentDay == 7 ||
-                PlayerStatus.Instance.currentDay == 5 ||
+                PlayerStatus.Instance.currentDay == 4 ||
                 PlayerStatus.Instance.currentDay == 1;
 
 
