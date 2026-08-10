@@ -80,11 +80,7 @@ public class PlayerStatus : MonoBehaviour
         hasStarted = true;
 
         // 기본 상태
-<<<<<<< Updated upstream
         currentDay = 9;
-=======
-        currentDay = 0;
->>>>>>> Stashed changes
         money = 20;
 
         fuel = 70;
