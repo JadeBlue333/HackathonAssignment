@@ -382,8 +382,16 @@ public class PlayerStatus : MonoBehaviour
 
     public void ApplyTrustChanges()
     {
-        AddTrust(trustChange);
-        ResetTrustChanges();
+        if (trust + trustChange <= 100)
+        {
+            AddTrust(trustChange);
+            ResetTrustChanges();
+        }
+        else
+        {
+            trust = 100;
+            ResetTrustChanges();
+        }
     }
 
 
@@ -579,18 +587,26 @@ public class PlayerStatus : MonoBehaviour
         int trustRecovery =
             GetTrustRecoveryAmount();
 
-        if (trustRecovery > 0)
+        if (trustRecovery > 0 && trustRecovery + trust <= 100)
         {
             AddTrust(trustRecovery);
 
             Debug.Log(
-                $"스킬 효과 - 신뢰도 +{trustRecovery}"
+                $"스킬 효과 - 신뢰도 + {trustRecovery}"
+            );
+        }
+        else if (trustRecovery > 0 && trustRecovery + trust > 100)
+        {
+            trust = 100;
+
+            Debug.Log(
+                $"스킬 효과 - 신뢰도 여전히 100"
             );
         }
 
 
-        // 작업시간 재계산
-        UpdateDayDuration();
+            // 작업시간 재계산
+            UpdateDayDuration();
 
 
         Debug.Log(

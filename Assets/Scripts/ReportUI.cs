@@ -67,8 +67,13 @@ public class ReportUI : MonoBehaviour
             fuel += FuelAmount;
             totalMoney -= FuelPrice;
         }
-
-        fuelLeftText.text = $"남은 연료: {fuel - 10}";
+        
+        if (fuel - 10 + ps.fuelRecoveryLevel * 5 == 0)
+            fuelLeftText.text = $"내일 예상 연료: 0";
+        else if (fuel - 10 + ps.fuelRecoveryLevel * 5 <= 100 && fuel - 10 + ps.fuelRecoveryLevel * 5 > 0)
+            fuelLeftText.text = $"내일 예상 연료: {fuel - 10 + ps.fuelRecoveryLevel * 5}";
+        else
+            fuelLeftText.text = $"내일 예상 연료: 100";
 
         originalMoneyText.text = $"{ps.money}C";
         earnedMoneyText.text = $"{ps.earnings}C";
@@ -76,6 +81,15 @@ public class ReportUI : MonoBehaviour
 
         comboNum.text = $"{ps.comboNumber * 2}";
         mistakeNum.text = $"{ps.mistakeNumber * -5}";
-        finalTrustText.text = $"{ps.trust + ps.trustChange}";
+        if (ps.trust + ps.trustChange < 0)
+        {
+            finalTrustText.text = "0";
+        }
+        else if (ps.trust + ps.trustChange > 100)
+        {
+            finalTrustText.text = "100";
+        }
+        else
+            finalTrustText.text = $"{ps.trust + ps.trustChange}";
     }
 }

@@ -10,7 +10,6 @@ public class SkillTreeUIManager : MonoBehaviour
         private set;
     }
 
-
     // =========================================================
     // Detail Panel
     // =========================================================
