@@ -65,11 +65,6 @@ public class PlayerStatus : MonoBehaviour
         Initialize();
     }
 
-    private void Update()
-    {
-        
-    }
-
 
     // =========================================================
     // Initialize

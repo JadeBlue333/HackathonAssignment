@@ -265,6 +265,19 @@ public class ShopPurchaseController : MonoBehaviour
         if (PlayerStatus.Instance.money < item.price)
             return;
 
+        if (index == 3) // �ΰ� ����
+        {
+            PlayerStatus.Instance.ObtainHumanBody();
+        }
+        else if (index == 4) // �ΰ� �Ӹ�
+        {
+            PlayerStatus.Instance.ObtainHumanHead();
+        }
+        else if (index == 5) // �ΰ� ����
+        {
+            PlayerStatus.Instance.ObtainHumanHeart();
+        }
+
         // �� ����
         PlayerStatus.Instance.SpendMoney(item.price);
 
@@ -359,22 +372,6 @@ public class ShopPurchaseController : MonoBehaviour
                 item.cannotPurchaseNotice.SetActive(true);
         }
     }
-
-    public void PurchaseHumanHead()
-    {
-        PlayerStatus.Instance.ObtainHumanHead();
-    }
-
-    public void PurchaseHumanBody()
-    {
-        PlayerStatus.Instance.ObtainHumanBody();
-    }
-
-    public void PurchaseHumanHeart()
-    {
-        PlayerStatus.Instance.ObtainHumanHeart();
-    }
-
 
     private void OnMoneyItemHoverExit(int index)
     {
