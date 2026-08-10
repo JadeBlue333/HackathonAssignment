@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 6639472087722877152}
   - component: {fileID: 5483357924715101299}
   - component: {fileID: 219337580453301823}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Back Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3423,7 +3423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8124626611435788078}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Chat Log (Need Image Set)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3692,7 +3692,7 @@ GameObject:
   - component: {fileID: 2974907898718275047}
   - component: {fileID: 1224191501939307655}
   - component: {fileID: 3816094820016173313}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Chat Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8025,7 +8025,7 @@ GameObject:
   - component: {fileID: 5787761698909811912}
   - component: {fileID: 4109626004497724869}
   - component: {fileID: 1103276835156726394}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Chat Log (Need Image Change)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11354,7 +11354,7 @@ GameObject:
   - component: {fileID: 2173309787860813643}
   - component: {fileID: 2197950631252850117}
   - component: {fileID: 7419735950969981314}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: x
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12939,7 +12939,7 @@ GameObject:
   - component: {fileID: 1354317111775824968}
   - component: {fileID: 8812905880197703677}
   - component: {fileID: 4802556998257282037}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Back Black (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15496,7 +15496,7 @@ GameObject:
   - component: {fileID: 6210523595811698311}
   - component: {fileID: 8907777781742553283}
   - component: {fileID: 2680770527189644600}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
