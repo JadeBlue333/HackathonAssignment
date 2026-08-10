@@ -5,6 +5,7 @@ public class NewGameButton : MonoBehaviour
 {
     [Header("Scene")]
     [SerializeField] private GoToThisScene goToThisScene;
+    [SerializeField] private GoToThisScene goToThisScene2;
 
     [Header("Reset Confirmation")]
     [SerializeField] private GameObject resetConfirmPanel;
@@ -12,16 +13,18 @@ public class NewGameButton : MonoBehaviour
     [Header("Continue Button")]
     [SerializeField] private Button continueButton;
 
+    private bool canContinue = false;
+
     private void Start()
     {
-        UpdateContinueButton();
-    }
-
-    private void UpdateContinueButton()
-    {
-        // PlayerStatus가 존재하면 Continue 활성화
-        // 없으면 비활성화
-        continueButton.interactable = PlayerStatus.Instance != null;
+        if (PlayerStatus.Instance != null && PlayerStatus.Instance.hasStarted)
+        {
+            canContinue = true;
+        }
+        else
+        {
+            canContinue = false;
+        }
     }
 
     // =====================================================
@@ -30,8 +33,7 @@ public class NewGameButton : MonoBehaviour
 
     public void OnClickNewGame()
     {
-        // PlayerStatus가 없음 = 처음 게임 실행
-        if (PlayerStatus.Instance == null)
+        if (!canContinue)
         {
             goToThisScene.nextSceneButton();
             return;
@@ -57,12 +59,15 @@ public class NewGameButton : MonoBehaviour
         goToThisScene.nextSceneButton();
     }
 
-    // =====================================================
-    // 초기화 확인 - 아니오
-    // =====================================================
-
-    public void CancelNewGame()
+    public void OnClickContinue()
     {
-        resetConfirmPanel.SetActive(false);
+        if (canContinue)
+        {
+            goToThisScene2.nextSceneButton();
+        }
+        else
+        {
+            return;
+        }
     }
 }
