@@ -9,13 +9,13 @@ public class ShopPurchaseController : MonoBehaviour
     [System.Serializable]
     public class MoneyItem
     {
-        [Header("±¸¸Å ¹öÆ°")]
+        [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°")]
         public Button button;
 
-        [Header("°¡°Ý. ÀèÆÌÀº ¿ì¼± 0À¸·Î Ã³¸® ÈÄ ÀèÆÌ ÄÁÆ®·Ñ·¯¿¡¼­ °ü¸®")]
+        [Header("ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼± 0ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
         public int price = 100;
 
-        [Header("Hover ¾È³»¹®")]
+        [Header("Hover ï¿½È³ï¿½ï¿½ï¿½")]
         public GameObject canPurchaseNotice;
         public GameObject cannotPurchaseNotice;
     }
@@ -23,35 +23,35 @@ public class ShopPurchaseController : MonoBehaviour
     [System.Serializable]
     public class FuelItem
     {
-        [Header("±¸¸Å ¹öÆ°")]
+        [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°")]
         public Button button;
 
-        [Header("±â¸§ ¼Òºñ·®")]
+        [Header("ï¿½â¸§ ï¿½Òºï¿½")]
         public int fuelCost = 10;
 
-        [Header("Hover ¾È³»¹®")]
+        [Header("Hover ï¿½È³ï¿½ï¿½ï¿½")]
         public GameObject canPurchaseNotice;
         public GameObject cannotPurchaseNotice;
     }
 
-    [Header("Player »óÅÂ")]
+    [Header("Player ï¿½ï¿½ï¿½ï¿½")]
     public TextMeshProUGUI playerStat;
     public TextMeshProUGUI playerStat2;
 
-    [Header("µ·À¸·Î ±¸¸ÅÇÏ´Â ¾ÆÀÌÅÛ 6°³")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 6ï¿½ï¿½")]
     [SerializeField]
     private List<MoneyItem> moneyItems = new List<MoneyItem>();
 
-    [Header("ÀÎ°£ ÆÄÃ÷ Sold Out Ç¥½Ã")]
+    [Header("ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ Sold Out Ç¥ï¿½ï¿½")]
     [SerializeField] private GameObject humanBodySoldOut;
     [SerializeField] private GameObject humanHeadSoldOut;
     [SerializeField] private GameObject humanHeartSoldOut;
 
-    [Header("±â¸§À¸·Î ±¸¸ÅÇÏ´Â ¾ÆÀÌÅÛ")]
+    [Header("ï¿½â¸§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField]
     private FuelItem fuelItem;
 
-    [Header("°øÅë ±¸¸Å È¿°úÀ½")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField]
     private AudioSource audioSource;
 
@@ -73,17 +73,17 @@ public class ShopPurchaseController : MonoBehaviour
     private void Update()
     {
         playerStat.text =
-            $"°¡Áø µ·: {PlayerStatus.Instance.money} C  ¿¬·á: {PlayerStatus.Instance.fuel} / 100";
+            $"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {PlayerStatus.Instance.money} C  ï¿½ï¿½ï¿½ï¿½: {PlayerStatus.Instance.fuel} / 100";
 
         playerStat2.text =
-            $"°¡Áø µ·: {PlayerStatus.Instance.money} C  ¿¬·á: {PlayerStatus.Instance.fuel} / 100";
+            $"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {PlayerStatus.Instance.money} C  ï¿½ï¿½ï¿½ï¿½: {PlayerStatus.Instance.fuel} / 100";
 
 
         // =========================================================
-        // ÀÎ°£ ÆÄÃ÷ ±¸¸Å ¿©ºÎ È®ÀÎ
+        // ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         // =========================================================
 
-        // ¸öÅë - moneyItems[3]
+        // ï¿½ï¿½ï¿½ï¿½ - moneyItems[3]
         if (moneyItems.Count > 3)
         {
             bool soldOut = PlayerStatus.Instance.humanBody;
@@ -95,7 +95,7 @@ public class ShopPurchaseController : MonoBehaviour
         }
 
 
-        // ¸Ó¸® - moneyItems[4]
+        // ï¿½Ó¸ï¿½ - moneyItems[4]
         if (moneyItems.Count > 4)
         {
             bool soldOut = PlayerStatus.Instance.humanHead;
@@ -107,7 +107,7 @@ public class ShopPurchaseController : MonoBehaviour
         }
 
 
-        // ½ÉÀå - moneyItems[5]
+        // ï¿½ï¿½ï¿½ï¿½ - moneyItems[5]
         if (moneyItems.Count > 5)
         {
             bool soldOut = PlayerStatus.Instance.humanHeart;
@@ -121,12 +121,12 @@ public class ShopPurchaseController : MonoBehaviour
 
 
     // =========================================================
-    // ¹öÆ° ÀÚµ¿ ¿¬°á
+    // ï¿½ï¿½Æ° ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     private void SetupButtons()
     {
-        // µ· ±¸¸Å ¹öÆ° ÀÚµ¿ ¿¬°á
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < moneyItems.Count; i++)
         {
             int index = i;
@@ -139,7 +139,7 @@ public class ShopPurchaseController : MonoBehaviour
             }
         }
 
-        // ±â¸§ ±¸¸Å ¹öÆ° ÀÚµ¿ ¿¬°á
+        // ï¿½â¸§ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
         if (fuelItem != null && fuelItem.button != null)
         {
             fuelItem.button.onClick.AddListener(PurchaseFuelItem);
@@ -148,12 +148,12 @@ public class ShopPurchaseController : MonoBehaviour
 
 
     // =========================================================
-    // Hover ÀÌº¥Æ® ÀÚµ¿ ¿¬°á
+    // Hover ï¿½Ìºï¿½Æ® ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     private void SetupHoverEvents()
     {
-        // µ· ±¸¸Å ¹öÆ°
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
         for (int i = 0; i < moneyItems.Count; i++)
         {
             int index = i;
@@ -198,7 +198,7 @@ public class ShopPurchaseController : MonoBehaviour
         }
 
 
-        // ±â¸§ ±¸¸Å ¹öÆ°
+        // ï¿½â¸§ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
         if (fuelItem != null && fuelItem.button != null)
         {
             EventTrigger trigger =
@@ -240,11 +240,11 @@ public class ShopPurchaseController : MonoBehaviour
 
 
     // =========================================================
-    // µ·À¸·Î ¾ÆÀÌÅÛ ±¸¸Å
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     // =========================================================
-    // µ·À¸·Î ¾ÆÀÌÅÛ ±¸¸Å
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     public void PurchaseMoneyItem(int index)
@@ -252,7 +252,7 @@ public class ShopPurchaseController : MonoBehaviour
         if (index < 0 || index >= moneyItems.Count)
             return;
 
-        // ÀÎµ¦½º 0Àº ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ °áÁ¦ Ã³¸®
+        // ï¿½Îµï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (index == 0)
         {
             PlayPurchaseSfx();
@@ -261,20 +261,20 @@ public class ShopPurchaseController : MonoBehaviour
 
         MoneyItem item = moneyItems[index];
 
-        // µ· ºÎÁ·ÇÏ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾ÊÀ½
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (PlayerStatus.Instance.money < item.price)
             return;
 
-        // µ· Â÷°¨
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerStatus.Instance.SpendMoney(item.price);
 
-        // °øÅë ±¸¸Å È¿°úÀ½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½
         PlayPurchaseSfx();
     }
 
 
     // =========================================================
-    // ±â¸§À¸·Î ¾ÆÀÌÅÛ ±¸¸Å
+    // ï¿½â¸§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     public void PurchaseFuelItem()
@@ -282,24 +282,24 @@ public class ShopPurchaseController : MonoBehaviour
         if (fuelItem == null)
             return;
 
-        // ±â¸§ ºÎÁ·ÇÏ¸é ¾Æ¹«°Íµµ ÇÏÁö ¾ÊÀ½
+        // ï¿½â¸§ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (PlayerStatus.Instance.fuel <= fuelItem.fuelCost)
             return;
 
-        // ±â¸§ Â÷°¨
+        // ï¿½â¸§ ï¿½ï¿½ï¿½ï¿½
         PlayerStatus.Instance.AddFuel(-fuelItem.fuelCost);
 
-        // ±â¸§ ¡æ Å©·¹Å¸ È¯Àü
-        // 1 ±â¸§ = 1/2 Å©·¹Å¸
-        PlayerStatus.Instance.AddMoney(fuelItem.fuelCost / 2);
+        // ï¿½â¸§ ï¿½ï¿½ Å©ï¿½ï¿½Å¸ È¯ï¿½ï¿½
+        // 1 ï¿½â¸§ = 1/2 Å©ï¿½ï¿½Å¸
+        PlayerStatus.Instance.AddMoney(fuelItem.fuelCost * 2);
 
-        // °øÅë ±¸¸Å È¿°úÀ½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½
         PlayPurchaseSfx();
     }
 
 
     // =========================================================
-    // µ· ¾ÆÀÌÅÛ Hover
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Hover
     // =========================================================
 
     private void OnMoneyItemHoverEnter(int index)
@@ -309,7 +309,7 @@ public class ShopPurchaseController : MonoBehaviour
 
         MoneyItem item = moneyItems[index];
 
-        // ¸ÕÀú µÑ ´Ù ²ô±â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (item.canPurchaseNotice != null)
             item.canPurchaseNotice.SetActive(false);
 
@@ -318,22 +318,22 @@ public class ShopPurchaseController : MonoBehaviour
 
 
         // ---------------------------------------------------------
-        // ÀÎµ¦½º 0Àº Æ¯º° Ã³¸®
-        // ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ °áÁ¦ÇÏ¹Ç·Î
-        // "µ·ÀÌ 0¿øÀÎ°¡?"¸¸ È®ÀÎ
+        // ï¿½Îµï¿½ï¿½ï¿½ 0ï¿½ï¿½ Æ¯ï¿½ï¿½ Ã³ï¿½ï¿½
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½
+        // "ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½Î°ï¿½?"ï¿½ï¿½ È®ï¿½ï¿½
         // ---------------------------------------------------------
 
         if (index == 0)
         {
             if (PlayerStatus.Instance.money > 0)
             {
-                // µ·ÀÌ ÀÖÀ¸¸é »ì ¼ö ÀÖÀ½
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (item.canPurchaseNotice != null)
                     item.canPurchaseNotice.SetActive(true);
             }
             else
             {
-                // µ·ÀÌ 0¿øÀÌ¸é »ì ¼ö ¾øÀ½
+                // ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 if (item.cannotPurchaseNotice != null)
                     item.cannotPurchaseNotice.SetActive(true);
             }
@@ -343,18 +343,18 @@ public class ShopPurchaseController : MonoBehaviour
 
 
         // ---------------------------------------------------------
-        // 1~5¹øÀº ±âÁ¸ ¹æ½Ä
+        // 1~5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         // ---------------------------------------------------------
 
         if (PlayerStatus.Instance.money >= item.price)
         {
-            // µ· ÃæºÐ
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (item.canPurchaseNotice != null)
                 item.canPurchaseNotice.SetActive(true);
         }
         else
         {
-            // µ· ºÎÁ·
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (item.cannotPurchaseNotice != null)
                 item.cannotPurchaseNotice.SetActive(true);
         }
@@ -391,7 +391,7 @@ public class ShopPurchaseController : MonoBehaviour
     }
 
     // =========================================================
-    // ±â¸§ ¾ÆÀÌÅÛ Hover
+    // ï¿½â¸§ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Hover
     // =========================================================
 
     private void OnFuelItemHoverEnter()
@@ -399,7 +399,7 @@ public class ShopPurchaseController : MonoBehaviour
         if (fuelItem == null)
             return;
 
-        // ¸ÕÀú µÑ ´Ù ²ô±â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (fuelItem.canPurchaseNotice != null)
             fuelItem.canPurchaseNotice.SetActive(false);
 
@@ -407,13 +407,13 @@ public class ShopPurchaseController : MonoBehaviour
             fuelItem.cannotPurchaseNotice.SetActive(false);
 
 
-        // ±â¸§ ÃæºÐ
+        // ï¿½â¸§ ï¿½ï¿½ï¿½
         if (PlayerStatus.Instance.fuel >= fuelItem.fuelCost)
         {
             if (fuelItem.canPurchaseNotice != null)
                 fuelItem.canPurchaseNotice.SetActive(true);
         }
-        // ±â¸§ ºÎÁ·
+        // ï¿½â¸§ ï¿½ï¿½ï¿½ï¿½
         else
         {
             if (fuelItem.cannotPurchaseNotice != null)
@@ -436,7 +436,7 @@ public class ShopPurchaseController : MonoBehaviour
 
 
     // =========================================================
-    // ¸ðµç ¾È³»¹® ²ô±â
+    // ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     private void HideAllNotices()
@@ -462,7 +462,7 @@ public class ShopPurchaseController : MonoBehaviour
 
 
     // =========================================================
-    // °øÅë ±¸¸Å È¿°úÀ½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½
     // =========================================================
 
     private void PlayPurchaseSfx()
