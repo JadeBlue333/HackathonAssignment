@@ -151,6 +151,7 @@ MonoBehaviour:
   blackImage: {fileID: 1462925982}
   introText: {fileID: 1082050657}
   introTexts:
+  - "\uBA70\uCE60 \uB4A4 . . ."
   - "\uCD95\uD558\uD560 \uB9CC\uD55C \uC18C\uC2DD\uC774\uAD70\uC694 - \uD50C\uB8E8\uD1A0\uC2A4\uACF5\uC5C5\uC774
     \uC62C\uD574 \uC0DD\uC0B0 \uBAA9\uD45C\uB97C \uC131\uACF5\uC801\uC73C\uB85C \uB2EC\uC131\uD588\uC2B5\uB2C8\uB2E4."
   - "\uD68C\uC0AC \uCE21\uC740 \uC774\uBC88 \uC131\uACFC\uC758 \uC8FC\uC694 \uC694\uC778\uC73C\uB85C,
@@ -169,6 +170,8 @@ MonoBehaviour:
   bgm: {fileID: 1042138439}
   bgmFadeDuration: 1
   nextSceneName: MainMenu
+  startOfGame: 0
+  chatImg: {fileID: 0}
   endOfGame: 1
 --- !u!4 &70508093
 Transform:
@@ -610,8 +613,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1fbf737cec153bc489c33dc5a51973d4, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.675
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
