@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class InspectionGameManager7 : MonoBehaviour
 {
@@ -16,6 +17,31 @@ public class InspectionGameManager7 : MonoBehaviour
     [Header("Box / Motor")]
     public GameObject boxButtons;
     public GameObject motorButtons;
+
+
+    // =========================================================
+    // Wrong Answer UI
+    // =========================================================
+
+    [Header("Wrong Answer UI")]
+
+    [Tooltip("오답 사유를 표시할 UI")]
+    [SerializeField]
+    private GameObject wrongReasonUI;
+
+    [Tooltip("오답 사유 텍스트")]
+    [SerializeField]
+    private TMP_Text wrongReasonText;
+
+    [Tooltip("오답 사유를 표시할 시간")]
+    [SerializeField]
+    private float wrongReasonDuration = 2f;
+
+    [Tooltip("오답 사유가 사라질 때 페이드아웃되는 시간")]
+    [SerializeField]
+    private float wrongReasonFadeOutDuration = 0.5f;
+
+    private CanvasGroup wrongReasonCanvasGroup;
 
 
     // =========================================================
@@ -94,10 +120,13 @@ public class InspectionGameManager7 : MonoBehaviour
     // Runtime
     // =========================================================
 
-    // 미개봉 박스를 잘못 열었는지
     private bool openedWrongBox = false;
 
     private InspectionResult currentAnswer;
+
+    private string currentWrongReason = "";
+
+    private Coroutine wrongReasonCoroutine;
 
 
     // =========================================================
@@ -116,6 +145,24 @@ public class InspectionGameManager7 : MonoBehaviour
 
     private IEnumerator Start()
     {
+        if (wrongReasonUI != null)
+        {
+            wrongReasonCanvasGroup =
+                wrongReasonUI.GetComponent<CanvasGroup>();
+
+            if (wrongReasonCanvasGroup == null)
+            {
+                wrongReasonCanvasGroup =
+                    wrongReasonUI.AddComponent<CanvasGroup>();
+            }
+
+            wrongReasonCanvasGroup.alpha =
+                1f;
+
+            wrongReasonUI.SetActive(false);
+        }
+
+
         yield return new WaitUntil(
             () =>
                 boxMatchManager.IsReady &&
@@ -123,7 +170,6 @@ public class InspectionGameManager7 : MonoBehaviour
         );
 
 
-        // PlayerStatus에 기존 콤보가 있다면 가져오기
         if (PlayerStatus.Instance != null)
         {
             comboCount =
@@ -144,13 +190,6 @@ public class InspectionGameManager7 : MonoBehaviour
         if (Keyboard.current == null)
             return;
 
-
-        // =====================================================
-        // Box 선택 단계
-        //
-        // 1 = 미개봉
-        // 2 = 개봉
-        // =====================================================
 
         if (boxButtons != null &&
             boxButtons.activeSelf)
@@ -177,15 +216,6 @@ public class InspectionGameManager7 : MonoBehaviour
             return;
         }
 
-
-        // =====================================================
-        // Motor 선택 단계
-        //
-        // 1 = A
-        // 2 = B
-        // 3 = C
-        // 4 = 폐기
-        // =====================================================
 
         if (motorButtons != null &&
             motorButtons.activeSelf)
@@ -253,6 +283,245 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
     // =========================================================
+    // Wrong Reason
+    // =========================================================
+
+    public void SetCurrentWrongReason(
+        string reason
+    )
+    {
+        currentWrongReason =
+            reason;
+    }
+
+
+    public void AddCurrentWrongReason(
+        string reason
+    )
+    {
+        if (string.IsNullOrEmpty(reason))
+            return;
+
+
+        if (string.IsNullOrEmpty(currentWrongReason))
+        {
+            currentWrongReason =
+                reason;
+        }
+        else
+        {
+            currentWrongReason +=
+                "\n" +
+                reason;
+        }
+    }
+
+
+    private void ClearCurrentWrongReason()
+    {
+        currentWrongReason =
+            "";
+    }
+
+
+    // =========================================================
+    // Box Wrong Reason
+    // =========================================================
+
+    private void SetBoxWrongReasons()
+    {
+        ClearCurrentWrongReason();
+
+
+        if (boxMatchManager.CurrentBoxDamaged)
+        {
+            AddCurrentWrongReason(
+                "박스가 손상되어 있습니다."
+            );
+        }
+
+
+        if (boxMatchManager.CurrentTapeOpened)
+        {
+            AddCurrentWrongReason(
+                "테이프에 개봉 흔적이 있습니다."
+            );
+        }
+
+
+        if (
+            !boxMatchManager.CurrentBoxDamaged &&
+            !boxMatchManager.CurrentTapeOpened
+        )
+        {
+            AddCurrentWrongReason(
+                "박스와 테이프에 개봉 흔적이 없습니다."
+            );
+        }
+    }
+
+
+    // =========================================================
+    // Motor Wrong Reason
+    // =========================================================
+
+    private void SetMotorWrongReasons()
+    {
+        ClearCurrentWrongReason();
+
+
+        // =====================================================
+        // 폐기 대상
+        // =====================================================
+
+        if (!motorMatchManager.CurrentIsComplete)
+        {
+            SetCurrentWrongReason(
+                "[폐기 필요] 프로펠러가 누락되어 있습니다."
+            );
+
+            return;
+        }
+
+
+        // =====================================================
+        // 일반 하자
+        // =====================================================
+
+        if (!motorMatchManager.CurrentSameColor)
+        {
+            AddCurrentWrongReason(
+                "프로펠러 앞뒤 색상이 일치하지 않습니다."
+            );
+        }
+
+
+        if (!motorMatchManager.CurrentNoStain)
+        {
+            AddCurrentWrongReason(
+                "제품에 얼룩이 있습니다."
+            );
+        }
+    }
+
+
+    // =========================================================
+    // Wrong Reason UI
+    // =========================================================
+
+    private void ShowWrongReason(
+        string reason
+    )
+    {
+        if (wrongReasonText != null)
+        {
+            wrongReasonText.text =
+                reason;
+        }
+
+
+        if (wrongReasonUI == null)
+            return;
+
+
+        if (wrongReasonCoroutine != null)
+        {
+            StopCoroutine(
+                wrongReasonCoroutine
+            );
+        }
+
+
+        wrongReasonCoroutine =
+            StartCoroutine(
+                ShowWrongReasonRoutine()
+            );
+    }
+
+
+    private IEnumerator ShowWrongReasonRoutine()
+    {
+        wrongReasonUI.SetActive(
+            true
+        );
+
+
+        if (wrongReasonCanvasGroup != null)
+        {
+            wrongReasonCanvasGroup.alpha =
+                1f;
+        }
+
+
+        yield return new WaitForSecondsRealtime(
+            wrongReasonDuration
+        );
+
+
+        // =====================================================
+        // Fade Out
+        // =====================================================
+
+        if (
+            wrongReasonCanvasGroup != null &&
+            wrongReasonFadeOutDuration > 0f
+        )
+        {
+            float elapsed =
+                0f;
+
+
+            while (
+                elapsed <
+                wrongReasonFadeOutDuration
+            )
+            {
+                elapsed +=
+                    Time.unscaledDeltaTime;
+
+
+                float t =
+                    Mathf.Clamp01(
+                        elapsed /
+                        wrongReasonFadeOutDuration
+                    );
+
+
+                wrongReasonCanvasGroup.alpha =
+                    Mathf.Lerp(
+                        1f,
+                        0f,
+                        t
+                    );
+
+
+                yield return null;
+            }
+
+
+            wrongReasonCanvasGroup.alpha =
+                0f;
+        }
+
+
+        wrongReasonUI.SetActive(
+            false
+        );
+
+
+        if (wrongReasonCanvasGroup != null)
+        {
+            wrongReasonCanvasGroup.alpha =
+                1f;
+        }
+
+
+        wrongReasonCoroutine =
+            null;
+    }
+
+
+    // =========================================================
     // Generate Question
     // =========================================================
 
@@ -262,8 +531,14 @@ public class InspectionGameManager7 : MonoBehaviour
             false;
 
 
+        ClearCurrentWrongReason();
+
+
         currentAnswer =
             boxMatchManager.CreateNextMatch();
+
+
+        SetBoxWrongReasons();
 
 
         PlaySfx(
@@ -335,21 +610,32 @@ public class InspectionGameManager7 : MonoBehaviour
         }
 
 
-        // 미개봉 박스를 잘못 열었는지 기록
         openedWrongBox =
             currentAnswer ==
             InspectionResult.Unopened;
 
 
-        // 박스 제거
+        if (openedWrongBox)
+        {
+            SetCurrentWrongReason(
+                "미개봉 제품을 개봉했습니다."
+            );
+        }
+
+
         boxMatchManager
             .RemoveCurrentMatch();
 
 
-        // 모터 생성
         currentAnswer =
             motorMatchManager
                 .CreateNextMatch();
+
+
+        if (!openedWrongBox)
+        {
+            SetMotorWrongReasons();
+        }
 
 
         Debug.Log(
@@ -357,7 +643,6 @@ public class InspectionGameManager7 : MonoBehaviour
         );
 
 
-        // 모터 선택 가능
         if (motorButtons != null)
         {
             motorButtons.SetActive(
@@ -472,12 +757,6 @@ public class InspectionGameManager7 : MonoBehaviour
         bool correct;
 
 
-        // =====================================================
-        // 정답 판정
-        // =====================================================
-
-        // 미개봉 박스를 잘못 열었다면
-        // 내부 선택이 맞아도 최종적으로 오답
         if (openedWrongBox)
         {
             correct =
@@ -503,21 +782,15 @@ public class InspectionGameManager7 : MonoBehaviour
             );
 
 
-            // 정답 통계
             correctCount++;
 
 
-            // 콤보 증가
             comboCount++;
 
 
             PlayerStatus.Instance.comboNumber =
                 comboCount;
 
-
-            // =================================================
-            // 수익
-            // =================================================
 
             int reward =
                 GetReward(
@@ -530,14 +803,6 @@ public class InspectionGameManager7 : MonoBehaviour
                     reward
                 );
 
-
-            // =================================================
-            // 콤보 신뢰도 보너스
-            //
-            // 1콤보 → 없음
-            // 2콤보 → 없음
-            // 3콤보 이상 → 정답마다 보너스
-            // =================================================
 
             if (
                 comboCount >=
@@ -564,7 +829,6 @@ public class InspectionGameManager7 : MonoBehaviour
             );
 
 
-            // 오답 통계
             wrongCount++;
 
 
@@ -572,7 +836,6 @@ public class InspectionGameManager7 : MonoBehaviour
                 .mistakeNumber++;
 
 
-            // 콤보 초기화
             comboCount =
                 0;
 
@@ -581,11 +844,26 @@ public class InspectionGameManager7 : MonoBehaviour
                 0;
 
 
-            // 신뢰도 패널티
             PlayerStatus.Instance
                 .AddTrustChanges(
                     -trustPenalty
                 );
+
+
+            string reason =
+                currentWrongReason;
+
+
+            if (string.IsNullOrEmpty(reason))
+            {
+                reason =
+                    "검수 기준과 일치하지 않습니다.";
+            }
+
+
+            ShowWrongReason(
+                reason
+            );
         }
 
 
@@ -619,10 +897,6 @@ public class InspectionGameManager7 : MonoBehaviour
         }
 
 
-        // =====================================================
-        // 다음 문제
-        // =====================================================
-
         GenerateQuestion();
     }
 
@@ -638,27 +912,18 @@ public class InspectionGameManager7 : MonoBehaviour
         switch (result)
         {
             case InspectionResult.Unopened:
-
                 return unopenedReward;
 
-
             case InspectionResult.A:
-
                 return aReward;
 
-
             case InspectionResult.B:
-
                 return bReward;
 
-
             case InspectionResult.C:
-
                 return cReward;
 
-
             case InspectionResult.Discard:
-
                 return discardReward;
         }
 

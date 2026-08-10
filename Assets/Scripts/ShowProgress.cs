@@ -1,31 +1,68 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ShowProgress : MonoBehaviour
 {
-    [Header("D-9부터 D-Day 순서대로 넣기")]
-    [SerializeField] private Button[] dayButtons;
+    [Header("호버할 버튼")]
+    [SerializeField] private Button targetButton;
+
+    [Header("버튼 호버 시 보여줄 텍스트")]
+    [SerializeField] private GameObject hoverText;
 
     private void Start()
     {
-        RefreshButtons();
+        if (hoverText != null)
+            hoverText.SetActive(false);
+
+        if (targetButton != null)
+        {
+            // EventTrigger 추가
+            EventTrigger trigger = targetButton.gameObject.GetComponent<EventTrigger>();
+
+            if (trigger == null)
+                trigger = targetButton.gameObject.AddComponent<EventTrigger>();
+
+            // Pointer Enter
+            EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
+            pointerEnter.eventID = EventTriggerType.PointerEnter;
+            pointerEnter.callback.AddListener((data) => OnButtonHoverEnter());
+            trigger.triggers.Add(pointerEnter);
+
+            // Pointer Exit
+            EventTrigger.Entry pointerExit = new EventTrigger.Entry();
+            pointerExit.eventID = EventTriggerType.PointerExit;
+            pointerExit.callback.AddListener((data) => OnButtonHoverExit());
+            trigger.triggers.Add(pointerExit);
+        }
     }
 
-    public void RefreshButtons()
+    private void OnButtonHoverEnter()
     {
-        // 현재 날짜 (9 ~ 0)
-        int currentDay = PlayerStatus.Instance.currentDay;
+        // 버튼이 비활성화 상태면 아무것도 하지 않음
+        if (targetButton == null || !targetButton.interactable)
+            return;
 
-        // 현재 날짜에 따라 보여줄 버튼 개수
-        // D-9(9) -> 1개
-        // D-8(8) -> 2개
-        // ...
-        // D-Day(0) -> 10개
-        int showCount = 10 - currentDay;
+        if (hoverText != null)
+            hoverText.SetActive(true);
+    }
 
-        for (int i = 0; i < dayButtons.Length; i++)
+    private void OnButtonHoverExit()
+    {
+        if (hoverText != null)
+            hoverText.SetActive(false);
+    }
+
+    private void Update()
+    {
+        // 버튼이 호버 중에 interactable -> false가 되는 경우도 처리
+        if (targetButton != null &&
+            !targetButton.interactable &&
+            hoverText != null &&
+            hoverText.activeSelf)
         {
-            dayButtons[i].gameObject.SetActive(i < showCount);
+            hoverText.SetActive(false);
         }
     }
 }

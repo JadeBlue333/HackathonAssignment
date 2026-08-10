@@ -51,6 +51,7 @@ public class GoToThisScene : MonoBehaviour
     public ReportUI reportUI;
 
 
+
     // =========================================================
     // Button
     // =========================================================
@@ -67,6 +68,7 @@ public class GoToThisScene : MonoBehaviour
 
     public IEnumerator nextScene()
     {
+
         // =====================================================
         // Progress
         // =====================================================
@@ -208,14 +210,9 @@ public class GoToThisScene : MonoBehaviour
                 }
             }
 
-
             // =================================================
             // 4. 날짜 변경
             // =================================================
-
-            PlayerStatus.Instance.NextDay();
-
-
             // =================================================
             // 5. 다음 날 시작 효과
             //
@@ -224,7 +221,11 @@ public class GoToThisScene : MonoBehaviour
             // Work Time 재계산
             // =================================================
 
-            PlayerStatus.Instance.StartDay();
+            if (!isFinalDay)
+            {
+                PlayerStatus.Instance.NextDay();
+                PlayerStatus.Instance.StartDay();
+            }
 
 
             // =================================================

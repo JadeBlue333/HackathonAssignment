@@ -180,6 +180,7 @@ MonoBehaviour:
   bgm: {fileID: 1042138439}
   bgmFadeDuration: 1
   nextSceneName: MainMenu
+  endOfGame: 1
 --- !u!4 &70508093
 Transform:
   m_ObjectHideFlags: 0

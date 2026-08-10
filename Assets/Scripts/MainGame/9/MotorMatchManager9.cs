@@ -121,6 +121,17 @@ public class MotorMatchManager9 : MonoBehaviour
 
 
     // =====================================================
+    // Current Inspection State
+    // =====================================================
+
+    public bool CurrentSameColor
+    {
+        get;
+        private set;
+    }
+
+
+    // =====================================================
     // Runtime
     // =====================================================
 
@@ -263,7 +274,8 @@ public class MotorMatchManager9 : MonoBehaviour
             Quaternion.identity;
 
 
-        currentZoomScale = 1f;
+        currentZoomScale =
+            1f;
 
         currentHolder.transform.localScale =
             Vector3.one;
@@ -299,7 +311,9 @@ public class MotorMatchManager9 : MonoBehaviour
                 backPropellerName
             );
 
-        if (front == null || back == null)
+
+        if (front == null ||
+            back == null)
         {
             Debug.LogError(
                 "프로펠러를 찾을 수 없습니다."
@@ -315,8 +329,11 @@ public class MotorMatchManager9 : MonoBehaviour
         MeshRenderer backRenderer =
             back.GetComponent<MeshRenderer>();
 
-        if (frontRenderer == null ||
-            backRenderer == null)
+
+        if (
+            frontRenderer == null ||
+            backRenderer == null
+        )
         {
             Debug.LogError(
                 "MeshRenderer를 찾을 수 없습니다."
@@ -342,6 +359,18 @@ public class MotorMatchManager9 : MonoBehaviour
             ) < sameColorChance;
 
 
+        // =====================================================
+        // 현재 문제 상태 저장
+        // =====================================================
+
+        CurrentSameColor =
+            sameColor;
+
+
+        // =====================================================
+        // 프로펠러 색상 결정
+        // =====================================================
+
         if (sameColor)
         {
             backIndex =
@@ -357,7 +386,10 @@ public class MotorMatchManager9 : MonoBehaviour
                         propellerMaterials.Count
                     );
             }
-            while (backIndex == frontIndex);
+            while (
+                backIndex ==
+                frontIndex
+            );
         }
 
 
@@ -368,8 +400,10 @@ public class MotorMatchManager9 : MonoBehaviour
             backRenderer.materials;
 
 
-        if (frontMaterialIndex < 0 ||
-            frontMaterialIndex >= frontMats.Length)
+        if (
+            frontMaterialIndex < 0 ||
+            frontMaterialIndex >= frontMats.Length
+        )
         {
             Debug.LogError(
                 "Front Material Index 범위를 확인해주세요."
@@ -379,8 +413,10 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        if (backMaterialIndex < 0 ||
-            backMaterialIndex >= backMats.Length)
+        if (
+            backMaterialIndex < 0 ||
+            backMaterialIndex >= backMats.Length
+        )
         {
             Debug.LogError(
                 "Back Material Index 범위를 확인해주세요."
@@ -404,14 +440,28 @@ public class MotorMatchManager9 : MonoBehaviour
             backMats;
 
 
+        // =====================================================
+        // 등급 판정
+        //
+        // 색상 같음
+        // → A
+        //
+        // 색상 다름
+        // → B
+        // =====================================================
+
+        InspectionResult result =
+            sameColor
+                ? InspectionResult.A
+                : InspectionResult.B;
+
+
         Debug.Log(
-            $"Front : {frontIndex}, Back : {backIndex}"
+            $"정답 : {result}"
         );
 
 
-        return sameColor
-            ? InspectionResult.A
-            : InspectionResult.B;
+        return result;
     }
 
 
@@ -431,7 +481,9 @@ public class MotorMatchManager9 : MonoBehaviour
             currentMotor = null;
         }
 
-        currentZoomScale = 1f;
+
+        currentZoomScale =
+            1f;
     }
 
 
@@ -446,10 +498,14 @@ public class MotorMatchManager9 : MonoBehaviour
     {
         foreach (Transform child in parent)
         {
-            if (child.name == targetName)
+            if (
+                child.name ==
+                targetName
+            )
             {
                 return child;
             }
+
 
             Transform result =
                 FindChildRecursive(
@@ -457,11 +513,13 @@ public class MotorMatchManager9 : MonoBehaviour
                     targetName
                 );
 
+
             if (result != null)
             {
                 return result;
             }
         }
+
 
         return null;
     }
@@ -540,19 +598,30 @@ public class MotorMatchManager9 : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
-        // 환경설정에서 스크롤 반전 체크했으면 방향 반전
-        if (ScrollInvertSetting.IsScrollInverted())
+        if (
+            ScrollInvertSetting
+                .IsScrollInverted()
+        )
         {
-            scrollValue *= -1f;
+            scrollValue *=
+                -1f;
         }
 
 
-        if (Mathf.Abs(scrollValue) < 0.01f)
+        if (
+            Mathf.Abs(
+                scrollValue
+            ) < 0.01f
+        )
+        {
             return;
+        }
 
 
         currentZoomScale +=
-            Mathf.Sign(scrollValue) *
+            Mathf.Sign(
+                scrollValue
+            ) *
             zoomSpeed;
 
 
@@ -583,11 +652,18 @@ public class MotorMatchManager9 : MonoBehaviour
             return;
 
 
-        float verticalRotation = 0f;
-        float horizontalRotation = 0f;
+        float verticalRotation =
+            0f;
+
+        float horizontalRotation =
+            0f;
 
 
-        if (Keyboard.current.wKey.isPressed)
+        if (
+            Keyboard.current
+                .wKey
+                .isPressed
+        )
         {
             verticalRotation +=
                 fineRotationSpeed *
@@ -595,7 +671,11 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        if (Keyboard.current.sKey.isPressed)
+        if (
+            Keyboard.current
+                .sKey
+                .isPressed
+        )
         {
             verticalRotation -=
                 fineRotationSpeed *
@@ -603,7 +683,11 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        if (Keyboard.current.aKey.isPressed)
+        if (
+            Keyboard.current
+                .aKey
+                .isPressed
+        )
         {
             horizontalRotation +=
                 fineRotationSpeed *
@@ -611,7 +695,11 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        if (Keyboard.current.dKey.isPressed)
+        if (
+            Keyboard.current
+                .dKey
+                .isPressed
+        )
         {
             horizontalRotation -=
                 fineRotationSpeed *
@@ -619,7 +707,10 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        if (verticalRotation != 0f)
+        if (
+            verticalRotation !=
+            0f
+        )
         {
             currentHolder.transform.Rotate(
                 Vector3.right,
@@ -629,7 +720,10 @@ public class MotorMatchManager9 : MonoBehaviour
         }
 
 
-        if (horizontalRotation != 0f)
+        if (
+            horizontalRotation !=
+            0f
+        )
         {
             currentHolder.transform.Rotate(
                 Vector3.up,

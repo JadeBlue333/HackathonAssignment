@@ -150,6 +150,34 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
+    // Current Inspection State
+    // =========================================================
+
+    /// <summary>
+    /// 현재 박스가 손상된 박스인지
+    /// true = 손상 있음
+    /// false = 정상 박스
+    /// </summary>
+    public bool CurrentBoxDamaged
+    {
+        get;
+        private set;
+    }
+
+
+    /// <summary>
+    /// 현재 테이프가 개봉 흔적이 있는 상태인지
+    /// true = Open Tape
+    /// false = Close Tape
+    /// </summary>
+    public bool CurrentTapeOpened
+    {
+        get;
+        private set;
+    }
+
+
+    // =========================================================
     // 현재 생성된 오브젝트
     // =========================================================
 
@@ -381,6 +409,14 @@ public class BoxMatchManager : MonoBehaviour
         InspectionResult answer;
 
 
+        // =====================================================
+        // Open Tape
+        //
+        // 박스 정상
+        // 테이프 개봉 흔적 있음
+        // → Opened
+        // =====================================================
+
         if (randomValue < safeOpenChance)
         {
             selectedBoxPrefab =
@@ -391,7 +427,25 @@ public class BoxMatchManager : MonoBehaviour
 
             answer =
                 InspectionResult.Opened;
+
+
+            // 현재 상태 저장
+            CurrentBoxDamaged =
+                false;
+
+            CurrentTapeOpened =
+                true;
         }
+
+
+        // =====================================================
+        // Damage Box
+        //
+        // 박스 손상 있음
+        // 테이프 정상
+        // → Opened
+        // =====================================================
+
         else if (
             randomValue <
             safeOpenChance + safeDemageChance
@@ -405,7 +459,25 @@ public class BoxMatchManager : MonoBehaviour
 
             answer =
                 InspectionResult.Opened;
+
+
+            // 현재 상태 저장
+            CurrentBoxDamaged =
+                true;
+
+            CurrentTapeOpened =
+                false;
         }
+
+
+        // =====================================================
+        // 정상 미개봉
+        //
+        // 박스 정상
+        // 테이프 정상
+        // → Unopened
+        // =====================================================
+
         else
         {
             selectedBoxPrefab =
@@ -416,8 +488,20 @@ public class BoxMatchManager : MonoBehaviour
 
             answer =
                 InspectionResult.Unopened;
+
+
+            // 현재 상태 저장
+            CurrentBoxDamaged =
+                false;
+
+            CurrentTapeOpened =
+                false;
         }
 
+
+        // =====================================================
+        // Holder 생성
+        // =====================================================
 
         currentHolder =
             new GameObject(
@@ -436,11 +520,20 @@ public class BoxMatchManager : MonoBehaviour
             Quaternion.identity;
 
 
-        currentZoomScale = 1f;
+        // =====================================================
+        // Zoom 초기화
+        // =====================================================
+
+        currentZoomScale =
+            1f;
 
         currentHolder.transform.localScale =
             Vector3.one;
 
+
+        // =====================================================
+        // Box 생성
+        // =====================================================
 
         currentBox =
             Instantiate(
@@ -459,6 +552,10 @@ public class BoxMatchManager : MonoBehaviour
         currentBox.transform.localScale =
             boxScale;
 
+
+        // =====================================================
+        // Tape 생성
+        // =====================================================
 
         currentTape =
             Instantiate(
@@ -596,6 +693,7 @@ public class BoxMatchManager : MonoBehaviour
 
         if (Keyboard.current == null)
             return;
+
 
         float verticalRotation = 0f;
         float horizontalRotation = 0f;

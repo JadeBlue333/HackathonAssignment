@@ -143,6 +143,29 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
     // =====================================================
+    // Current Inspection State
+    // =====================================================
+
+    public bool CurrentSameColor
+    {
+        get;
+        private set;
+    }
+
+    public bool CurrentIsComplete
+    {
+        get;
+        private set;
+    }
+
+    public bool CurrentNoStain
+    {
+        get;
+        private set;
+    }
+
+
+    // =====================================================
     // Runtime
     // =====================================================
 
@@ -437,6 +460,20 @@ public class MotorMatchManager7 : MonoBehaviour
 
         bool noStain =
             bodyIndex == 0;
+
+
+        // =====================================================
+        // 현재 문제 상태 저장
+        // =====================================================
+
+        CurrentSameColor =
+            sameColor;
+
+        CurrentIsComplete =
+            isComplete;
+
+        CurrentNoStain =
+            noStain;
 
 
         // -------------------------------------------------
