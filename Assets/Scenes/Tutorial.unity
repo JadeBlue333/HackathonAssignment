@@ -2541,6 +2541,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas_ScreenSpace
       objectReference: {fileID: 0}
+    - target: {fileID: 118392550802028215, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 631927445051922414, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: hoverSound
       value: 
@@ -2549,6 +2553,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 1366412821882151801, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1680057367669358406, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -6828,7 +6836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &450991357
 RectTransform:
   m_ObjectHideFlags: 0
