@@ -7,30 +7,46 @@ public class MenuProgressBGM : MonoBehaviour
     public static MenuProgressBGM Instance { get; private set; }
 
 
-    [Header("Scenes")]
+    // =====================================================
+    // Scene
+    // =====================================================
+
+    [Header("Scene Names")]
     [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private string progressSceneName = "Progress";
+    [SerializeField] private string introSceneName = "Intro";
 
+
+    // =====================================================
+    // Audio
+    // =====================================================
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip bgmClip;
 
     [Range(0f, 1f)]
-    [SerializeField] private float volume = 0.5f;
+    [SerializeField] private float normalVolume = 0.5f;
 
+
+    // =====================================================
+    // Fade
+    // =====================================================
 
     [Header("Fade Out")]
     [SerializeField] private float fadeOutDuration = 1.5f;
 
-
     private Coroutine fadeCoroutine;
 
 
+    // =====================================================
+    // Awake
+    // =====================================================
+
     private void Awake()
     {
-        // MainMenu ↔ Progress 이동 시
-        // 기존 BGM이 살아있으면 새로 생성된 BGM 제거
+        // 이미 기존 BGM이 살아있다면
+        // 새로 생성된 BGM 오브젝트는 제거
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -50,51 +66,106 @@ public class MenuProgressBGM : MonoBehaviour
 
         if (audioSource != null)
         {
-            audioSource.loop = true;
             audioSource.playOnAwake = false;
+            audioSource.loop = true;
         }
     }
 
 
+    // =====================================================
+    // Start
+    // =====================================================
+
     private void Start()
     {
-        SceneManager.activeSceneChanged += OnSceneChanged;
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
-        PlayBGM();
+        // 현재 씬 상태도 한 번 바로 확인
+        HandleScene(SceneManager.GetActiveScene().name);
     }
 
 
-    // =========================================================
-    // Scene Change
-    // =========================================================
+    // =====================================================
+    // Scene Loaded
+    // =====================================================
 
-    private void OnSceneChanged(Scene oldScene, Scene newScene)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        string oldSceneName = oldScene.name;
-        string newSceneName = newScene.name;
+        HandleScene(scene.name);
+    }
 
 
-        bool oldIsMenuScene = IsMenuScene(oldSceneName);
-        bool newIsMenuScene = IsMenuScene(newSceneName);
+    // =====================================================
+    // Scene 처리
+    // =====================================================
 
+    private void HandleScene(string sceneName)
+    {
+        // =================================================
+        // Intro
+        // =================================================
 
-        // =====================================================
-        // MainMenu ↔ Progress
-        // =====================================================
-
-        if (oldIsMenuScene && newIsMenuScene)
+        if (sceneName == introSceneName)
         {
-            // 아무것도 하지 않음.
-            // 현재 재생 위치 그대로 계속 재생.
+            // 음악은 계속 재생하지만 소리만 안 들리게
+            if (audioSource != null)
+            {
+                audioSource.volume = 0f;
+            }
+
             return;
         }
 
 
-        // =====================================================
-        // MainMenu / Progress → 다른 Scene
-        // =====================================================
+        // =================================================
+        // MainMenu / Progress
+        // =================================================
 
-        if (oldIsMenuScene && !newIsMenuScene)
+        if (sceneName == mainMenuSceneName ||
+            sceneName == progressSceneName)
+        {
+            // Fade Out 중이었다면 취소
+            if (fadeCoroutine != null)
+            {
+                StopCoroutine(fadeCoroutine);
+                fadeCoroutine = null;
+            }
+
+
+            if (audioSource == null ||
+                bgmClip == null)
+            {
+                return;
+            }
+
+
+            // Progress에 들어왔을 때
+            // Intro에서 0으로 만들어뒀던 볼륨 복구
+            audioSource.volume = normalVolume;
+
+
+            // 이미 재생 중이면 그대로 이어서 재생
+            if (audioSource.isPlaying)
+            {
+                return;
+            }
+
+
+            // 재생 중이 아니면 처음부터 시작
+            audioSource.clip = bgmClip;
+            audioSource.loop = true;
+            audioSource.Play();
+
+            return;
+        }
+
+
+        // =================================================
+        // 그 외 Scene
+        // =================================================
+
+        if (audioSource != null &&
+            audioSource.isPlaying)
         {
             if (fadeCoroutine != null)
             {
@@ -103,62 +174,20 @@ public class MenuProgressBGM : MonoBehaviour
 
             fadeCoroutine =
                 StartCoroutine(FadeOutAndDestroy());
-
-            return;
         }
-    }
-
-
-    // =========================================================
-    // Menu Scene Check
-    // =========================================================
-
-    private bool IsMenuScene(string sceneName)
-    {
-        return
-            sceneName == mainMenuSceneName ||
-            sceneName == progressSceneName;
-    }
-
-
-    // =========================================================
-    // Play
-    // =========================================================
-
-    private void PlayBGM()
-    {
-        if (audioSource == null ||
-            bgmClip == null)
+        else
         {
-            return;
-        }
-
-
-        audioSource.clip = bgmClip;
-        audioSource.volume = volume;
-        audioSource.loop = true;
-
-
-        if (!audioSource.isPlaying)
-        {
-            audioSource.Play();
+            DestroyBGM();
         }
     }
 
 
-    // =========================================================
+    // =====================================================
     // Fade Out
-    // =========================================================
+    // =====================================================
 
     private IEnumerator FadeOutAndDestroy()
     {
-        if (audioSource == null)
-        {
-            Destroy(gameObject);
-            yield break;
-        }
-
-
         float startVolume = audioSource.volume;
         float elapsed = 0f;
 
@@ -168,7 +197,9 @@ public class MenuProgressBGM : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
 
             float t =
-                elapsed / fadeOutDuration;
+                Mathf.Clamp01(
+                    elapsed / fadeOutDuration
+                );
 
             audioSource.volume =
                 Mathf.Lerp(
@@ -184,7 +215,18 @@ public class MenuProgressBGM : MonoBehaviour
         audioSource.volume = 0f;
         audioSource.Stop();
 
+        fadeCoroutine = null;
 
+        DestroyBGM();
+    }
+
+
+    // =====================================================
+    // Destroy
+    // =====================================================
+
+    private void DestroyBGM()
+    {
         if (Instance == this)
         {
             Instance = null;
@@ -196,7 +238,7 @@ public class MenuProgressBGM : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.activeSceneChanged -= OnSceneChanged;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
 
         if (Instance == this)
         {
