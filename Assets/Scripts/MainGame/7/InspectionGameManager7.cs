@@ -47,10 +47,10 @@ public class InspectionGameManager7 : MonoBehaviour
 
     [Header("Combo")]
 
-    [Tooltip("ÀÌ ÄŞº¸ ÀÌ»óºÎÅÍ Á¤´ä ½Ã ½Å·Úµµ º¸³Ê½º")]
+    [Tooltip("ì´ ì½¤ë³´ ì´ìƒë¶€í„° ì •ë‹µ ì‹œ ì‹ ë¢°ë„ ë³´ë„ˆìŠ¤")]
     [SerializeField] private int trustComboThreshold = 3;
 
-    [Tooltip("ÄŞº¸ º¸³Ê½º·Î ¾ò´Â ½Å·Úµµ")]
+    [Tooltip("ì½¤ë³´ ë³´ë„ˆìŠ¤ë¡œ ì–»ëŠ” ì‹ ë¢°ë„")]
     [SerializeField] private int comboTrustReward = 2;
 
 
@@ -94,7 +94,7 @@ public class InspectionGameManager7 : MonoBehaviour
     // Runtime
     // =========================================================
 
-    // Á¤»ó ¹Ú½º¸¦ Àß¸ø ¿­¾ú´ÂÁö
+    // ë¯¸ê°œë´‰ ë°•ìŠ¤ë¥¼ ì˜ëª» ì—´ì—ˆëŠ”ì§€
     private bool openedWrongBox = false;
 
     private InspectionResult currentAnswer;
@@ -123,7 +123,7 @@ public class InspectionGameManager7 : MonoBehaviour
         );
 
 
-        // PlayerStatus¿¡ ±âÁ¸ ÄŞº¸°¡ ÀÖ´Ù¸é °¡Á®¿À±â
+        // PlayerStatusì— ê¸°ì¡´ ì½¤ë³´ê°€ ìˆë‹¤ë©´ ê°€ì ¸ì˜¤ê¸°
         if (PlayerStatus.Instance != null)
         {
             comboCount =
@@ -146,7 +146,10 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
         // =====================================================
-        // Box ¼±ÅÃ ´Ü°è
+        // Box ì„ íƒ ë‹¨ê³„
+        //
+        // 1 = ë¯¸ê°œë´‰
+        // 2 = ê°œë´‰
         // =====================================================
 
         if (boxButtons != null &&
@@ -176,7 +179,12 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
         // =====================================================
-        // Motor ¼±ÅÃ ´Ü°è
+        // Motor ì„ íƒ ë‹¨ê³„
+        //
+        // 1 = A
+        // 2 = B
+        // 3 = C
+        // 4 = íê¸°
         // =====================================================
 
         if (motorButtons != null &&
@@ -270,15 +278,7 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
         Debug.Log(
-            "=========================="
-        );
-
-        Debug.Log(
-            "»õ ¹®Á¦ »ı¼º"
-        );
-
-        Debug.Log(
-            $"Á¤´ä : {currentAnswer}"
+            $"ì •ë‹µ : {currentAnswer}"
         );
     }
 
@@ -335,34 +335,29 @@ public class InspectionGameManager7 : MonoBehaviour
         }
 
 
-        // ¹Ì°³ºÀ ¹Ú½º¸¦ Àß¸ø ¿­¾ú´ÂÁö ±â·Ï
+        // ë¯¸ê°œë´‰ ë°•ìŠ¤ë¥¼ ì˜ëª» ì—´ì—ˆëŠ”ì§€ ê¸°ë¡
         openedWrongBox =
             currentAnswer ==
             InspectionResult.Unopened;
 
 
-        // ¹Ú½º Á¦°Å
+        // ë°•ìŠ¤ ì œê±°
         boxMatchManager
             .RemoveCurrentMatch();
 
 
-        // ¸ğÅÍ »ı¼º
+        // ëª¨í„° ìƒì„±
         currentAnswer =
             motorMatchManager
                 .CreateNextMatch();
 
 
         Debug.Log(
-            $"¹Ú½º °³ºÀ ¿Ï·á / Àß¸ø ¿¬ ¹Ú½º: {openedWrongBox}"
+            $"ì •ë‹µ : {currentAnswer}"
         );
 
 
-        Debug.Log(
-            $"³»ºÎ Á¤´ä: {currentAnswer}"
-        );
-
-
-        // ¸ğÅÍ ¼±ÅÃ °¡´É
+        // ëª¨í„° ì„ íƒ ê°€ëŠ¥
         if (motorButtons != null)
         {
             motorButtons.SetActive(
@@ -467,7 +462,7 @@ public class InspectionGameManager7 : MonoBehaviour
         if (PlayerStatus.Instance == null)
         {
             Debug.LogError(
-                "PlayerStatus.Instance°¡ ¾ø½À´Ï´Ù."
+                "PlayerStatus.Instanceê°€ ì—†ìŠµë‹ˆë‹¤."
             );
 
             return;
@@ -478,23 +473,16 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
         // =====================================================
-        // Á¤´ä ÆÇÁ¤
+        // ì •ë‹µ íŒì •
         // =====================================================
 
-        // ¹Ì°³ºÀ ¹Ú½º¸¦ Àß¸ø ¿­¾ú´Ù¸é
-        // ³»ºÎ ¼±ÅÃÀÌ ¸Â¾Æµµ ÃÖÁ¾ÀûÀ¸·Î ¿À´ä
+        // ë¯¸ê°œë´‰ ë°•ìŠ¤ë¥¼ ì˜ëª» ì—´ì—ˆë‹¤ë©´
+        // ë‚´ë¶€ ì„ íƒì´ ë§ì•„ë„ ìµœì¢…ì ìœ¼ë¡œ ì˜¤ë‹µ
         if (openedWrongBox)
         {
             correct =
                 false;
-
-
-            Debug.Log(
-                "¹Ì°³ºÀ ¹Ú½º¸¦ °³ºÀÇÔ ¡æ " +
-                "¸ğÅÍ ¼±ÅÃ°ú °ü°è¾øÀÌ ¿À´ä"
-            );
         }
-
         else
         {
             correct =
@@ -503,17 +491,8 @@ public class InspectionGameManager7 : MonoBehaviour
         }
 
 
-        Debug.Log(
-            $"¼±ÅÃ : {playerAnswer}"
-        );
-
-        Debug.Log(
-            $"Á¤´ä : {currentAnswer}"
-        );
-
-
         // =====================================================
-        // Á¤´ä
+        // ì •ë‹µ
         // =====================================================
 
         if (correct)
@@ -524,27 +503,20 @@ public class InspectionGameManager7 : MonoBehaviour
             );
 
 
-            // =================================================
-            // Á¤´ä Åë°è
-            // =================================================
-
+            // ì •ë‹µ í†µê³„
             correctCount++;
 
 
-            // =================================================
-            // ÄŞº¸ Áõ°¡
-            // =================================================
-
+            // ì½¤ë³´ ì¦ê°€
             comboCount++;
 
 
-            // PlayerStatus¿¡µµ ÇöÀç ¿¬¼Ó ¼º°ø ¼ö ÀúÀå
             PlayerStatus.Instance.comboNumber =
                 comboCount;
 
 
             // =================================================
-            // ¼öÀÍ
+            // ìˆ˜ìµ
             // =================================================
 
             int reward =
@@ -559,27 +531,12 @@ public class InspectionGameManager7 : MonoBehaviour
                 );
 
 
-            Debug.Log(
-                $"Á¤´ä! +{reward}"
-            );
-
-
-            Debug.Log(
-                $"ÇöÀç ÄŞº¸ : {comboCount}"
-            );
-
-
             // =================================================
-            // ÄŞº¸ ½Å·Úµµ º¸³Ê½º
+            // ì½¤ë³´ ì‹ ë¢°ë„ ë³´ë„ˆìŠ¤
             //
-            // 1ÄŞº¸ ¡æ ¾øÀ½
-            // 2ÄŞº¸ ¡æ ¾øÀ½
-            // 3ÄŞº¸ ¡æ +2
-            // 4ÄŞº¸ ¡æ +2
-            // 5ÄŞº¸ ¡æ +2
-            // ...
-            //
-            // ½ÇÆĞÇÒ ¶§±îÁö °è¼Ó Àû¿ë
+            // 1ì½¤ë³´ â†’ ì—†ìŒ
+            // 2ì½¤ë³´ â†’ ì—†ìŒ
+            // 3ì½¤ë³´ ì´ìƒ â†’ ì •ë‹µë§ˆë‹¤ ë³´ë„ˆìŠ¤
             // =================================================
 
             if (
@@ -591,18 +548,12 @@ public class InspectionGameManager7 : MonoBehaviour
                     .AddTrustChanges(
                         comboTrustReward
                     );
-
-
-                Debug.Log(
-                    $"¡Ú¡Ú¡Ú {comboCount} COMBO! " +
-                    $"½Å·Úµµ +{comboTrustReward} ¡Ú¡Ú¡Ú"
-                );
             }
         }
 
 
         // =====================================================
-        // ¿À´ä
+        // ì˜¤ë‹µ
         // =====================================================
 
         else
@@ -613,10 +564,7 @@ public class InspectionGameManager7 : MonoBehaviour
             );
 
 
-            // =================================================
-            // ¿À´ä Åë°è
-            // =================================================
-
+            // ì˜¤ë‹µ í†µê³„
             wrongCount++;
 
 
@@ -624,10 +572,7 @@ public class InspectionGameManager7 : MonoBehaviour
                 .mistakeNumber++;
 
 
-            // =================================================
-            // ÄŞº¸ ÃÊ±âÈ­
-            // =================================================
-
+            // ì½¤ë³´ ì´ˆê¸°í™”
             comboCount =
                 0;
 
@@ -636,52 +581,22 @@ public class InspectionGameManager7 : MonoBehaviour
                 0;
 
 
-            // =================================================
-            // ½Å·Úµµ ÆĞ³ÎÆ¼
-            // =================================================
-
+            // ì‹ ë¢°ë„ íŒ¨ë„í‹°
             PlayerStatus.Instance
                 .AddTrustChanges(
                     -trustPenalty
                 );
-
-
-            Debug.Log(
-                $"¿À´ä! ½Å·Úµµ -{trustPenalty}"
-            );
-
-
-            Debug.Log(
-                "ÄŞº¸°¡ 0À¸·Î ÃÊ±âÈ­µÇ¾ú½À´Ï´Ù."
-            );
         }
 
 
         // =====================================================
-        // ¿¬·á ¼Òºñ
+        // ì—°ë£Œ ì†Œë¹„
         // =====================================================
 
         PlayerStatus.Instance
             .ReduceFuel(
                 fuelCost
             );
-
-
-        Debug.Log(
-            $"¿¬·á -{fuelCost}"
-        );
-
-
-        // =====================================================
-        // Åë°è
-        // =====================================================
-
-        Debug.Log(
-            $"[°Ë»ç Åë°è] " +
-            $"Á¤´ä: {correctCount} / " +
-            $"¿À´ä: {wrongCount} / " +
-            $"ÇöÀç ÄŞº¸: {comboCount}"
-        );
 
 
         // =====================================================
@@ -692,10 +607,6 @@ public class InspectionGameManager7 : MonoBehaviour
             PlayerStatus.Instance.trust <= 0
         )
         {
-            Debug.Log(
-                "GAME OVER - ½Å·Úµµ ºÎÁ·"
-            );
-
             return;
         }
 
@@ -704,16 +615,12 @@ public class InspectionGameManager7 : MonoBehaviour
             PlayerStatus.Instance.fuel <= 0
         )
         {
-            Debug.Log(
-                "GAME OVER - ¿¬·á ºÎÁ·"
-            );
-
             return;
         }
 
 
         // =====================================================
-        // ´ÙÀ½ ¹®Á¦
+        // ë‹¤ìŒ ë¬¸ì œ
         // =====================================================
 
         GenerateQuestion();

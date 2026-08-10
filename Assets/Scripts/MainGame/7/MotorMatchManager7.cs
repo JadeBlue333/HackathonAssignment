@@ -445,7 +445,8 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (sameColor)
         {
-            backIndex = frontIndex;
+            backIndex =
+                frontIndex;
         }
         else
         {
@@ -457,7 +458,10 @@ public class MotorMatchManager7 : MonoBehaviour
                         propellerMaterials.Count
                     );
             }
-            while (backIndex == frontIndex);
+            while (
+                backIndex ==
+                frontIndex
+            );
         }
 
 
@@ -467,8 +471,13 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (isComplete)
         {
-            front.gameObject.SetActive(true);
-            back.gameObject.SetActive(true);
+            front.gameObject.SetActive(
+                true
+            );
+
+            back.gameObject.SetActive(
+                true
+            );
         }
         else
         {
@@ -480,26 +489,44 @@ public class MotorMatchManager7 : MonoBehaviour
 
             switch (missingType)
             {
+                // 앞쪽 누락
                 case 0:
 
-                    front.gameObject.SetActive(false);
-                    back.gameObject.SetActive(true);
+                    front.gameObject.SetActive(
+                        false
+                    );
+
+                    back.gameObject.SetActive(
+                        true
+                    );
 
                     break;
 
 
+                // 뒤쪽 누락
                 case 1:
 
-                    front.gameObject.SetActive(true);
-                    back.gameObject.SetActive(false);
+                    front.gameObject.SetActive(
+                        true
+                    );
+
+                    back.gameObject.SetActive(
+                        false
+                    );
 
                     break;
 
 
+                // 둘 다 누락
                 case 2:
 
-                    front.gameObject.SetActive(false);
-                    back.gameObject.SetActive(false);
+                    front.gameObject.SetActive(
+                        false
+                    );
+
+                    back.gameObject.SetActive(
+                        false
+                    );
 
                     break;
             }
@@ -543,13 +570,26 @@ public class MotorMatchManager7 : MonoBehaviour
             bodyMats;
 
 
-        int passCount = 0;
-
-        if (sameColor)
-            passCount++;
-
-        if (noStain)
-            passCount++;
+        // =====================================================
+        // 등급 판정
+        //
+        // 부품 누락
+        // → 폐기
+        //
+        // 완제품:
+        //
+        // 색 같음 + 얼룩 없음
+        // → A
+        //
+        // 색 다름 + 얼룩 없음
+        // → B
+        //
+        // 색 같음 + 얼룩 있음
+        // → B
+        //
+        // 색 다름 + 얼룩 있음
+        // → C
+        // =====================================================
 
         InspectionResult result;
 
@@ -565,18 +605,28 @@ public class MotorMatchManager7 : MonoBehaviour
         }
         else
         {
-            if (sameColor)
-                passCount++;
-
-            if (noStain)
-                passCount++;
-
-            passCount++;
+            int defectCount =
+                0;
 
 
-            switch (passCount)
+            // 프로펠러 색이 다르면 하자 +1
+            if (!sameColor)
             {
-                case 3:
+                defectCount++;
+            }
+
+
+            // 얼룩이 있으면 하자 +1
+            if (!noStain)
+            {
+                defectCount++;
+            }
+
+
+            switch (defectCount)
+            {
+                // 하자 없음
+                case 0:
 
                     result =
                         InspectionResult.A;
@@ -584,7 +634,8 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                case 2:
+                // 하자 1개
+                case 1:
 
                     result =
                         InspectionResult.B;
@@ -592,7 +643,8 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                case 1:
+                // 하자 2개
+                case 2:
 
                     result =
                         InspectionResult.C;
@@ -640,6 +692,7 @@ public class MotorMatchManager7 : MonoBehaviour
             currentMotor = null;
         }
 
+
         currentZoomScale =
             1f;
     }
@@ -656,8 +709,14 @@ public class MotorMatchManager7 : MonoBehaviour
     {
         foreach (Transform child in parent)
         {
-            if (child.name == targetName)
+            if (
+                child.name ==
+                targetName
+            )
+            {
                 return child;
+            }
+
 
             Transform result =
                 FindChildRecursive(
@@ -665,9 +724,13 @@ public class MotorMatchManager7 : MonoBehaviour
                     targetName
                 );
 
+
             if (result != null)
+            {
                 return result;
+            }
         }
+
 
         return null;
     }
@@ -714,6 +777,7 @@ public class MotorMatchManager7 : MonoBehaviour
             finalRotationSpeed;
 
 
+        // 좌우
         currentHolder.transform.Rotate(
             Vector3.up,
             horizontalRotation,
@@ -721,6 +785,7 @@ public class MotorMatchManager7 : MonoBehaviour
         );
 
 
+        // 위아래
         currentHolder.transform.Rotate(
             Vector3.left,
             verticalRotation,
@@ -746,18 +811,31 @@ public class MotorMatchManager7 : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
-        if (ScrollInvertSetting.IsScrollInverted())
+        // 환경설정에서 스크롤 반전이 켜져 있으면 방향 반전
+        if (
+            ScrollInvertSetting
+                .IsScrollInverted()
+        )
         {
-            scrollValue *= -1f;
+            scrollValue *=
+                -1f;
         }
 
 
-        if (Mathf.Abs(scrollValue) < 0.01f)
+        if (
+            Mathf.Abs(
+                scrollValue
+            ) < 0.01f
+        )
+        {
             return;
+        }
 
 
         currentZoomScale +=
-            Mathf.Sign(scrollValue) *
+            Mathf.Sign(
+                scrollValue
+            ) *
             zoomSpeed;
 
 
@@ -788,11 +866,18 @@ public class MotorMatchManager7 : MonoBehaviour
             return;
 
 
-        float verticalRotation = 0f;
-        float horizontalRotation = 0f;
+        float verticalRotation =
+            0f;
+
+        float horizontalRotation =
+            0f;
 
 
-        if (Keyboard.current.wKey.isPressed)
+        if (
+            Keyboard.current
+                .wKey
+                .isPressed
+        )
         {
             verticalRotation +=
                 fineRotationSpeed *
@@ -800,7 +885,11 @@ public class MotorMatchManager7 : MonoBehaviour
         }
 
 
-        if (Keyboard.current.sKey.isPressed)
+        if (
+            Keyboard.current
+                .sKey
+                .isPressed
+        )
         {
             verticalRotation -=
                 fineRotationSpeed *
@@ -808,7 +897,11 @@ public class MotorMatchManager7 : MonoBehaviour
         }
 
 
-        if (Keyboard.current.aKey.isPressed)
+        if (
+            Keyboard.current
+                .aKey
+                .isPressed
+        )
         {
             horizontalRotation +=
                 fineRotationSpeed *
@@ -816,7 +909,11 @@ public class MotorMatchManager7 : MonoBehaviour
         }
 
 
-        if (Keyboard.current.dKey.isPressed)
+        if (
+            Keyboard.current
+                .dKey
+                .isPressed
+        )
         {
             horizontalRotation -=
                 fineRotationSpeed *
@@ -824,7 +921,10 @@ public class MotorMatchManager7 : MonoBehaviour
         }
 
 
-        if (verticalRotation != 0f)
+        if (
+            verticalRotation !=
+            0f
+        )
         {
             currentHolder.transform.Rotate(
                 Vector3.right,
@@ -834,7 +934,10 @@ public class MotorMatchManager7 : MonoBehaviour
         }
 
 
-        if (horizontalRotation != 0f)
+        if (
+            horizontalRotation !=
+            0f
+        )
         {
             currentHolder.transform.Rotate(
                 Vector3.up,
