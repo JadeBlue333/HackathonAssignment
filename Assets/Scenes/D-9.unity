@@ -1024,6 +1024,14 @@ PrefabInstance:
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 1921510401}
+    - target: {fileID: 8807100950990691910, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807100950990691910, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8882666766799173876, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5693,7 +5701,8 @@ MonoBehaviour:
   motorScale: {x: 25, y: 25, z: 25}
   baseMouseRotationSpeed: 0.2
   defaultObjectRotationSensitivity: 1
-  fineRotationSpeed: 30
+  baseKeyboardRotationSpeed: 30
+  defaultKeyboardRotationSensitivity: 1
   zoomSpeed: 0.15
   minZoomScale: 1
   maxZoomScale: 3

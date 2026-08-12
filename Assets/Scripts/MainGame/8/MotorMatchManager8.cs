@@ -41,26 +41,49 @@ public class MotorMatchManager8 : MonoBehaviour
 
 
     // =====================================================
-    // Rotation
+    // Rotation Sensitivity
     // =====================================================
 
-    [Header("Rotation")]
+    public const float MinRotationSensitivity = 0.2f;
+    public const float MaxRotationSensitivity = 20f;
+
+    public const string ObjectRotationSensitivityKey =
+        "ObjectRotationSensitivity";
+
+    public const string KeyboardRotationSensitivityKey =
+        "KeyboardRotationSensitivity";
+
+
+    // =====================================================
+    // Mouse Rotation
+    // =====================================================
+
+    [Header("Mouse Rotation")]
 
     [Tooltip("기본 좌클릭 드래그 회전 속도")]
     [SerializeField]
     private float baseMouseRotationSpeed = 0.2f;
 
-    [Tooltip("환경설정 값이 없을 때 사용할 기본 물체 회전 감도")]
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 마우스 회전 감도")]
+    [Range(MinRotationSensitivity, MaxRotationSensitivity)]
     [SerializeField]
     private float defaultObjectRotationSensitivity = 1f;
 
-    [Tooltip("WASD 미세 회전 속도")]
+
+    // =====================================================
+    // Keyboard Rotation
+    // =====================================================
+
+    [Header("Keyboard Rotation")]
+
+    [Tooltip("기본 방향키 회전 속도")]
     [SerializeField]
-    private float fineRotationSpeed = 30f;
+    private float baseKeyboardRotationSpeed = 30f;
 
-
-    private const string ObjectRotationSensitivityKey =
-        "ObjectRotationSensitivity";
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 방향키 회전 감도")]
+    [Range(MinRotationSensitivity, MaxRotationSensitivity)]
+    [SerializeField]
+    private float defaultKeyboardRotationSensitivity = 1f;
 
 
     // =====================================================
@@ -95,7 +118,6 @@ public class MotorMatchManager8 : MonoBehaviour
 
     [SerializeField]
     private string backPropellerName = "P_Back";
-
 
     [SerializeField]
     private List<Material> propellerMaterials = new();
@@ -177,6 +199,8 @@ public class MotorMatchManager8 : MonoBehaviour
     {
         HideAnchor();
 
+        ValidateSavedSensitivity();
+
         LoadPrefab();
 
         isReady =
@@ -198,7 +222,55 @@ public class MotorMatchManager8 : MonoBehaviour
 
         HandleMouseZoom();
 
-        HandleFineRotation();
+        HandleKeyboardRotation();
+    }
+
+
+    // =====================================================
+    // 저장된 감도 값 보정
+    // =====================================================
+
+    private void ValidateSavedSensitivity()
+    {
+        float mouseSensitivity =
+            PlayerPrefs.GetFloat(
+                ObjectRotationSensitivityKey,
+                defaultObjectRotationSensitivity
+            );
+
+        mouseSensitivity =
+            Mathf.Clamp(
+                mouseSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+        PlayerPrefs.SetFloat(
+            ObjectRotationSensitivityKey,
+            mouseSensitivity
+        );
+
+
+        float keyboardSensitivity =
+            PlayerPrefs.GetFloat(
+                KeyboardRotationSensitivityKey,
+                defaultKeyboardRotationSensitivity
+            );
+
+        keyboardSensitivity =
+            Mathf.Clamp(
+                keyboardSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+        PlayerPrefs.SetFloat(
+            KeyboardRotationSensitivityKey,
+            keyboardSensitivity
+        );
+
+
+        PlayerPrefs.Save();
     }
 
 
@@ -736,6 +808,14 @@ public class MotorMatchManager8 : MonoBehaviour
             );
 
 
+        objectRotationSensitivity =
+            Mathf.Clamp(
+                objectRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
         float finalRotationSpeed =
             baseMouseRotationSpeed *
             objectRotationSensitivity;
@@ -826,10 +906,10 @@ public class MotorMatchManager8 : MonoBehaviour
 
 
     // =====================================================
-    // WASD 미세 회전
+    // 방향키 회전
     // =====================================================
 
-    private void HandleFineRotation()
+    private void HandleKeyboardRotation()
     {
         if (currentHolder == null)
             return;
@@ -837,6 +917,26 @@ public class MotorMatchManager8 : MonoBehaviour
 
         if (Keyboard.current == null)
             return;
+
+
+        float keyboardSensitivity =
+            PlayerPrefs.GetFloat(
+                KeyboardRotationSensitivityKey,
+                defaultKeyboardRotationSensitivity
+            );
+
+
+        keyboardSensitivity =
+            Mathf.Clamp(
+                keyboardSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
+        float finalRotationSpeed =
+            baseKeyboardRotationSpeed *
+            keyboardSensitivity;
 
 
         float verticalRotation =
@@ -853,7 +953,7 @@ public class MotorMatchManager8 : MonoBehaviour
         )
         {
             verticalRotation +=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -864,7 +964,7 @@ public class MotorMatchManager8 : MonoBehaviour
         )
         {
             verticalRotation -=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -875,7 +975,7 @@ public class MotorMatchManager8 : MonoBehaviour
         )
         {
             horizontalRotation +=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -886,7 +986,7 @@ public class MotorMatchManager8 : MonoBehaviour
         )
         {
             horizontalRotation -=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -942,16 +1042,25 @@ public class MotorMatchManager8 : MonoBehaviour
 
 
         defaultObjectRotationSensitivity =
-            Mathf.Max(
-                0f,
-                defaultObjectRotationSensitivity
+            Mathf.Clamp(
+                defaultObjectRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
             );
 
 
-        fineRotationSpeed =
+        baseKeyboardRotationSpeed =
             Mathf.Max(
                 0f,
-                fineRotationSpeed
+                baseKeyboardRotationSpeed
+            );
+
+
+        defaultKeyboardRotationSensitivity =
+            Mathf.Clamp(
+                defaultKeyboardRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
             );
 
 
