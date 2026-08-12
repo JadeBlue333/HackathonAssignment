@@ -699,7 +699,7 @@ public class BoxMatchManager : MonoBehaviour
         float horizontalRotation = 0f;
 
 
-        if (Keyboard.current.wKey.isPressed)
+        if (Keyboard.current.upArrowKey.isPressed)
         {
             verticalRotation +=
                 fineRotationSpeed *
@@ -707,7 +707,7 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        if (Keyboard.current.sKey.isPressed)
+        if (Keyboard.current.downArrowKey.isPressed)
         {
             verticalRotation -=
                 fineRotationSpeed *
@@ -715,7 +715,7 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        if (Keyboard.current.aKey.isPressed)
+        if (Keyboard.current.leftArrowKey.isPressed)
         {
             horizontalRotation +=
                 fineRotationSpeed *
@@ -723,7 +723,7 @@ public class BoxMatchManager : MonoBehaviour
         }
 
 
-        if (Keyboard.current.dKey.isPressed)
+        if (Keyboard.current.rightArrowKey.isPressed)
         {
             horizontalRotation -=
                 fineRotationSpeed *
