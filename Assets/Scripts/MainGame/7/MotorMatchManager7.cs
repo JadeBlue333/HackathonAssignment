@@ -912,7 +912,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (
             Keyboard.current
-                .wKey
+                .upArrowKey
                 .isPressed
         )
         {
@@ -924,7 +924,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (
             Keyboard.current
-                .sKey
+                .downArrowKey
                 .isPressed
         )
         {
@@ -936,7 +936,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (
             Keyboard.current
-                .aKey
+                .leftArrowKey
                 .isPressed
         )
         {
@@ -948,7 +948,7 @@ public class MotorMatchManager7 : MonoBehaviour
 
         if (
             Keyboard.current
-                .dKey
+                .rightArrowKey
                 .isPressed
         )
         {
