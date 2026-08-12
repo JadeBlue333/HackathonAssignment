@@ -734,9 +734,7 @@ public class InspectionGameManager7 : MonoBehaviour
     // Answer Check
     // =========================================================
 
-    private void CheckAnswer(
-        InspectionResult playerAnswer
-    )
+    private void CheckAnswer(InspectionResult playerAnswer)
     {
         if (PlayerStatus.Instance == null)
         {
@@ -867,6 +865,12 @@ public class InspectionGameManager7 : MonoBehaviour
             ShowWrongReason(
                 reason
             );
+
+            // 폐기를 미폐기 처리했을시 폭발 트리거
+            if (currentAnswer == InspectionResult.Discard && playerAnswer != InspectionResult.Discard)
+            {
+                //trigger explosion event
+            }
         }
 
 
