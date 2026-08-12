@@ -669,9 +669,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
     - target: {fileID: 1712331154064525136, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712331154064525136, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712331154064525136, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712331154064525136, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 5683225789139700101, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
+    - target: {fileID: 1712331154064525136, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 1759671820789185442, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: rotationTarget
       value: 
@@ -768,6 +784,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 4079528087651054399, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 4148086308237257722, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Name
       value: Chat Log (Need Image Change)
