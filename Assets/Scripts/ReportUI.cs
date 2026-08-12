@@ -79,8 +79,8 @@ public class ReportUI : MonoBehaviour
         earnedMoneyText.text = $"{ps.earnings}C";
         finalMoneyText.text = $"{totalMoney}C";
 
-        comboNum.text = $"{ps.comboNumber * 2}";
-        mistakeNum.text = $"{ps.mistakeNumber * -5}";
+        comboNum.text = $"{ps.successNumber}";
+        mistakeNum.text = $"{ps.mistakeNumber}";
         if (ps.trust + ps.trustChange < 0)
         {
             finalTrustText.text = "0";

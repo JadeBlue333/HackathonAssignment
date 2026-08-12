@@ -23,7 +23,8 @@ public class PlayerStatus : MonoBehaviour
         public int trust;
         public int trustChange;
 
-        // Combo / Mistake
+        // Success / Combo / Mistake
+        public int successNumber;
         public int comboNumber;
         public int mistakeNumber;
 
@@ -84,6 +85,7 @@ public class PlayerStatus : MonoBehaviour
         earnings = 0;
         trustChange = 0;
 
+        successNumber = 0;
         comboNumber = 0;
         mistakeNumber = 0;
 
@@ -267,7 +269,8 @@ public class PlayerStatus : MonoBehaviour
     // Combo / Mistake
     // =========================================================
 
-    [Header("콤보 / 실수")]
+    [Header("성공 / 콤보 / 실수")]
+    public int successNumber = 0;
     public int comboNumber = 0;
     public int mistakeNumber = 0;
 
@@ -569,6 +572,7 @@ public class PlayerStatus : MonoBehaviour
 
     public void StartDay()
     {
+
         // 연료 자동회복
         int fuelRecovery =
             GetFuelRecoveryAmount();
@@ -582,10 +586,14 @@ public class PlayerStatus : MonoBehaviour
             );
         }
 
+        if (humanHeart)
+            comboNumber = 3;
+        else
+            comboNumber = 0;
 
         // 신뢰도 자동회복
         int trustRecovery =
-            GetTrustRecoveryAmount();
+                GetTrustRecoveryAmount();
 
         if (trustRecovery > 0 && trustRecovery + trust <= 100)
         {
@@ -606,7 +614,7 @@ public class PlayerStatus : MonoBehaviour
 
 
             // 작업시간 재계산
-            UpdateDayDuration();
+        UpdateDayDuration();
 
 
         Debug.Log(
@@ -635,9 +643,10 @@ public class PlayerStatus : MonoBehaviour
 
         //기본 연료 10 소모
         fuel -= 10;
+
         mistakeNumber = 0;
         comboNumber = 0;
-
+        successNumber = 0;
 
         if (currentDay > 0 || currentDay < 0)
         {

@@ -175,13 +175,7 @@ public class InspectionGameManager8 : MonoBehaviour
         );
 
 
-        // PlayerStatus에 기존 콤보가 있다면 가져오기
-        if (PlayerStatus.Instance != null)
-        {
-            comboCount =
-                PlayerStatus.Instance.comboNumber;
-        }
-
+        comboCount = PlayerStatus.Instance.comboNumber;
 
         GenerateQuestion();
     }
@@ -861,7 +855,7 @@ public class InspectionGameManager8 : MonoBehaviour
 
             // 콤보 증가
             comboCount++;
-
+            PlayerStatus.Instance.successNumber++;
 
             PlayerStatus.Instance.comboNumber =
                 comboCount;
@@ -918,10 +912,7 @@ public class InspectionGameManager8 : MonoBehaviour
 
             // 오답 통계
             wrongCount++;
-
-
-            PlayerStatus.Instance
-                .mistakeNumber++;
+            PlayerStatus.Instance.mistakeNumber++;
 
 
             // 콤보 초기화
@@ -933,10 +924,21 @@ public class InspectionGameManager8 : MonoBehaviour
                 0;
 
 
+            // =================================================
             // 신뢰도 패널티
+            // =================================================
+            if (PlayerStatus.Instance.humanHead)
+            {
+                trustPenalty = -2;
+            }
+            else
+            {
+                trustPenalty = -5;
+            }
+
             PlayerStatus.Instance
                 .AddTrustChanges(
-                    -trustPenalty
+                    trustPenalty
                 );
 
 
@@ -964,6 +966,15 @@ public class InspectionGameManager8 : MonoBehaviour
         // =====================================================
         // 연료 소비
         // =====================================================
+
+        if (PlayerStatus.Instance.humanBody)
+        {
+            fuelCost = 1;
+        }
+        else
+        {
+            fuelCost = 2;
+        }
 
         PlayerStatus.Instance
             .ReduceFuel(
