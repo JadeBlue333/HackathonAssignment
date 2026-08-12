@@ -1505,12 +1505,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 589900358}
   - {fileID: 1562016032}
   - {fileID: 850670254}
   - {fileID: 522285045}
   - {fileID: 642707815}
   - {fileID: 44469047}
-  - {fileID: 589900358}
   - {fileID: 572185850}
   - {fileID: 128455733}
   - {fileID: 169647897}
@@ -2251,6 +2251,10 @@ PrefabInstance:
       propertyPath: hoverAudioSource
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5513800671910277629, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6200580541700901110, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -2282,6 +2286,10 @@ PrefabInstance:
     - target: {fileID: 6702335226230741787, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7238175512628674991, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_text
@@ -2383,6 +2391,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8a809df7aadc341d3811b76f5a894149, type: 3}
+    - target: {fileID: 9218147646988263040, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5050926098569868271, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
     - {fileID: 6307858299011314560, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
@@ -8860,12 +8872,12 @@ GameObject:
   - component: {fileID: 589900360}
   - component: {fileID: 589900359}
   m_Layer: 5
-  m_Name: Box (4)
+  m_Name: Backg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &589900358
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8875,14 +8887,14 @@ RectTransform:
   m_GameObject: {fileID: 589900357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8.057839, y: 5.321858, z: 5.7556}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 119551235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -366, y: 201}
+  m_AnchoredPosition: {x: 84, y: 23}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589900359
@@ -8898,14 +8910,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c2942af6c800f414e90fcbdbfd38aa98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82c3bee579321408bae27036f0b5f750, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15688,7 +15700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &976537778
 Transform:
   m_ObjectHideFlags: 0
@@ -19292,7 +19304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1316099224
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21701,9 +21713,9 @@ MonoBehaviour:
     \uBC84\uD2BC\uC5D0 \uD45C\uC2DC\uB41C \uD0A4\uB97C \uD655\uC778\uD558\uC138\uC694.\n\uAC80\uC218
     \uACB0\uACFC\uB294 \uBC84\uD2BC\uC744 \uD074\uB9AD\uD558\uAC70\uB098 \uB300\uC751\uD558\uB294
     \uC22B\uC790 \uD0A4\uB97C \uB20C\uB7EC \uC120\uD0DD\uD569\uB2C8\uB2E4.\n\n\uAC80\uC218
-    \uC911\uC778 \uC81C\uD488\uC740 \uB9C8\uC6B0\uC2A4 \uB610\uB294 WASD\uB85C \uD68C\uC804\uC2DC\uD0AC
-    \uC218 \uC788\uC73C\uBA70,\n\uB9C8\uC6B0\uC2A4 \uD720\uC744 \uC774\uC6A9\uD574
-    \uD655\uB300\uD558\uAC70\uB098 \uCD95\uC18C\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uB9C8\uC6B0\uC2A4\uC640
+    \uC911\uC778 \uC81C\uD488\uC740 \uB9C8\uC6B0\uC2A4 \uB610\uB294 \uBC29\uD5A5\uD0A4\uB85C
+    \uD68C\uC804\uC2DC\uD0AC \uC218 \uC788\uC73C\uBA70,\n\uB9C8\uC6B0\uC2A4 \uD720\uC744
+    \uC774\uC6A9\uD574 \uD655\uB300\uD558\uAC70\uB098 \uCD95\uC18C\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uB9C8\uC6B0\uC2A4\uC640
     \uD0A4\uBCF4\uB4DC \uC911 \uD3B8\uD55C \uC870\uC791 \uBC29\uC2DD\uC744 \uC0AC\uC6A9\uD558\uC138\uC694."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
@@ -29416,7 +29428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2084862958
 RectTransform:
   m_ObjectHideFlags: 0
