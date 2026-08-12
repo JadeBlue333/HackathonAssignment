@@ -42,6 +42,13 @@ public class PlayerStatus : MonoBehaviour
 
         // Time
         public float dayDuration;
+
+        // Endings
+        public bool ending1Achieved;
+        public bool ending2Achieved;
+        public bool ending3Achieved;
+        public bool ending4Achieved;
+        public bool ending5Achieved;
     }
 
     [Header("Progress Save")]
@@ -103,6 +110,11 @@ public class PlayerStatus : MonoBehaviour
         highRiskHighReturnLevel = 0;
         workTimeLevel = 0;
 
+        ending1Achieved = false;
+        ending2Achieved = false;
+        ending3Achieved = false;
+        ending4Achieved = false;
+        ending5Achieved = false;
 
         // 기본 작업 시간 적용
         UpdateDayDuration();
@@ -274,6 +286,11 @@ public class PlayerStatus : MonoBehaviour
     public int comboNumber = 0;
     public int mistakeNumber = 0;
 
+    public bool ending1Achieved;
+    public bool ending2Achieved;
+    public bool ending3Achieved;
+    public bool ending4Achieved;
+    public bool ending5Achieved;
 
     // =========================================================
     // Money Functions
