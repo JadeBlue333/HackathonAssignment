@@ -173,14 +173,8 @@ public class InspectionGameManager9 : MonoBehaviour
                 boxMatchManager.IsReady &&
                 motorMatchManager.IsReady
         );
-
-
-        if (PlayerStatus.Instance != null)
-        {
-            comboCount =
-                PlayerStatus.Instance.comboNumber;
-        }
-
+        
+        comboCount = PlayerStatus.Instance.comboNumber;
 
         GenerateQuestion();
     }
@@ -865,6 +859,7 @@ public class InspectionGameManager9 : MonoBehaviour
             // =================================================
 
             correctCount++;
+            PlayerStatus.Instance.successNumber++;
 
 
             // =================================================
@@ -944,11 +939,7 @@ public class InspectionGameManager9 : MonoBehaviour
             // =================================================
 
             wrongCount++;
-
-
-            PlayerStatus.Instance
-                .mistakeNumber++;
-
+            PlayerStatus.Instance.mistakeNumber++;
 
             // =================================================
             // 콤보 초기화
@@ -965,12 +956,19 @@ public class InspectionGameManager9 : MonoBehaviour
             // =================================================
             // 신뢰도 패널티
             // =================================================
+            if (PlayerStatus.Instance.humanHead)
+            {
+                trustPenalty = -2;
+            }
+            else
+            {
+                trustPenalty = -5;
+            }
 
             PlayerStatus.Instance
                 .AddTrustChanges(
-                    -trustPenalty
+                    trustPenalty
                 );
-
 
             Debug.Log(
                 $"오답! 신뢰도 -{trustPenalty}"
@@ -1006,6 +1004,15 @@ public class InspectionGameManager9 : MonoBehaviour
         // =====================================================
         // 연료 소비
         // =====================================================
+
+        if (PlayerStatus.Instance.humanBody)
+        {
+            fuelCost = 1;
+        }
+        else
+        {
+            fuelCost = 2;
+        }
 
         PlayerStatus.Instance
             .ReduceFuel(

@@ -169,13 +169,7 @@ public class InspectionGameManager7 : MonoBehaviour
                 motorMatchManager.IsReady
         );
 
-
-        if (PlayerStatus.Instance != null)
-        {
-            comboCount =
-                PlayerStatus.Instance.comboNumber;
-        }
-
+        comboCount = PlayerStatus.Instance.comboNumber;
 
         GenerateQuestion();
     }
@@ -783,7 +777,7 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
             correctCount++;
-
+            PlayerStatus.Instance.successNumber++;
 
             comboCount++;
 
@@ -830,10 +824,7 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
             wrongCount++;
-
-
-            PlayerStatus.Instance
-                .mistakeNumber++;
+            PlayerStatus.Instance.mistakeNumber++;
 
 
             comboCount =
@@ -844,9 +835,21 @@ public class InspectionGameManager7 : MonoBehaviour
                 0;
 
 
+            // =================================================
+            // 신뢰도 패널티
+            // =================================================
+            if (PlayerStatus.Instance.humanHead)
+            {
+                trustPenalty = -2;
+            }
+            else
+            {
+                trustPenalty = -5;
+            }
+
             PlayerStatus.Instance
                 .AddTrustChanges(
-                    -trustPenalty
+                    trustPenalty
                 );
 
 
@@ -870,6 +873,15 @@ public class InspectionGameManager7 : MonoBehaviour
         // =====================================================
         // 연료 소비
         // =====================================================
+
+        if (PlayerStatus.Instance.humanBody)
+        {
+            fuelCost = 1;
+        }
+        else
+        {
+            fuelCost = 2;
+        }
 
         PlayerStatus.Instance
             .ReduceFuel(
