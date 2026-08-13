@@ -89,6 +89,14 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
+    // 감도 공통 설정
+    // =========================================================
+
+    public const float MinRotationSensitivity = 0.2f;
+    public const float MaxRotationSensitivity = 20f;
+
+
+    // =========================================================
     // 마우스 회전
     // =========================================================
 
@@ -98,11 +106,12 @@ public class BoxMatchManager : MonoBehaviour
     [SerializeField]
     private float baseMouseRotationSpeed = 0.2f;
 
-    [Tooltip("환경설정 값이 없을 때 사용할 기본 물체 회전 감도")]
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 마우스 회전 감도")]
+    [Range(MinRotationSensitivity, MaxRotationSensitivity)]
     [SerializeField]
     private float defaultObjectRotationSensitivity = 1f;
 
-    private const string ObjectRotationSensitivityKey =
+    public const string ObjectRotationSensitivityKey =
         "ObjectRotationSensitivity";
 
 
@@ -128,14 +137,22 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
-    // WASD 미세 회전
+    // 방향키 회전
     // =========================================================
 
-    [Header("WASD 미세 회전")]
+    [Header("방향키 회전")]
 
-    [Tooltip("WASD 미세 회전 속도")]
+    [Tooltip("기본 방향키 회전 속도")]
     [SerializeField]
-    private float fineRotationSpeed = 30f;
+    private float baseKeyboardRotationSpeed = 30f;
+
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 방향키 회전 감도")]
+    [Range(MinRotationSensitivity, MaxRotationSensitivity)]
+    [SerializeField]
+    private float defaultKeyboardRotationSensitivity = 1f;
+
+    public const string KeyboardRotationSensitivityKey =
+        "KeyboardRotationSensitivity";
 
 
     // =========================================================
@@ -207,7 +224,57 @@ public class BoxMatchManager : MonoBehaviour
     private void Start()
     {
         HideAnchorCube();
+
+        ValidateSavedSensitivity();
+
         LoadPrefabs();
+    }
+
+
+    // =========================================================
+    // 저장된 감도 값 보정
+    // =========================================================
+
+    private void ValidateSavedSensitivity()
+    {
+        float mouseSensitivity =
+            PlayerPrefs.GetFloat(
+                ObjectRotationSensitivityKey,
+                defaultObjectRotationSensitivity
+            );
+
+        mouseSensitivity =
+            Mathf.Clamp(
+                mouseSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+        PlayerPrefs.SetFloat(
+            ObjectRotationSensitivityKey,
+            mouseSensitivity
+        );
+
+
+        float keyboardSensitivity =
+            PlayerPrefs.GetFloat(
+                KeyboardRotationSensitivityKey,
+                defaultKeyboardRotationSensitivity
+            );
+
+        keyboardSensitivity =
+            Mathf.Clamp(
+                keyboardSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+        PlayerPrefs.SetFloat(
+            KeyboardRotationSensitivityKey,
+            keyboardSensitivity
+        );
+
+        PlayerPrefs.Save();
     }
 
 
@@ -224,7 +291,7 @@ public class BoxMatchManager : MonoBehaviour
 
         HandleMouseZoom();
 
-        HandleFineRotation();
+        HandleKeyboardRotation();
     }
 
 
@@ -411,10 +478,6 @@ public class BoxMatchManager : MonoBehaviour
 
         // =====================================================
         // Open Tape
-        //
-        // 박스 정상
-        // 테이프 개봉 흔적 있음
-        // → Opened
         // =====================================================
 
         if (randomValue < safeOpenChance)
@@ -428,22 +491,13 @@ public class BoxMatchManager : MonoBehaviour
             answer =
                 InspectionResult.Opened;
 
-
-            // 현재 상태 저장
-            CurrentBoxDamaged =
-                false;
-
-            CurrentTapeOpened =
-                true;
+            CurrentBoxDamaged = false;
+            CurrentTapeOpened = true;
         }
 
 
         // =====================================================
         // Damage Box
-        //
-        // 박스 손상 있음
-        // 테이프 정상
-        // → Opened
         // =====================================================
 
         else if (
@@ -460,22 +514,13 @@ public class BoxMatchManager : MonoBehaviour
             answer =
                 InspectionResult.Opened;
 
-
-            // 현재 상태 저장
-            CurrentBoxDamaged =
-                true;
-
-            CurrentTapeOpened =
-                false;
+            CurrentBoxDamaged = true;
+            CurrentTapeOpened = false;
         }
 
 
         // =====================================================
         // 정상 미개봉
-        //
-        // 박스 정상
-        // 테이프 정상
-        // → Unopened
         // =====================================================
 
         else
@@ -489,13 +534,8 @@ public class BoxMatchManager : MonoBehaviour
             answer =
                 InspectionResult.Unopened;
 
-
-            // 현재 상태 저장
-            CurrentBoxDamaged =
-                false;
-
-            CurrentTapeOpened =
-                false;
+            CurrentBoxDamaged = false;
+            CurrentTapeOpened = false;
         }
 
 
@@ -524,8 +564,7 @@ public class BoxMatchManager : MonoBehaviour
         // Zoom 초기화
         // =====================================================
 
-        currentZoomScale =
-            1f;
+        currentZoomScale = 1f;
 
         currentHolder.transform.localScale =
             Vector3.one;
@@ -606,6 +645,14 @@ public class BoxMatchManager : MonoBehaviour
             );
 
 
+        objectRotationSensitivity =
+            Mathf.Clamp(
+                objectRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
         float finalRotationSpeed =
             baseMouseRotationSpeed *
             objectRotationSensitivity;
@@ -652,7 +699,6 @@ public class BoxMatchManager : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
-        // 환경설정에서 스크롤 반전 체크했으면 방향 반전
         if (ScrollInvertSetting.IsScrollInverted())
         {
             scrollValue *= -1f;
@@ -683,10 +729,10 @@ public class BoxMatchManager : MonoBehaviour
 
 
     // =========================================================
-    // WASD 미세 회전
+    // 방향키 회전
     // =========================================================
 
-    private void HandleFineRotation()
+    private void HandleKeyboardRotation()
     {
         if (currentHolder == null)
             return;
@@ -695,38 +741,62 @@ public class BoxMatchManager : MonoBehaviour
             return;
 
 
+        float keyboardSensitivity =
+            PlayerPrefs.GetFloat(
+                KeyboardRotationSensitivityKey,
+                defaultKeyboardRotationSensitivity
+            );
+
+
+        keyboardSensitivity =
+            Mathf.Clamp(
+                keyboardSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
+        float finalRotationSpeed =
+            baseKeyboardRotationSpeed *
+            keyboardSensitivity;
+
+
         float verticalRotation = 0f;
         float horizontalRotation = 0f;
 
 
+        // 위
         if (Keyboard.current.upArrowKey.isPressed)
         {
             verticalRotation +=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
 
+        // 아래
         if (Keyboard.current.downArrowKey.isPressed)
         {
             verticalRotation -=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
 
+        // 왼쪽
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             horizontalRotation +=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
 
+        // 오른쪽
         if (Keyboard.current.rightArrowKey.isPressed)
         {
             horizontalRotation -=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -813,11 +883,6 @@ public class BoxMatchManager : MonoBehaviour
                 100f - openChance
             );
 
-        fineRotationSpeed =
-            Mathf.Max(
-                0f,
-                fineRotationSpeed
-            );
 
         baseMouseRotationSpeed =
             Mathf.Max(
@@ -825,11 +890,29 @@ public class BoxMatchManager : MonoBehaviour
                 baseMouseRotationSpeed
             );
 
+
         defaultObjectRotationSensitivity =
+            Mathf.Clamp(
+                defaultObjectRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
+        baseKeyboardRotationSpeed =
             Mathf.Max(
                 0f,
-                defaultObjectRotationSensitivity
+                baseKeyboardRotationSpeed
             );
+
+
+        defaultKeyboardRotationSensitivity =
+            Mathf.Clamp(
+                defaultKeyboardRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
 
         zoomSpeed =
             Mathf.Max(
@@ -837,11 +920,13 @@ public class BoxMatchManager : MonoBehaviour
                 zoomSpeed
             );
 
+
         minZoomScale =
             Mathf.Max(
                 0.1f,
                 minZoomScale
             );
+
 
         maxZoomScale =
             Mathf.Max(

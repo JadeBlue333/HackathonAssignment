@@ -41,24 +41,49 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
     // =====================================================
-    // Rotation
+    // Rotation Sensitivity
     // =====================================================
 
-    [Header("Rotation")]
+    public const float MinRotationSensitivity = 0.2f;
+    public const float MaxRotationSensitivity = 20f;
+
+    public const string ObjectRotationSensitivityKey =
+        "ObjectRotationSensitivity";
+
+    public const string KeyboardRotationSensitivityKey =
+        "KeyboardRotationSensitivity";
+
+
+    // =====================================================
+    // Mouse Rotation
+    // =====================================================
+
+    [Header("Mouse Rotation")]
 
     [Tooltip("기본 좌클릭 드래그 회전 속도")]
     [SerializeField]
     private float baseMouseRotationSpeed = 0.2f;
 
-    [Tooltip("환경설정 값이 없을 때 사용할 기본 물체 회전 감도")]
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 마우스 회전 감도")]
+    [Range(MinRotationSensitivity, MaxRotationSensitivity)]
     [SerializeField]
     private float defaultObjectRotationSensitivity = 1f;
 
-    [SerializeField]
-    private float fineRotationSpeed = 30f;
 
-    private const string ObjectRotationSensitivityKey =
-        "ObjectRotationSensitivity";
+    // =====================================================
+    // Keyboard Rotation
+    // =====================================================
+
+    [Header("Keyboard Rotation")]
+
+    [Tooltip("기본 방향키 회전 속도")]
+    [SerializeField]
+    private float baseKeyboardRotationSpeed = 30f;
+
+    [Tooltip("환경설정 값이 없을 때 사용할 기본 방향키 회전 감도")]
+    [Range(MinRotationSensitivity, MaxRotationSensitivity)]
+    [SerializeField]
+    private float defaultKeyboardRotationSensitivity = 1f;
 
 
     // =====================================================
@@ -188,6 +213,8 @@ public class MotorMatchManager7 : MonoBehaviour
     {
         HideAnchor();
 
+        ValidateSavedSensitivity();
+
         LoadPrefab();
 
         isReady = ValidateData();
@@ -207,7 +234,55 @@ public class MotorMatchManager7 : MonoBehaviour
 
         HandleMouseZoom();
 
-        HandleFineRotation();
+        HandleKeyboardRotation();
+    }
+
+
+    // =====================================================
+    // 저장된 감도 값 보정
+    // =====================================================
+
+    private void ValidateSavedSensitivity()
+    {
+        float mouseSensitivity =
+            PlayerPrefs.GetFloat(
+                ObjectRotationSensitivityKey,
+                defaultObjectRotationSensitivity
+            );
+
+        mouseSensitivity =
+            Mathf.Clamp(
+                mouseSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+        PlayerPrefs.SetFloat(
+            ObjectRotationSensitivityKey,
+            mouseSensitivity
+        );
+
+
+        float keyboardSensitivity =
+            PlayerPrefs.GetFloat(
+                KeyboardRotationSensitivityKey,
+                defaultKeyboardRotationSensitivity
+            );
+
+        keyboardSensitivity =
+            Mathf.Clamp(
+                keyboardSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+        PlayerPrefs.SetFloat(
+            KeyboardRotationSensitivityKey,
+            keyboardSensitivity
+        );
+
+
+        PlayerPrefs.Save();
     }
 
 
@@ -224,7 +299,9 @@ public class MotorMatchManager7 : MonoBehaviour
             displayAnchor.GetComponentsInChildren<MeshRenderer>();
 
         foreach (MeshRenderer r in renderers)
+        {
             r.enabled = false;
+        }
     }
 
 
@@ -373,6 +450,8 @@ public class MotorMatchManager7 : MonoBehaviour
             Debug.LogError(
                 "프로펠러를 찾을 수 없습니다."
             );
+
+            return InspectionResult.B;
         }
 
         MeshRenderer frontRenderer =
@@ -387,6 +466,8 @@ public class MotorMatchManager7 : MonoBehaviour
             Debug.LogError(
                 "프로펠러 MeshRenderer를 찾을 수 없습니다."
             );
+
+            return InspectionResult.B;
         }
 
 
@@ -405,6 +486,8 @@ public class MotorMatchManager7 : MonoBehaviour
             Debug.LogError(
                 "Body를 찾을 수 없습니다."
             );
+
+            return InspectionResult.B;
         }
 
         MeshRenderer bodyRenderer =
@@ -415,6 +498,8 @@ public class MotorMatchManager7 : MonoBehaviour
             Debug.LogError(
                 "Body MeshRenderer가 없습니다."
             );
+
+            return InspectionResult.B;
         }
 
 
@@ -526,7 +611,6 @@ public class MotorMatchManager7 : MonoBehaviour
 
             switch (missingType)
             {
-                // 앞쪽 누락
                 case 0:
 
                     front.gameObject.SetActive(
@@ -540,7 +624,6 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                // 뒤쪽 누락
                 case 1:
 
                     front.gameObject.SetActive(
@@ -554,7 +637,6 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                // 둘 다 누락
                 case 2:
 
                     front.gameObject.SetActive(
@@ -580,6 +662,33 @@ public class MotorMatchManager7 : MonoBehaviour
         Material[] backMats =
             backRenderer.materials;
 
+
+        if (
+            frontMaterialIndex < 0 ||
+            frontMaterialIndex >= frontMats.Length
+        )
+        {
+            Debug.LogError(
+                "Front Material Index 범위를 확인해주세요."
+            );
+
+            return InspectionResult.B;
+        }
+
+
+        if (
+            backMaterialIndex < 0 ||
+            backMaterialIndex >= backMats.Length
+        )
+        {
+            Debug.LogError(
+                "Back Material Index 범위를 확인해주세요."
+            );
+
+            return InspectionResult.B;
+        }
+
+
         frontMats[frontMaterialIndex] =
             propellerMaterials[frontIndex];
 
@@ -600,6 +709,20 @@ public class MotorMatchManager7 : MonoBehaviour
         Material[] bodyMats =
             bodyRenderer.materials;
 
+
+        if (
+            bodyMaterialIndex < 0 ||
+            bodyMaterialIndex >= bodyMats.Length
+        )
+        {
+            Debug.LogError(
+                "Body Material Index 범위를 확인해주세요."
+            );
+
+            return InspectionResult.B;
+        }
+
+
         bodyMats[bodyMaterialIndex] =
             bodyMaterials[bodyIndex];
 
@@ -609,31 +732,10 @@ public class MotorMatchManager7 : MonoBehaviour
 
         // =====================================================
         // 등급 판정
-        //
-        // 부품 누락
-        // → 폐기
-        //
-        // 완제품:
-        //
-        // 색 같음 + 얼룩 없음
-        // → A
-        //
-        // 색 다름 + 얼룩 없음
-        // → B
-        //
-        // 색 같음 + 얼룩 있음
-        // → B
-        //
-        // 색 다름 + 얼룩 있음
-        // → C
         // =====================================================
 
         InspectionResult result;
 
-
-        // -------------------------------------------------
-        // 부품이 하나라도 누락되면 폐기
-        // -------------------------------------------------
 
         if (!isComplete)
         {
@@ -642,18 +744,15 @@ public class MotorMatchManager7 : MonoBehaviour
         }
         else
         {
-            int defectCount =
-                0;
+            int defectCount = 0;
 
 
-            // 프로펠러 색이 다르면 하자 +1
             if (!sameColor)
             {
                 defectCount++;
             }
 
 
-            // 얼룩이 있으면 하자 +1
             if (!noStain)
             {
                 defectCount++;
@@ -662,7 +761,6 @@ public class MotorMatchManager7 : MonoBehaviour
 
             switch (defectCount)
             {
-                // 하자 없음
                 case 0:
 
                     result =
@@ -671,7 +769,6 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                // 하자 1개
                 case 1:
 
                     result =
@@ -680,7 +777,6 @@ public class MotorMatchManager7 : MonoBehaviour
                     break;
 
 
-                // 하자 2개
                 case 2:
 
                     result =
@@ -698,11 +794,6 @@ public class MotorMatchManager7 : MonoBehaviour
             }
         }
 
-
-        // =====================================================
-        // Debug
-        // 정답만 표시
-        // =====================================================
 
         Debug.Log(
             $"정답 : {result}"
@@ -800,6 +891,14 @@ public class MotorMatchManager7 : MonoBehaviour
             );
 
 
+        objectRotationSensitivity =
+            Mathf.Clamp(
+                objectRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
         float finalRotationSpeed =
             baseMouseRotationSpeed *
             objectRotationSensitivity;
@@ -848,7 +947,6 @@ public class MotorMatchManager7 : MonoBehaviour
             Mouse.current.scroll.ReadValue().y;
 
 
-        // 환경설정에서 스크롤 반전이 켜져 있으면 방향 반전
         if (
             ScrollInvertSetting
                 .IsScrollInverted()
@@ -891,16 +989,36 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
     // =====================================================
-    // WASD 미세 회전
+    // 방향키 회전
     // =====================================================
 
-    private void HandleFineRotation()
+    private void HandleKeyboardRotation()
     {
         if (currentHolder == null)
             return;
 
         if (Keyboard.current == null)
             return;
+
+
+        float keyboardSensitivity =
+            PlayerPrefs.GetFloat(
+                KeyboardRotationSensitivityKey,
+                defaultKeyboardRotationSensitivity
+            );
+
+
+        keyboardSensitivity =
+            Mathf.Clamp(
+                keyboardSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
+            );
+
+
+        float finalRotationSpeed =
+            baseKeyboardRotationSpeed *
+            keyboardSensitivity;
 
 
         float verticalRotation =
@@ -917,7 +1035,7 @@ public class MotorMatchManager7 : MonoBehaviour
         )
         {
             verticalRotation +=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -929,7 +1047,7 @@ public class MotorMatchManager7 : MonoBehaviour
         )
         {
             verticalRotation -=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -941,7 +1059,7 @@ public class MotorMatchManager7 : MonoBehaviour
         )
         {
             horizontalRotation +=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -953,7 +1071,7 @@ public class MotorMatchManager7 : MonoBehaviour
         )
         {
             horizontalRotation -=
-                fineRotationSpeed *
+                finalRotationSpeed *
                 Time.deltaTime;
         }
 
@@ -999,6 +1117,14 @@ public class MotorMatchManager7 : MonoBehaviour
             );
 
 
+        completeChance =
+            Mathf.Clamp(
+                completeChance,
+                0f,
+                100f
+            );
+
+
         baseMouseRotationSpeed =
             Mathf.Max(
                 0f,
@@ -1007,16 +1133,25 @@ public class MotorMatchManager7 : MonoBehaviour
 
 
         defaultObjectRotationSensitivity =
-            Mathf.Max(
-                0f,
-                defaultObjectRotationSensitivity
+            Mathf.Clamp(
+                defaultObjectRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
             );
 
 
-        fineRotationSpeed =
+        baseKeyboardRotationSpeed =
             Mathf.Max(
                 0f,
-                fineRotationSpeed
+                baseKeyboardRotationSpeed
+            );
+
+
+        defaultKeyboardRotationSensitivity =
+            Mathf.Clamp(
+                defaultKeyboardRotationSensitivity,
+                MinRotationSensitivity,
+                MaxRotationSensitivity
             );
 
 

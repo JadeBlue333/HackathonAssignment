@@ -998,6 +998,12 @@ public class InspectionGameManager9 : MonoBehaviour
             ShowWrongReason(
                 reason
             );
+
+            // 폐기를 미폐기 처리했을시 폭발 트리거
+            if (currentAnswer == InspectionResult.Discard && playerAnswer != InspectionResult.Discard)
+            {
+                //trigger explosion event
+            }
         }
 
 
