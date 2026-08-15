@@ -196,6 +196,18 @@ public class MotorMatchManager9 : MonoBehaviour
         if (!isReady)
             return;
 
+
+        // 팝업이 하나라도 열려 있으면
+        // 모터 조작만 차단
+        if (
+            PopupManager.Instance != null &&
+            PopupManager.Instance.HasOpenPopup()
+        )
+        {
+            return;
+        }
+
+
         HandleMouseRotation();
 
         HandleMouseZoom();

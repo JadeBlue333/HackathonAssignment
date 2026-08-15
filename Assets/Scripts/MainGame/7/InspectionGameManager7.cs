@@ -185,8 +185,30 @@ public class InspectionGameManager7 : MonoBehaviour
             return;
 
 
-        if (boxButtons != null &&
-            boxButtons.activeSelf)
+        // =====================================================
+        // 팝업이 떠 있는 동안 검수 단축키 차단
+        // =====================================================
+
+        if (
+            PopupManager.Instance != null &&
+            PopupManager.Instance.HasOpenPopup()
+        )
+        {
+            return;
+        }
+
+
+        // =====================================================
+        // Box 선택 단계
+        //
+        // 1 = 미개봉
+        // 2 = 개봉
+        // =====================================================
+
+        if (
+            boxButtons != null &&
+            boxButtons.activeSelf
+        )
         {
             if (
                 Keyboard.current
@@ -211,8 +233,19 @@ public class InspectionGameManager7 : MonoBehaviour
         }
 
 
-        if (motorButtons != null &&
-            motorButtons.activeSelf)
+        // =====================================================
+        // Motor 선택 단계
+        //
+        // 1 = A
+        // 2 = B
+        // 3 = C
+        // 4 = 폐기
+        // =====================================================
+
+        if (
+            motorButtons != null &&
+            motorButtons.activeSelf
+        )
         {
             if (
                 Keyboard.current

@@ -192,6 +192,19 @@ public class InspectionGameManager8 : MonoBehaviour
 
 
         // =====================================================
+        // 팝업이 떠 있는 동안 검수 단축키 차단
+        // =====================================================
+
+        if (
+            PopupManager.Instance != null &&
+            PopupManager.Instance.HasOpenPopup()
+        )
+        {
+            return;
+        }
+
+
+        // =====================================================
         // Box 선택 단계
         //
         // 1 = 미개봉

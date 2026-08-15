@@ -179,7 +179,6 @@ public class InspectionGameManager9 : MonoBehaviour
         GenerateQuestion();
     }
 
-
     // =========================================================
     // Update
     // =========================================================
@@ -188,6 +187,22 @@ public class InspectionGameManager9 : MonoBehaviour
     {
         if (Keyboard.current == null)
             return;
+
+
+        // =====================================================
+        // 팝업이 떠 있는 동안 검수 단축키 입력 차단
+        //
+        // 팝업 자체의 버튼 / 드래그 / 팝업 토글키는
+        // 다른 스크립트에서 그대로 작동함.
+        // =====================================================
+
+        if (
+            PopupManager.Instance != null &&
+            PopupManager.Instance.HasOpenPopup()
+        )
+        {
+            return;
+        }
 
 
         // =====================================================

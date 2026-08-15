@@ -287,13 +287,24 @@ public class BoxMatchManager : MonoBehaviour
         if (!isReady || testFinished)
             return;
 
+
+        // 팝업이 하나라도 열려 있으면
+        // 박스 회전 / 확대축소 / 방향키 회전만 차단
+        if (
+            PopupManager.Instance != null &&
+            PopupManager.Instance.HasOpenPopup()
+        )
+        {
+            return;
+        }
+
+
         HandleMouseRotation();
 
         HandleMouseZoom();
 
         HandleKeyboardRotation();
     }
-
 
     // =========================================================
     // Anchor Cube 숨기기
