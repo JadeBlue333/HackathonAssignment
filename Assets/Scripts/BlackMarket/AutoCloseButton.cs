@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 public class AutoCloseButton : MonoBehaviour
 {
     [SerializeField] private Button closeButton;
-    [SerializeField] private float closeDelay = 5f;
+    [SerializeField] private float closeDelay = 4f;
 
     public async void StartAutoClose()
     {
