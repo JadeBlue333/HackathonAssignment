@@ -88,7 +88,15 @@ public class InspectionGameManager8 : MonoBehaviour
     [SerializeField]
     private InspectionFailEffect failEffect;
 
+    // =========================================================
+    // Discard Warning Notice
+    // =========================================================
 
+    [Header("Discard Warning Notice")]
+    [SerializeField]
+    private DiscardWarningNotice discardWarningNotice;
+
+    
     // =========================================================
     // Sound
     // =========================================================
@@ -986,10 +994,16 @@ public class InspectionGameManager8 : MonoBehaviour
             // 폐기를 미폐기 처리했을시 폭발 트리거
             if (currentAnswer == InspectionResult.Discard && playerAnswer != InspectionResult.Discard)
             {
-                //trigger explosion event
+                // 폭발 연출은 매번 실행
                 if (failEffect != null)
                 {
                     failEffect.Play();
+                }
+
+                // 안내 이미지는 전체 플레이 중 최초 1회만
+                if (discardWarningNotice != null)
+                {
+                    discardWarningNotice.ShowOnce();
                 }
             }
         }

@@ -2838,6 +2838,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944614130}
   m_CullTransparentMesh: 1
+--- !u!114 &968025204 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156701763335501604, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_PrefabInstance: {fileID: 1921510398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c41dc69823e49a89101b76fb14c262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscardWarningNotice
 --- !u!1 &975281104
 GameObject:
   m_ObjectHideFlags: 0
@@ -6047,6 +6058,10 @@ PrefabInstance:
       propertyPath: motorMatchManager
       value: 
       objectReference: {fileID: 2000313726}
+    - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: discardWarningNotice
+      value: 
+      objectReference: {fileID: 968025204}
     - target: {fileID: 5642914071655844641, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: m_Name
       value: MainGameManager

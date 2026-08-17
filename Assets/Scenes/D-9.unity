@@ -1542,6 +1542,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2830328171844805307, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
   m_PrefabInstance: {fileID: 153260935}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &282196168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156701763335501604, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_PrefabInstance: {fileID: 1921510398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c41dc69823e49a89101b76fb14c262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscardWarningNotice
 --- !u!114 &282768922 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7930194843329670680, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
@@ -3784,7 +3795,8 @@ MonoBehaviour:
   fuelCost: 2
   trustComboThreshold: 3
   comboTrustReward: 1
-  failEffect: {fileID: 0}
+  failEffect: {fileID: 3912232974930088608}
+  discardWarningNotice: {fileID: 282196168}
   audioSource: {fileID: 1140698141}
   spawnBoxSfx: {fileID: 8300000, guid: a9c6cdb89fc3c3b4381090c32ad80e6f, type: 3}
   spawnBoxVolume: 0.544
@@ -4045,7 +4057,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6048,6 +6060,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+--- !u!114 &3912232974930088608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2577402186237163576, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+  m_PrefabInstance: {fileID: 3912232974930088607}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd956903a7f32408395989042406eec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectionFailEffect
 --- !u!1001 &4071851309726187334
 PrefabInstance:
   m_ObjectHideFlags: 0

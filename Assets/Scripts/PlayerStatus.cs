@@ -43,6 +43,9 @@ public class PlayerStatus : MonoBehaviour
         // Time
         public float dayDuration;
 
+        // Tutorial / Notice
+        public bool hasSeenDiscardWarning;
+
         // Endings
         public bool ending1Achieved;
         public bool ending2Achieved;
@@ -51,24 +54,43 @@ public class PlayerStatus : MonoBehaviour
         public bool ending5Achieved;
     }
 
+
     [Header("Progress Save")]
 
     [SerializeField]
-    private ProgressSnapshot progressSnapshot = new ProgressSnapshot();
+    private ProgressSnapshot progressSnapshot =
+        new ProgressSnapshot();
 
-    public static PlayerStatus Instance { get; private set; }
+
+    public static PlayerStatus Instance
+    {
+        get;
+        private set;
+    }
+
+
+    // =========================================================
+    // Awake
+    // =========================================================
 
     private void Awake()
     {
-        // Singleton
-        if (Instance != null && Instance != this)
+        if (
+            Instance != null &&
+            Instance != this
+        )
         {
             Destroy(gameObject);
             return;
         }
 
+
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+
+        DontDestroyOnLoad(
+            gameObject
+        );
+
 
         Initialize();
     }
@@ -82,41 +104,85 @@ public class PlayerStatus : MonoBehaviour
     {
         hasStarted = true;
 
+
+        // =====================================================
         // 기본 상태
+        // =====================================================
+
         currentDay = 9;
+
         money = 10;
 
+
         fuel = 70;
+
         trust = 50;
 
+
         earnings = 0;
+
         trustChange = 0;
 
+
         successNumber = 0;
+
         comboNumber = 0;
+
         mistakeNumber = 0;
 
+
+        // =====================================================
         // 인간 파츠 초기화
+        // =====================================================
+
         humanBody = false;
+
         humanHead = false;
+
         humanHeart = false;
 
         isHuman = false;
 
 
+        // =====================================================
         // 스킬 초기화
+        // =====================================================
+
         fuelRecoveryLevel = 0;
+
         trustRecoveryLevel = 0;
+
         highRiskHighReturnLevel = 0;
+
         workTimeLevel = 0;
 
+
+        // =====================================================
+        // Tutorial / Notice
+        // =====================================================
+
+        hasSeenDiscardWarning = false;
+
+
+        // =====================================================
+        // Ending
+        // =====================================================
+
         ending1Achieved = false;
+
         ending2Achieved = false;
+
         ending3Achieved = false;
+
         ending4Achieved = false;
+
         ending5Achieved = false;
 
+
+        // =====================================================
         // 기본 작업 시간 적용
+        // =====================================================
+
         UpdateDayDuration();
     }
 
@@ -129,7 +195,9 @@ public class PlayerStatus : MonoBehaviour
     // =========================================================
 
     [Header("Date")]
+
     public bool hasStarted = false;
+
 
     [Range(0, 9)]
     public int currentDay;
@@ -140,6 +208,7 @@ public class PlayerStatus : MonoBehaviour
     // =========================================================
 
     [Header("Money")]
+
     public int money;
 
     public int earnings;
@@ -150,6 +219,7 @@ public class PlayerStatus : MonoBehaviour
     // =========================================================
 
     [Header("Fuel")]
+
     [Range(0, 100)]
     public int fuel;
 
@@ -161,6 +231,7 @@ public class PlayerStatus : MonoBehaviour
     // =========================================================
 
     [Header("Trust")]
+
     [Range(0, 100)]
     public int trust;
 
@@ -169,6 +240,7 @@ public class PlayerStatus : MonoBehaviour
     public const int MaxTrust = 100;
 
     public const int TrustGradeA = 70;
+
     public const int TrustGradeB = 40;
 
 
@@ -278,19 +350,44 @@ public class PlayerStatus : MonoBehaviour
 
 
     // =========================================================
-    // Combo / Mistake
+    // Success / Combo / Mistake
     // =========================================================
 
     [Header("성공 / 콤보 / 실수")]
+
     public int successNumber = 0;
+
     public int comboNumber = 0;
+
     public int mistakeNumber = 0;
 
+
+    // =========================================================
+    // Tutorial / Notice
+    // =========================================================
+
+    [Header("Tutorial / Notice")]
+
+    [Tooltip("이번 플레이에서 폐기 실패 경고를 이미 봤는지 여부")]
+    public bool hasSeenDiscardWarning = false;
+
+
+    // =========================================================
+    // Endings
+    // =========================================================
+
+    [Header("Endings")]
+
     public bool ending1Achieved;
+
     public bool ending2Achieved;
+
     public bool ending3Achieved;
+
     public bool ending4Achieved;
+
     public bool ending5Achieved;
+
 
     // =========================================================
     // Money Functions
@@ -302,6 +399,7 @@ public class PlayerStatus : MonoBehaviour
         {
             amount *= 2;
         }
+
 
         earnings += amount;
     }
@@ -315,7 +413,11 @@ public class PlayerStatus : MonoBehaviour
 
     public void ApplyEarnings()
     {
-        AddMoney(earnings);
+        AddMoney(
+            earnings
+        );
+
+
         ResetEarnings();
     }
 
@@ -330,15 +432,21 @@ public class PlayerStatus : MonoBehaviour
     {
         if (money < amount)
         {
-            Debug.Log("돈이 부족합니다.");
+            Debug.Log(
+                "돈이 부족합니다."
+            );
+
             return false;
         }
 
+
         money -= amount;
+
 
         Debug.Log(
             $"{amount} 사용 / 현재 보유 금액: {money}"
         );
+
 
         return true;
     }
@@ -350,21 +458,23 @@ public class PlayerStatus : MonoBehaviour
 
     public void AddFuel(int amount)
     {
-        fuel = Mathf.Clamp(
-            fuel + amount,
-            0,
-            MaxFuel
-        );
+        fuel =
+            Mathf.Clamp(
+                fuel + amount,
+                0,
+                MaxFuel
+            );
     }
 
 
     public void ReduceFuel(int amount)
     {
-        fuel = Mathf.Clamp(
-            fuel - amount,
-            0,
-            MaxFuel
-        );
+        fuel =
+            Mathf.Clamp(
+                fuel - amount,
+                0,
+                MaxFuel
+            );
     }
 
 
@@ -374,21 +484,25 @@ public class PlayerStatus : MonoBehaviour
 
     public void AddTrust(int amount)
     {
-        trust = Mathf.Clamp(
-            trust + amount,
-            0,
-            MaxTrust
-        );
+        trust =
+            Mathf.Clamp(
+                trust + amount,
+                0,
+                MaxTrust
+            );
     }
 
 
     public void AddTrustChanges(int amount)
     {
-        if (IsHighRiskHighReturnActive() &&
-            amount < 0)
+        if (
+            IsHighRiskHighReturnActive() &&
+            amount < 0
+        )
         {
             amount *= 2;
         }
+
 
         trustChange += amount;
     }
@@ -402,14 +516,24 @@ public class PlayerStatus : MonoBehaviour
 
     public void ApplyTrustChanges()
     {
-        if (trust + trustChange <= 100)
+        if (
+            trust + trustChange <=
+            MaxTrust
+        )
         {
-            AddTrust(trustChange);
+            AddTrust(
+                trustChange
+            );
+
+
             ResetTrustChanges();
         }
         else
         {
-            trust = 100;
+            trust =
+                MaxTrust;
+
+
             ResetTrustChanges();
         }
     }
@@ -422,10 +546,12 @@ public class PlayerStatus : MonoBehaviour
             return "A";
         }
 
+
         if (trust >= TrustGradeB)
         {
             return "B";
         }
+
 
         return "C";
     }
@@ -440,9 +566,14 @@ public class PlayerStatus : MonoBehaviour
         if (humanHead)
             return;
 
+
         humanHead = true;
 
-        Debug.Log("인간 파츠 획득: 머리");
+
+        Debug.Log(
+            "인간 파츠 획득: 머리"
+        );
+
 
         RefreshHumanPartUI();
     }
@@ -453,9 +584,14 @@ public class PlayerStatus : MonoBehaviour
         if (humanBody)
             return;
 
+
         humanBody = true;
 
-        Debug.Log("인간 파츠 획득: 몸");
+
+        Debug.Log(
+            "인간 파츠 획득: 몸"
+        );
+
 
         RefreshHumanPartUI();
     }
@@ -466,9 +602,14 @@ public class PlayerStatus : MonoBehaviour
         if (humanHeart)
             return;
 
+
         humanHeart = true;
 
-        Debug.Log("인간 파츠 획득: 심장");
+
+        Debug.Log(
+            "인간 파츠 획득: 심장"
+        );
+
 
         RefreshHumanPartUI();
     }
@@ -476,18 +617,22 @@ public class PlayerStatus : MonoBehaviour
 
     private void RefreshHumanPartUI()
     {
-        if (HumanPartInventoryUI.Instance != null)
+        if (
+            HumanPartInventoryUI.Instance != null
+        )
         {
-            HumanPartInventoryUI.Instance.RefreshAll();
+            HumanPartInventoryUI.Instance
+                .RefreshAll();
         }
     }
 
 
     public bool HasAllHumanParts()
     {
-        return humanBody &&
-               humanHead &&
-               humanHeart;
+        return
+            humanBody &&
+            humanHead &&
+            humanHeart;
     }
 
 
@@ -500,15 +645,22 @@ public class PlayerStatus : MonoBehaviour
         switch (fuelRecoveryLevel)
         {
             case 1:
+
                 return fuelRecoveryLv1;
 
+
             case 2:
+
                 return fuelRecoveryLv2;
 
+
             case 3:
+
                 return fuelRecoveryLv3;
 
+
             default:
+
                 return 0;
         }
     }
@@ -523,15 +675,22 @@ public class PlayerStatus : MonoBehaviour
         switch (trustRecoveryLevel)
         {
             case 1:
+
                 return trustRecoveryLv1;
 
+
             case 2:
+
                 return trustRecoveryLv2;
 
+
             case 3:
+
                 return trustRecoveryLv3;
 
+
             default:
+
                 return 0;
         }
     }
@@ -543,7 +702,8 @@ public class PlayerStatus : MonoBehaviour
 
     public bool IsHighRiskHighReturnActive()
     {
-        return highRiskHighReturnLevel >= 1;
+        return
+            highRiskHighReturnLevel >= 1;
     }
 
 
@@ -555,7 +715,10 @@ public class PlayerStatus : MonoBehaviour
     {
         dayDuration =
             baseDayDuration +
-            (workTimeLevel * workTimeBonusPerLevel);
+            (
+                workTimeLevel *
+                workTimeBonusPerLevel
+            );
     }
 
 
@@ -564,22 +727,30 @@ public class PlayerStatus : MonoBehaviour
         int baseEndMinutes =
             15 * 60;
 
+
         int bonusMinutes =
             workTimeLevel * 30;
 
-        return baseEndMinutes + bonusMinutes;
+
+        return
+            baseEndMinutes +
+            bonusMinutes;
     }
 
 
     public int GetWorkEndHour()
     {
-        return GetWorkEndTimeMinutes() / 60;
+        return
+            GetWorkEndTimeMinutes() /
+            60;
     }
 
 
     public int GetWorkEndMinute()
     {
-        return GetWorkEndTimeMinutes() % 60;
+        return
+            GetWorkEndTimeMinutes() %
+            60;
     }
 
 
@@ -589,54 +760,77 @@ public class PlayerStatus : MonoBehaviour
 
     public void StartDay()
     {
+        // =====================================================
+        // 연료 자동 회복
+        // =====================================================
 
-        // 연료 자동회복
         int fuelRecovery =
             GetFuelRecoveryAmount();
 
+
         if (fuelRecovery > 0)
         {
-            AddFuel(fuelRecovery);
+            AddFuel(
+                fuelRecovery
+            );
+
 
             Debug.Log(
                 $"스킬 효과 - 연료 +{fuelRecovery}"
             );
         }
 
+
+        // =====================================================
+        // 인간 심장 효과
+        //
+        // 보유 시 하루 시작 콤보 3
+        // =====================================================
+
         if (humanHeart)
+        {
             comboNumber = 3;
+        }
         else
+        {
             comboNumber = 0;
+        }
 
-        // 신뢰도 자동회복
+
+        // =====================================================
+        // 신뢰도 자동 회복
+        // =====================================================
+
         int trustRecovery =
-                GetTrustRecoveryAmount();
+            GetTrustRecoveryAmount();
 
-        if (trustRecovery > 0 && trustRecovery + trust <= 100)
+
+        if (trustRecovery > 0)
         {
-            AddTrust(trustRecovery);
-
-            Debug.Log(
-                $"스킬 효과 - 신뢰도 + {trustRecovery}"
+            AddTrust(
+                trustRecovery
             );
-        }
-        else if (trustRecovery > 0 && trustRecovery + trust > 100)
-        {
-            trust = 100;
+
 
             Debug.Log(
-                $"스킬 효과 - 신뢰도 여전히 100"
+                $"스킬 효과 - 신뢰도 +{trustRecovery} / " +
+                $"현재 신뢰도 {trust}"
             );
         }
 
 
-            // 작업시간 재계산
+        // =====================================================
+        // 작업시간 재계산
+        // =====================================================
+
         UpdateDayDuration();
 
 
         Debug.Log(
             $"Day Start / 실제 작업시간 {dayDuration}초 / " +
-            $"게임 종료시각 {GetWorkEndHour():00}:{GetWorkEndMinute():00}"
+            $"게임 종료시각 " +
+            $"{GetWorkEndHour():00}:" +
+            $"{GetWorkEndMinute():00}"
         );
     }
 
@@ -647,27 +841,50 @@ public class PlayerStatus : MonoBehaviour
 
     public void NextDay()
     {
-        // 세 파츠를 전부 가진 상태에서
-        // 다음 날로 넘어갈 때만 인간 상태 활성화
+        // =====================================================
+        // 인간 상태 활성화
+        // =====================================================
+
         if (HasAllHumanParts())
         {
             isHuman = true;
 
+
             Debug.Log(
-                "모든 인간 파츠를 보유했습니다. 인간 상태가 활성화됩니다."
+                "모든 인간 파츠를 보유했습니다. " +
+                "인간 상태가 활성화됩니다."
             );
         }
 
-        //기본 연료 10 소모
-        fuel -= 10;
+
+        // =====================================================
+        // 기본 연료 10 소모
+        // =====================================================
+
+        ReduceFuel(
+            10
+        );
+
+
+        // =====================================================
+        // 일일 통계 초기화
+        // =====================================================
 
         mistakeNumber = 0;
+
         comboNumber = 0;
+
         successNumber = 0;
 
-        if (currentDay > 0 || currentDay < 0)
+
+        // =====================================================
+        // 다음 날짜
+        // =====================================================
+
+        if (currentDay > 0)
         {
             currentDay--;
+
 
             Debug.Log(
                 $"다음 날! 현재 날짜 : D-{currentDay}"
@@ -693,6 +910,7 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log(
                 "연료 회복 스킬은 최대 레벨입니다."
             );
+
 
             return false;
         }
@@ -726,6 +944,7 @@ public class PlayerStatus : MonoBehaviour
                 "신뢰 회복 스킬은 최대 레벨입니다."
             );
 
+
             return false;
         }
 
@@ -750,13 +969,19 @@ public class PlayerStatus : MonoBehaviour
     // Skill Purchase - High Risk High Return
     // =========================================================
 
-    public bool PurchaseHighRiskHighReturn(int cost)
+    public bool PurchaseHighRiskHighReturn(
+        int cost
+    )
     {
-        if (highRiskHighReturnLevel >= 1)
+        if (
+            highRiskHighReturnLevel >=
+            1
+        )
         {
             Debug.Log(
                 "하이리스크 하이리턴 스킬을 이미 구매했습니다."
             );
+
 
             return false;
         }
@@ -766,7 +991,8 @@ public class PlayerStatus : MonoBehaviour
             return false;
 
 
-        highRiskHighReturnLevel = 1;
+        highRiskHighReturnLevel =
+            1;
 
 
         Debug.Log(
@@ -790,6 +1016,7 @@ public class PlayerStatus : MonoBehaviour
                 "작업시간 증가 스킬은 최대 레벨입니다."
             );
 
+
             return false;
         }
 
@@ -807,12 +1034,15 @@ public class PlayerStatus : MonoBehaviour
         Debug.Log(
             $"작업시간 증가 Lv.{workTimeLevel} 구매 / " +
             $"실제 작업시간 {dayDuration}초 / " +
-            $"종료시각 {GetWorkEndHour():00}:{GetWorkEndMinute():00}"
+            $"종료시각 " +
+            $"{GetWorkEndHour():00}:" +
+            $"{GetWorkEndMinute():00}"
         );
 
 
         return true;
     }
+
 
     // =========================================================
     // Save Progress Snapshot
@@ -822,50 +1052,162 @@ public class PlayerStatus : MonoBehaviour
     {
         if (progressSnapshot == null)
         {
-            progressSnapshot = new ProgressSnapshot();
+            progressSnapshot =
+                new ProgressSnapshot();
         }
 
+
+        // =====================================================
         // Date
-        progressSnapshot.currentDay = currentDay;
+        // =====================================================
 
+        progressSnapshot.currentDay =
+            currentDay;
+
+
+        // =====================================================
         // Money
-        progressSnapshot.money = money;
-        progressSnapshot.earnings = earnings;
+        // =====================================================
 
+        progressSnapshot.money =
+            money;
+
+        progressSnapshot.earnings =
+            earnings;
+
+
+        // =====================================================
         // Fuel
-        progressSnapshot.fuel = fuel;
+        // =====================================================
 
+        progressSnapshot.fuel =
+            Mathf.Clamp(
+                fuel,
+                0,
+                MaxFuel
+            );
+
+
+        // =====================================================
         // Trust
-        progressSnapshot.trust = trust;
-        progressSnapshot.trustChange = trustChange;
+        // =====================================================
 
-        // Combo / Mistake
-        progressSnapshot.comboNumber = comboNumber;
-        progressSnapshot.mistakeNumber = mistakeNumber;
+        trust =
+            Mathf.Clamp(
+                trust,
+                0,
+                MaxTrust
+            );
 
+
+        progressSnapshot.trust =
+            trust;
+
+        progressSnapshot.trustChange =
+            trustChange;
+
+
+        // =====================================================
+        // Success / Combo / Mistake
+        // =====================================================
+
+        progressSnapshot.successNumber =
+            successNumber;
+
+        progressSnapshot.comboNumber =
+            comboNumber;
+
+        progressSnapshot.mistakeNumber =
+            mistakeNumber;
+
+
+        // =====================================================
         // Human Parts
-        progressSnapshot.humanBody = humanBody;
-        progressSnapshot.humanHead = humanHead;
-        progressSnapshot.humanHeart = humanHeart;
-        progressSnapshot.isHuman = isHuman;
+        // =====================================================
 
+        progressSnapshot.humanBody =
+            humanBody;
+
+        progressSnapshot.humanHead =
+            humanHead;
+
+        progressSnapshot.humanHeart =
+            humanHeart;
+
+        progressSnapshot.isHuman =
+            isHuman;
+
+
+        // =====================================================
         // Skill
-        progressSnapshot.fuelRecoveryLevel = fuelRecoveryLevel;
-        progressSnapshot.trustRecoveryLevel = trustRecoveryLevel;
-        progressSnapshot.highRiskHighReturnLevel = highRiskHighReturnLevel;
-        progressSnapshot.workTimeLevel = workTimeLevel;
+        // =====================================================
 
+        progressSnapshot.fuelRecoveryLevel =
+            fuelRecoveryLevel;
+
+        progressSnapshot.trustRecoveryLevel =
+            trustRecoveryLevel;
+
+        progressSnapshot.highRiskHighReturnLevel =
+            highRiskHighReturnLevel;
+
+        progressSnapshot.workTimeLevel =
+            workTimeLevel;
+
+
+        // =====================================================
         // Time
-        progressSnapshot.dayDuration = dayDuration;
+        // =====================================================
 
-        progressSnapshot.hasData = true;
+        progressSnapshot.dayDuration =
+            dayDuration;
+
+
+        // =====================================================
+        // Tutorial / Notice
+        // =====================================================
+
+        progressSnapshot.hasSeenDiscardWarning =
+            hasSeenDiscardWarning;
+
+
+        // =====================================================
+        // Endings
+        // =====================================================
+
+        progressSnapshot.ending1Achieved =
+            ending1Achieved;
+
+        progressSnapshot.ending2Achieved =
+            ending2Achieved;
+
+        progressSnapshot.ending3Achieved =
+            ending3Achieved;
+
+        progressSnapshot.ending4Achieved =
+            ending4Achieved;
+
+        progressSnapshot.ending5Achieved =
+            ending5Achieved;
+
+
+        // =====================================================
+        // Save Complete
+        // =====================================================
+
+        progressSnapshot.hasData =
+            true;
 
 
         Debug.Log(
-            $"Progress Snapshot 저장 완료 / D-{currentDay} / " +
-            $"Money:{money} / Fuel:{fuel} / Trust:{trust}"
+            $"Progress Snapshot 저장 완료 / " +
+            $"D-{currentDay} / " +
+            $"Money:{money} / " +
+            $"Fuel:{fuel} / " +
+            $"Trust:{trust}"
         );
     }
+
 
     // =========================================================
     // Load Progress Snapshot
@@ -873,12 +1215,16 @@ public class PlayerStatus : MonoBehaviour
 
     public bool LoadProgressSnapshot()
     {
-        if (progressSnapshot == null ||
-            !progressSnapshot.hasData)
+        if (
+            progressSnapshot == null ||
+            !progressSnapshot.hasData
+        )
         {
             Debug.LogWarning(
                 "불러올 Progress Snapshot이 없습니다."
             );
+
+
             return false;
         }
 
@@ -907,7 +1253,11 @@ public class PlayerStatus : MonoBehaviour
         // =====================================================
 
         fuel =
-            progressSnapshot.fuel;
+            Mathf.Clamp(
+                progressSnapshot.fuel,
+                0,
+                MaxFuel
+            );
 
 
         // =====================================================
@@ -915,15 +1265,22 @@ public class PlayerStatus : MonoBehaviour
         // =====================================================
 
         trust =
-            progressSnapshot.trust;
+            Mathf.Clamp(
+                progressSnapshot.trust,
+                0,
+                MaxTrust
+            );
 
         trustChange =
             progressSnapshot.trustChange;
 
 
         // =====================================================
-        // Combo / Mistake
+        // Success / Combo / Mistake
         // =====================================================
+
+        successNumber =
+            progressSnapshot.successNumber;
 
         comboNumber =
             progressSnapshot.comboNumber;
@@ -974,6 +1331,39 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.dayDuration;
 
 
+        // =====================================================
+        // Tutorial / Notice
+        // =====================================================
+
+        hasSeenDiscardWarning =
+            progressSnapshot
+                .hasSeenDiscardWarning;
+
+
+        // =====================================================
+        // Endings
+        // =====================================================
+
+        ending1Achieved =
+            progressSnapshot.ending1Achieved;
+
+        ending2Achieved =
+            progressSnapshot.ending2Achieved;
+
+        ending3Achieved =
+            progressSnapshot.ending3Achieved;
+
+        ending4Achieved =
+            progressSnapshot.ending4Achieved;
+
+        ending5Achieved =
+            progressSnapshot.ending5Achieved;
+
+
+        // =====================================================
+        // Load Complete
+        // =====================================================
+
         Debug.Log(
             $"Progress Snapshot 불러오기 완료 / " +
             $"D-{currentDay} / " +
@@ -982,19 +1372,28 @@ public class PlayerStatus : MonoBehaviour
             $"Trust:{trust}"
         );
 
+
         return true;
     }
 
+
+    // =========================================================
+    // Snapshot Day Check
+    // =========================================================
+
     public bool IsProgressSnapshotDifferentDay()
     {
-        // 저장된 정보가 아직 없다면 저장
-        if (progressSnapshot == null ||
-            !progressSnapshot.hasData)
+        if (
+            progressSnapshot == null ||
+            !progressSnapshot.hasData
+        )
         {
             return true;
         }
 
-        // 현재 날짜와 저장된 날짜가 다르면 저장
-        return currentDay != progressSnapshot.currentDay;
+
+        return
+            currentDay !=
+            progressSnapshot.currentDay;
     }
 }

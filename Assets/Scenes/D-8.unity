@@ -3816,7 +3816,8 @@ MonoBehaviour:
   fuelCost: 2
   trustComboThreshold: 3
   comboTrustReward: 1
-  failEffect: {fileID: 0}
+  failEffect: {fileID: 1797615175}
+  discardWarningNotice: {fileID: 2128282739}
   audioSource: {fileID: 1140698141}
   spawnBoxSfx: {fileID: 8300000, guid: a9c6cdb89fc3c3b4381090c32ad80e6f, type: 3}
   spawnBoxVolume: 0.544
@@ -4796,6 +4797,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+--- !u!114 &1797615175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2577402186237163576, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+  m_PrefabInstance: {fileID: 1797615174}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd956903a7f32408395989042406eec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InspectionFailEffect
 --- !u!1 &1832757751
 GameObject:
   m_ObjectHideFlags: 0
@@ -5918,6 +5930,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &2128282739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156701763335501604, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_PrefabInstance: {fileID: 1921510398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c41dc69823e49a89101b76fb14c262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DiscardWarningNotice
 --- !u!1 &2129564784
 GameObject:
   m_ObjectHideFlags: 0
