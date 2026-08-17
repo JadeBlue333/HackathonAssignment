@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 6995700106618698244}
   - component: {fileID: 5599191748515450959}
   - component: {fileID: 8293338409998836836}
-  - component: {fileID: 1093967263637486958}
+  - component: {fileID: 4089560541277413902}
   m_Layer: 9
   m_Name: Goto Progress
   m_TagString: Untagged
@@ -1544,9 +1544,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1093967263637486958}
-        m_TargetAssemblyTypeName: ReturnToProgress, Assembly-CSharp
-        m_MethodName: ReturnProgress
+      - m_Target: {fileID: 4089560541277413902}
+        m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
+        m_MethodName: nextSceneButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1601,7 +1601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HoverGuideText
   targetText: {fileID: 8354877564166220345}
   fadeDuration: 0.2
---- !u!114 &1093967263637486958
+--- !u!114 &4089560541277413902
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1610,10 +1610,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 789534985300986603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6be95a4b97454fc886d318602f2ade8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ddee9d4597c1434ebe76fc55fd1069e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ReturnToProgress
-  progressSceneName: Progress
+  m_EditorClassIdentifier: Assembly-CSharp::GoToThisScene
+  sceneName: Progress
+  blackImage: {fileID: 0}
+  fadeDuration: 1
+  blackHoldTime: 0.25
+  bgmSource: {fileID: 0}
+  bgmFadeDuration: 1
+  progress: 0
+  buttonDay: 9
+  report: 0
+  reportUI: {fileID: 0}
+  resetThisDay: 1
 --- !u!1 &828334043311459059
 GameObject:
   m_ObjectHideFlags: 0

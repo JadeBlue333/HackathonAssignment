@@ -50,7 +50,8 @@ public class GoToThisScene : MonoBehaviour
 
     public ReportUI reportUI;
 
-
+    [Header("게임 하다 말고 다시 진행도화면으로 가서 초기화해야 하는 경우")]
+    public bool resetThisDay = false;
 
     // =========================================================
     // Button
@@ -92,16 +93,8 @@ public class GoToThisScene : MonoBehaviour
                     blackHoldTime
                 );
 
-                // 저장된 날짜와 현재 날짜가 다르면 Progress Snapshot 저장
-                if (PlayerStatus.Instance.IsProgressSnapshotDifferentDay())
-                {
-                    PlayerStatus.Instance.SaveProgressSnapshot();
-                }
-                // 저장된 날짜와 현재 날짜가 같으면 Progress Snapshot 불러옴
-                else
-                {
-                    PlayerStatus.Instance.LoadProgressSnapshot();
-                }
+                // 게임 시작 전 슬롯 6에 체크포인트 저장
+                SaveManager.Instance.SaveDailyCheckpoint();
 
                 SceneManager.LoadScene(
                     sceneName
@@ -305,7 +298,24 @@ public class GoToThisScene : MonoBehaviour
                 );
             }
         }
+        else if (resetThisDay)
+        {
+            SaveManager.Instance.LoadDailyCheckpoint();
 
+            StartCoroutine(FadeIn());
+            // BGM 페이드아웃 시작
+            StartBGMFadeOut();
+            yield return new WaitForSeconds(
+                fadeDuration
+            );
+            // 검은 화면 유지
+            yield return new WaitForSeconds(
+                blackHoldTime
+            );
+            SceneManager.LoadScene(
+                sceneName
+            );
+        }
 
         // =====================================================
         // Normal Scene Change
