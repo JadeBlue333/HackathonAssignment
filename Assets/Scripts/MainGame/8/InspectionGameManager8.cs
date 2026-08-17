@@ -1003,7 +1003,7 @@ public class InspectionGameManager8 : MonoBehaviour
                 // 안내 이미지는 전체 플레이 중 최초 1회만
                 if (discardWarningNotice != null)
                 {
-                    discardWarningNotice.ShowOnce();
+                    discardWarningNotice.ShowNext();
                 }
             }
         }
