@@ -5360,8 +5360,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6171537254818910152, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_text
-      value: "\uC815\uB9D0 \uC5F4\uC2EC\uD788\uC57C.\n\uC774\uB798\uC11C\uC57C \uB2F9\uC2E0\uC774
-        \uB108\uBB34 \uBC14\uBE60\uC11C \uC601\uC6D0\uD788 \uB9CC\uB0A0 \uC218 \uC5C6\uACA0\uC5B4."
+      value: "\uC54C\uC544, \uC6A9\uAE30\uAC00 \uD544\uC694\uD55C \uC77C\uC774\uC9C0.\n\uB2F9\uC2E0\uC774
+        \uC900\uBE44\uAC00 \uB420 \uB54C\uAE4C\uC9C0 \uAE30\uB2E4\uB9B4\uAC8C."
       objectReference: {fileID: 0}
     - target: {fileID: 6171537254818910152, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset
