@@ -8083,7 +8083,9 @@ MonoBehaviour:
   description: "\uC778\uAC04\uC758 \uC2E0\uCCB4 \uAD6C\uC870\uB97C \uBAA8\uBC29\uD55C
     \uBC14\uB514 \uD30C\uCE20.\n\uD604\uC7AC \uAE30\uCCB4\uB97C \uB300\uCCB4\uD560
     \uC218 \uC788\uB294 \uACE8\uACA9\uACFC \uC678\uC7A5\uC73C\uB85C \uAD6C\uC131\uB418\uC5B4
-    \uC788\uC2B5\uB2C8\uB2E4."
+    \uC788\uC2B5\uB2C8\uB2E4.\n\uC5D0\uB108\uC9C0 \uD6A8\uC728\uC774 \uD5A5\uC0C1\uB418\uC5B4,
+    \uC0C1\uD488 \uAC80\uC218\uB2F9 \uC5F0\uB8CC\uAC00 1\uB9CC\uD07C \uC18C\uBAA8\uB429\uB2C8\uB2E4.
+    (2 -> 1)"
   displayMode: 1
   slotButton: {fileID: 6700988699811071905}
   ownedVisual: {fileID: 582948171255827394}
@@ -9474,7 +9476,8 @@ MonoBehaviour:
     \uBC15\uB3D9\uD558\uB294 \uD575\uC2EC \uD30C\uCE20.\n\uC0DD\uBA85 \uC720\uC9C0
     \uAE30\uAD00\uACFC \uC720\uC0AC\uD55C \uC6C0\uC9C1\uC784\uC744 \uBCF4\uC774\uC9C0\uB9CC,
     \uADF8 \uC548\uC5D0 \uBB34\uC5C7\uC774 \uC874\uC7AC\uD558\uB294\uC9C0\uB294 \uD655\uC778\uD560
-    \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+    \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.\n\uC5C5\uBB34 \uC2DC\uC791 \uC2DC\uC810\uC758
+    \uC5F0\uC18D \uAC80\uC218 \uC131\uACF5 \uD69F\uC218\uAC00 3\uD68C\uB85C \uC124\uC815\uB429\uB2C8\uB2E4."
   displayMode: 1
   slotButton: {fileID: 5607324005363435392}
   ownedVisual: {fileID: 1370464567622717972}
@@ -13381,7 +13384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4763499996928731457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16933,10 +16936,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanPartSlotUI
   partType: 0
-  partName: "\uC11C\uAC15\uC900"
+  partName: "\uC870\uAC01\uBBF8\uC778"
   description: "\uC778\uAC04\uC758 \uAC10\uAC01\uAE30\uAD00\uC744 \uBAA8\uBC29\uD55C
     \uD5E4\uB4DC \uD30C\uCE20.\n\uC2DC\uAC01\uACFC \uCCAD\uAC01 \uC815\uBCF4\uB97C
-    \uBC1B\uC544\uB4E4\uC774\uAE30 \uC704\uD55C \uAD6C\uC870\uAC00 \uD655\uC778\uB429\uB2C8\uB2E4."
+    \uBC1B\uC544\uB4E4\uC774\uAE30 \uC704\uD55C \uAD6C\uC870\uAC00 \uD655\uC778\uB429\uB2C8\uB2E4.\n\uD310\uB2E8
+    \uBCF4\uC870 \uAE30\uB2A5\uC774 \uD65C\uC131\uD654\uB418\uC5B4, \uAC80\uC218
+    \uC2E4\uD328 \uC2DC \uC2E0\uB8B0\uB3C4\uAC00 2\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4.
+    (5 -> 2)"
   displayMode: 1
   slotButton: {fileID: 5467703790230273565}
   ownedVisual: {fileID: 8807224845247644819}
