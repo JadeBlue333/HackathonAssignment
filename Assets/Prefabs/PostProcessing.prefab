@@ -52,7 +52,12 @@ MonoBehaviour:
   postProcessHold: 1.5
   postProcessFadeOut: 2.5
   audioSource: {fileID: 0}
-  failSound: {fileID: 0}
+  failSounds:
+  - {fileID: 8300000, guid: b2e1a6a5d3ee1414fb2ff55f9758aaaa, type: 3}
+  - {fileID: 8300000, guid: a01b97b5d5e7c4e6bbc0d9920dcdd10d, type: 3}
+  - {fileID: 8300000, guid: a662f04e2fcea47a3b4a4436a281069d, type: 3}
+  - {fileID: 8300000, guid: 43f9d4ff9c6cb40e1b87e19b9e1295d3, type: 3}
+  - {fileID: 8300000, guid: 625af6889f519430980335accd5a7e12, type: 3}
   failSoundVolume: 1
 --- !u!1 &1103554134294057825
 GameObject:
@@ -65,7 +70,7 @@ GameObject:
   - component: {fileID: 7669813799957614533}
   - component: {fileID: 3774835734620978479}
   m_Layer: 0
-  m_Name: Cam
+  m_Name: Main Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

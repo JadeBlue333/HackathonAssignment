@@ -51,8 +51,9 @@ public class InspectionFailEffect : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
 
+    [Tooltip("랜덤으로 재생할 실패 효과음 목록")]
     [SerializeField]
-    private AudioClip failSound;
+    private AudioClip[] failSounds;
 
     [Range(0f, 1f)]
     [SerializeField]
@@ -66,6 +67,8 @@ public class InspectionFailEffect : MonoBehaviour
     private Vector3 originalCameraLocalPosition;
 
     private Coroutine effectCoroutine;
+
+    private int lastSoundIndex = -1;
 
 
     // =========================================================
@@ -126,16 +129,7 @@ public class InspectionFailEffect : MonoBehaviour
         // Sound
         // -----------------------------------------------------
 
-        if (
-            audioSource != null &&
-            failSound != null
-        )
-        {
-            audioSource.PlayOneShot(
-                failSound,
-                failSoundVolume
-            );
-        }
+        PlayRandomFailSound();
 
 
         // -----------------------------------------------------
@@ -254,7 +248,7 @@ public class InspectionFailEffect : MonoBehaviour
                         postProcessFadeOut
                     );
 
-                // 처음엔 빨리, 끝으로 갈수록 천천히 복구
+                // 처음엔 빠르게, 끝으로 갈수록 천천히 복구
                 float easedT =
                     1f -
                     Mathf.Pow(
@@ -282,6 +276,81 @@ public class InspectionFailEffect : MonoBehaviour
 
 
     // =========================================================
+    // Random Fail Sound
+    // =========================================================
+
+    private void PlayRandomFailSound()
+    {
+        if (audioSource == null)
+            return;
+
+        if (
+            failSounds == null ||
+            failSounds.Length == 0
+        )
+        {
+            return;
+        }
+
+
+        // =====================================================
+        // 효과음이 하나뿐이면 그냥 재생
+        // =====================================================
+
+        if (failSounds.Length == 1)
+        {
+            if (failSounds[0] != null)
+            {
+                audioSource.PlayOneShot(
+                    failSounds[0],
+                    failSoundVolume
+                );
+
+                lastSoundIndex = 0;
+            }
+
+            return;
+        }
+
+
+        // =====================================================
+        // 이전 효과음과 다른 효과음 선택
+        // =====================================================
+
+        int randomIndex;
+
+        do
+        {
+            randomIndex =
+                Random.Range(
+                    0,
+                    failSounds.Length
+                );
+        }
+        while (
+            randomIndex ==
+            lastSoundIndex
+        );
+
+
+        AudioClip selectedClip =
+            failSounds[randomIndex];
+
+
+        if (selectedClip != null)
+        {
+            audioSource.PlayOneShot(
+                selectedClip,
+                failSoundVolume
+            );
+
+            lastSoundIndex =
+                randomIndex;
+        }
+    }
+
+
+    // =========================================================
     // Disable
     // =========================================================
 
@@ -297,5 +366,43 @@ public class InspectionFailEffect : MonoBehaviour
         {
             failVolume.weight = 0f;
         }
+    }
+
+
+    // =========================================================
+    // Inspector 값 보정
+    // =========================================================
+
+    private void OnValidate()
+    {
+        shakeDuration =
+            Mathf.Max(
+                0f,
+                shakeDuration
+            );
+
+        shakeStrength =
+            Mathf.Max(
+                0f,
+                shakeStrength
+            );
+
+        postProcessFadeIn =
+            Mathf.Max(
+                0f,
+                postProcessFadeIn
+            );
+
+        postProcessHold =
+            Mathf.Max(
+                0f,
+                postProcessHold
+            );
+
+        postProcessFadeOut =
+            Mathf.Max(
+                0f,
+                postProcessFadeOut
+            );
     }
 }
