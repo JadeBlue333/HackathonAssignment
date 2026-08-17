@@ -84,7 +84,7 @@ public class PlayerStatus : MonoBehaviour
 
         // 기본 상태
         currentDay = 9;
-        money = 20;
+        money = 10;
 
         fuel = 70;
         trust = 50;
