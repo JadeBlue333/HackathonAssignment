@@ -11424,11 +11424,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
       propertyPath: fuelRecoveryLv1
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
       propertyPath: fuelRecoveryLv2
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2475742636625366390, guid: 4cee7cb9bfb880442a0fdc20686fc21c, type: 3}
       propertyPath: fuelRecoveryLv3
