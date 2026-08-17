@@ -53,12 +53,12 @@ MonoBehaviour:
   postProcessFadeOut: 2.5
   audioSource: {fileID: 0}
   failSounds:
-  - {fileID: 8300000, guid: b2e1a6a5d3ee1414fb2ff55f9758aaaa, type: 3}
-  - {fileID: 8300000, guid: a01b97b5d5e7c4e6bbc0d9920dcdd10d, type: 3}
-  - {fileID: 8300000, guid: a662f04e2fcea47a3b4a4436a281069d, type: 3}
-  - {fileID: 8300000, guid: 43f9d4ff9c6cb40e1b87e19b9e1295d3, type: 3}
-  - {fileID: 8300000, guid: 625af6889f519430980335accd5a7e12, type: 3}
-  failSoundVolume: 1
+  - {fileID: 8300000, guid: 374b63029b85145ec830dfc851649a24, type: 3}
+  - {fileID: 8300000, guid: 5c910fcd4e5874f98bd2f01abbbc787b, type: 3}
+  - {fileID: 8300000, guid: 6df80a595e81d47c4af014b90bc70c40, type: 3}
+  - {fileID: 8300000, guid: a63a0d59ebcda46709d88bd7907d3369, type: 3}
+  - {fileID: 8300000, guid: 24e423ff0f18b4b4188846b9406eab81, type: 3}
+  failSoundVolume: 0.644
 --- !u!1 &1103554134294057825
 GameObject:
   m_ObjectHideFlags: 0

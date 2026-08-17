@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class DiscardWarningNotice : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class DiscardWarningNotice : MonoBehaviour
 
     [Header("Notice UI")]
 
-    [Tooltip("처음 1회만 표시할 경고 이미지")]
     [SerializeField]
     private GameObject noticeObject;
+
+    [SerializeField]
+    private TMP_Text noticeText;
 
     [Tooltip("발생 후 알림이 나타나기까지의 대기 시간")]
     [SerializeField]
@@ -24,6 +27,17 @@ public class DiscardWarningNotice : MonoBehaviour
     [Tooltip("사라지는 시간")]
     [SerializeField]
     private float fadeOutDuration = 0.5f;
+
+
+    // =========================================================
+    // Dialogue
+    // =========================================================
+
+    [Header("Dialogue")]
+
+    [TextArea(2, 5)]
+    [SerializeField]
+    private string[] warningMessages;
 
 
     // =========================================================
@@ -82,10 +96,10 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
     // =========================================================
-    // 최초 1회 알림
+    // 실패 알림 호출
     // =========================================================
 
-    public void ShowOnce()
+    public void ShowNext()
     {
         if (PlayerStatus.Instance == null)
         {
@@ -97,18 +111,20 @@ public class DiscardWarningNotice : MonoBehaviour
         }
 
 
-        // 이미 실제로 본 적 있으면 표시하지 않음
         if (
-            PlayerStatus.Instance
-                .hasSeenDiscardWarning
+            warningMessages == null ||
+            warningMessages.Length == 0
         )
         {
+            Debug.LogWarning(
+                "폐기 실패 대사가 등록되어 있지 않습니다."
+            );
+
             return;
         }
 
 
-        // 이미 5초 대기 중이라면
-        // 또 예약하지 않음
+        // 이미 대기 중이면 중복 예약 방지
         if (isWaitingToShow)
         {
             return;
@@ -143,18 +159,14 @@ public class DiscardWarningNotice : MonoBehaviour
         }
 
 
-        if (noticeObject == null)
+        if (
+            noticeObject == null ||
+            noticeText == null ||
+            PlayerStatus.Instance == null
+        )
         {
             isWaitingToShow = false;
-            noticeCoroutine = null;
 
-            yield break;
-        }
-
-
-        if (PlayerStatus.Instance == null)
-        {
-            isWaitingToShow = false;
             noticeCoroutine = null;
 
             yield break;
@@ -162,12 +174,49 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
         // -----------------------------------------------------
-        // 여기까지 왔으면 실제로 알림을 보여줌
-        // 이때 "본 적 있음"으로 기록
+        // 현재 대사 번호 결정
         // -----------------------------------------------------
 
-        PlayerStatus.Instance
-            .hasSeenDiscardWarning = true;
+        int currentIndex =
+            PlayerStatus.Instance
+                .discardWarningIndex;
+
+
+        // 마지막 대사를 넘어서면
+        // 마지막 인덱스로 고정
+        currentIndex =
+            Mathf.Clamp(
+                currentIndex,
+                0,
+                warningMessages.Length - 1
+            );
+
+
+        // -----------------------------------------------------
+        // 대사 적용
+        // -----------------------------------------------------
+
+        noticeText.text =
+            warningMessages[currentIndex];
+
+
+        // -----------------------------------------------------
+        // 다음 대사로 진행
+        // -----------------------------------------------------
+
+        if (
+            PlayerStatus.Instance.discardWarningIndex <
+            warningMessages.Length - 1
+        )
+        {
+            PlayerStatus.Instance
+                .discardWarningIndex++;
+        }
+
+
+        // 마지막 대사에 도달한 뒤에는
+        // 인덱스를 증가시키지 않음
+        // → 계속 마지막 대사 반복
 
 
         isWaitingToShow = false;

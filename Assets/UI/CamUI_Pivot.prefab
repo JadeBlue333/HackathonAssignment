@@ -384,8 +384,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569313160397056493}
   m_LocalRotation: {x: 0.02439783, y: 0.9821008, z: -0.03318504, w: 0.18379787}
-  m_LocalPosition: {x: 0, y: 0, z: 0.833}
-  m_LocalScale: {x: 0.0019026594, y: 0.0019026594, z: 0.0019026594}
+  m_LocalPosition: {x: 0, y: 0, z: 0.818}
+  m_LocalScale: {x: 0.0016840439, y: 0.0016840439, z: 0.0016840439}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3876108885271740131}
@@ -393,7 +393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 4.252, y: 158.876, z: 2.053}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.457, y: 0.117}
+  m_AnchoredPosition: {x: -0.483, y: 0.126}
   m_SizeDelta: {x: 3, y: 2.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1506320773816681779
@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiscardWarningNotice
   noticeObject: {fileID: 4709636423644098178}
+  delayBeforeShow: 5
   holdDuration: 5
   fadeOutDuration: 1
   audioSource: {fileID: 1994718056113339114}
@@ -1917,7 +1918,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5200859850517152023}
   m_LocalRotation: {x: -0, y: 1, z: -0.0000000027939677, w: 0.000000014901161}
-  m_LocalPosition: {x: 0, y: 0, z: -3.0000262}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1925,7 +1926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.000053, y: -18.000004}
+  m_AnchoredPosition: {x: 8, y: -20}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4449726720412096118

@@ -44,7 +44,7 @@ public class PlayerStatus : MonoBehaviour
         public float dayDuration;
 
         // Tutorial / Notice
-        public bool hasSeenDiscardWarning;
+        public int discardWarningIndex;
 
         // Endings
         public bool ending1Achieved;
@@ -161,7 +161,7 @@ public class PlayerStatus : MonoBehaviour
         // Tutorial / Notice
         // =====================================================
 
-        hasSeenDiscardWarning = false;
+        discardWarningIndex = 0;
 
 
         // =====================================================
@@ -368,8 +368,8 @@ public class PlayerStatus : MonoBehaviour
 
     [Header("Tutorial / Notice")]
 
-    [Tooltip("이번 플레이에서 폐기 실패 경고를 이미 봤는지 여부")]
-    public bool hasSeenDiscardWarning = false;
+    [Tooltip("폐기 실패 알림에서 현재 보여줄 대사 인덱스")]
+    public int discardWarningIndex = 0;
 
 
     // =========================================================
@@ -435,6 +435,7 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log(
                 "돈이 부족합니다."
             );
+
 
             return false;
         }
@@ -1057,18 +1058,12 @@ public class PlayerStatus : MonoBehaviour
         }
 
 
-        // =====================================================
         // Date
-        // =====================================================
-
         progressSnapshot.currentDay =
             currentDay;
 
 
-        // =====================================================
         // Money
-        // =====================================================
-
         progressSnapshot.money =
             money;
 
@@ -1076,10 +1071,7 @@ public class PlayerStatus : MonoBehaviour
             earnings;
 
 
-        // =====================================================
         // Fuel
-        // =====================================================
-
         progressSnapshot.fuel =
             Mathf.Clamp(
                 fuel,
@@ -1088,10 +1080,7 @@ public class PlayerStatus : MonoBehaviour
             );
 
 
-        // =====================================================
         // Trust
-        // =====================================================
-
         trust =
             Mathf.Clamp(
                 trust,
@@ -1107,10 +1096,7 @@ public class PlayerStatus : MonoBehaviour
             trustChange;
 
 
-        // =====================================================
         // Success / Combo / Mistake
-        // =====================================================
-
         progressSnapshot.successNumber =
             successNumber;
 
@@ -1121,10 +1107,7 @@ public class PlayerStatus : MonoBehaviour
             mistakeNumber;
 
 
-        // =====================================================
         // Human Parts
-        // =====================================================
-
         progressSnapshot.humanBody =
             humanBody;
 
@@ -1138,10 +1121,7 @@ public class PlayerStatus : MonoBehaviour
             isHuman;
 
 
-        // =====================================================
         // Skill
-        // =====================================================
-
         progressSnapshot.fuelRecoveryLevel =
             fuelRecoveryLevel;
 
@@ -1155,26 +1135,17 @@ public class PlayerStatus : MonoBehaviour
             workTimeLevel;
 
 
-        // =====================================================
         // Time
-        // =====================================================
-
         progressSnapshot.dayDuration =
             dayDuration;
 
 
-        // =====================================================
         // Tutorial / Notice
-        // =====================================================
-
-        progressSnapshot.hasSeenDiscardWarning =
-            hasSeenDiscardWarning;
+        progressSnapshot.discardWarningIndex =
+            discardWarningIndex;
 
 
-        // =====================================================
         // Endings
-        // =====================================================
-
         progressSnapshot.ending1Achieved =
             ending1Achieved;
 
@@ -1191,10 +1162,7 @@ public class PlayerStatus : MonoBehaviour
             ending5Achieved;
 
 
-        // =====================================================
         // Save Complete
-        // =====================================================
-
         progressSnapshot.hasData =
             true;
 
@@ -1204,7 +1172,8 @@ public class PlayerStatus : MonoBehaviour
             $"D-{currentDay} / " +
             $"Money:{money} / " +
             $"Fuel:{fuel} / " +
-            $"Trust:{trust}"
+            $"Trust:{trust} / " +
+            $"DiscardNoticeIndex:{discardWarningIndex}"
         );
     }
 
@@ -1229,18 +1198,12 @@ public class PlayerStatus : MonoBehaviour
         }
 
 
-        // =====================================================
         // Date
-        // =====================================================
-
         currentDay =
             progressSnapshot.currentDay;
 
 
-        // =====================================================
         // Money
-        // =====================================================
-
         money =
             progressSnapshot.money;
 
@@ -1248,10 +1211,7 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.earnings;
 
 
-        // =====================================================
         // Fuel
-        // =====================================================
-
         fuel =
             Mathf.Clamp(
                 progressSnapshot.fuel,
@@ -1260,10 +1220,7 @@ public class PlayerStatus : MonoBehaviour
             );
 
 
-        // =====================================================
         // Trust
-        // =====================================================
-
         trust =
             Mathf.Clamp(
                 progressSnapshot.trust,
@@ -1275,10 +1232,7 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.trustChange;
 
 
-        // =====================================================
         // Success / Combo / Mistake
-        // =====================================================
-
         successNumber =
             progressSnapshot.successNumber;
 
@@ -1289,10 +1243,7 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.mistakeNumber;
 
 
-        // =====================================================
         // Human Parts
-        // =====================================================
-
         humanBody =
             progressSnapshot.humanBody;
 
@@ -1306,10 +1257,7 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.isHuman;
 
 
-        // =====================================================
         // Skill
-        // =====================================================
-
         fuelRecoveryLevel =
             progressSnapshot.fuelRecoveryLevel;
 
@@ -1323,27 +1271,20 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.workTimeLevel;
 
 
-        // =====================================================
         // Time
-        // =====================================================
-
         dayDuration =
             progressSnapshot.dayDuration;
 
 
-        // =====================================================
         // Tutorial / Notice
-        // =====================================================
+        discardWarningIndex =
+            Mathf.Max(
+                0,
+                progressSnapshot.discardWarningIndex
+            );
 
-        hasSeenDiscardWarning =
-            progressSnapshot
-                .hasSeenDiscardWarning;
 
-
-        // =====================================================
         // Endings
-        // =====================================================
-
         ending1Achieved =
             progressSnapshot.ending1Achieved;
 
@@ -1360,16 +1301,13 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.ending5Achieved;
 
 
-        // =====================================================
-        // Load Complete
-        // =====================================================
-
         Debug.Log(
             $"Progress Snapshot 불러오기 완료 / " +
             $"D-{currentDay} / " +
             $"Money:{money} / " +
             $"Fuel:{fuel} / " +
-            $"Trust:{trust}"
+            $"Trust:{trust} / " +
+            $"DiscardNoticeIndex:{discardWarningIndex}"
         );
 
 
