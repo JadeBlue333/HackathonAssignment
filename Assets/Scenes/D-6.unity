@@ -4187,6 +4187,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8977908748708655239, guid: 6e90d27a4dd4c4954b7b93d31389251b, type: 3}
+      propertyPath: bgm
+      value: 
+      objectReference: {fileID: 8300000, guid: 7dfe52053119443df9a8e4052e4cf451, type: 3}
+    - target: {fileID: 8977908748708655239, guid: 6e90d27a4dd4c4954b7b93d31389251b, type: 3}
       propertyPath: maxVolume
       value: 0.6
       objectReference: {fileID: 0}
