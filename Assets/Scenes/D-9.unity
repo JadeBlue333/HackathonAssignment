@@ -4045,7 +4045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6019,6 +6019,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2577402186237163576, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: shakeDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577402186237163576, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: shakeStrength
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577402186237163576, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1351998167}
+    - target: {fileID: 3880145026911464621, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453943350748158921, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: weight
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6247,8 +6267,8 @@ SceneRoots:
   - {fileID: 1407244562}
   - {fileID: 153260935}
   - {fileID: 1152866548}
-  - {fileID: 3912232974930088607}
   - {fileID: 4071851309726187334}
   - {fileID: 171528740}
   - {fileID: 6168778351896853494}
   - {fileID: 424540633}
+  - {fileID: 3912232974930088607}

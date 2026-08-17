@@ -1,0 +1,278 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Explosion Effect Profile
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
+  components:
+  - {fileID: 1323994524242656352}
+  - {fileID: 8009623127109148309}
+  - {fileID: 8513122769906607367}
+  - {fileID: 5177171209922467923}
+  - {fileID: 4855393211616894988}
+--- !u!114 &1323994524242656352
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06437c1ff663d574d9447842ba0a72e4, type: 3}
+  m_Name: ScreenSpaceLensFlare
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ScreenSpaceLensFlare
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 2
+  tintColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
+  bloomMip:
+    m_OverrideState: 0
+    m_Value: 1
+  firstFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 5
+  secondaryFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 0.21
+  warpedFlareIntensity:
+    m_OverrideState: 1
+    m_Value: 1
+  warpedFlareScale:
+    m_OverrideState: 0
+    m_Value: {x: 1, y: 1}
+  samples:
+    m_OverrideState: 0
+    m_Value: 1
+  sampleDimmer:
+    m_OverrideState: 0
+    m_Value: 0.5
+  vignetteEffect:
+    m_OverrideState: 1
+    m_Value: 0.5
+  startingPosition:
+    m_OverrideState: 1
+    m_Value: 1.01
+  scale:
+    m_OverrideState: 0
+    m_Value: 1
+  streaksIntensity:
+    m_OverrideState: 1
+    m_Value: 0.24
+  streaksLength:
+    m_OverrideState: 1
+    m_Value: 0.5
+  streaksOrientation:
+    m_OverrideState: 1
+    m_Value: 9.36
+  streaksThreshold:
+    m_OverrideState: 0
+    m_Value: 0.25
+  resolution:
+    m_OverrideState: 0
+    m_Value: 4
+  chromaticAbberationIntensity:
+    m_OverrideState: 1
+    m_Value: 0.5
+--- !u!114 &4855393211616894988
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6856d47d797869a429baa6830acad632, type: 3}
+  m_Name: InterferencesVolume
+  m_EditorClassIdentifier: FronkonGames.Glitches.Interferences::FronkonGames.Glitches.Interferences.InterferencesVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.9
+    min: 0
+    max: 1
+  blend:
+    m_OverrideState: 1
+    m_Value: 1
+  offset:
+    m_OverrideState: 1
+    m_Value: 0.22
+    min: 0
+    max: 10
+  distortion:
+    m_OverrideState: 1
+    m_Value: 0.1
+    min: 0
+    max: 2
+  distortionSpeed:
+    m_OverrideState: 1
+    m_Value: 0.3
+    min: 0
+    max: 100
+  distortionDensity:
+    m_OverrideState: 1
+    m_Value: 0.87
+    min: 0
+    max: 10
+  distortionAmplitude:
+    m_OverrideState: 1
+    m_Value: 0.65
+    min: 0
+    max: 5
+  distortionFrequency:
+    m_OverrideState: 1
+    m_Value: 1.18
+    min: 0
+    max: 10
+  scanlines:
+    m_OverrideState: 1
+    m_Value: 1
+    min: 0
+    max: 1
+  scanlinesDensity:
+    m_OverrideState: 1
+    m_Value: 0.32
+    min: 0
+    max: 1
+  scanlinesOpacity:
+    m_OverrideState: 1
+    m_Value: 0.535
+    min: 0
+    max: 1
+  brightness:
+    m_OverrideState: 1
+    m_Value: -0.14
+    min: -1
+    max: 1
+  contrast:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 10
+  gamma:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0.1
+    max: 10
+  hue:
+    m_OverrideState: 1
+    m_Value: 0.377
+    min: 0
+    max: 1
+  saturation:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 2
+  affectSceneView:
+    m_OverrideState: 0
+    m_Value: 0
+  useScaledTime:
+    m_OverrideState: 0
+    m_Value: 1
+--- !u!114 &5177171209922467923
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.Vignette
+  active: 1
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.5
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 0.5
+  rounded:
+    m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &8009623127109148309
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.Bloom
+  active: 1
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.77
+  intensity:
+    m_OverrideState: 0
+    m_Value: 0
+  scatter:
+    m_OverrideState: 0
+    m_Value: 0.7
+  clamp:
+    m_OverrideState: 0
+    m_Value: 65472
+  tint:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  filter:
+    m_OverrideState: 0
+    m_Value: 0
+  downscale:
+    m_OverrideState: 0
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &8513122769906607367
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ChromaticAberration
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1

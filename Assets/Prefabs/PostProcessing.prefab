@@ -45,13 +45,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InspectionFailEffect
   cameraTransform: {fileID: 0}
-  shakeDuration: 0.5
-  shakeStrength: 0.08
-  failPostProcess: {fileID: 236143617369367661}
-  postProcessDuration: 3
+  shakeDuration: 1
+  shakeStrength: 0.15
+  failVolume: {fileID: 4453943350748158921}
+  postProcessFadeIn: 0.08
+  postProcessHold: 1.5
+  postProcessFadeOut: 2.5
   audioSource: {fileID: 0}
   failSound: {fileID: 0}
   failSoundVolume: 1
+--- !u!1 &1103554134294057825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7669813799957614533}
+  - component: {fileID: 3774835734620978479}
+  m_Layer: 0
+  m_Name: Cam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7669813799957614533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103554134294057825}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -312.83197, y: 764.3203, z: -20860.957}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2298527417366489099}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3774835734620978479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103554134294057825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 5
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 3148443db81a54b4493061a855cd4ddb, type: 2}
 --- !u!1 &1169557898637462083
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,10 +148,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
   m_IsGlobal: 1
-  priority: 0
+  priority: 10
   blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 25199363d938c49cdb249f59a5e3b1fb, type: 2}
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 9f1b14d3a601e4b81b6ae078f0044360, type: 2}
 --- !u!1 &1487732020612845019
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,6 +182,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4130802499210185133}
+  - {fileID: 7669813799957614533}
   - {fileID: 7751181013533450064}
   - {fileID: 7463242326357051417}
   m_Father: {fileID: 0}

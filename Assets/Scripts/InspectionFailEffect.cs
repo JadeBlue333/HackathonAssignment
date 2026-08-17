@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class InspectionFailEffect : MonoBehaviour
 {
@@ -9,17 +10,14 @@ public class InspectionFailEffect : MonoBehaviour
 
     [Header("Camera Shake")]
 
-    [Tooltip("흔들릴 카메라 또는 Camera Pivot")]
     [SerializeField]
     private Transform cameraTransform;
 
-    [Tooltip("카메라 흔들림 지속 시간")]
     [SerializeField]
-    private float shakeDuration = 0.5f;
+    private float shakeDuration = 0.35f;
 
-    [Tooltip("카메라 흔들림 강도")]
     [SerializeField]
-    private float shakeStrength = 0.08f;
+    private float shakeStrength = 0.06f;
 
 
     // =========================================================
@@ -28,13 +26,20 @@ public class InspectionFailEffect : MonoBehaviour
 
     [Header("Post Processing")]
 
-    [Tooltip("충격 효과용 Post Process Volume 오브젝트")]
     [SerializeField]
-    private GameObject failPostProcess;
+    private Volume failVolume;
 
-    [Tooltip("Post Processing 효과 유지 시간")]
+    [Tooltip("효과가 강하게 올라오는 시간")]
     [SerializeField]
-    private float postProcessDuration = 2f;
+    private float postProcessFadeIn = 0.08f;
+
+    [Tooltip("최대 효과를 유지하는 시간")]
+    [SerializeField]
+    private float postProcessHold = 0.35f;
+
+    [Tooltip("효과가 자연스럽게 사라지는 시간")]
+    [SerializeField]
+    private float postProcessFadeOut = 1.2f;
 
 
     // =========================================================
@@ -75,12 +80,9 @@ public class InspectionFailEffect : MonoBehaviour
                 cameraTransform.localPosition;
         }
 
-
-        if (failPostProcess != null)
+        if (failVolume != null)
         {
-            failPostProcess.SetActive(
-                false
-            );
+            failVolume.weight = 0f;
         }
     }
 
@@ -93,11 +95,19 @@ public class InspectionFailEffect : MonoBehaviour
     {
         if (effectCoroutine != null)
         {
-            StopCoroutine(
-                effectCoroutine
-            );
-        }
+            StopCoroutine(effectCoroutine);
 
+            if (cameraTransform != null)
+            {
+                cameraTransform.localPosition =
+                    originalCameraLocalPosition;
+            }
+
+            if (failVolume != null)
+            {
+                failVolume.weight = 0f;
+            }
+        }
 
         effectCoroutine =
             StartCoroutine(
@@ -129,14 +139,35 @@ public class InspectionFailEffect : MonoBehaviour
 
 
         // -----------------------------------------------------
-        // Post Processing ON
+        // Post Processing Fade In
         // -----------------------------------------------------
 
-        if (failPostProcess != null)
+        if (failVolume != null)
         {
-            failPostProcess.SetActive(
-                true
-            );
+            float elapsed = 0f;
+
+            while (elapsed < postProcessFadeIn)
+            {
+                elapsed +=
+                    Time.unscaledDeltaTime;
+
+                float t =
+                    Mathf.Clamp01(
+                        elapsed /
+                        postProcessFadeIn
+                    );
+
+                failVolume.weight =
+                    Mathf.Lerp(
+                        0f,
+                        1f,
+                        t
+                    );
+
+                yield return null;
+            }
+
+            failVolume.weight = 1f;
         }
 
 
@@ -144,37 +175,47 @@ public class InspectionFailEffect : MonoBehaviour
         // Camera Shake
         // -----------------------------------------------------
 
-        float elapsed =
-            0f;
+        float shakeElapsed = 0f;
 
-
-        while (
-            elapsed <
-            shakeDuration
-        )
+        while (shakeElapsed < shakeDuration)
         {
-            elapsed +=
+            shakeElapsed +=
                 Time.unscaledDeltaTime;
-
 
             if (cameraTransform != null)
             {
-                Vector3 offset =
-                    Random.insideUnitSphere *
-                    shakeStrength;
+                float normalized =
+                    1f -
+                    Mathf.Clamp01(
+                        shakeElapsed /
+                        shakeDuration
+                    );
 
+                float currentStrength =
+                    shakeStrength *
+                    normalized;
+
+                Vector2 offset =
+                    Random.insideUnitCircle *
+                    currentStrength;
 
                 cameraTransform.localPosition =
                     originalCameraLocalPosition +
-                    offset;
+                    new Vector3(
+                        offset.x,
+                        offset.y,
+                        0f
+                    );
             }
-
 
             yield return null;
         }
 
 
-        // 카메라 원위치
+        // -----------------------------------------------------
+        // Camera Restore
+        // -----------------------------------------------------
+
         if (cameraTransform != null)
         {
             cameraTransform.localPosition =
@@ -183,35 +224,78 @@ public class InspectionFailEffect : MonoBehaviour
 
 
         // -----------------------------------------------------
-        // 남은 Post Processing 시간 대기
+        // Hold
         // -----------------------------------------------------
 
-        float remainingTime =
-            postProcessDuration -
-            shakeDuration;
-
-
-        if (remainingTime > 0f)
+        if (postProcessHold > 0f)
         {
             yield return new WaitForSecondsRealtime(
-                remainingTime
+                postProcessHold
             );
         }
 
 
         // -----------------------------------------------------
-        // Post Processing OFF
+        // Post Processing Fade Out
         // -----------------------------------------------------
 
-        if (failPostProcess != null)
+        if (failVolume != null)
         {
-            failPostProcess.SetActive(
-                false
-            );
+            float elapsed = 0f;
+
+            while (elapsed < postProcessFadeOut)
+            {
+                elapsed +=
+                    Time.unscaledDeltaTime;
+
+                float t =
+                    Mathf.Clamp01(
+                        elapsed /
+                        postProcessFadeOut
+                    );
+
+                // 처음엔 빨리, 끝으로 갈수록 천천히 복구
+                float easedT =
+                    1f -
+                    Mathf.Pow(
+                        1f - t,
+                        2f
+                    );
+
+                failVolume.weight =
+                    Mathf.Lerp(
+                        1f,
+                        0f,
+                        easedT
+                    );
+
+                yield return null;
+            }
+
+            failVolume.weight = 0f;
         }
 
 
         effectCoroutine =
             null;
+    }
+
+
+    // =========================================================
+    // Disable
+    // =========================================================
+
+    private void OnDisable()
+    {
+        if (cameraTransform != null)
+        {
+            cameraTransform.localPosition =
+                originalCameraLocalPosition;
+        }
+
+        if (failVolume != null)
+        {
+            failVolume.weight = 0f;
+        }
     }
 }

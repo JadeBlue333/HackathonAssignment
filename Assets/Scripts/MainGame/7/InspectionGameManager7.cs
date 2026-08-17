@@ -909,14 +909,23 @@ public class InspectionGameManager7 : MonoBehaviour
             );
 
             // 폐기를 미폐기 처리했을시 폭발 트리거
-            if (currentAnswer == InspectionResult.Discard && playerAnswer != InspectionResult.Discard)
-            {
-                //trigger explosion event
-                if (failEffect != null)
+            if (
+                    currentAnswer == InspectionResult.Discard &&
+                    playerAnswer != InspectionResult.Discard
+                )
                 {
-                    failEffect.Play();
+                    Debug.Log("★★★ 폐기 실패 효과 조건 진입 ★★★");
+
+                    if (failEffect != null)
+                    {
+                        Debug.Log("★★★ failEffect.Play 호출 ★★★");
+                        failEffect.Play();
+                    }
+                    else
+                    {
+                        Debug.LogError("failEffect가 Inspector에 연결되지 않았습니다.");
+                    }
                 }
-            }
         }
 
 
