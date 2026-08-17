@@ -3238,6 +3238,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1712899416518834253, guid: 6e90d27a4dd4c4954b7b93d31389251b, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 3543f262ae13d4771b0b99d242b6dae3, type: 3}
     - target: {fileID: 5595149201694573444, guid: 6e90d27a4dd4c4954b7b93d31389251b, type: 3}
       propertyPath: m_Name
       value: BGMManager

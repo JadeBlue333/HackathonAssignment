@@ -6139,6 +6139,10 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 1712899416518834253, guid: 6e90d27a4dd4c4954b7b93d31389251b, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: c346fa77844584b8a96baf11b6478ef6, type: 3}
     - target: {fileID: 5595149201694573444, guid: 6e90d27a4dd4c4954b7b93d31389251b, type: 3}
       propertyPath: m_Name
       value: BGMManager
