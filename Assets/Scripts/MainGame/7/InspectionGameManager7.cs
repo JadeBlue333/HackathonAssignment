@@ -81,6 +81,15 @@ public class InspectionGameManager7 : MonoBehaviour
 
 
     // =========================================================
+    // Fail Effect
+    // =========================================================
+
+    [Header("Fail Effect")]
+    [SerializeField]
+    private InspectionFailEffect failEffect;
+
+
+    // =========================================================
     // Sound
     // =========================================================
 
@@ -903,6 +912,10 @@ public class InspectionGameManager7 : MonoBehaviour
             if (currentAnswer == InspectionResult.Discard && playerAnswer != InspectionResult.Discard)
             {
                 //trigger explosion event
+                if (failEffect != null)
+                {
+                    failEffect.Play();
+                }
             }
         }
 
