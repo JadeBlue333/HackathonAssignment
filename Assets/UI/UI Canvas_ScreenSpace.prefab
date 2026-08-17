@@ -5549,7 +5549,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b56c6c413cc5b4dd48c25e3b6330c771, type: 3}
   - {fileID: 21300000, guid: a624e4ce6e80c41d4b1311e01b5fdd99, type: 3}
   - {fileID: 21300000, guid: c5241ccfaa7504d43a52e28cca3a4996, type: 3}
-  - {fileID: 21300000, guid: bef6bf6455cd74c18943e55c8025309e, type: 3}
+  - {fileID: 21300000, guid: 37684e21a07954f4d930b267b1953eb7, type: 3}
   - {fileID: 21300000, guid: 3b5fd6d1076c34e1aae7627b927c34d3, type: 3}
   - {fileID: 21300000, guid: 597cb1f1d80fb436d8755650039ab149, type: 3}
   - {fileID: 21300000, guid: e6bb65d717117496b9b3b9a3f0340993, type: 3}
@@ -7504,7 +7504,7 @@ MonoBehaviour:
   skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 III"
   description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uB354\uC6B1 \uD6A8\uACFC\uC801\uC73C\uB85C
     \uAD00\uB9AC\uD569\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC
-    \uC2E0\uB8B0\uD3C9\uAC00\uB97C 30 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
+    \uC2E0\uB8B0\uD3C9\uAC00\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
     \uBCF4\uC815 \uBAA8\uB4C8 II \uD544\uC694]"
   price: 40
   nodeButton: {fileID: 5305299143890850428}
@@ -8732,7 +8732,7 @@ MonoBehaviour:
   skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 I"
   description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uBCF4\uC815\uD560 \uC218 \uC788\uAC8C
     \uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C
-    10 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    5 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   price: 20
   nodeButton: {fileID: 7528157111784201636}
   purchasedTargetImage: {fileID: 52543619590892986}
@@ -9930,7 +9930,7 @@ MonoBehaviour:
   level: 3
   skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C III"
   description: "\uCDA9\uC804 \uD6A8\uC728\uC774 \uCD5C\uB300\uCE58\uB85C \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 50 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
+    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 45 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
     \uCDA9\uC804 \uD68C\uB85C II \uD544\uC694]"
   price: 40
   nodeButton: {fileID: 6145131085205717239}
@@ -15764,7 +15764,7 @@ MonoBehaviour:
   skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C I"
   description: "\uAE30\uBCF8\uC801\uC778 \uC790\uAC00 \uCDA9\uC804 \uAE30\uB2A5\uC774
     \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791
-    \uC2DC \uC5F0\uB8CC\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    \uC2DC \uC5F0\uB8CC\uB97C 15 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
   price: 20
   nodeButton: {fileID: 45178688923296035}
   purchasedTargetImage: {fileID: 4987862801437259472}
@@ -16655,7 +16655,7 @@ MonoBehaviour:
   level: 2
   skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C II"
   description: "\uCDA9\uC804 \uD68C\uB85C\uAC00 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 30 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
+    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 25 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
     \uCDA9\uC804 \uD68C\uB85C I \uD544\uC694]"
   price: 30
   nodeButton: {fileID: 5461046360101767535}
@@ -21088,7 +21088,7 @@ MonoBehaviour:
   level: 2
   skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 II"
   description: "\uD3C9\uD310 \uBCF4\uC815 \uACFC\uC815\uC774 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
+    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
     \uBCF4\uC815 \uBAA8\uB4C8 I \uD544\uC694]"
   price: 30
   nodeButton: {fileID: 5680960219051935462}

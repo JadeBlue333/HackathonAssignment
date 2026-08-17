@@ -48,6 +48,10 @@ MonoBehaviour:
   motorMatchManager: {fileID: 0}
   boxButtons: {fileID: 0}
   motorButtons: {fileID: 0}
+  wrongReasonUI: {fileID: 0}
+  wrongReasonText: {fileID: 0}
+  wrongReasonDuration: 2
+  wrongReasonFadeOutDuration: 0.5
   unopenedReward: 7
   aReward: 5
   bReward: 3
@@ -56,7 +60,7 @@ MonoBehaviour:
   trustPenalty: 5
   fuelCost: 2
   trustComboThreshold: 3
-  comboTrustReward: 2
+  comboTrustReward: 1
   audioSource: {fileID: 0}
   spawnBoxSfx: {fileID: 8300000, guid: a9c6cdb89fc3c3b4381090c32ad80e6f, type: 3}
   spawnBoxVolume: 0.544
