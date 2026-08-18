@@ -78,13 +78,24 @@ public class ReportUI : MonoBehaviour
         else if (ps.fuelRecoveryLevel == 3)
             fuelRecovery = 45;
 
-
-        if (fuel - 10 + fuelRecovery == 0)
-            fuelLeftText.text = $"내일 예상 연료: 0";
-        else if (fuel - 10 + fuelRecovery <= 100 && fuel - 10 + fuelRecovery > 0)
-            fuelLeftText.text = $"내일 예상 연료: {fuel - 10 + fuelRecovery}";
+        if (LanguageManager.Instance.isEnglish)
+        {
+            if (fuel - 10 + fuelRecovery == 0)
+                fuelLeftText.text = $"Expected Fuel Tomorrow: 0";
+            else if (fuel - 10 + fuelRecovery <= 100 && fuel - 10 + fuelRecovery > 0)
+                fuelLeftText.text = $"Expected Fuel Tomorrow: {fuel - 10 + fuelRecovery}";
+            else
+                fuelLeftText.text = $"Expected Fuel Tomorrow: 100";
+        }
         else
-            fuelLeftText.text = $"내일 예상 연료: 100";
+        {
+            if (fuel - 10 + fuelRecovery == 0)
+                fuelLeftText.text = $"내일 예상 연료: 0";
+            else if (fuel - 10 + fuelRecovery <= 100 && fuel - 10 + fuelRecovery > 0)
+                fuelLeftText.text = $"내일 예상 연료: {fuel - 10 + fuelRecovery}";
+            else
+                fuelLeftText.text = $"내일 예상 연료: 100";
+        }
 
         originalMoneyText.text = $"{ps.money}C";
         earnedMoneyText.text = $"{ps.earnings}C";
