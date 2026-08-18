@@ -225,6 +225,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 0
 --- !u!4 &108330227
 Transform:
   m_ObjectHideFlags: 0
@@ -7496,8 +7497,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0C8 \uAC8C\uC784\uC744 \uC2DC\uC791\uD558\uBA74 \uC9C4\uD589 \uC911\uC778
-    \uAC8C\uC784\uC758 \uB370\uC774\uD130\uB97C \uBCF5\uAD6C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.\n\uC0C8\uB85C
+  m_text: "\uC0C8 \uAC8C\uC784\uC744 \uC2DC\uC791\uD558\uBA74 \uC800\uC7A5\uB418\uC9C0
+    \uC54A\uC740 \uB370\uC774\uD130\uB97C \uBCF5\uAD6C\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.\n\uC0C8\uB85C
     \uC2DC\uC791\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
@@ -9734,6 +9735,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 0
 --- !u!4 &1475694369
 Transform:
   m_ObjectHideFlags: 0
