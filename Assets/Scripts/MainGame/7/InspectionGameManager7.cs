@@ -376,11 +376,15 @@ public class InspectionGameManager7 : MonoBehaviour
     {
         ClearCurrentWrongReason();
 
+        bool isEnglish = LanguageManager.Instance.isEnglish;
+
 
         if (boxMatchManager.CurrentBoxDamaged)
         {
             AddCurrentWrongReason(
-                "박스가 손상되어 있습니다."
+                isEnglish
+                    ? "The box is damaged."
+                    : "박스가 손상되어 있습니다."
             );
         }
 
@@ -388,7 +392,9 @@ public class InspectionGameManager7 : MonoBehaviour
         if (boxMatchManager.CurrentTapeOpened)
         {
             AddCurrentWrongReason(
-                "테이프에 개봉 흔적이 있습니다."
+                isEnglish
+                    ? "There are signs of tampering on the tape."
+                    : "테이프에 개봉 흔적이 있습니다."
             );
         }
 
@@ -399,7 +405,9 @@ public class InspectionGameManager7 : MonoBehaviour
         )
         {
             AddCurrentWrongReason(
-                "박스와 테이프에 개봉 흔적이 없습니다."
+                isEnglish
+                    ? "There are no signs of tampering on the box or tape."
+                    : "박스와 테이프에 개봉 흔적이 없습니다."
             );
         }
     }
@@ -413,6 +421,8 @@ public class InspectionGameManager7 : MonoBehaviour
     {
         ClearCurrentWrongReason();
 
+        bool isEnglish = LanguageManager.Instance.isEnglish;
+
 
         // =====================================================
         // 폐기 대상
@@ -421,7 +431,9 @@ public class InspectionGameManager7 : MonoBehaviour
         if (!motorMatchManager.CurrentIsComplete)
         {
             SetCurrentWrongReason(
-                "[폐기 필요] 프로펠러가 누락되어 있습니다."
+                isEnglish
+                    ? "[Discard] Propeller is missing."
+                    : "[폐기 필요] 프로펠러가 누락되어 있습니다."
             );
 
             return;
@@ -435,7 +447,9 @@ public class InspectionGameManager7 : MonoBehaviour
         if (!motorMatchManager.CurrentSameColor)
         {
             AddCurrentWrongReason(
-                "프로펠러 앞뒤 색상이 일치하지 않습니다."
+                isEnglish
+                    ? "The front and rear propeller colors do not match."
+                    : "프로펠러 앞뒤 색상이 일치하지 않습니다."
             );
         }
 
@@ -443,7 +457,9 @@ public class InspectionGameManager7 : MonoBehaviour
         if (!motorMatchManager.CurrentNoStain)
         {
             AddCurrentWrongReason(
-                "제품에 얼룩이 있습니다."
+                isEnglish
+                    ? "There are stains on the product."
+                    : "제품에 얼룩이 있습니다."
             );
         }
     }
