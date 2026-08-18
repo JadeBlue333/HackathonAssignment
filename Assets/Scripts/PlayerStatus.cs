@@ -49,6 +49,10 @@ public class PlayerStatus : MonoBehaviour
         // Tutorial / Notice
         public bool tutorialCompleted;
         public bool fuelLowHintShown;
+        public bool moneySkillHintShown;
+        public bool humanPartHintShown;
+        public bool comboHintShown;
+        public bool lowTrustHintShown;
         public int discardWarningIndex;
 
         // Endings
@@ -176,6 +180,14 @@ public class PlayerStatus : MonoBehaviour
         tutorialCompleted = false;
 
         fuelLowHintShown = false;
+
+        moneySkillHintShown = false;
+
+        humanPartHintShown = false;
+
+        comboHintShown = false;
+
+        lowTrustHintShown = false;
 
         discardWarningIndex = 0;
 
@@ -394,6 +406,18 @@ public class PlayerStatus : MonoBehaviour
 
     [Tooltip("연료 부족 힌트를 이미 표시했는지 여부")]
     public bool fuelLowHintShown = false;
+
+    [Tooltip("기술 강화 힌트를 이미 표시했는지 여부")]
+    public bool moneySkillHintShown = false;
+
+    [Tooltip("인간 파츠 획득 힌트를 이미 표시했는지 여부")]
+    public bool humanPartHintShown = false;
+
+    [Tooltip("연속 성공 보너스 힌트를 이미 표시했는지 여부")]
+    public bool comboHintShown = false;
+
+    [Tooltip("낮은 신뢰도 힌트를 이미 표시했는지 여부")]
+    public bool lowTrustHintShown = false;
 
     [Tooltip("폐기 실패 알림에서 현재 보여줄 대사 인덱스")]
     public int discardWarningIndex = 0;
@@ -1195,6 +1219,18 @@ public class PlayerStatus : MonoBehaviour
         progressSnapshot.fuelLowHintShown =
             fuelLowHintShown;
 
+        progressSnapshot.moneySkillHintShown =
+            moneySkillHintShown;
+
+        progressSnapshot.humanPartHintShown =
+            humanPartHintShown;
+
+        progressSnapshot.comboHintShown =
+            comboHintShown;
+
+        progressSnapshot.lowTrustHintShown =
+            lowTrustHintShown;
+
         progressSnapshot.discardWarningIndex =
             discardWarningIndex;
 
@@ -1364,6 +1400,18 @@ public class PlayerStatus : MonoBehaviour
 
         fuelLowHintShown =
             progressSnapshot.fuelLowHintShown;
+
+        moneySkillHintShown =
+            progressSnapshot.moneySkillHintShown;
+
+        humanPartHintShown =
+            progressSnapshot.humanPartHintShown;
+
+        comboHintShown =
+            progressSnapshot.comboHintShown;
+
+        lowTrustHintShown =
+            progressSnapshot.lowTrustHintShown;
 
         discardWarningIndex =
             Mathf.Max(
