@@ -988,7 +988,7 @@ MonoBehaviour:
   noticeObject: {fileID: 2974815874604892356}
   noticeText: {fileID: 3377196825081384117}
   canvasGroup: {fileID: 5429768227178336864}
-  holdDuration: 4
+  holdDuration: 5
   fadeOutDuration: 1
   intervalBetweenHints: 4
   useBootEffect: 1

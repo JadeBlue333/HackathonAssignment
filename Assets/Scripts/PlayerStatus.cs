@@ -125,7 +125,7 @@ public class PlayerStatus : MonoBehaviour
         // 기본 상태
         // =====================================================
 
-        currentDay = 9;
+        currentDay = 8;
 
         money = 10;
 

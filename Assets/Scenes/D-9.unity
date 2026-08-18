@@ -912,6 +912,14 @@ PrefabInstance:
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 969460808}
+    - target: {fileID: 7419735950969981314, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
+    - target: {fileID: 7419735950969981314, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5683225789139700101, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
     - target: {fileID: 7506399501811980051, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2

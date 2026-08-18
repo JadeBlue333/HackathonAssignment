@@ -6072,6 +6072,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1140698141}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: motor0Chance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: motorButtons
       value: 
       objectReference: {fileID: 1099938106}
@@ -6084,9 +6088,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2043312633}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: sameColorChance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: wrongReasonText
       value: 
       objectReference: {fileID: 1261426813}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: sameNumberChance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: motorMatchManager
       value: 
@@ -6096,8 +6108,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 968025204}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: frontPropellerChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: useStainMotorTexture
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: allowTripleDefectMotor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: boxButtons
