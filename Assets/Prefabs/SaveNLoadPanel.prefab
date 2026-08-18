@@ -683,6 +683,10 @@ PrefabInstance:
       propertyPath: slotNumber
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3007913771252926689, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
+      propertyPath: goToThisScene
+      value: 
+      objectReference: {fileID: 3288134324480507268}
     - target: {fileID: 4993282545726733951, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
       propertyPath: m_text
       value: Slot 3
@@ -829,6 +833,10 @@ PrefabInstance:
       propertyPath: slotNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3007913771252926689, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
+      propertyPath: goToThisScene
+      value: 
+      objectReference: {fileID: 3288134324480507268}
     - target: {fileID: 4993282545726733951, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
       propertyPath: m_text
       value: Slot 2
@@ -967,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SaveLoadSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 3007913771252926689, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
+      propertyPath: goToThisScene
+      value: 
+      objectReference: {fileID: 3288134324480507268}
     - target: {fileID: 5634687113368383836, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1109,6 +1121,10 @@ PrefabInstance:
       propertyPath: slotNumber
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3007913771252926689, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
+      propertyPath: goToThisScene
+      value: 
+      objectReference: {fileID: 3288134324480507268}
     - target: {fileID: 4993282545726733951, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
       propertyPath: m_text
       value: Slot 5
@@ -1255,6 +1271,10 @@ PrefabInstance:
       propertyPath: slotNumber
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3007913771252926689, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
+      propertyPath: goToThisScene
+      value: 
+      objectReference: {fileID: 3288134324480507268}
     - target: {fileID: 4993282545726733951, guid: db33d28558cb96d40b3a0564ab363a3e, type: 3}
       propertyPath: m_text
       value: Slot 4

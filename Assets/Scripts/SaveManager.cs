@@ -4,8 +4,27 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
-    //1~5 슬롯까지 플레이어가 저장 가능. 6번 슬롯은 플레이어가 조종할 수 없다! 게임 오버용 체크포인트...
+    // 1~5 슬롯까지 플레이어가 저장 가능
+    // 6번 슬롯은 플레이어가 조종할 수 없다! 게임 오버용 체크포인트
     private const int SlotCount = 6;
+
+
+    // =========================================================
+    // Audio
+    // =========================================================
+
+    [Header("Save / Load Sound")]
+    [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private AudioClip saveSfx;
+    [SerializeField][Range(0f, 1f)] private float saveSfxVolume = 1f;
+
+    [SerializeField] private AudioClip loadSfx;
+    [SerializeField][Range(0f, 1f)] private float loadSfxVolume = 1f;
+
+    [SerializeField] private AudioClip wrongSfx;
+    [SerializeField][Range(0f, 1f)] private float wrongSfxVolume = 1f;
+
 
     private void Awake()
     {
@@ -18,32 +37,63 @@ public class SaveManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-    //에디터에서 플레이 모드 종료 시 PlayerPrefs 초기화
-    //유지하고 싶으면 이 부분 주석처리!
+        // 에디터에서 플레이 모드 종료 시 PlayerPrefs 초기화
+        // 유지하고 싶으면 이 부분 주석처리!
 #if UNITY_EDITOR
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 #endif
     }
 
+
+    // =========================================================
+    // Audio Helper
+    // =========================================================
+
+    private void PlaySound(AudioClip clip, float volume)
+    {
+        if (audioSource == null || clip == null)
+            return;
+
+        audioSource.PlayOneShot(clip, volume);
+    }
+
+    private void PlayWrongSound()
+    {
+        PlaySound(wrongSfx, wrongSfxVolume);
+    }
+
+    private void PlaySaveSound()
+    {
+        PlaySound(saveSfx, saveSfxVolume);
+    }
+
+    private void PlayLoadSound()
+    {
+        PlaySound(loadSfx, loadSfxVolume);
+    }
+
+
     // =========================================================
     // Save
     // =========================================================
 
-    public void SaveGame(int slot)
+    public bool SaveGame(int slot)
     {
         // 슬롯 번호 확인
         if (slot < 1 || slot > SlotCount)
         {
-            Debug.LogError($"잘못된 슬롯 번호입니다: {slot}");
-            return;
+            Debug.Log($"잘못된 슬롯 번호입니다: {slot}");
+            PlayWrongSound();
+            return false;
         }
 
         // PlayerStatus 확인
         if (PlayerStatus.Instance == null)
         {
-            Debug.LogError("PlayerStatus.Instance가 없습니다.");
-            return;
+            Debug.Log("PlayerStatus.Instance가 없습니다.");
+            PlayWrongSound();
+            return false;
         }
 
         // 현재 PlayerStatus 상태를 Snapshot에 복사
@@ -52,6 +102,13 @@ public class SaveManager : MonoBehaviour
         // Snapshot 가져오기
         PlayerStatus.ProgressSnapshot data =
             PlayerStatus.Instance.GetProgressSnapshot();
+
+        if (data == null)
+        {
+            Debug.LogError("저장할 Snapshot 데이터가 없습니다.");
+            PlayWrongSound();
+            return false;
+        }
 
         // JSON으로 변환
         string json = JsonUtility.ToJson(data);
@@ -66,16 +123,24 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.Save();
 
         Debug.Log($"Slot {slot} 저장 완료");
+
+        // 저장 성공 효과음
+        PlaySaveSound();
+
+        return true;
     }
+
 
     // =========================================================
     // Load
     // =========================================================
 
-    public void LoadGameFromButton(int slot)
+    // 혹시 다른 곳에서 직접 사용할 가능성이 있어서 유지
+    public bool LoadGameFromButton(int slot)
     {
-        LoadGame(slot);
+        return LoadGame(slot);
     }
+
 
     public bool LoadGame(int slot)
     {
@@ -83,13 +148,15 @@ public class SaveManager : MonoBehaviour
         if (slot < 1 || slot > SlotCount)
         {
             Debug.LogError($"잘못된 슬롯 번호입니다: {slot}");
+            PlayWrongSound();
             return false;
         }
 
         // PlayerStatus 확인
         if (PlayerStatus.Instance == null)
         {
-            Debug.LogError("PlayerStatus.Instance가 없습니다.");
+            Debug.Log("PlayerStatus.Instance가 없습니다.");
+            PlayWrongSound();
             return false;
         }
 
@@ -98,7 +165,8 @@ public class SaveManager : MonoBehaviour
 
         if (!PlayerPrefs.HasKey(key))
         {
-            Debug.LogWarning($"Slot {slot}에 저장된 데이터가 없습니다.");
+            Debug.Log($"Slot {slot}에 저장된 데이터가 없습니다.");
+            PlayWrongSound();
             return false;
         }
 
@@ -112,6 +180,7 @@ public class SaveManager : MonoBehaviour
         if (data == null)
         {
             Debug.LogError($"Slot {slot} 데이터를 불러오지 못했습니다.");
+            PlayWrongSound();
             return false;
         }
 
@@ -123,8 +192,16 @@ public class SaveManager : MonoBehaviour
 
         Debug.Log($"Slot {slot} 불러오기 완료");
 
+        // 불러오기 성공 효과음
+        PlayLoadSound();
+
         return true;
     }
+
+
+    // =========================================================
+    // Get Save Data
+    // =========================================================
 
     public PlayerStatus.ProgressSnapshot GetSaveData(int slot)
     {
@@ -149,7 +226,12 @@ public class SaveManager : MonoBehaviour
         return data;
     }
 
-    //게임오버 시 자동으로 저장되는 체크포인트 슬롯(6번)용 함수 -------------------------
+
+    // =========================================================
+    // Daily Checkpoint
+    // =========================================================
+
+    // 게임오버 시 자동으로 저장되는 체크포인트 슬롯(6번)
     public void SaveDailyCheckpoint()
     {
         SaveGame(6);
