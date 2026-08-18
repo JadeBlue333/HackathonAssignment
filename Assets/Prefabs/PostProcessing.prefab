@@ -58,7 +58,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6df80a595e81d47c4af014b90bc70c40, type: 3}
   - {fileID: 8300000, guid: a63a0d59ebcda46709d88bd7907d3369, type: 3}
   - {fileID: 8300000, guid: 24e423ff0f18b4b4188846b9406eab81, type: 3}
-  failSoundVolume: 0.644
+  failSoundVolume: 0.5
 --- !u!1 &1103554134294057825
 GameObject:
   m_ObjectHideFlags: 0

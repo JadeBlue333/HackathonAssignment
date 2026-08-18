@@ -4754,7 +4754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1487732020612845019, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2298527417366489099, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4800,6 +4800,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 2577402186237163576, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1351998167}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

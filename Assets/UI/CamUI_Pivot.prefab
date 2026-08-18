@@ -509,8 +509,8 @@ MonoBehaviour:
     \uAC10\uC9C0\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD3D0\uAE30 \uAE30\uC900\uC744
     \uB2E4\uC2DC \uD655\uC778\uD558\uC2ED\uC2DC\uC624."
   audioSource: {fileID: 1994718056113339114}
-  noticeSound: {fileID: 8300000, guid: 8ef3ba820ab8d46c587e881230380418, type: 3}
-  noticeVolume: 0.7
+  noticeSound: {fileID: 8300000, guid: 7c2df0dedd5254755bfee0d230b6e7e4, type: 3}
+  noticeVolume: 1
 --- !u!1 &2008674427948450631
 GameObject:
   m_ObjectHideFlags: 0
