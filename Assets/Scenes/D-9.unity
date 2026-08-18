@@ -912,6 +912,14 @@ PrefabInstance:
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 969460808}
+    - target: {fileID: 7419735950969981314, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
+    - target: {fileID: 7419735950969981314, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5683225789139700101, guid: 0faecffc0b18f0445901be6ade99f108, type: 2}
     - target: {fileID: 7506399501811980051, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2
@@ -4057,7 +4065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5358,6 +5366,10 @@ PrefabInstance:
     - target: {fileID: 4932060771421746194, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: dgsgsdgsdgsdgsdgsdgsdgsdgsdgsdg
       objectReference: {fileID: 0}
     - target: {fileID: 5908613370720704912, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset

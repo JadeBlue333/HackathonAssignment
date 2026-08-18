@@ -18,6 +18,7 @@ public class InspectionGameManager : MonoBehaviour
     public GameObject boxButtons;
     public GameObject motorButtons;
 
+
     // =========================================================
     // Motor Generation Conditions
     // =========================================================
@@ -25,7 +26,7 @@ public class InspectionGameManager : MonoBehaviour
     [Header("Motor Generation Conditions")]
 
 
-    // 1. ¾Õ ÇÁ·ÎÆç·¯
+    // 1. ì• í”„ë¡œí ëŸ¬
     [SerializeField]
     private bool spawnFrontPropeller = true;
 
@@ -34,7 +35,7 @@ public class InspectionGameManager : MonoBehaviour
     private float frontPropellerChance = 80f;
 
 
-    // 2. µÚ ÇÁ·ÎÆç·¯
+    // 2. ë’¤ í”„ë¡œí ëŸ¬
     [SerializeField]
     private bool spawnBackPropeller = true;
 
@@ -43,42 +44,91 @@ public class InspectionGameManager : MonoBehaviour
     private float backPropellerChance = 80f;
 
 
-    // 3. ¸ğÅÍ ÅØ½ºÃ³
+    // 3. ëª¨í„° í…ìŠ¤ì²˜
     [SerializeField]
     private bool useMotorTextureCondition = true;
 
-    [Tooltip("Ã¼Å© È°¼ºÈ­ ½Ã Motor 0ÀÌ »ı¼ºµÉ È®·ü")]
+    [Tooltip("ì²´í¬ í™œì„±í™” ì‹œ Motor 0ì´ ìƒì„±ë  í™•ë¥ ")]
     [Range(0f, 100f)]
     [SerializeField]
     private float motor0Chance = 50f;
 
 
-    // 4. ÇÁ·ÎÆç·¯ Number
+    // 4. í”„ë¡œí ëŸ¬ Number
     [SerializeField]
     private bool useSameNumberCondition = true;
 
-    [Tooltip("Ã¼Å© È°¼ºÈ­ ½Ã ¾ÕµÚ ÇÁ·ÎÆç·¯ Number°¡ °°À» È®·ü")]
+    [Tooltip("ì²´í¬ í™œì„±í™” ì‹œ ì•ë’¤ í”„ë¡œí ëŸ¬ Numberê°€ ê°™ì„ í™•ë¥ ")]
     [Range(0f, 100f)]
     [SerializeField]
     private float sameNumberChance = 50f;
 
 
-    // 5. ÇÁ·ÎÆç·¯ Color
+    // 5. í”„ë¡œí ëŸ¬ Color
     [SerializeField]
     private bool useSameColorCondition = true;
 
-    [Tooltip("Ã¼Å© È°¼ºÈ­ ½Ã ¾ÕµÚ ÇÁ·ÎÆç·¯ Color°¡ °°À» È®·ü")]
+    [Tooltip("ì²´í¬ í™œì„±í™” ì‹œ ì•ë’¤ í”„ë¡œí ëŸ¬ Colorê°€ ê°™ì„ í™•ë¥ ")]
     [Range(0f, 100f)]
     [SerializeField]
     private float sameColorChance = 50f;
 
-    // 6. 3°³ ºÒ·® Á¶°Ç µ¿½Ã ¹ß»ı Çã¿ë
+
+    // 6. 3ì¤‘ ë¶ˆëŸ‰ ëª¨í„° ë™ì‹œ ë°œìƒ í—ˆìš©
     [SerializeField]
     [Tooltip(
-        "ON = ¸ğÅÍ ¾ó·è + ³¯°³ °³¼ö ´Ù¸§ + ÄÃ·¯ ´Ù¸§ÀÌ µ¿½Ã¿¡ ³ª¿Ã ¼ö ÀÖÀ½\n" +
-        "OFF = À§ 3°³ ºÒ·®ÀÌ µ¿½Ã¿¡ ¹ß»ıÇÏ´Â ¸ğÅÍ´Â »ı¼ºÇÏÁö ¾ÊÀ½"
+        "ON = ëª¨í„° ì–¼ë£© + ë²ˆí˜¸ ë‹¤ë¦„ + ìƒ‰ìƒ ë‹¤ë¦„ì´ ë™ì‹œì— ë°œìƒí•  ìˆ˜ ìˆìŒ\n" +
+        "OFF = ìœ„ 3ê°œ ë¶ˆëŸ‰ì´ ë™ì‹œì— ë°œìƒí•˜ëŠ” ëª¨í„°ëŠ” ìƒì„±í•˜ì§€ ì•ŠìŒ"
     )]
     private bool allowTripleDefectMotor = true;
+
+
+    // =========================================================
+    // Motor Grading Conditions
+    // =========================================================
+
+    [Header("Motor Grading Conditions")]
+
+
+    [Tooltip(
+        "ON = ì• í”„ë¡œí ëŸ¬ê°€ ë°˜ë“œì‹œ ìˆì–´ì•¼ í•˜ë©°, ì—†ìœ¼ë©´ íê¸°\n" +
+        "OFF = ì• í”„ë¡œí ëŸ¬ê°€ ì—†ì–´ë„ íê¸° ì‚¬ìœ ê°€ ì•„ë‹˜"
+    )]
+    [SerializeField]
+    private bool requireFrontPropeller = true;
+
+
+    [Tooltip(
+        "ON = ë’¤ í”„ë¡œí ëŸ¬ê°€ ë°˜ë“œì‹œ ìˆì–´ì•¼ í•˜ë©°, ì—†ìœ¼ë©´ íê¸°\n" +
+        "OFF = ë’¤ í”„ë¡œí ëŸ¬ê°€ ì—†ì–´ë„ íê¸° ì‚¬ìœ ê°€ ì•„ë‹˜"
+    )]
+    [SerializeField]
+    private bool requireBackPropeller = true;
+
+
+    [Tooltip(
+        "ON = ëª¨í„° ì–¼ë£©ì„ ë¶ˆëŸ‰ìœ¼ë¡œ íŒì •\n" +
+        "OFF = ì–¼ë£©ì´ ìˆì–´ë„ ë“±ê¸‰ íŒì •ì—ì„œ ì œì™¸"
+    )]
+    [SerializeField]
+    private bool gradeMotorStain = true;
+
+
+    [Tooltip(
+        "ON = ì•ë’¤ í”„ë¡œí ëŸ¬ ë²ˆí˜¸ ì°¨ì´ë¥¼ ë¶ˆëŸ‰ìœ¼ë¡œ íŒì •\n" +
+        "OFF = ë²ˆí˜¸ê°€ ë‹¬ë¼ë„ ë“±ê¸‰ íŒì •ì—ì„œ ì œì™¸"
+    )]
+    [SerializeField]
+    private bool gradePropellerNumber = true;
+
+
+    [Tooltip(
+        "ON = ì•ë’¤ í”„ë¡œí ëŸ¬ ìƒ‰ìƒ ì°¨ì´ë¥¼ ë¶ˆëŸ‰ìœ¼ë¡œ íŒì •\n" +
+        "OFF = ìƒ‰ìƒì´ ë‹¬ë¼ë„ ë“±ê¸‰ íŒì •ì—ì„œ ì œì™¸"
+    )]
+    [SerializeField]
+    private bool gradePropellerColor = true;
+
 
     // =========================================================
     // Wrong Answer UI
@@ -86,19 +136,19 @@ public class InspectionGameManager : MonoBehaviour
 
     [Header("Wrong Answer UI")]
 
-    [Tooltip("¿À´ä »çÀ¯¸¦ Ç¥½ÃÇÒ UI")]
+    [Tooltip("ì˜¤ë‹µ ì‚¬ìœ ë¥¼ í‘œì‹œí•  UI")]
     [SerializeField]
     private GameObject wrongReasonUI;
 
-    [Tooltip("¿À´ä »çÀ¯ ÅØ½ºÆ®")]
+    [Tooltip("ì˜¤ë‹µ ì‚¬ìœ  í…ìŠ¤íŠ¸")]
     [SerializeField]
     private TMP_Text wrongReasonText;
 
-    [Tooltip("¿À´ä »çÀ¯¸¦ Ç¥½ÃÇÒ ½Ã°£")]
+    [Tooltip("ì˜¤ë‹µ ì‚¬ìœ ë¥¼ í‘œì‹œí•  ì‹œê°„")]
     [SerializeField]
     private float wrongReasonDuration = 2f;
 
-    [Tooltip("¿À´ä »çÀ¯°¡ »ç¶óÁú ¶§ ÆäÀÌµå¾Æ¿ôµÇ´Â ½Ã°£")]
+    [Tooltip("ì˜¤ë‹µ ì‚¬ìœ ê°€ ì‚¬ë¼ì§ˆ ë•Œ í˜ì´ë“œì•„ì›ƒë˜ëŠ” ì‹œê°„")]
     [SerializeField]
     private float wrongReasonFadeOutDuration = 0.5f;
 
@@ -134,10 +184,10 @@ public class InspectionGameManager : MonoBehaviour
 
     [Header("Combo")]
 
-    [Tooltip("ÀÌ ÄŞº¸ ÀÌ»óºÎÅÍ Á¤´ä ½Ã ½Å·Úµµ º¸³Ê½º")]
+    [Tooltip("ì´ ì½¤ë³´ ì´ìƒë¶€í„° ì •ë‹µ ì‹œ ì‹ ë¢°ë„ ë³´ë„ˆìŠ¤")]
     [SerializeField] private int trustComboThreshold = 3;
 
-    [Tooltip("ÄŞº¸ º¸³Ê½º·Î ¾ò´Â ½Å·Úµµ")]
+    [Tooltip("ì½¤ë³´ ë³´ë„ˆìŠ¤ë¡œ ì–»ëŠ” ì‹ ë¢°ë„")]
     [SerializeField] private int comboTrustReward = 2;
 
 
@@ -164,55 +214,63 @@ public class InspectionGameManager : MonoBehaviour
     // =========================================================
 
     [Header("Sound")]
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField]
+    private AudioSource audioSource;
 
 
     [Header("Spawn Box SFX")]
-    [SerializeField] private AudioClip spawnBoxSfx;
+    [SerializeField]
+    private AudioClip spawnBoxSfx;
 
     [Range(0f, 1f)]
-    [SerializeField] private float spawnBoxVolume = 1f;
+    [SerializeField]
+    private float spawnBoxVolume = 1f;
 
 
     [Header("Open Box SFX")]
-    [SerializeField] private AudioClip openBoxSfx;
+    [SerializeField]
+    private AudioClip openBoxSfx;
 
     [Range(0f, 1f)]
-    [SerializeField] private float openBoxVolume = 1f;
+    [SerializeField]
+    private float openBoxVolume = 1f;
 
 
     [Header("Correct SFX")]
-    [SerializeField] private AudioClip correctSfx;
+    [SerializeField]
+    private AudioClip correctSfx;
 
     [Range(0f, 1f)]
-    [SerializeField] private float correctVolume = 1f;
+    [SerializeField]
+    private float correctVolume = 1f;
 
 
     [Header("Wrong SFX")]
-    [SerializeField] private AudioClip wrongSfx;
+    [SerializeField]
+    private AudioClip wrongSfx;
 
     [Range(0f, 1f)]
-    [SerializeField] private float wrongVolume = 1f;
+    [SerializeField]
+    private float wrongVolume = 1f;
 
 
     // =========================================================
     // Runtime
     // =========================================================
 
-    // ¹Ì°³ºÀ ¹Ú½º¸¦ Àß¸ø ¿­¾ú´ÂÁö
+    // ë¯¸ê°œë´‰ ë°•ìŠ¤ë¥¼ ì˜ëª» ì—´ì—ˆëŠ”ì§€
     private bool openedWrongBox = false;
 
+
     // =========================================================
-    // Ãß°¡
-    //
-    // ÇöÀç »ı¼ºµÈ ¹Ú½º°¡ Á¤»óÀÎÁö ÀúÀå
+    // í˜„ì¬ ìƒì„±ëœ ë°•ìŠ¤ê°€ ì •ìƒì¸ì§€ ì €ì¥
     //
     // true:
-    // ¹Ú½º ¼Õ»ó X
-    // Å×ÀÌÇÁ °³ºÀ ÈçÀû X
+    // ë°•ìŠ¤ ì†ìƒ X
+    // í…Œì´í”„ ê°œë´‰ í”ì  X
     //
     // false:
-    // µÑ Áß ÇÏ³ª ÀÌ»ó ¹®Á¦ ÀÖÀ½
+    // ë‘˜ ì¤‘ í•˜ë‚˜ ì´ìƒ ë¬¸ì œ ìˆìŒ
     // =========================================================
 
     private bool currentBoxIsNormal = false;
@@ -241,9 +299,9 @@ public class InspectionGameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // =========================================================
-        // Wrong Reason UI ÃÊ±âÈ­
-        // =========================================================
+        // =====================================================
+        // Wrong Reason UI ì´ˆê¸°í™”
+        // =====================================================
 
         if (wrongReasonUI != null)
         {
@@ -256,24 +314,27 @@ public class InspectionGameManager : MonoBehaviour
                     wrongReasonUI.AddComponent<CanvasGroup>();
             }
 
-            wrongReasonCanvasGroup.alpha = 1f;
+            wrongReasonCanvasGroup.alpha =
+                1f;
 
-            wrongReasonUI.SetActive(false);
+            wrongReasonUI.SetActive(
+                false
+            );
         }
 
 
-        // =========================================================
-        // ¾À ÀüÈ¯ Á÷ÈÄ ÇÑ ÇÁ·¹ÀÓ ´ë±â
-        // =========================================================
+        // =====================================================
+        // ì”¬ ì „í™˜ ì§í›„ í•œ í”„ë ˆì„ ëŒ€ê¸°
+        // =====================================================
 
         yield return null;
 
 
-        // =========================================================
-        // ¹Ú½º ¸Å´ÏÀú¸¸ ÁØºñµÇ¸é ¹Ú½º »ı¼º
+        // =====================================================
+        // ë°•ìŠ¤ ë§¤ë‹ˆì €ê°€ ì¤€ë¹„ë˜ë©´ ë°•ìŠ¤ ìƒì„±
         //
-        // MotorMatchManager´Â ¹Ú½º¸¦ ¿­±â Àü±îÁö ÇÊ¿ä ¾øÀ½
-        // =========================================================
+        // MotorMatchManagerëŠ” ë°•ìŠ¤ë¥¼ ì—´ê¸° ì „ì—ëŠ” í•„ìš” ì—†ìŒ
+        // =====================================================
 
         yield return new WaitUntil(
             () =>
@@ -282,9 +343,9 @@ public class InspectionGameManager : MonoBehaviour
         );
 
 
-        // =========================================================
+        // =====================================================
         // PlayerStatus
-        // =========================================================
+        // =====================================================
 
         if (PlayerStatus.Instance != null)
         {
@@ -293,20 +354,21 @@ public class InspectionGameManager : MonoBehaviour
         }
         else
         {
-            comboCount = 0;
+            comboCount =
+                0;
 
             Debug.LogWarning(
-                "PlayerStatus.Instance°¡ ¾ÆÁ÷ ¾ø½À´Ï´Ù."
+                "PlayerStatus.Instanceê°€ ì•„ì§ ì—†ìŠµë‹ˆë‹¤."
             );
         }
 
 
-        // =========================================================
-        // Ã¹ ¹Ú½º »ı¼º
-        // =========================================================
+        // =====================================================
+        // ì²« ë°•ìŠ¤ ìƒì„±
+        // =====================================================
 
         Debug.Log(
-            "[InspectionGameManager] Ã¹ ¹Ú½º »ı¼º"
+            "[InspectionGameManager] ì²« ë°•ìŠ¤ ìƒì„±"
         );
 
         GenerateQuestion();
@@ -324,7 +386,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ÆË¾÷ÀÌ ¶° ÀÖ´Â µ¿¾È °Ë¼ö ´ÜÃàÅ° ÀÔ·Â Â÷´Ü
+        // íŒì—…ì´ ë–  ìˆëŠ” ë™ì•ˆ ê²€ìˆ˜ ë‹¨ì¶•í‚¤ ì…ë ¥ ì°¨ë‹¨
         // =====================================================
 
         if (
@@ -337,9 +399,9 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // Box ¼±ÅÃ ´Ü°è
-        // 1 = ¹Ì°³ºÀ
-        // 2 = °³ºÀ
+        // Box ì„ íƒ ë‹¨ê³„
+        // 1 = ë¯¸ê°œë´‰
+        // 2 = ê°œë´‰
         // =====================================================
 
         if (
@@ -371,11 +433,11 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // Motor ¼±ÅÃ ´Ü°è
+        // Motor ì„ íƒ ë‹¨ê³„
         // 1 = A
         // 2 = B
         // 3 = C
-        // 4 = Æó±â
+        // 4 = íê¸°
         // =====================================================
 
         if (
@@ -498,78 +560,127 @@ public class InspectionGameManager : MonoBehaviour
         ClearCurrentWrongReason();
 
 
-        // ¹Ú½º ¼Õ»ó
+        // ë°•ìŠ¤ ì†ìƒ
         if (boxMatchManager.CurrentBoxDamaged)
         {
             AddCurrentWrongReason(
-                "¹Ú½º°¡ ¼Õ»óµÇ¾î ÀÖ½À´Ï´Ù."
+                "ë°•ìŠ¤ê°€ ì†ìƒë˜ì–´ ìˆìŠµë‹ˆë‹¤."
             );
         }
 
 
-        // Å×ÀÌÇÁ °³ºÀ ÈçÀû
+        // í…Œì´í”„ ê°œë´‰ í”ì 
         if (boxMatchManager.CurrentTapeOpened)
         {
             AddCurrentWrongReason(
-                "Å×ÀÌÇÁ¿¡ °³ºÀ ÈçÀûÀÌ ÀÖ½À´Ï´Ù."
+                "í…Œì´í”„ì— ê°œë´‰ í”ì ì´ ìˆìŠµë‹ˆë‹¤."
             );
         }
 
 
-        // Á¤»ó ¹Ú½º + Á¤»ó Å×ÀÌÇÁ
+        // ì •ìƒ ë°•ìŠ¤ + ì •ìƒ í…Œì´í”„
         if (
             !boxMatchManager.CurrentBoxDamaged &&
             !boxMatchManager.CurrentTapeOpened
         )
         {
             AddCurrentWrongReason(
-                "¹Ú½º¿Í Å×ÀÌÇÁ¿¡ °³ºÀ ÈçÀûÀÌ ¾ø½À´Ï´Ù."
+                "ë°•ìŠ¤ì™€ í…Œì´í”„ì— ê°œë´‰ í”ì ì´ ì—†ìŠµë‹ˆë‹¤."
             );
         }
     }
 
+
+    // =========================================================
+    // Motor Wrong Reason
+    // =========================================================
 
     private void SetMotorWrongReasons()
     {
         ClearCurrentWrongReason();
 
 
+        bool hasFront =
+            motorMatchManager.CurrentHasFront;
+
+        bool hasBack =
+            motorMatchManager.CurrentHasBack;
+
+
         // =====================================================
-        // Æó±â
+        // í”„ë¡œí ëŸ¬ íê¸° íŒì •
         //
-        // ÇÁ·ÎÆç·¯°¡ ÇÏ³ª¶óµµ ¾øÀ¸¸é
-        // ¹«Á¶°Ç Æó±â.
-        // ´Ù¸¥ ºÒ·® »çÀ¯´Â Ãâ·ÂÇÏÁö ¾ÊÀ½.
+        // ì• í”„ë¡œí ëŸ¬ê°€ í•„ìˆ˜ì¸ë° ì—†ìœ¼ë©´ íê¸°
+        // ë’¤ í”„ë¡œí ëŸ¬ê°€ í•„ìˆ˜ì¸ë° ì—†ìœ¼ë©´ íê¸°
         // =====================================================
 
+        bool missingRequiredFront =
+            requireFrontPropeller &&
+            !hasFront;
+
+        bool missingRequiredBack =
+            requireBackPropeller &&
+            !hasBack;
+
+
         if (
-            !motorMatchManager.CurrentHasFront ||
-            !motorMatchManager.CurrentHasBack
+            missingRequiredFront ||
+            missingRequiredBack
         )
         {
-            SetCurrentWrongReason(
-                "ÇÁ·ÎÆç·¯ ´©¶ôÀ¸·Î Æó±â ´ë»óÀÔ´Ï´Ù."
-            );
+            // ì•ë’¤ ëª¨ë‘ í•„ìˆ˜ì¸ë° ë‘˜ ë‹¤ ì—†ìŒ
+            if (
+                missingRequiredFront &&
+                missingRequiredBack
+            )
+            {
+                SetCurrentWrongReason(
+                    "[íê¸° í•„ìš”] ì•ë’¤ í”„ë¡œí ëŸ¬ê°€ ëˆ„ë½ë˜ì–´ ìˆìŠµë‹ˆë‹¤."
+                );
+            }
+
+            // ì• í”„ë¡œí ëŸ¬ë§Œ í•„ìˆ˜ ì¡°ê±´ì— ê±¸ë¦¼
+            else if (missingRequiredFront)
+            {
+                SetCurrentWrongReason(
+                    "[íê¸° í•„ìš”] ì• í”„ë¡œí ëŸ¬ê°€ ëˆ„ë½ë˜ì–´ ìˆìŠµë‹ˆë‹¤."
+                );
+            }
+
+            // ë’¤ í”„ë¡œí ëŸ¬ë§Œ í•„ìˆ˜ ì¡°ê±´ì— ê±¸ë¦¼
+            else
+            {
+                SetCurrentWrongReason(
+                    "[íê¸° í•„ìš”] ë’¤ í”„ë¡œí ëŸ¬ê°€ ëˆ„ë½ë˜ì–´ ìˆìŠµë‹ˆë‹¤."
+                );
+            }
+
 
             return;
         }
 
 
         // =====================================================
-        // ÀÏ¹İ °Ë¼ö ±âÁØ °³¼ö
+        // ì¼ë°˜ ê²€ìˆ˜ ë¶ˆëŸ‰ ê°œìˆ˜
         // =====================================================
 
-        int issueCount = 0;
+        int issueCount =
+            0;
 
 
         // =====================================================
-        // ¸ğÅÍ ¾ó·è
+        // ëª¨í„° ì–¼ë£©
+        //
+        // gradeMotorStain ONì¼ ë•Œë§Œ íŒì •
         // =====================================================
 
-        if (motorMatchManager.CurrentMotorHasStain)
+        if (
+            gradeMotorStain &&
+            motorMatchManager.CurrentMotorHasStain
+        )
         {
             AddCurrentWrongReason(
-                "¸ğÅÍ¿¡ ¾ó·èÀÌ ÀÖ½À´Ï´Ù."
+                "ëª¨í„°ì— ì–¼ë£©ì´ ìˆìŠµë‹ˆë‹¤."
             );
 
             issueCount++;
@@ -577,13 +688,29 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ÇÁ·ÎÆç·¯ ³¯°³ °³¼ö
+        // í”„ë¡œí ëŸ¬ ë¹„êµ ê°€ëŠ¥ ì—¬ë¶€
+        //
+        // ì•ë’¤ í”„ë¡œí ëŸ¬ê°€ ëª¨ë‘ ìˆì„ ë•Œë§Œ
+        // ë²ˆí˜¸ / ìƒ‰ìƒ ë¹„êµ ê°€ëŠ¥
         // =====================================================
 
-        if (!motorMatchManager.CurrentPropellerNumberSame)
+        bool canComparePropellers =
+            hasFront &&
+            hasBack;
+
+
+        // =====================================================
+        // í”„ë¡œí ëŸ¬ ë²ˆí˜¸ ë¶ˆì¼ì¹˜
+        // =====================================================
+
+        if (
+            canComparePropellers &&
+            gradePropellerNumber &&
+            !motorMatchManager.CurrentPropellerNumberSame
+        )
         {
             AddCurrentWrongReason(
-                "ÇÁ·ÎÆç·¯ ³¯°³ °³¼ö°¡ ´Ù¸¨´Ï´Ù."
+                "í”„ë¡œí ëŸ¬ ì•ë’¤ ë²ˆí˜¸ê°€ ë‹¤ë¦…ë‹ˆë‹¤."
             );
 
             issueCount++;
@@ -591,13 +718,17 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ÇÁ·ÎÆç·¯ »ö»ó
+        // í”„ë¡œí ëŸ¬ ìƒ‰ìƒ ë¶ˆì¼ì¹˜
         // =====================================================
 
-        if (!motorMatchManager.CurrentPropellerColorSame)
+        if (
+            canComparePropellers &&
+            gradePropellerColor &&
+            !motorMatchManager.CurrentPropellerColorSame
+        )
         {
             AddCurrentWrongReason(
-                "ÇÁ·ÎÆç·¯ »ö»óÀÌ ´Ù¸¨´Ï´Ù."
+                "í”„ë¡œí ëŸ¬ ìƒ‰ìƒì´ ë‹¤ë¦…ë‹ˆë‹¤."
             );
 
             issueCount++;
@@ -605,7 +736,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // µî±Ş °áÁ¤
+        // ë“±ê¸‰ ê³„ì‚°
         // =====================================================
 
         string gradeText;
@@ -613,24 +744,27 @@ public class InspectionGameManager : MonoBehaviour
 
         if (issueCount == 0)
         {
-            gradeText = "A";
+            gradeText =
+                "A";
         }
         else if (issueCount == 1)
         {
-            gradeText = "B";
+            gradeText =
+                "B";
         }
         else
         {
-            gradeText = "C";
+            gradeText =
+                "C";
         }
 
 
         // =====================================================
-        // ÃÖÁ¾ ¾È³»
+        // ë“±ê¸‰ ì•ˆë‚´
         // =====================================================
 
         AddCurrentWrongReason(
-            $"°Ë¼ö±âÁØ ¹ÌÃæÁ· {issueCount}°³·Î {gradeText}µî±ŞÀÔ´Ï´Ù."
+            $"ê²€ìˆ˜ì‚¬í•­ ë¶ˆëŸ‰ì´ {issueCount}ê°œë¡œ {gradeText}ë“±ê¸‰ì…ë‹ˆë‹¤."
         );
     }
 
@@ -684,7 +818,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ÀÏ¹İ Ç¥½Ã ½Ã°£
+        // ì¼ë°˜ í‘œì‹œ ì‹œê°„
         // =====================================================
 
         yield return new WaitForSecondsRealtime(
@@ -769,7 +903,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ¹Ú½º »ı¼º
+        // ë°•ìŠ¤ ìƒì„±
         // =====================================================
 
         currentAnswer =
@@ -777,12 +911,10 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // Ãß°¡
+        // í˜„ì¬ ìƒì„±ëœ ë°•ìŠ¤ ì •ìƒ ì—¬ë¶€ ì €ì¥
         //
-        // ÇöÀç »ı¼ºµÈ ¹Ú½º Á¤»ó ¿©ºÎ ÀúÀå
-        //
-        // ¹Ú½º ¼Õ»ó ¾øÀ½ + Å×ÀÌÇÁ °³ºÀ ÈçÀû ¾øÀ½
-        // ¡æ true
+        // ë°•ìŠ¤ ì†ìƒ ì—†ìŒ + í…Œì´í”„ ê°œë´‰ í”ì  ì—†ìŒ
+        // â†’ true
         // =====================================================
 
         currentBoxIsNormal =
@@ -790,7 +922,7 @@ public class InspectionGameManager : MonoBehaviour
             !boxMatchManager.CurrentTapeOpened;
 
 
-        // ÇöÀç ¹Ú½º »óÅÂ ÀúÀå
+        // í˜„ì¬ ë°•ìŠ¤ ì˜¤ë‹µ ì‚¬ìœ  ì €ì¥
         SetBoxWrongReasons();
 
 
@@ -811,17 +943,17 @@ public class InspectionGameManager : MonoBehaviour
 
 
         Debug.Log(
-            "»õ ¹®Á¦ »ı¼º"
+            "ìƒˆ ë¬¸ì œ ìƒì„±"
         );
 
 
         Debug.Log(
-            $"Á¤´ä : {currentAnswer}"
+            $"ì •ë‹µ : {currentAnswer}"
         );
 
 
         Debug.Log(
-            $"¹Ú½º Á¤»ó ¿©ºÎ : {currentBoxIsNormal}"
+            $"ë°•ìŠ¤ ì •ìƒ ì—¬ë¶€ : {currentBoxIsNormal}"
         );
     }
 
@@ -831,6 +963,7 @@ public class InspectionGameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(
             0.5f
         );
+
 
         if (boxButtons != null)
         {
@@ -878,7 +1011,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ¹Ì°³ºÀ ¹Ú½º¸¦ Àß¸ø ¿­¾ú´ÂÁö ±â·Ï
+        // ë¯¸ê°œë´‰ ë°•ìŠ¤ë¥¼ ì˜ëª» ì—´ì—ˆëŠ”ì§€ ê¸°ë¡
         // =====================================================
 
         openedWrongBox =
@@ -889,13 +1022,13 @@ public class InspectionGameManager : MonoBehaviour
         if (openedWrongBox)
         {
             SetCurrentWrongReason(
-                "¹Ì°³ºÀ Á¦Ç°À» °³ºÀÇß½À´Ï´Ù."
+                "ë¯¸ê°œë´‰ ì œí’ˆì„ ê°œë´‰í–ˆìŠµë‹ˆë‹¤."
             );
         }
 
 
         // =====================================================
-        // ¹Ú½º Á¦°Å
+        // ë°•ìŠ¤ ì œê±°
         // =====================================================
 
         boxMatchManager
@@ -903,44 +1036,47 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ¸ğÅÍ »ı¼º
+        // ëª¨í„° ìƒì„±
         //
-        // ¼öÁ¤:
-        // ¹Ú½º Á¤»ó ¿©ºÎ¸¦ MotorMatchManager9·Î Àü´Ş
-        //
-        // true
-        // ¡æ Á¤»ó ¸ğÅÍ¸¸ »ı¼º
-        //
-        // false
-        // ¡æ ¸ğµç ·£´ı ¸ğÅÍ »ı¼º °¡´É
+        // ìƒì„± ì¡°ê±´
+        // +
+        // ì˜¤ëŠ˜ì˜ íŒì • ì¡°ê±´
+        // ëª¨ë‘ MotorMatchManagerë¡œ ì „ë‹¬
         // =====================================================
 
         currentAnswer =
-    motorMatchManager
-        .CreateNextMatchByCondition(
-            spawnFrontPropeller,
-            frontPropellerChance,
+            motorMatchManager
+                .CreateNextMatchByCondition(
+                    spawnFrontPropeller,
+                    frontPropellerChance,
 
-            spawnBackPropeller,
-            backPropellerChance,
+                    spawnBackPropeller,
+                    backPropellerChance,
 
-            useMotorTextureCondition,
-            motor0Chance,
+                    useMotorTextureCondition,
+                    motor0Chance,
 
-            useSameNumberCondition,
-            sameNumberChance,
+                    useSameNumberCondition,
+                    sameNumberChance,
 
-            useSameColorCondition,
-            sameColorChance,
+                    useSameColorCondition,
+                    sameColorChance,
 
-            allowTripleDefectMotor
-        );
+                    allowTripleDefectMotor,
+
+                    requireFrontPropeller,
+                    requireBackPropeller,
+                    gradeMotorStain,
+                    gradePropellerNumber,
+                    gradePropellerColor
+                );
+
 
         // =====================================================
-        // ¸ğÅÍ ¿À´ä »çÀ¯ ÁØºñ
+        // ëª¨í„° ì˜¤ë‹µ ì‚¬ìœ  ì¤€ë¹„
         //
-        // ¹Ì°³ºÀ Á¦Ç°À» Àß¸ø °³ºÀÇÑ °æ¿ì¿¡´Â
-        // "¹Ì°³ºÀ Á¦Ç°À» °³ºÀÇß½À´Ï´Ù." À¯Áö
+        // ë¯¸ê°œë´‰ ì œí’ˆì„ ì˜ëª» ê°œë´‰í•œ ê²½ìš°ì—ëŠ”
+        // "ë¯¸ê°œë´‰ ì œí’ˆì„ ê°œë´‰í–ˆìŠµë‹ˆë‹¤." ìœ ì§€
         // =====================================================
 
         if (!openedWrongBox)
@@ -950,27 +1086,27 @@ public class InspectionGameManager : MonoBehaviour
 
 
         Debug.Log(
-            $"¹Ú½º °³ºÀ ¿Ï·á / Àß¸ø ¿¬ ¹Ú½º: {openedWrongBox}"
+            $"ë°•ìŠ¤ ê°œë´‰ ì™„ë£Œ / ì˜ëª» ì—° ë°•ìŠ¤: {openedWrongBox}"
         );
 
 
         Debug.Log(
-            $"¹Ú½º Á¤»ó ¿©ºÎ: {currentBoxIsNormal}"
+            $"ë°•ìŠ¤ ì •ìƒ ì—¬ë¶€: {currentBoxIsNormal}"
         );
 
 
         Debug.Log(
-            $"¸ğÅÍ Á¤»ó ¿©ºÎ: {motorMatchManager.CurrentMotorValid}"
+            $"ëª¨í„° ì •ìƒ ì—¬ë¶€: {motorMatchManager.CurrentMotorValid}"
         );
 
 
         Debug.Log(
-            $"³»ºÎ Á¤´ä: {currentAnswer}"
+            $"ëª¨í„° ì •ë‹µ: {currentAnswer}"
         );
 
 
         // =====================================================
-        // ¸ğÅÍ ¼±ÅÃ °¡´É
+        // ëª¨í„° ì„ íƒ ê°€ëŠ¥
         // =====================================================
 
         if (motorButtons != null)
@@ -1077,7 +1213,7 @@ public class InspectionGameManager : MonoBehaviour
         if (PlayerStatus.Instance == null)
         {
             Debug.LogError(
-                "PlayerStatus.Instance°¡ ¾ø½À´Ï´Ù."
+                "PlayerStatus.Instanceê°€ ì—†ìŠµë‹ˆë‹¤."
             );
 
 
@@ -1089,7 +1225,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // Á¤´ä ÆÇÁ¤
+        // ì •ë‹µ íŒì •
         // =====================================================
 
         if (openedWrongBox)
@@ -1099,8 +1235,8 @@ public class InspectionGameManager : MonoBehaviour
 
 
             Debug.Log(
-                "¹Ì°³ºÀ ¹Ú½º¸¦ °³ºÀÇÔ ¡æ " +
-                "¸ğÅÍ ¼±ÅÃ°ú °ü°è¾øÀÌ ¿À´ä"
+                "ë¯¸ê°œë´‰ ë°•ìŠ¤ë¥¼ ê°œë´‰í•¨ â†’ " +
+                "ëª¨í„° ì„ íƒê³¼ ê´€ê³„ì—†ì´ ì˜¤ë‹µ"
             );
         }
         else
@@ -1112,17 +1248,17 @@ public class InspectionGameManager : MonoBehaviour
 
 
         Debug.Log(
-            $"¼±ÅÃ : {playerAnswer}"
+            $"ì„ íƒ : {playerAnswer}"
         );
 
 
         Debug.Log(
-            $"Á¤´ä : {currentAnswer}"
+            $"ì •ë‹µ : {currentAnswer}"
         );
 
 
         // =====================================================
-        // Á¤´ä
+        // ì •ë‹µ
         // =====================================================
 
         if (correct)
@@ -1134,7 +1270,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
             // =================================================
-            // Á¤´ä Åë°è
+            // ì •ë‹µ í†µê³„
             // =================================================
 
             correctCount++;
@@ -1143,7 +1279,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
             // =================================================
-            // ÄŞº¸ Áõ°¡
+            // ì½¤ë³´ ì¦ê°€
             // =================================================
 
             comboCount++;
@@ -1154,7 +1290,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
             // =================================================
-            // ¼öÀÍ
+            // ìˆ˜ìµ
             // =================================================
 
             int reward =
@@ -1170,17 +1306,17 @@ public class InspectionGameManager : MonoBehaviour
 
 
             Debug.Log(
-                $"Á¤´ä! +{reward}"
+                $"ì •ë‹µ! +{reward}"
             );
 
 
             Debug.Log(
-                $"ÇöÀç ÄŞº¸ : {comboCount}"
+                $"í˜„ì¬ ì½¤ë³´ : {comboCount}"
             );
 
 
             // =================================================
-            // ÄŞº¸ ½Å·Úµµ º¸³Ê½º
+            // ì½¤ë³´ ì‹ ë¢°ë„ ë³´ë„ˆìŠ¤
             // =================================================
 
             if (
@@ -1195,15 +1331,15 @@ public class InspectionGameManager : MonoBehaviour
 
 
                 Debug.Log(
-                    $"¡Ú¡Ú¡Ú {comboCount} COMBO! " +
-                    $"½Å·Úµµ +{comboTrustReward} ¡Ú¡Ú¡Ú"
+                    $"â˜…â˜…â˜… {comboCount} COMBO! " +
+                    $"ì‹ ë¢°ë„ +{comboTrustReward} â˜…â˜…â˜…"
                 );
             }
         }
 
 
         // =====================================================
-        // ¿À´ä
+        // ì˜¤ë‹µ
         // =====================================================
 
         else
@@ -1215,15 +1351,17 @@ public class InspectionGameManager : MonoBehaviour
 
 
             // =================================================
-            // ¿À´ä Åë°è
+            // ì˜¤ë‹µ í†µê³„
             // =================================================
 
             wrongCount++;
-            PlayerStatus.Instance.mistakeNumber++;
+
+            PlayerStatus.Instance
+                .mistakeNumber++;
 
 
             // =================================================
-            // ÄŞº¸ ÃÊ±âÈ­
+            // ì½¤ë³´ ì´ˆê¸°í™”
             // =================================================
 
             comboCount =
@@ -1235,7 +1373,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
             // =================================================
-            // ½Å·Úµµ ÆĞ³ÎÆ¼
+            // ì‹ ë¢°ë„ íŒ¨ë„í‹°
             // =================================================
 
             if (PlayerStatus.Instance.humanHead)
@@ -1257,17 +1395,17 @@ public class InspectionGameManager : MonoBehaviour
 
 
             Debug.Log(
-                $"¿À´ä! ½Å·Úµµ {trustPenalty}"
+                $"ì˜¤ë‹µ! ì‹ ë¢°ë„ {trustPenalty}"
             );
 
 
             Debug.Log(
-                "ÄŞº¸°¡ 0À¸·Î ÃÊ±âÈ­µÇ¾ú½À´Ï´Ù."
+                "ì½¤ë³´ê°€ 0ìœ¼ë¡œ ì´ˆê¸°í™”ë˜ì—ˆìŠµë‹ˆë‹¤."
             );
 
 
             // =================================================
-            // ¿À´ä »çÀ¯ Ç¥½Ã
+            // ì˜¤ë‹µ ì‚¬ìœ  í‘œì‹œ
             // =================================================
 
             string reason =
@@ -1277,7 +1415,7 @@ public class InspectionGameManager : MonoBehaviour
             if (string.IsNullOrEmpty(reason))
             {
                 reason =
-                    "°Ë¼ö ±âÁØ°ú ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
+                    "ê²€ìˆ˜ ê¸°ì¤€ê³¼ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
             }
 
 
@@ -1287,7 +1425,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
             // =================================================
-            // Æó±â¸¦ ¹ÌÆó±â Ã³¸®ÇßÀ»½Ã Æø¹ß Æ®¸®°Å
+            // íê¸°í•´ì•¼ í•˜ëŠ” ì œí’ˆì„ íê¸°í•˜ì§€ ì•Šì€ ê²½ìš° íŠ¸ë¦¬ê±°
             // =================================================
 
             if (
@@ -1312,7 +1450,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ¿¬·á ¼Òºñ
+        // ì—°ë£Œ ì†Œë¹„
         // =====================================================
 
         if (PlayerStatus.Instance.humanBody)
@@ -1334,19 +1472,19 @@ public class InspectionGameManager : MonoBehaviour
 
 
         Debug.Log(
-            $"¿¬·á -{fuelCost}"
+            $"ì—°ë£Œ -{fuelCost}"
         );
 
 
         // =====================================================
-        // Åë°è
+        // í†µê³„
         // =====================================================
 
         Debug.Log(
-            $"[°Ë»ç Åë°è] " +
-            $"Á¤´ä: {correctCount} / " +
-            $"¿À´ä: {wrongCount} / " +
-            $"ÇöÀç ÄŞº¸: {comboCount}"
+            $"[ê²€ì‚¬ í†µê³„] " +
+            $"ì •ë‹µ: {correctCount} / " +
+            $"ì˜¤ë‹µ: {wrongCount} / " +
+            $"í˜„ì¬ ì½¤ë³´: {comboCount}"
         );
 
 
@@ -1360,7 +1498,7 @@ public class InspectionGameManager : MonoBehaviour
         )
         {
             Debug.Log(
-                "GAME OVER - ½Å·Úµµ ºÎÁ·"
+                "GAME OVER - ì‹ ë¢°ë„ ë¶€ì¡±"
             );
 
 
@@ -1374,7 +1512,7 @@ public class InspectionGameManager : MonoBehaviour
         )
         {
             Debug.Log(
-                "GAME OVER - ¿¬·á ºÎÁ·"
+                "GAME OVER - ì—°ë£Œ ë¶€ì¡±"
             );
 
 
@@ -1383,7 +1521,7 @@ public class InspectionGameManager : MonoBehaviour
 
 
         // =====================================================
-        // ´ÙÀ½ ¹®Á¦
+        // ë‹¤ìŒ ë¬¸ì œ
         // =====================================================
 
         GenerateQuestion();

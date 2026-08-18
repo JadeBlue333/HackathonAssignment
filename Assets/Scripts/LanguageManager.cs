@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class LanguageManager : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class LanguageManager : MonoBehaviour
     // =========================================================
 
     [Header("Language")]
+
     public bool isEnglish = false;
 
 
@@ -24,52 +25,14 @@ public class LanguageManager : MonoBehaviour
 
 
     // =========================================================
-    // Language Button Texts
+    // Tagged Objects
     // =========================================================
 
-    [Header("Korean Canvas Button Texts")]
+    private readonly List<GameObject> koreanObjects =
+        new List<GameObject>();
 
-    [SerializeField]
-    private TMP_Text koreanTextKR;
-
-    [SerializeField]
-    private TMP_Text englishTextKR;
-
-
-    [Header("English Canvas Button Texts")]
-
-    [SerializeField]
-    private TMP_Text koreanTextEN;
-
-    [SerializeField]
-    private TMP_Text englishTextEN;
-
-
-    // =========================================================
-    // Text Colors
-    // =========================================================
-
-    [Header("Text Colors")]
-
-    [Tooltip("현재 선택된 언어 텍스트 색상")]
-    [SerializeField]
-    private Color selectedColor =
-        new Color(
-            1f,
-            1f,
-            1f,
-            1f
-        );
-
-    [Tooltip("선택되지 않은 언어 텍스트 색상")]
-    [SerializeField]
-    private Color unselectedColor =
-        new Color(
-            1f,
-            1f,
-            1f,
-            0.35f
-        );
+    private readonly List<GameObject> englishObjects =
+        new List<GameObject>();
 
 
     // =========================================================
@@ -106,7 +69,7 @@ public class LanguageManager : MonoBehaviour
 
     private void Start()
     {
-        SetupLanguageCanvases();
+        SetupLanguageObjects();
     }
 
 
@@ -116,8 +79,11 @@ public class LanguageManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -=
-            OnSceneLoaded;
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -=
+                OnSceneLoaded;
+        }
     }
 
 
@@ -130,18 +96,22 @@ public class LanguageManager : MonoBehaviour
         LoadSceneMode mode
     )
     {
-        SetupLanguageCanvases();
+        SetupLanguageObjects();
     }
 
 
     // =========================================================
-    // Setup Language Canvas
+    // Setup Language Objects
     // =========================================================
 
-    private void SetupLanguageCanvases()
+    private void SetupLanguageObjects()
     {
         canvasKR = null;
         canvasEN = null;
+
+
+        koreanObjects.Clear();
+        englishObjects.Clear();
 
 
         GameObject[] roots =
@@ -152,24 +122,32 @@ public class LanguageManager : MonoBehaviour
 
         foreach (GameObject root in roots)
         {
-            FindLanguageCanvas(
+            FindLanguageObjects(
                 root.transform
             );
         }
 
 
-        UpdateCanvas();
+        UpdateLanguage();
     }
 
 
     // =========================================================
-    // Find Language Canvas
+    // Find Language Objects
     // =========================================================
 
-    private void FindLanguageCanvas(
+    private void FindLanguageObjects(
         Transform parent
     )
     {
+        GameObject obj =
+            parent.gameObject;
+
+
+        // -----------------------------------------------------
+        // Korean Canvas
+        // -----------------------------------------------------
+
         if (parent.name == "Canvas_KR")
         {
             canvasKR =
@@ -183,6 +161,11 @@ public class LanguageManager : MonoBehaviour
                         .AddComponent<CanvasGroup>();
             }
         }
+
+
+        // -----------------------------------------------------
+        // English Canvas
+        // -----------------------------------------------------
 
         else if (parent.name == "Canvas_EN")
         {
@@ -199,16 +182,55 @@ public class LanguageManager : MonoBehaviour
         }
 
 
+        // -----------------------------------------------------
+        // Korean Tag
+        // -----------------------------------------------------
+
+        if (obj.CompareTag("kor"))
+        {
+            koreanObjects.Add(
+                obj
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // English Tag
+        // -----------------------------------------------------
+
+        else if (obj.CompareTag("eng"))
+        {
+            englishObjects.Add(
+                obj
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // Children
+        // -----------------------------------------------------
+
         for (
             int i = 0;
             i < parent.childCount;
             i++
         )
         {
-            FindLanguageCanvas(
+            FindLanguageObjects(
                 parent.GetChild(i)
             );
         }
+    }
+
+
+    // =========================================================
+    // Update Language
+    // =========================================================
+
+    private void UpdateLanguage()
+    {
+        UpdateCanvas();
+        UpdateTaggedObjects();
     }
 
 
@@ -250,55 +272,48 @@ public class LanguageManager : MonoBehaviour
             canvasEN.blocksRaycasts =
                 isEnglish;
         }
-
-
-        UpdateLanguageTexts();
     }
 
 
     // =========================================================
-    // Update Language Texts
+    // Update Tagged Objects
     // =========================================================
 
-    private void UpdateLanguageTexts()
+    private void UpdateTaggedObjects()
     {
         // -----------------------------------------------------
-        // Korean Canvas
-        //
-        // 한국어가 선택된 상태
+        // Korean Objects
         // -----------------------------------------------------
 
-        if (koreanTextKR != null)
+        foreach (GameObject obj in koreanObjects)
         {
-            koreanTextKR.color =
-                selectedColor;
-        }
+            if (obj == null)
+            {
+                continue;
+            }
 
 
-        if (englishTextKR != null)
-        {
-            englishTextKR.color =
-                unselectedColor;
+            obj.SetActive(
+                !isEnglish
+            );
         }
 
 
         // -----------------------------------------------------
-        // English Canvas
-        //
-        // 영어가 선택된 상태
+        // English Objects
         // -----------------------------------------------------
 
-        if (koreanTextEN != null)
+        foreach (GameObject obj in englishObjects)
         {
-            koreanTextEN.color =
-                unselectedColor;
-        }
+            if (obj == null)
+            {
+                continue;
+            }
 
 
-        if (englishTextEN != null)
-        {
-            englishTextEN.color =
-                selectedColor;
+            obj.SetActive(
+                isEnglish
+            );
         }
     }
 
@@ -311,7 +326,7 @@ public class LanguageManager : MonoBehaviour
     {
         isEnglish = false;
 
-        UpdateCanvas();
+        UpdateLanguage();
     }
 
 
@@ -323,6 +338,6 @@ public class LanguageManager : MonoBehaviour
     {
         isEnglish = true;
 
-        UpdateCanvas();
+        UpdateLanguage();
     }
 }

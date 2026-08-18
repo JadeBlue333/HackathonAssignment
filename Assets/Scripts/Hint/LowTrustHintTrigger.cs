@@ -11,7 +11,7 @@ public class LowTrustHintTrigger : MonoBehaviour
     [SerializeField]
     private HintNotice hintNotice;
 
-    [Tooltip("이 신뢰도 이하가 되면 힌트를 표시합니다.")]
+    [Tooltip("현재 신뢰도 + 누적 신뢰도 변화량이 이 값 이하가 되면 힌트를 표시합니다.")]
     [SerializeField]
     private int trustThreshold = 20;
 
@@ -43,8 +43,14 @@ public class LowTrustHintTrigger : MonoBehaviour
             return;
 
 
-        // 신뢰도가 기준 이하이면 최초 1회 표시
-        if (PlayerStatus.Instance.trust <= trustThreshold)
+        // 현재 신뢰도 + 오늘 누적 변화량
+        int currentTrust =
+            PlayerStatus.Instance.trust +
+            PlayerStatus.Instance.trustChange;
+
+
+        // 실제 반영 예정 신뢰도가 기준 이하이면 최초 1회 표시
+        if (currentTrust <= trustThreshold)
         {
             ShowHint();
         }

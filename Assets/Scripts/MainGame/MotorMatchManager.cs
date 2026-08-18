@@ -63,11 +63,11 @@ public class MotorMatchManager : MonoBehaviour
 
     [Header("Mouse Rotation")]
 
-    [Tooltip("±âº» ÁÂÅ¬¸¯ µå·¡±× È¸Àü ¼Óµµ")]
+    [Tooltip("ê¸°ë³¸ ì¢Œí´ë¦­ ë“œë˜ê·¸ íšŒì „ ì†ë„")]
     [SerializeField]
     private float baseMouseRotationSpeed = 0.2f;
 
-    [Tooltip("È¯°æ¼³Á¤ °ªÀÌ ¾øÀ» ¶§ »ç¿ëÇÒ ±âº» ¸¶¿ì½º È¸Àü °¨µµ")]
+    [Tooltip("í™˜ê²½ì„¤ì • ê°’ì´ ì—†ì„ ë•Œ ì‚¬ìš©í•  ê¸°ë³¸ ë§ˆìš°ìŠ¤ íšŒì „ ê°ë„")]
     [Range(MinRotationSensitivity, MaxRotationSensitivity)]
     [SerializeField]
     private float defaultObjectRotationSensitivity = 1f;
@@ -79,11 +79,11 @@ public class MotorMatchManager : MonoBehaviour
 
     [Header("Keyboard Rotation")]
 
-    [Tooltip("±âº» ¹æÇâÅ° È¸Àü ¼Óµµ")]
+    [Tooltip("ê¸°ë³¸ ë°©í–¥í‚¤ íšŒì „ ì†ë„")]
     [SerializeField]
     private float baseKeyboardRotationSpeed = 30f;
 
-    [Tooltip("È¯°æ¼³Á¤ °ªÀÌ ¾øÀ» ¶§ »ç¿ëÇÒ ±âº» ¹æÇâÅ° È¸Àü °¨µµ")]
+    [Tooltip("í™˜ê²½ì„¤ì • ê°’ì´ ì—†ì„ ë•Œ ì‚¬ìš©í•  ê¸°ë³¸ ë°©í–¥í‚¤ íšŒì „ ê°ë„")]
     [Range(MinRotationSensitivity, MaxRotationSensitivity)]
     [SerializeField]
     private float defaultKeyboardRotationSensitivity = 1f;
@@ -95,15 +95,15 @@ public class MotorMatchManager : MonoBehaviour
 
     [Header("Zoom")]
 
-    [Tooltip("¸¶¿ì½º ÈÙ È®´ë/Ãà¼Ò ¼Óµµ")]
+    [Tooltip("ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€/ì¶•ì†Œ ì†ë„")]
     [SerializeField]
     private float zoomSpeed = 0.15f;
 
-    [Tooltip("ÃÖ¼Ò È®´ë ºñÀ²")]
+    [Tooltip("ìµœì†Œ í™•ëŒ€ ë°°ìœ¨")]
     [SerializeField]
     private float minZoomScale = 0.7f;
 
-    [Tooltip("ÃÖ´ë È®´ë ºñÀ²")]
+    [Tooltip("ìµœëŒ€ í™•ëŒ€ ë°°ìœ¨")]
     [SerializeField]
     private float maxZoomScale = 2.0f;
 
@@ -115,9 +115,9 @@ public class MotorMatchManager : MonoBehaviour
     // =====================================================
 
     /// <summary>
-    /// ÇöÀç »ı¼ºµÈ ¸ğÅÍ°¡ Aµî±ŞÀÎÁö
+    /// í˜„ì¬ ìƒì„±ëœ ëª¨í„°ê°€ Aë“±ê¸‰ì¸ì§€
     /// true = A
-    /// false = B / C / Æó±â
+    /// false = B / C / íê¸°
     /// </summary>
     public bool CurrentMotorValid
     {
@@ -127,7 +127,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     /// <summary>
-    /// ÇöÀç »ı¼ºµÈ ¸ğÅÍÀÇ ÃÖÁ¾ µî±Ş
+    /// í˜„ì¬ ìƒì„±ëœ ëª¨í„°ì˜ ìµœì¢… ê²°ê³¼
     /// </summary>
     public InspectionResult CurrentResult
     {
@@ -137,15 +137,17 @@ public class MotorMatchManager : MonoBehaviour
 
 
     /// <summary>
-    /// ÇöÀç ¸ğÅÍÀÇ ºÒ·® Á¶°Ç °³¼ö
+    /// í˜„ì¬ íŒì • ê¸°ì¤€ì— ë”°ë¼ ê³„ì‚°ëœ ë¶ˆëŸ‰ í•­ëª© ê°œìˆ˜
     ///
-    /// ºÒ·® Á¶°Ç:
+    /// íŒì • ê°€ëŠ¥í•œ ë¶ˆëŸ‰ í•­ëª©:
     /// 1. Motor Material != 0
-    /// 2. ¾ÕµÚ ÇÁ·ÎÆç·¯ ¹øÈ£ ´Ù¸§
-    /// 3. ¾ÕµÚ ÇÁ·ÎÆç·¯ »ö»ó ´Ù¸§
+    /// 2. ì•ë’¤ í”„ë¡œí ëŸ¬ ë²ˆí˜¸ ë‹¤ë¦„
+    /// 3. ì•ë’¤ í”„ë¡œí ëŸ¬ ìƒ‰ìƒ ë‹¤ë¦„
     ///
-    /// ÇÁ·ÎÆç·¯°¡ ¾øÀ¸¸é Æó±âÀÌ¹Ç·Î
-    /// A/B/C ÆÇÁ¤¿ë ºÒ·® °³¼ö´Â °è»êÇÏÁö ¾ÊÀ½.
+    /// ê° í•­ëª©ì€ InspectionGameManagerì—ì„œ
+    /// ì˜¤ëŠ˜ì˜ íŒì • ì¡°ê±´ì— ë”°ë¼ í¬í•¨ / ì œì™¸ ê°€ëŠ¥.
+    ///
+    /// í”„ë¡œí ëŸ¬ ëˆ„ë½ì— ì˜í•œ íê¸°ëŠ” ë³„ë„ ê·œì¹™ìœ¼ë¡œ íŒì •.
     /// </summary>
     public int CurrentDefectCount
     {
@@ -155,47 +157,47 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // ÇöÀç ¸ğÅÍ »ó¼¼ »óÅÂ
+    // í˜„ì¬ ìƒì„±ëœ ìƒíƒœ ì •ë³´
     //
-    // InspectionGameManagerÀÇ
-    // ¿À´ä ¾È³» ¹®±¸ Ãâ·Â¿ë
+    // InspectionGameManagerì˜
+    // ì˜¤ë‹µ ì•ˆë‚´ ë¬¸êµ¬ ì¶œë ¥ìš©
     // =====================================================
 
-    // ¾Õ ÇÁ·ÎÆç·¯ Á¸Àç
+    // ì• í”„ë¡œí ëŸ¬ ì¡´ì¬
     public bool CurrentHasFront =>
         currentRandomMotor != null &&
         currentRandomMotor.HasFront;
 
 
-    // µÚ ÇÁ·ÎÆç·¯ Á¸Àç
+    // ë’¤ í”„ë¡œí ëŸ¬ ì¡´ì¬
     public bool CurrentHasBack =>
         currentRandomMotor != null &&
         currentRandomMotor.HasBack;
 
 
-    // ¸ğÅÍ ¾ó·è Á¸Àç
+    // ëª¨í„° ì–¼ë£© ì—¬ë¶€
     //
-    // Material 0 = Á¤»ó
-    // Material 1~4 = ¾ó·è ÀÖÀ½
+    // Material 0 = ì •ìƒ
+    // Material 1~4 = ì–¼ë£© ìˆìŒ
     public bool CurrentMotorHasStain =>
         currentRandomMotor != null &&
         currentRandomMotor.SelectedMotorMaterial != 0;
 
 
-    // ¸ğÅÍ Material Á¤»ó ¿©ºÎ
+    // ëª¨í„° Material ì •ìƒ ì—¬ë¶€
     public bool CurrentMotorMaterialCorrect =>
         currentRandomMotor != null &&
         currentRandomMotor.SelectedMotorMaterial == 0;
 
 
-    // ¾ÕµÚ ÇÁ·ÎÆç·¯ ³¯°³ °³¼ö µ¿ÀÏ ¿©ºÎ
+    // ì•ë’¤ í”„ë¡œí ëŸ¬ ë²ˆí˜¸ê°€ ê°™ì€ì§€ ì—¬ë¶€
     public bool CurrentPropellerNumberSame =>
         currentRandomMotor != null &&
         currentRandomMotor.SelectedFrontNumber ==
         currentRandomMotor.SelectedBackNumber;
 
 
-    // ¾ÕµÚ ÇÁ·ÎÆç·¯ »ö»ó µ¿ÀÏ ¿©ºÎ
+    // ì•ë’¤ í”„ë¡œí ëŸ¬ ìƒ‰ìƒì´ ê°™ì€ì§€ ì—¬ë¶€
     public bool CurrentPropellerColorSame =>
         currentRandomMotor != null &&
         currentRandomMotor.SelectedFrontColor ==
@@ -246,8 +248,8 @@ public class MotorMatchManager : MonoBehaviour
             return;
 
 
-        // ÆË¾÷ ¿­·Á ÀÖÀ¸¸é
-        // ¸ğÅÍ È¸Àü / ÁÜ Á¶ÀÛ Â÷´Ü
+        // íŒì—… ì—´ë ¤ ìˆìœ¼ë©´
+        // ëª¨í„° íšŒì „ / íœ  ì…ë ¥ ì°¨ë‹¨
         if (
             PopupManager.Instance != null &&
             PopupManager.Instance.HasOpenPopup()
@@ -266,13 +268,13 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // ÀúÀåµÈ °¨µµ º¸Á¤
+    // ì €ì¥ëœ ê°ë„ ê°’ ë³´ì •
     // =====================================================
 
     private void ValidateSavedSensitivity()
     {
         // =================================================
-        // ¸¶¿ì½º °¨µµ
+        // ë§ˆìš°ìŠ¤ ê°ë„
         // =================================================
 
         float mouseSensitivity =
@@ -297,7 +299,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ¹æÇâÅ° °¨µµ
+        // ë°©í–¥í‚¤ ê°ë„
         // =================================================
 
         float keyboardSensitivity =
@@ -326,7 +328,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // Anchor ¼û±â±â
+    // Anchor ìˆ¨ê¸°ê¸°
     // =====================================================
 
     private void HideAnchor()
@@ -377,10 +379,10 @@ public class MotorMatchManager : MonoBehaviour
         if (motorPrefab == null)
         {
             Debug.LogError(
-                "Motor PrefabÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù. " +
+                "Motor Prefabì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. " +
                 "Resources/" +
                 motorResourcePath +
-                " °æ·Î¸¦ È®ÀÎÇØÁÖ¼¼¿ä."
+                " ê²½ë¡œë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”."
             );
 
 
@@ -396,7 +398,7 @@ public class MotorMatchManager : MonoBehaviour
         if (displayAnchor == null)
         {
             Debug.LogError(
-                "DisplayAnchor°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò½À´Ï´Ù."
+                "DisplayAnchorê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤."
             );
 
 
@@ -420,7 +422,7 @@ public class MotorMatchManager : MonoBehaviour
             if (randomMotor == null)
             {
                 Debug.LogError(
-                    "Motor Prefab¿¡ RandomMotor ½ºÅ©¸³Æ®°¡ ¾ø½À´Ï´Ù."
+                    "Motor Prefabì— RandomMotor ìŠ¤í¬ë¦½íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤."
                 );
 
 
@@ -435,43 +437,40 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // Motor ¹®Á¦ »ı¼º
+    // Motor ëœë¤ ìƒì„±
     // =====================================================
     //
     // boxIsNormal == true
     //
-    // Á¤»ó ¹Ú½º
-    // ¡æ GenerateMotor(true)
-    // ¡æ ¹«Á¶°Ç A ¸ğÅÍ
+    // ì •ìƒ ë°•ìŠ¤
+    // â†’ GenerateMotor(true)
+    // â†’ ë¬´ì¡°ê±´ A ëª¨í„° ìƒì„±
     //
     //
     // boxIsNormal == false
     //
-    // ºñÁ¤»ó ¹Ú½º
-    // ¡æ GenerateMotor(false)
-    // ¡æ A/B/C/Æó±â ¸ğµÎ °¡´É
+    // ê°œë´‰ëœ ë°•ìŠ¤
+    // â†’ GenerateMotor(false)
+    // â†’ A/B/C/íê¸° ëª¨ë‘ ê°€ëŠ¥
     //
+    // ê¸°ì¡´ í•¨ìˆ˜ì´ë¯€ë¡œ
+    // ì• / ë’¤ í”„ë¡œí ëŸ¬ ëª¨ë‘ í•„ìˆ˜,
+    // ëª¨ë“  íŒì • í•­ëª© ONìœ¼ë¡œ ê³„ì‚°
     // =====================================================
 
     public InspectionResult CreateNextMatch(
         bool boxIsNormal
     )
-
-
-
     {
-
-
-
         // =================================================
-        // ±âÁ¸ ¸ğÅÍ Á¦°Å
+        // ê¸°ì¡´ ëª¨í„° ì œê±°
         // =================================================
 
         RemoveCurrentMotor();
 
 
         // =================================================
-        // Holder »ı¼º
+        // Holder ìƒì„±
         // =================================================
 
         currentHolder =
@@ -503,7 +502,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // Motor Prefab »ı¼º
+        // Motor Prefab ìƒì„±
         // =================================================
 
         currentMotor =
@@ -528,7 +527,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // RandomMotor Ã£±â
+        // RandomMotor ì°¾ê¸°
         // =================================================
 
         currentRandomMotor =
@@ -540,8 +539,8 @@ public class MotorMatchManager : MonoBehaviour
         if (currentRandomMotor == null)
         {
             Debug.LogError(
-                "»ı¼ºµÈ Motor Prefab¿¡¼­ " +
-                "RandomMotor ½ºÅ©¸³Æ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."
+                "ìƒì„±ëœ Motor Prefabì—ì„œ " +
+                "RandomMotor ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
             );
 
 
@@ -562,15 +561,15 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ¹Ú½º »óÅÂ¿¡ µû¶ó ¸ğÅÍ »ı¼º
+        // ë°•ìŠ¤ ìƒíƒœì— ë”°ë¼ ëª¨í„° ìƒì„±
         // =================================================
 
         if (boxIsNormal)
         {
             // =============================================
-            // Á¤»ó ¹Ú½º
+            // ì •ìƒ ë°•ìŠ¤
             //
-            // ¹«Á¶°Ç A Á¶°Ç ¸ğÅÍ
+            // ë¬´ì¡°ê±´ A ëª¨í„° ìƒì„±
             // =============================================
 
             currentRandomMotor.GenerateMotor(
@@ -580,9 +579,9 @@ public class MotorMatchManager : MonoBehaviour
         else
         {
             // =============================================
-            // ºñÁ¤»ó ¹Ú½º
+            // ê°œë´‰ëœ ë°•ìŠ¤
             //
-            // ¸ğµç °æ¿ì ·£´ı
+            // ëª¨ë“  ê²°ê³¼ ê°€ëŠ¥
             // =============================================
 
             currentRandomMotor.GenerateMotor(
@@ -592,15 +591,29 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ÃÖÁ¾ µî±Ş ÆÇÁ¤
+        // ìµœì¢… ê²°ê³¼ ê³„ì‚°
+        //
+        // ê¸°ì¡´ í•¨ìˆ˜ì—ì„œëŠ” ê¸°ì¡´ ê·œì¹™ ìœ ì§€
+        //
+        // ì• í”„ë¡œí ëŸ¬ í•„ìˆ˜
+        // ë’¤ í”„ë¡œí ëŸ¬ í•„ìˆ˜
+        // ì–¼ë£© íŒì •
+        // ë²ˆí˜¸ íŒì •
+        // ìƒ‰ìƒ íŒì •
         // =================================================
 
         CurrentResult =
-            DetermineMotorResult();
+            DetermineMotorResult(
+                true,
+                true,
+                true,
+                true,
+                true
+            );
 
 
         // =================================================
-        // AÀÏ °æ¿ì¿¡¸¸ Á¤»ó true
+        // Aì¸ ê²½ìš°ì—ë§Œ ì •ìƒ true
         // =================================================
 
         CurrentMotorValid =
@@ -615,15 +628,15 @@ public class MotorMatchManager : MonoBehaviour
         Debug.Log(
             "=============== MOTOR MATCH ===============" +
 
-            "\n¹Ú½º Á¤»ó ¿©ºÎ : " +
+            "\në°•ìŠ¤ ì •ìƒ ì—¬ë¶€ : " +
             boxIsNormal +
 
             "\n" +
 
-            "\n¾Õ ÇÁ·ÎÆç·¯ Á¸Àç : " +
+            "\nì• í”„ë¡œí ëŸ¬ ì¡´ì¬ : " +
             currentRandomMotor.HasFront +
 
-            "\nµÚ ÇÁ·ÎÆç·¯ Á¸Àç : " +
+            "\në’¤ í”„ë¡œí ëŸ¬ ì¡´ì¬ : " +
             currentRandomMotor.HasBack +
 
             "\n" +
@@ -631,27 +644,27 @@ public class MotorMatchManager : MonoBehaviour
             "\nMotor Material : " +
             currentRandomMotor.SelectedMotorMaterial +
 
-            "\n¾Õ ÇÁ·ÎÆç·¯ ¹øÈ£ : " +
+            "\nì• í”„ë¡œí ëŸ¬ ë²ˆí˜¸ : " +
             currentRandomMotor.SelectedFrontNumber +
 
-            "\nµÚ ÇÁ·ÎÆç·¯ ¹øÈ£ : " +
+            "\në’¤ í”„ë¡œí ëŸ¬ ë²ˆí˜¸ : " +
             currentRandomMotor.SelectedBackNumber +
 
-            "\n¾Õ ÇÁ·ÎÆç·¯ ÄÃ·¯ : " +
+            "\nì• í”„ë¡œí ëŸ¬ ìƒ‰ìƒ : " +
             currentRandomMotor.SelectedFrontColor +
 
-            "\nµÚ ÇÁ·ÎÆç·¯ ÄÃ·¯ : " +
+            "\në’¤ í”„ë¡œí ëŸ¬ ìƒ‰ìƒ : " +
             currentRandomMotor.SelectedBackColor +
 
             "\n" +
 
-            "\nºÒ·® Á¶°Ç °³¼ö : " +
+            "\në¶ˆëŸ‰ í•­ëª© ê°œìˆ˜ : " +
             CurrentDefectCount +
 
-            "\nÃÖÁ¾ Á¤»ó ¿©ºÎ : " +
+            "\nëª¨í„° ì •ìƒ ì—¬ë¶€ : " +
             CurrentMotorValid +
 
-            "\nÃÖÁ¾ µî±Ş : " +
+            "\nìµœì¢… ê²°ê³¼ : " +
             CurrentResult +
 
             "\n==========================================="
@@ -661,35 +674,45 @@ public class MotorMatchManager : MonoBehaviour
         return CurrentResult;
     }
 
+
     // =====================================================
-    // ÁöÁ¤ Á¶°ÇÀ¸·Î Motor ¹®Á¦ »ı¼º
+    // ì¡°ê±´ ê¸°ë°˜ Motor ëœë¤ ìƒì„±
     // =====================================================
 
     public InspectionResult CreateNextMatchByCondition(
-    bool spawnFront,
-    float frontChance,
+        bool spawnFront,
+        float frontChance,
 
-    bool spawnBack,
-    float backChance,
+        bool spawnBack,
+        float backChance,
 
-    bool useMotorTextureCondition,
-    float motor0Chance,
+        bool useMotorTextureCondition,
+        float motor0Chance,
 
-    bool useSameNumberCondition,
-    float sameNumberChance,
+        bool useSameNumberCondition,
+        float sameNumberChance,
 
-    bool useSameColorCondition,
-    float sameColorChance,
+        bool useSameColorCondition,
+        float sameColorChance,
 
-    bool allowTripleDefectMotor
-)
+        bool allowTripleDefectMotor,
+
+        bool requireFrontPropeller,
+        bool requireBackPropeller,
+        bool gradeMotorStain,
+        bool gradePropellerNumber,
+        bool gradePropellerColor
+    )
     {
-        // ±âÁ¸ ¸ğÅÍ Á¦°Å
+        // =================================================
+        // ê¸°ì¡´ ëª¨í„° ì œê±°
+        // =================================================
+
         RemoveCurrentMotor();
 
 
         // =================================================
-        // Holder »ı¼º
+        // Holder ìƒì„±
         // =================================================
 
         currentHolder =
@@ -697,26 +720,31 @@ public class MotorMatchManager : MonoBehaviour
                 "CurrentMotorHolder"
             );
 
+
         currentHolder.transform.SetParent(
             displayAnchor,
             false
         );
 
+
         currentHolder.transform.localPosition =
             Vector3.zero;
+
 
         currentHolder.transform.localRotation =
             Quaternion.identity;
 
+
         currentHolder.transform.localScale =
             Vector3.one;
+
 
         currentZoomScale =
             1f;
 
 
         // =================================================
-        // Motor Prefab »ı¼º
+        // Motor Prefab ìƒì„±
         // =================================================
 
         currentMotor =
@@ -725,20 +753,23 @@ public class MotorMatchManager : MonoBehaviour
                 currentHolder.transform
             );
 
+
         currentMotor.transform.localPosition =
             motorLocalPosition;
+
 
         currentMotor.transform.localRotation =
             Quaternion.Euler(
                 motorLocalRotation
             );
 
+
         currentMotor.transform.localScale =
             motorScale;
 
 
         // =================================================
-        // RandomMotor Ã£±â
+        // RandomMotor ì°¾ê¸°
         // =================================================
 
         currentRandomMotor =
@@ -746,44 +777,58 @@ public class MotorMatchManager : MonoBehaviour
                 true
             );
 
+
         if (currentRandomMotor == null)
         {
             Debug.LogError(
-                "»ı¼ºµÈ Motor Prefab¿¡¼­ RandomMotor¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù."
+                "ìƒì„±ëœ Motor Prefabì—ì„œ RandomMotorë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤."
             );
 
-            CurrentMotorValid = false;
-            CurrentDefectCount = 0;
-            CurrentResult = InspectionResult.Discard;
+
+            CurrentMotorValid =
+                false;
+
+
+            CurrentDefectCount =
+                0;
+
+
+            CurrentResult =
+                InspectionResult.Discard;
+
 
             return CurrentResult;
         }
 
 
         // =================================================
-        // ÁöÁ¤ Á¶°ÇÀ¸·Î ¸ğÅÍ »ı¼º
+        // ì¡°ê±´ ê¸°ë°˜ìœ¼ë¡œ ëª¨í„° ìƒì„±
         //
         // allowTripleDefectMotor == true
-        // ¡æ ¸ğµç Á¶ÇÕ Çã¿ë
+        // â†’ ì‹¤ì œ ëª¨í„° ìƒíƒœ ê¸°ì¤€ ëª¨ë“  ê²°ê³¼ í—ˆìš©
         //
         // allowTripleDefectMotor == false
-        // ¡æ ¾Æ·¡ Á¶°ÇÀÌ µ¿½Ã¿¡ ¹ß»ıÇÏ¸é ´Ù½Ã »ı¼º
+        // â†’ ì•„ë˜ 3ê°œ ì‹¤ì œ ë¶ˆëŸ‰ì´ ë™ì‹œì— ë°œìƒí•˜ë©´ ë‹¤ì‹œ ìƒì„±
         //
-        // 1. ¾ÕµÚ ÇÁ·ÎÆç·¯ ¸ğµÎ Á¸Àç
-        // 2. Motor Material != 0
-        // 3. ¾ÕµÚ Number ´Ù¸§
-        // 4. ¾ÕµÚ Color ´Ù¸§
+        // 1. Motor Material != 0
+        // 2. ì•ë’¤ Number ë‹¤ë¦„
+        // 3. ì•ë’¤ Color ë‹¤ë¦„
+        //
+        // ì´ ì„¤ì •ì€ ìƒì„±ì— ê´€í•œ ì„¤ì •ì´ë¯€ë¡œ
+        // ì˜¤ëŠ˜ì˜ grade ì„¤ì •ê³¼ëŠ” ë³„ê°œ
         // =================================================
 
-        const int maxGenerateAttempts = 100;
+        const int maxGenerateAttempts =
+            100;
 
-        int generateAttempt = 0;
+        int generateAttempt =
+            0;
 
 
         while (true)
         {
             // =============================================
-            // ¸ğÅÍ »ı¼º
+            // ëª¨í„° ìƒì„±
             // =============================================
 
             currentRandomMotor.GenerateMotorByCondition(
@@ -808,7 +853,10 @@ public class MotorMatchManager : MonoBehaviour
 
 
             // =============================================
-            // 3°³ ºÒ·® µ¿½Ã ¹ß»ı ¿©ºÎ
+            // ì‹¤ì œ 3ì¤‘ ë¶ˆëŸ‰ ëª¨í„° ë°œìƒ ì—¬ë¶€
+            //
+            // ì•ë’¤ê°€ ëª¨ë‘ ìˆì„ ë•Œë§Œ
+            // ë²ˆí˜¸ / ìƒ‰ìƒ ë¹„êµ ê°€ëŠ¥
             // =============================================
 
             bool isTripleDefect =
@@ -825,8 +873,8 @@ public class MotorMatchManager : MonoBehaviour
 
 
             // =============================================
-            // Ã¼Å© ON
-            // ¡æ ¸ğµç Á¶ÇÕ Çã¿ë
+            // ì²´í¬ ON
+            // â†’ 3ì¤‘ ë¶ˆëŸ‰ë„ í—ˆìš©
             // =============================================
 
             if (allowTripleDefectMotor)
@@ -836,7 +884,8 @@ public class MotorMatchManager : MonoBehaviour
 
 
             // =============================================
-            // Ã¼Å© OFFÀÎµ¥ ±İÁö Á¶ÇÕÀÌ ¾Æ´Ï¸é »ç¿ë
+            // ì²´í¬ OFFì¸ë°
+            // 3ì¤‘ ë¶ˆëŸ‰ì´ ì•„ë‹ˆë©´ í—ˆìš©
             // =============================================
 
             if (!isTripleDefect)
@@ -846,17 +895,20 @@ public class MotorMatchManager : MonoBehaviour
 
 
             // =============================================
-            // ¹«ÇÑ ·çÇÁ ¹æÁö
+            // ìƒì„± íšŸìˆ˜ ì œí•œ
             //
-            // È®·ü ¼³Á¤»ó ±İÁö Á¶ÇÕ¸¸ ³ª¿Ã ¼ö ÀÖ´Â °æ¿ì
-            // 100¹ø ÀÌÈÄ A ¸ğÅÍ »ı¼º
+            // í™•ë¥  ì„¤ì •ìƒ ì •ìƒ ì¡°í•©ì„ ë§Œë“¤ ìˆ˜ ì—†ëŠ” ê²½ìš°
+            // 100íšŒ ì´í›„ A ëª¨í„° ìƒì„±
             // =============================================
 
-            if (generateAttempt >= maxGenerateAttempts)
+            if (
+                generateAttempt >=
+                maxGenerateAttempts
+            )
             {
                 Debug.LogWarning(
-                    "3°³ ºÒ·® µ¿½Ã ¹ß»ıÀ» ÇÇÇÒ ¼ö ¾ø´Â È®·ü ¼³Á¤ÀÔ´Ï´Ù. " +
-                    "Aµî±Ş ¸ğÅÍ·Î ´ëÃ¼ÇÕ´Ï´Ù."
+                    "3ì¤‘ ë¶ˆëŸ‰ ëª¨í„° ë°œìƒì„ ë§‰ì„ ìˆ˜ ì—†ëŠ” í™•ë¥  ì„¤ì •ì…ë‹ˆë‹¤. " +
+                    "Aê¸‰ ëª¨í„°ë¡œ ëŒ€ì²´í•©ë‹ˆë‹¤."
                 );
 
 
@@ -871,42 +923,77 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ±âÁ¸ µî±Ş ÆÇÁ¤ »ç¿ë
+        // ìµœì¢… ê²°ê³¼ ê³„ì‚°
+        //
+        // ì˜¤ëŠ˜ì˜ íŒì • ê¸°ì¤€ ë°˜ì˜
         // =================================================
 
         CurrentResult =
-            DetermineMotorResult();
+            DetermineMotorResult(
+                requireFrontPropeller,
+                requireBackPropeller,
+                gradeMotorStain,
+                gradePropellerNumber,
+                gradePropellerColor
+            );
+
 
         CurrentMotorValid =
             CurrentResult ==
             InspectionResult.A;
 
 
+        // =================================================
+        // Debug
+        // =================================================
+
         Debug.Log(
             "======= MOTOR CONDITION GENERATION =======" +
 
-            "\n¾Õ ÇÁ·ÎÆç·¯ : " +
+            "\nì• í”„ë¡œí ëŸ¬ : " +
             currentRandomMotor.HasFront +
 
-            "\nµÚ ÇÁ·ÎÆç·¯ : " +
+            "\në’¤ í”„ë¡œí ëŸ¬ : " +
             currentRandomMotor.HasBack +
 
-            "\n¸ğÅÍ Material : " +
+            "\nëª¨í„° Material : " +
             currentRandomMotor.SelectedMotorMaterial +
 
-            "\n¾Õ ³¯°³ : " +
+            "\nì• ë²ˆí˜¸ : " +
             currentRandomMotor.SelectedFrontNumber +
 
-            "\nµÚ ³¯°³ : " +
+            "\në’¤ ë²ˆí˜¸ : " +
             currentRandomMotor.SelectedBackNumber +
 
-            "\n¾Õ »ö»ó : " +
+            "\nì• ìƒ‰ìƒ : " +
             currentRandomMotor.SelectedFrontColor +
 
-            "\nµÚ »ö»ó : " +
+            "\në’¤ ìƒ‰ìƒ : " +
             currentRandomMotor.SelectedBackColor +
 
-            "\nÃÖÁ¾ µî±Ş : " +
+            "\n" +
+
+            "\nRequire Front Propeller : " +
+            requireFrontPropeller +
+
+            "\nRequire Back Propeller : " +
+            requireBackPropeller +
+
+            "\nGrade Motor Stain : " +
+            gradeMotorStain +
+
+            "\nGrade Propeller Number : " +
+            gradePropellerNumber +
+
+            "\nGrade Propeller Color : " +
+            gradePropellerColor +
+
+            "\n" +
+
+            "\níŒì • ë¶ˆëŸ‰ ê°œìˆ˜ : " +
+            CurrentDefectCount +
+
+            "\nìµœì¢… ê²°ê³¼ : " +
             CurrentResult +
 
             "\n=========================================="
@@ -918,57 +1005,78 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // Motor µî±Ş ÆÇÁ¤
+    // Motor ë“±ê¸‰ ê³„ì‚°
     // =====================================================
     //
-    // [Æó±â]
+    // [í”„ë¡œí ëŸ¬ íê¸° ê·œì¹™]
     //
-    // ¾Õ / µÚ ÇÁ·ÎÆç·¯ Áß
-    // ÇÏ³ª¶óµµ ¾øÀ½
+    // requireFrontPropeller == true
+    // â†’ ì• í”„ë¡œí ëŸ¬ê°€ ì—†ìœ¼ë©´ íê¸°
+    //
+    // requireBackPropeller == true
+    // â†’ ë’¤ í”„ë¡œí ëŸ¬ê°€ ì—†ìœ¼ë©´ íê¸°
+    //
+    //
+    // ì˜ˆì‹œ
+    //
+    // Front ON / Back ON
+    // â†’ ì•ë’¤ ëª¨ë‘ í•„ìˆ˜
+    //
+    // Front ON / Back OFF
+    // â†’ ì•ë§Œ í•„ìˆ˜
+    //
+    // Front OFF / Back ON
+    // â†’ ë’¤ë§Œ í•„ìˆ˜
+    //
+    // Front OFF / Back OFF
+    // â†’ í”„ë¡œí ëŸ¬ ëˆ„ë½ìœ¼ë¡œëŠ” íê¸°í•˜ì§€ ì•ŠìŒ
+    //
+    //
+    // ë²ˆí˜¸ / ìƒ‰ìƒì€
+    // ì•ë’¤ í”„ë¡œí ëŸ¬ê°€ ë‘˜ ë‹¤ ì¡´ì¬í•  ë•Œë§Œ ë¹„êµ.
     //
     //
     // [A]
-    //
-    // ÇÁ·ÎÆç·¯ ¸ğµÎ Á¸Àç
-    // +
-    // Motor Material = 0
-    // +
-    // ³¯°³ °³¼ö µ¿ÀÏ
-    // +
-    // »ö»ó µ¿ÀÏ
-    //
+    // íŒì • ëŒ€ìƒ ë¶ˆëŸ‰ 0ê°œ
     //
     // [B]
-    //
-    // ¾Æ·¡ Áß Á¤È®È÷ 1°³ ¹®Á¦
-    //
-    // - Motor Material != 0
-    // - ³¯°³ °³¼ö ´Ù¸§
-    // - »ö»ó ´Ù¸§
-    //
+    // íŒì • ëŒ€ìƒ ë¶ˆëŸ‰ 1ê°œ
     //
     // [C]
-    //
-    // À§ ¹®Á¦ Áß 2°³ ÀÌ»ó
-    //
+    // íŒì • ëŒ€ìƒ ë¶ˆëŸ‰ 2ê°œ ì´ìƒ
     // =====================================================
 
-    private InspectionResult DetermineMotorResult()
+    private InspectionResult DetermineMotorResult(
+        bool requireFrontPropeller,
+        bool requireBackPropeller,
+        bool gradeMotorStain,
+        bool gradePropellerNumber,
+        bool gradePropellerColor
+    )
     {
         CurrentDefectCount =
             0;
 
 
         // =================================================
-        // Æó±â
-        //
-        // ÇÁ·ÎÆç·¯ ÇÏ³ª¶óµµ ¾øÀ¸¸é
-        // ³ª¸ÓÁö Á¶°Ç°ú °ü°è¾øÀÌ Æó±â
+        // í˜„ì¬ í”„ë¡œí ëŸ¬ ìƒíƒœ
+        // =================================================
+
+        bool hasFront =
+            currentRandomMotor.HasFront;
+
+
+        bool hasBack =
+            currentRandomMotor.HasBack;
+
+
+        // =================================================
+        // ì• í”„ë¡œí ëŸ¬ íê¸° íŒì •
         // =================================================
 
         if (
-            !currentRandomMotor.HasFront ||
-            !currentRandomMotor.HasBack
+            requireFrontPropeller &&
+            !hasFront
         )
         {
             return InspectionResult.Discard;
@@ -976,15 +1084,29 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ºÒ·® Á¶°Ç 1
-        //
-        // ¸ğÅÍ ¾ó·è
-        // Motor Material != 0
+        // ë’¤ í”„ë¡œí ëŸ¬ íê¸° íŒì •
         // =================================================
 
         if (
-            currentRandomMotor.SelectedMotorMaterial !=
-            0
+            requireBackPropeller &&
+            !hasBack
+        )
+        {
+            return InspectionResult.Discard;
+        }
+
+
+        // =================================================
+        // ë¶ˆëŸ‰ í•­ëª© 1
+        //
+        // ëª¨í„° ì–¼ë£©
+        //
+        // ì˜¤ëŠ˜ ì–¼ë£© íŒì •ì´ ONì¼ ë•Œë§Œ +1
+        // =================================================
+
+        if (
+            gradeMotorStain &&
+            currentRandomMotor.SelectedMotorMaterial != 0
         )
         {
             CurrentDefectCount++;
@@ -992,12 +1114,26 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ºÒ·® Á¶°Ç 2
+        // ì•ë’¤ ë¹„êµ ê°€ëŠ¥ ì—¬ë¶€
         //
-        // ÇÁ·ÎÆç·¯ ³¯°³ °³¼ö ´Ù¸§
+        // ë‘˜ ë‹¤ ì¡´ì¬í•  ë•Œë§Œ
+        // Number / Color ë¹„êµ ê°€ëŠ¥
+        // =================================================
+
+        bool canComparePropellers =
+            hasFront &&
+            hasBack;
+
+
+        // =================================================
+        // ë¶ˆëŸ‰ í•­ëª© 2
+        //
+        // í”„ë¡œí ëŸ¬ ì•ë’¤ ë²ˆí˜¸ ë‹¤ë¦„
         // =================================================
 
         if (
+            canComparePropellers &&
+            gradePropellerNumber &&
             currentRandomMotor.SelectedFrontNumber !=
             currentRandomMotor.SelectedBackNumber
         )
@@ -1007,12 +1143,14 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // ºÒ·® Á¶°Ç 3
+        // ë¶ˆëŸ‰ í•­ëª© 3
         //
-        // ÇÁ·ÎÆç·¯ »ö»ó ´Ù¸§
+        // í”„ë¡œí ëŸ¬ ì•ë’¤ ìƒ‰ìƒ ë‹¤ë¦„
         // =================================================
 
         if (
+            canComparePropellers &&
+            gradePropellerColor &&
             currentRandomMotor.SelectedFrontColor !=
             currentRandomMotor.SelectedBackColor
         )
@@ -1050,7 +1188,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // ÇöÀç Motor Á¦°Å
+    // í˜„ì¬ Motor ì œê±°
     // =====================================================
 
     public void RemoveCurrentMotor()
@@ -1089,7 +1227,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // ¸¶¿ì½º È¸Àü
+    // ë§ˆìš°ìŠ¤ íšŒì „
     // =====================================================
 
     private void HandleMouseRotation()
@@ -1156,7 +1294,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // ¸¶¿ì½º ÈÙ È®´ë / Ãà¼Ò
+    // ë§ˆìš°ìŠ¤ íœ  í™•ëŒ€ / ì¶•ì†Œ
     // =====================================================
 
     private void HandleMouseZoom()
@@ -1215,7 +1353,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // ¹æÇâÅ° È¸Àü
+    // ë°©í–¥í‚¤ íšŒì „
     // =====================================================
 
     private void HandleKeyboardRotation()
@@ -1256,7 +1394,7 @@ public class MotorMatchManager : MonoBehaviour
             0f;
 
 
-        // À§
+        // ìœ„
         if (
             Keyboard.current
                 .upArrowKey
@@ -1269,7 +1407,7 @@ public class MotorMatchManager : MonoBehaviour
         }
 
 
-        // ¾Æ·¡
+        // ì•„ë˜
         if (
             Keyboard.current
                 .downArrowKey
@@ -1282,7 +1420,7 @@ public class MotorMatchManager : MonoBehaviour
         }
 
 
-        // ¿ŞÂÊ
+        // ì™¼ìª½
         if (
             Keyboard.current
                 .leftArrowKey
@@ -1295,7 +1433,7 @@ public class MotorMatchManager : MonoBehaviour
         }
 
 
-        // ¿À¸¥ÂÊ
+        // ì˜¤ë¥¸ìª½
         if (
             Keyboard.current
                 .rightArrowKey
@@ -1330,7 +1468,7 @@ public class MotorMatchManager : MonoBehaviour
 
 
     // =====================================================
-    // Inspector °ª º¸Á¤
+    // Inspector ê°’ ë³´ì •
     // =====================================================
 
     private void OnValidate()
