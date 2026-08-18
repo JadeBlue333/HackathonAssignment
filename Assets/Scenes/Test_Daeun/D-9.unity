@@ -3797,6 +3797,11 @@ MonoBehaviour:
   motorMatchManager: {fileID: 2000313725}
   boxButtons: {fileID: 277148465}
   motorButtons: {fileID: 1099938106}
+  spawnFrontPropeller: 1
+  spawnBackPropeller: 1
+  useStainMotorTexture: 0
+  samePropellerNumber: 1
+  samePropellerColor: 1
   wrongReasonUI: {fileID: 424540634}
   wrongReasonText: {fileID: 424540635}
   wrongReasonDuration: 2
@@ -6042,7 +6047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1487732020612845019, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2298527417366489099, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
       propertyPath: m_LocalPosition.x
