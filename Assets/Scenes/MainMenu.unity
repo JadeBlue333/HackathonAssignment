@@ -17892,6 +17892,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: koreanTextEN
+      value: 
+      objectReference: {fileID: 465886398}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: koreanTextKR
+      value: 
+      objectReference: {fileID: 1816224860}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: englishTextEN
+      value: 
+      objectReference: {fileID: 212845740}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: englishTextKR
+      value: 
+      objectReference: {fileID: 763764102}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: koreanButtonEN
+      value: 
+      objectReference: {fileID: 1321226160}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: koreanButtonKR
+      value: 
+      objectReference: {fileID: 291017019}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: englishButtonEN
+      value: 
+      objectReference: {fileID: 2084570333}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: englishButtonKR
+      value: 
+      objectReference: {fileID: 78550574}
+    - target: {fileID: 5607370315937112, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
+      propertyPath: koreanButtonImage
+      value: 
+      objectReference: {fileID: 291017019}
     - target: {fileID: 603283370033617468, guid: 5a82238458793b84cb31be7ce54f35b8, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
