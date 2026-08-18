@@ -4182,7 +4182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &710031063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12662,6 +12662,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2625258556902980018, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833875116825673489, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3288134324480507268, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
       propertyPath: bgmSource
       value: 
@@ -12670,6 +12678,10 @@ PrefabInstance:
       propertyPath: blackImage
       value: 
       objectReference: {fileID: 710031064}
+    - target: {fileID: 3650287251816917781, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7202135986898338204, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
       propertyPath: m_Name
       value: SaveNLoadPanel
@@ -12678,11 +12690,30 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7646747824589667598, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8643481776985605774, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+--- !u!114 &2340058087769896752 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3288134324480507268, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+  m_PrefabInstance: {fileID: 2340058087769896751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ddee9d4597c1434ebe76fc55fd1069e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoToThisScene
 --- !u!1001 &4990170063678443751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12735,6 +12766,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2927133003214324896, guid: b8f9b390f9b8ec94a8b98a07bf989378, type: 3}
+      propertyPath: goToThisScene
+      value: 
+      objectReference: {fileID: 2340058087769896752}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
