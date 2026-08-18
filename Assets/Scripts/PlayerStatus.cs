@@ -44,6 +44,7 @@ public class PlayerStatus : MonoBehaviour
         public float dayDuration;
 
         // Tutorial / Notice
+        public bool tutorialCompleted;
         public int discardWarningIndex;
 
         // Endings
@@ -162,6 +163,8 @@ public class PlayerStatus : MonoBehaviour
         // =====================================================
         // Tutorial / Notice
         // =====================================================
+
+        tutorialCompleted = false;
 
         discardWarningIndex = 0;
 
@@ -370,6 +373,9 @@ public class PlayerStatus : MonoBehaviour
 
     [Header("Tutorial / Notice")]
 
+    [Tooltip("튜토리얼 완료 여부")]
+    public bool tutorialCompleted = false;
+
     [Tooltip("폐기 실패 알림에서 현재 보여줄 대사 인덱스")]
     public int discardWarningIndex = 0;
 
@@ -389,6 +395,20 @@ public class PlayerStatus : MonoBehaviour
     public bool ending4Achieved;
 
     public bool ending5Achieved;
+
+
+    // =========================================================
+    // Tutorial Functions
+    // =========================================================
+
+    public void CompleteTutorial()
+    {
+        tutorialCompleted = true;
+
+        Debug.Log(
+            "튜토리얼 완료"
+        );
+    }
 
 
     // =========================================================
@@ -1147,6 +1167,9 @@ public class PlayerStatus : MonoBehaviour
 
 
         // Tutorial / Notice
+        progressSnapshot.tutorialCompleted =
+            tutorialCompleted;
+
         progressSnapshot.discardWarningIndex =
             discardWarningIndex;
 
@@ -1173,7 +1196,7 @@ public class PlayerStatus : MonoBehaviour
             true;
 
         progressSnapshot.saveDate =
-    System.DateTime.Now.ToString("yyyy-MM-dd\nHH:mm");
+            System.DateTime.Now.ToString("yyyy-MM-dd\nHH:mm");
 
         Debug.Log(
             $"Progress Snapshot 저장 완료 / " +
@@ -1181,6 +1204,7 @@ public class PlayerStatus : MonoBehaviour
             $"Money:{money} / " +
             $"Fuel:{fuel} / " +
             $"Trust:{trust} / " +
+            $"TutorialCompleted:{tutorialCompleted} / " +
             $"DiscardNoticeIndex:{discardWarningIndex}"
         );
     }
@@ -1245,7 +1269,7 @@ public class PlayerStatus : MonoBehaviour
             progressSnapshot.successNumber;
 
         successNumber =
-    progressSnapshot.successNumber;
+            progressSnapshot.successNumber;
 
         comboNumber =
             progressSnapshot.comboNumber;
@@ -1304,6 +1328,9 @@ public class PlayerStatus : MonoBehaviour
 
 
         // Tutorial / Notice
+        tutorialCompleted =
+            progressSnapshot.tutorialCompleted;
+
         discardWarningIndex =
             Mathf.Max(
                 0,
@@ -1334,6 +1361,7 @@ public class PlayerStatus : MonoBehaviour
             $"Money:{money} / " +
             $"Fuel:{fuel} / " +
             $"Trust:{trust} / " +
+            $"TutorialCompleted:{tutorialCompleted} / " +
             $"DiscardNoticeIndex:{discardWarningIndex}"
         );
 

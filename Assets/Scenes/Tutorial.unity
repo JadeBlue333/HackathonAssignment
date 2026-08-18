@@ -24632,7 +24632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddee9d4597c1434ebe76fc55fd1069e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoToThisScene
-  sceneName: D-9
+  sceneName: Progress
   blackImage: {fileID: 2084862960}
   fadeDuration: 1
   blackHoldTime: 1
@@ -24642,6 +24642,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 0
 --- !u!4 &1746596814
 Transform:
   m_ObjectHideFlags: 0
