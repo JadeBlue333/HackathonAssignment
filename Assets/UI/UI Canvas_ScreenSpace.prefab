@@ -603,12 +603,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 4
+  skillType: 3
   level: 1
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I"
-  description: "\uC7A5\uC2DC\uAC04 \uC791\uC5C5\uC744 \uC704\uD55C \uBCF4\uC870 \uC2DC\uC2A4\uD15C\uC774
-    \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uD558\uB8E8 \uC791\uC5C5 \uC2DC\uAC04\uC774
-    30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4. (09:00 - 15:30)"
+  skillName: Work Extension Module I
+  description: "An auxiliary system for extended operation is activated.\nDaily work
+    hours are extended by 30 minutes. (09:00\u201315:30)"
   price: 50
   nodeButton: {fileID: 4312843606700768027}
   purchasedTargetImage: {fileID: 2039144555009052106}
@@ -1638,11 +1637,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 3
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 III"
-  description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uB354\uC6B1 \uD6A8\uACFC\uC801\uC73C\uB85C
-    \uAD00\uB9AC\uD569\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC
-    \uC2E0\uB8B0\uD3C9\uAC00\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
-    \uBCF4\uC815 \uBAA8\uB4C8 II \uD544\uC694]"
+  skillName: Reputation Adjustment Module III
+  description: 'Manages evaluation records more effectively.
+
+    Restores 20 Trust
+    at the start of each workday.
+
+    [Requires Reputation Adjustment Module II]'
   price: 40
   nodeButton: {fileID: 2559951413306410493}
   purchasedTargetImage: {fileID: 1681540818551893000}
@@ -2496,13 +2497,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanPartSlotUI
   partType: 2
-  partName: "\uC601\uD63C\uC758 \uC2EC\uC7A5"
-  description: "\uC778\uAC04\uC758 \uC2EC\uC7A5\uC744 \uBAA8\uBC29\uD574 \uC9C0\uC18D\uC801\uC73C\uB85C
-    \uBC15\uB3D9\uD558\uB294 \uD575\uC2EC \uD30C\uCE20.\n\uC0DD\uBA85 \uC720\uC9C0
-    \uAE30\uAD00\uACFC \uC720\uC0AC\uD55C \uC6C0\uC9C1\uC784\uC744 \uBCF4\uC774\uC9C0\uB9CC,
-    \uADF8 \uC548\uC5D0 \uBB34\uC5C7\uC774 \uC874\uC7AC\uD558\uB294\uC9C0\uB294 \uD655\uC778\uD560
-    \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.\n\uC5C5\uBB34 \uC2DC\uC791 \uC2DC\uC810\uC758
-    \uC5F0\uC18D \uAC80\uC218 \uC131\uACF5 \uD69F\uC218\uAC00 3\uD68C\uB85C \uC124\uC815\uB429\uB2C8\uB2E4."
+  partName: Heart & Soul
+  description: 'A core unit modeled after the human heart, continuously beating.
+
+    It
+    exhibits movements resembling those of a vital organ, though what lies within
+    remains unknown.
+
+    Your consecutive inspection success count starts at 3 at
+    the beginning of each workday.'
   displayMode: 1
   slotButton: {fileID: 3375182544722097851}
   ownedVisual: {fileID: 1942243820514370859}
@@ -2643,10 +2646,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 3
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C III"
-  description: "\uCDA9\uC804 \uD6A8\uC728\uC774 \uCD5C\uB300\uCE58\uB85C \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 45 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
-    \uCDA9\uC804 \uD68C\uB85C II \uD544\uC694]"
+  skillName: Self-Charging Circuit III
+  description: 'Charging efficiency has reached its maximum.
+
+    Restores 45 Fuel
+    at the start of each workday.
+
+    [Requires Self-Charging Circuit II]'
   price: 40
   nodeButton: {fileID: 1843352077008678086}
   purchasedTargetImage: {fileID: 8904644443521574027}
@@ -4044,10 +4050,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 1
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C I"
-  description: "\uAE30\uBCF8\uC801\uC778 \uC790\uAC00 \uCDA9\uC804 \uAE30\uB2A5\uC774
-    \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791
-    \uC2DC \uC5F0\uB8CC\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  skillName: Self-Charging Circuit I
+  description: 'Basic self-charging functionality is activated.
+
+    Restores 20
+    Fuel at the start of each workday.'
   price: 20
   nodeButton: {fileID: 1257294502270197093}
   purchasedTargetImage: {fileID: 4987862801437259472}
@@ -5740,13 +5747,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 3
+  skillType: 2
   level: 1
-  skillName: "\uACFC\uBD80\uD558 \uACC4\uC57D"
-  description: "\uC548\uC804 \uD55C\uACC4\uB97C \uB118\uC5B4\uC120 \uC791\uC5C5 \uACC4\uC57D\uC744
-    \uCCB4\uACB0\uD569\uB2C8\uB2E4.\n\uAC80\uC218 \uC131\uACF5 \uC2DC \uC5BB\uB294
-    \uC218\uC775\uC774 2\uBC30\uAC00 \uB418\uC9C0\uB9CC, \uC2E4\uD328 \uC2DC \uAC10\uC18C\uD558\uB294
-    \uC2E0\uB8B0\uD3C9\uAC00\uB3C4 2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  skillName: Overload Contract
+  description: 'A work contract exceeding safe operating limits is initiated.
+
+    Successful
+    inspections earn double the usual payout, but failed inspections also reduce
+    Trust by twice the usual amount.'
   price: 100
   nodeButton: {fileID: 9114087774257934748}
   purchasedTargetImage: {fileID: 6170852951222677271}
@@ -8166,10 +8174,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 1
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 I"
-  description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uBCF4\uC815\uD560 \uC218 \uC788\uAC8C
-    \uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C
-    5 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  skillName: Reputation Adjustment Module I
+  description: 'Evaluation records can now be adjusted.
+
+    Restores 5 Trust at
+    the start of each workday.'
   price: 20
   nodeButton: {fileID: 4708470792249411762}
   purchasedTargetImage: {fileID: 52543619590892986}
@@ -11199,7 +11208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 3
+  skillType: 2
   level: 1
   skillName: "\uACFC\uBD80\uD558 \uACC4\uC57D"
   description: "\uC548\uC804 \uD55C\uACC4\uB97C \uB118\uC5B4\uC120 \uC791\uC5C5 \uACC4\uC57D\uC744
@@ -12709,7 +12718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 4
+  skillType: 3
   level: 3
   skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 III"
   description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC2DC\uC2A4\uD15C\uC774 \uC644\uC804\uD788
@@ -13690,7 +13699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 4
+  skillType: 3
   level: 2
   skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II"
   description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC548\uC815\uC131\uC774 \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8
@@ -14578,10 +14587,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 2
-  skillName: jaga
-  description: "\uCDA9\uC804 \uD68C\uB85C\uAC00 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 30 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
-    \uCDA9\uC804 \uD68C\uB85C I \uD544\uC694]"
+  skillName: Self-Charging Circuit II
+  description: 'The charging circuit has been enhanced.
+
+    Restores 30 Fuel at
+    the start of each workday.
+
+    [Requires Self-Charging Circuit I]'
   price: 30
   nodeButton: {fileID: 8575368485385650711}
   purchasedTargetImage: {fileID: 6762644483420037120}
@@ -14948,12 +14960,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 4
+  skillType: 3
   level: 2
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II"
-  description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC548\uC815\uC131\uC774 \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8
-    \uC791\uC5C5 \uC2DC\uAC04\uC774 \uCD94\uAC00\uB85C 30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4.
-    (09:00 - 16:00)\n[\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I \uD544\uC694]"
+  skillName: Work Extension Module II
+  description: "Extended operation stability has been improved.\nDaily work hours
+    are extended by an additional 30 minutes. (09:00\u201316:00)\n[Requires Work
+    Extension Module I]"
   price: 70
   nodeButton: {fileID: 1013569386194273594}
   purchasedTargetImage: {fileID: 8681789459029301570}
@@ -15315,11 +15327,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 3
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 III"
-  description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC2DC\uC2A4\uD15C\uC774 \uC644\uC804\uD788
-    \uCD5C\uC801\uD654\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8 \uC791\uC5C5
-    \uC2DC\uAC04\uC774 \uCD94\uAC00\uB85C 30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4.
-    (09:00 - 16:30)\n[\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II \uD544\uC694]"
+  skillName: Work Extension Module III
+  description: "The extended operation system has been fully optimized.\nDaily work
+    hours are extended by an additional 30 minutes. (09:00\u201316:30)\n[Requires
+    Work Extension Module II]"
   price: 100
   nodeButton: {fileID: 7184026813185083691}
   purchasedTargetImage: {fileID: 3935185541600363531}
@@ -15597,10 +15608,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 2
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 II"
-  description: "\uD3C9\uD310 \uBCF4\uC815 \uACFC\uC815\uC774 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
-    \uBCF4\uC815 \uBAA8\uB4C8 I \uD544\uC694]"
+  skillName: Reputation Adjustment Module II
+  description: 'The reputation adjustment process has been refined.
+
+    Restores
+    10 Trust at the start of each workday.
+
+    [Requires Reputation Adjustment Module
+    I]'
   price: 30
   nodeButton: {fileID: 6922836100571589040}
   purchasedTargetImage: {fileID: 7283328279800377594}
@@ -16329,7 +16344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ba306a9b2fe84856ba816fbbfa967d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
-  skillType: 4
+  skillType: 3
   level: 1
   skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I"
   description: "\uC7A5\uC2DC\uAC04 \uC791\uC5C5\uC744 \uC704\uD55C \uBCF4\uC870 \uC2DC\uC2A4\uD15C\uC774
@@ -19580,13 +19595,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanPartSlotUI
   partType: 0
-  partName: "\uC870\uAC01\uBBF8\uC778"
-  description: "\uC778\uAC04\uC758 \uAC10\uAC01\uAE30\uAD00\uC744 \uBAA8\uBC29\uD55C
-    \uD5E4\uB4DC \uD30C\uCE20.\n\uC2DC\uAC01\uACFC \uCCAD\uAC01 \uC815\uBCF4\uB97C
-    \uBC1B\uC544\uB4E4\uC774\uAE30 \uC704\uD55C \uAD6C\uC870\uAC00 \uD655\uC778\uB429\uB2C8\uB2E4.\n\uD310\uB2E8
-    \uBCF4\uC870 \uAE30\uB2A5\uC774 \uD65C\uC131\uD654\uB418\uC5B4, \uAC80\uC218
-    \uC2E4\uD328 \uC2DC \uC2E0\uB8B0\uB3C4\uAC00 2\uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4.
-    (5 -> 2)"
+  partName: Face of the Year
+  description: 'A head unit designed to mimic human sensory organs.
+
+    Structures
+    for receiving visual and auditory information have been identified.
+
+    Decision-assist
+    functionality is now active, reducing Trust loss from 5 to 2 upon a failed inspection.'
   displayMode: 1
   slotButton: {fileID: 5021191516673544059}
   ownedVisual: {fileID: 4807734694419035132}
@@ -23877,13 +23893,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanPartSlotUI
   partType: 1
-  partName: "\uC634\uD1B5\uBAB8\uD1B5"
-  description: "\uC778\uAC04\uC758 \uC2E0\uCCB4 \uAD6C\uC870\uB97C \uBAA8\uBC29\uD55C
-    \uBC14\uB514 \uD30C\uCE20.\n\uD604\uC7AC \uAE30\uCCB4\uB97C \uB300\uCCB4\uD560
-    \uC218 \uC788\uB294 \uACE8\uACA9\uACFC \uC678\uC7A5\uC73C\uB85C \uAD6C\uC131\uB418\uC5B4
-    \uC788\uC2B5\uB2C8\uB2E4.\n\uC5D0\uB108\uC9C0 \uD6A8\uC728\uC774 \uD5A5\uC0C1\uB418\uC5B4,
-    \uC0C1\uD488 \uAC80\uC218\uB2F9 \uC5F0\uB8CC\uAC00 1\uB9CC\uD07C \uC18C\uBAA8\uB429\uB2C8\uB2E4.
-    (2 -> 1)"
+  partName: Hot Body
+  description: 'A body unit modeled after the human body structure.
+
+    It consists
+    of a frame and exterior casing capable of replacing the current chassis.
+
+    Improved
+    energy efficiency reduces fuel consumption per inspection from 2 to 1.'
   displayMode: 1
   slotButton: {fileID: 688781795397419305}
   ownedVisual: {fileID: 1039648636602375000}
