@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CoinFlipController : MonoBehaviour
 {
@@ -63,18 +64,16 @@ public class CoinFlipController : MonoBehaviour
     //
     // 플레이어가 맞추면 true
     // 플레이어가 틀리면 false
-    //
-    // 다른 스크립트에서는
-    // coinFlipController.IsCorrect
-    // 로 가져가면 됨.
     // ================================
     public bool IsCorrect { get; private set; } = false;
+
 
     private enum CoinSide
     {
         Front,
         Back
     }
+
 
     private void Start()
     {
@@ -94,7 +93,6 @@ public class CoinFlipController : MonoBehaviour
         if (isFlipping)
             return;
 
-        // 돈이 부족하면 시작하지 않음
         if (!CanAffordFlip())
             return;
 
@@ -112,7 +110,6 @@ public class CoinFlipController : MonoBehaviour
         if (isFlipping)
             return;
 
-        // 돈이 부족하면 시작하지 않음
         if (!CanAffordFlip())
             return;
 
@@ -132,7 +129,10 @@ public class CoinFlipController : MonoBehaviour
 
         if (PlayerStatus.Instance.money < flipCost)
         {
-            Debug.Log("Coin Flip 실패 : 소지금이 부족합니다.");
+            Debug.Log(
+                "Coin Flip 실패 : 소지금이 부족합니다."
+            );
+
             return false;
         }
 
@@ -160,11 +160,11 @@ public class CoinFlipController : MonoBehaviour
         }
 
 
-        // ================================
         // 코인 돌아가는 소리
-        // 시작할 때 한 번만 재생
-        // ================================
-        if (audioSource != null && coinFlipSfx != null)
+        if (
+            audioSource != null &&
+            coinFlipSfx != null
+        )
         {
             audioSource.PlayOneShot(
                 coinFlipSfx,
@@ -173,7 +173,9 @@ public class CoinFlipController : MonoBehaviour
         }
 
 
-        StartCoroutine(FlipRoutine());
+        StartCoroutine(
+            FlipRoutine()
+        );
     }
 
 
@@ -188,66 +190,110 @@ public class CoinFlipController : MonoBehaviour
         IsCorrect = false;
 
 
-        float startTime = Time.time;
+        // ================================
+        // 현재 씬이 영어 씬인지 확인
+        // 씬 이름에 EN 포함 시 영어
+        // ================================
+        bool isEnglishScene =
+            SceneManager
+                .GetActiveScene()
+                .name
+                .Contains("EN");
 
-        bool showFront = true;
+
+        float startTime =
+            Time.time;
+
+        bool showFront =
+            true;
 
 
         // ================================
         // 앞 / 뒤가 빠르게 번갈아 보이는 연출
+        // 영어 씬에서는 Front / Back
         // ================================
-        while (Time.time - startTime < flipDuration)
+        while (
+            Time.time - startTime <
+            flipDuration
+        )
         {
             if (showFront)
             {
-                resultText.text = "앞";
+                resultText.text =
+                    isEnglishScene
+                        ? "Front"
+                        : "앞";
             }
             else
             {
-                resultText.text = "뒤";
+                resultText.text =
+                    isEnglishScene
+                        ? "Back"
+                        : "뒤";
             }
 
-            showFront = !showFront;
 
-            yield return new WaitForSeconds(changeInterval);
+            showFront =
+                !showFront;
+
+
+            yield return new WaitForSeconds(
+                changeInterval
+            );
         }
 
 
         // ================================
         // 최종 코인 결과 결정
-        //
-        // Front Chance 값에 따라
-        // 앞면이 나올 확률을 결정
         // ================================
         CoinSide finalResult;
 
-        if (Random.Range(0f, 100f) < frontChance)
+
+        if (
+            Random.Range(
+                0f,
+                100f
+            ) < frontChance
+        )
         {
-            finalResult = CoinSide.Front;
+            finalResult =
+                CoinSide.Front;
         }
         else
         {
-            finalResult = CoinSide.Back;
+            finalResult =
+                CoinSide.Back;
         }
 
 
         // ================================
         // 최종 결과 화면에 표시
         // ================================
-        if (finalResult == CoinSide.Front)
+        if (
+            finalResult ==
+            CoinSide.Front
+        )
         {
-            resultText.text = "앞";
+            resultText.text =
+                isEnglishScene
+                    ? "Front"
+                    : "앞";
         }
         else
         {
-            resultText.text = "뒤";
+            resultText.text =
+                isEnglishScene
+                    ? "Back"
+                    : "뒤";
         }
 
 
         // ================================
         // 플레이어 선택과 실제 결과 비교
         // ================================
-        IsCorrect = playerChoice == finalResult;
+        IsCorrect =
+            playerChoice ==
+            finalResult;
 
 
         // ================================
@@ -255,12 +301,16 @@ public class CoinFlipController : MonoBehaviour
         // ================================
         if (IsCorrect)
         {
-            // 성공하면 20C 지급
-            PlayerStatus.Instance.AddMoney(successReward);
+            PlayerStatus.Instance
+                .AddMoney(
+                    successReward
+                );
 
 
-            // 성공 효과음
-            if (audioSource != null && successSfx != null)
+            if (
+                audioSource != null &&
+                successSfx != null
+            )
             {
                 audioSource.PlayOneShot(
                     successSfx,
@@ -270,15 +320,17 @@ public class CoinFlipController : MonoBehaviour
 
 
             Debug.Log(
-                "Coin Flip 성공 / Result = True / +"
-                + successReward
-                + "C"
+                "Coin Flip 성공 / Result = True / +" +
+                successReward +
+                "C"
             );
         }
         else
         {
-            // 실패 효과음
-            if (audioSource != null && failSfx != null)
+            if (
+                audioSource != null &&
+                failSfx != null
+            )
             {
                 audioSource.PlayOneShot(
                     failSfx,
@@ -295,22 +347,36 @@ public class CoinFlipController : MonoBehaviour
 
         // ================================
         // 최종 소지금 표시
+        // 영어 씬에서는 Total Creta
         // ================================
         if (totalMoneyText != null)
         {
-            totalMoneyText.text =
-                "총 소지금 : "
-                + PlayerStatus.Instance.money
-                + " C";
+            if (isEnglishScene)
+            {
+                totalMoneyText.text =
+                    "Total Creta : " +
+                    PlayerStatus.Instance.money +
+                    " C";
+            }
+            else
+            {
+                totalMoneyText.text =
+                    "총 소지금 : " +
+                    PlayerStatus.Instance.money +
+                    " C";
+            }
         }
 
 
         if (totalMoneyObject != null)
         {
-            totalMoneyObject.SetActive(true);
+            totalMoneyObject.SetActive(
+                true
+            );
         }
 
 
-        isFlipping = false;
+        isFlipping =
+            false;
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ShopPurchaseController : MonoBehaviour
 {
@@ -125,8 +126,21 @@ public class ShopPurchaseController : MonoBehaviour
         // 플레이어 현재 정보 표시
         // =====================================================
 
-        string statusText =
-            $"소지금: {PlayerStatus.Instance.money} C  연료: {PlayerStatus.Instance.fuel} / 100";
+        string sceneName =
+     SceneManager.GetActiveScene().name;
+
+        string statusText;
+
+        if (sceneName.Contains("EN"))
+        {
+            statusText =
+                $"Creta: {PlayerStatus.Instance.money} C  Fuel: {PlayerStatus.Instance.fuel} / 100";
+        }
+        else
+        {
+            statusText =
+                $"소지금: {PlayerStatus.Instance.money} C  연료: {PlayerStatus.Instance.fuel} / 100";
+        }
 
         if (playerStat != null)
         {
