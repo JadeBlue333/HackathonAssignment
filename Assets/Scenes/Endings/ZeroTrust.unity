@@ -1900,6 +1900,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 1
 --- !u!4 &285070610
 Transform:
   m_ObjectHideFlags: 0
@@ -3891,6 +3892,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 1
 --- !u!4 &839930261
 Transform:
   m_ObjectHideFlags: 0

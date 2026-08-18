@@ -4609,6 +4609,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 0
 --- !u!4 &1746596814
 Transform:
   m_ObjectHideFlags: 0
@@ -5567,6 +5568,7 @@ MonoBehaviour:
   buttonDay: 9
   report: 0
   reportUI: {fileID: 0}
+  resetThisDay: 1
 --- !u!4 &1975840293
 Transform:
   m_ObjectHideFlags: 0
@@ -5990,6 +5992,10 @@ PrefabInstance:
     - target: {fileID: 1487732020612845019, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
       propertyPath: m_Name
       value: PostProcessing
+      objectReference: {fileID: 0}
+    - target: {fileID: 1487732020612845019, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2298527417366489099, guid: ed75025386c9944368f43c466bdd0fc2, type: 3}
       propertyPath: m_LocalPosition.x

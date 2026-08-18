@@ -52,6 +52,8 @@ public class PlayerStatus : MonoBehaviour
         public bool ending3Achieved;
         public bool ending4Achieved;
         public bool ending5Achieved;
+
+        public string saveDate;
     }
 
 
@@ -1106,6 +1108,10 @@ public class PlayerStatus : MonoBehaviour
         progressSnapshot.mistakeNumber =
             mistakeNumber;
 
+        // Combo / Mistake
+        progressSnapshot.successNumber = successNumber;
+        progressSnapshot.comboNumber = comboNumber;
+        progressSnapshot.mistakeNumber = mistakeNumber;
 
         // Human Parts
         progressSnapshot.humanBody =
@@ -1166,6 +1172,8 @@ public class PlayerStatus : MonoBehaviour
         progressSnapshot.hasData =
             true;
 
+        progressSnapshot.saveDate =
+    System.DateTime.Now.ToString("yyyy-MM-dd\nHH:mm");
 
         Debug.Log(
             $"Progress Snapshot 저장 완료 / " +
@@ -1236,6 +1244,9 @@ public class PlayerStatus : MonoBehaviour
         successNumber =
             progressSnapshot.successNumber;
 
+        successNumber =
+    progressSnapshot.successNumber;
+
         comboNumber =
             progressSnapshot.comboNumber;
 
@@ -1269,6 +1280,22 @@ public class PlayerStatus : MonoBehaviour
 
         workTimeLevel =
             progressSnapshot.workTimeLevel;
+
+        // Endings
+        ending1Achieved =
+            progressSnapshot.ending1Achieved;
+
+        ending2Achieved =
+            progressSnapshot.ending2Achieved;
+
+        ending3Achieved =
+            progressSnapshot.ending3Achieved;
+
+        ending4Achieved =
+            progressSnapshot.ending4Achieved;
+
+        ending5Achieved =
+            progressSnapshot.ending5Achieved;
 
 
         // Time
@@ -1319,6 +1346,7 @@ public class PlayerStatus : MonoBehaviour
     // Snapshot Day Check
     // =========================================================
 
+    /*
     public bool IsProgressSnapshotDifferentDay()
     {
         if (
@@ -1333,5 +1361,16 @@ public class PlayerStatus : MonoBehaviour
         return
             currentDay !=
             progressSnapshot.currentDay;
+    }
+    */
+
+    public ProgressSnapshot GetProgressSnapshot()
+    {
+        return progressSnapshot;
+    }
+
+    public void SetProgressSnapshot(ProgressSnapshot data)
+    {
+        progressSnapshot = data;
     }
 }
