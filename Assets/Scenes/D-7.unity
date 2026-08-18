@@ -5278,10 +5278,10 @@ PrefabInstance:
       objectReference: {fileID: 1351998166}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_text
-      value: "\uD558.. \uC81C\uC815\uC2E0 \uC544\uB2CC \uB0A9\uD488\uC5C5\uCCB4\uB4E4\uC774
-        \uC11E\uC600\uC5B4.\n\uBAA8\uD130 \uBAB8\uD1B5\uCABD\uC5D0 \uBD80\uC2DD\uB41C
-        \uC790\uAD6D\uC774 \uBCF4\uC778\uB2E4\uBA74\n\uBCF4\uC774\uB294 \uB4F1\uAE09\uC5D0\uC11C
-        \uD558\uB098 \uB354 \uB0AE\uCD94\uB3C4\uB85D. "
+      value: "\uC55E\uB4A4 \uD504\uB85C\uD3A0\uB7EC\uB97C \uD655\uC778\uD560 \uB54C,
+        \uC0C9 \uBFD0\uB9CC\uC544\uB2C8\uB77C\n\uB0A0\uAC1C \uAC1C\uC218\uB3C4 \uC55E\uB4A4
+        \uB2E4 \uAC19\uC740\uC9C0 \uD655\uC778\uD558\uB3C4\uB85D.\n\uB0A0\uAC1C \uAC1C\uC218\uAC00
+        \uB2E4\uB974\uB2E4\uBA74 \uAC10\uC810\uC694\uC778\uC774\uB2E4."
       objectReference: {fileID: 0}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset
@@ -6304,7 +6304,7 @@ PrefabInstance:
       objectReference: {fileID: 1140698141}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: motor0Chance
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: motorButtons
