@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BlackMarketTransition : MonoBehaviour
 {
@@ -58,7 +59,18 @@ public class BlackMarketTransition : MonoBehaviour
         // 6. ¥Ÿ¿Ω æ¿ ¿Ãµø
         if (goToThisScene != null)
         {
-            goToThisScene.nextSceneButton();
+            if (SceneManager.GetActiveScene().name == "BlackMarketTransition")
+            {
+                if (LanguageManager.Instance.isEnglish)
+                {
+                    goToThisScene.sceneName = "BlackMarket_EN";
+                }
+                else
+                {
+                    goToThisScene.sceneName = "BlackMarket";
+                }
+            }
+                goToThisScene.nextSceneButton();
         }
         else
         {
