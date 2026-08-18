@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class JackpotController : MonoBehaviour
 {
@@ -243,8 +244,19 @@ public class JackpotController : MonoBehaviour
 
         if (totalMoneyText != null)
         {
-            totalMoneyText.text =
-                $"ÃÑ ¼ÒÁö±Ý : {PlayerStatus.Instance.money} C";
+            string sceneName =
+                SceneManager.GetActiveScene().name;
+
+            if (sceneName.Contains("EN"))
+            {
+                totalMoneyText.text =
+                    $"Total Creta : {PlayerStatus.Instance.money} C";
+            }
+            else
+            {
+                totalMoneyText.text =
+                    $"ÃÑ ¼ÒÁö±Ý : {PlayerStatus.Instance.money} C";
+            }
         }
 
         if (totalMoneyObject != null)

@@ -4534,6 +4534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1557062305}
     m_Modifications:
+    - target: {fileID: 72465707720215684, guid: ee19de56844eb63438816c8d7ed0c91f, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1527392959}
     - target: {fileID: 260224501558482242, guid: ee19de56844eb63438816c8d7ed0c91f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -18576,6 +18580,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6435986551300677995, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1527392959}
     - target: {fileID: 7202135986898338204, guid: 76ba9854e4349d945ad64f28fa85c385, type: 3}
       propertyPath: m_Name
       value: SaveNLoadPanel
