@@ -81,7 +81,7 @@ public class SaveSlotUI : MonoBehaviour
     private void SetEndingAlpha(Image image, bool achieved)
     {
         Color color = image.color;
-        color.a = achieved ? 1f : 0.4f;
+        color.a = achieved ? 1f : 0.2f;
         image.color = color;
     }
 
