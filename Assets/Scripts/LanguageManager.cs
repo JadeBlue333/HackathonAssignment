@@ -24,55 +24,6 @@ public class LanguageManager : MonoBehaviour
 
 
     // =========================================================
-    // Language Button Texts
-    // =========================================================
-
-    [Header("Korean Canvas Button Texts")]
-
-    [SerializeField]
-    private TMP_Text koreanTextKR;
-
-    [SerializeField]
-    private TMP_Text englishTextKR;
-
-
-    [Header("English Canvas Button Texts")]
-
-    [SerializeField]
-    private TMP_Text koreanTextEN;
-
-    [SerializeField]
-    private TMP_Text englishTextEN;
-
-
-    // =========================================================
-    // Text Colors
-    // =========================================================
-
-    [Header("Text Colors")]
-
-    [Tooltip("현재 선택된 언어 텍스트 색상")]
-    [SerializeField]
-    private Color selectedColor =
-        new Color(
-            1f,
-            1f,
-            1f,
-            1f
-        );
-
-    [Tooltip("선택되지 않은 언어 텍스트 색상")]
-    [SerializeField]
-    private Color unselectedColor =
-        new Color(
-            1f,
-            1f,
-            1f,
-            0.35f
-        );
-
-
-    // =========================================================
     // Awake
     // =========================================================
 
@@ -249,56 +200,6 @@ public class LanguageManager : MonoBehaviour
 
             canvasEN.blocksRaycasts =
                 isEnglish;
-        }
-
-
-        UpdateLanguageTexts();
-    }
-
-
-    // =========================================================
-    // Update Language Texts
-    // =========================================================
-
-    private void UpdateLanguageTexts()
-    {
-        // -----------------------------------------------------
-        // Korean Canvas
-        //
-        // 한국어가 선택된 상태
-        // -----------------------------------------------------
-
-        if (koreanTextKR != null)
-        {
-            koreanTextKR.color =
-                selectedColor;
-        }
-
-
-        if (englishTextKR != null)
-        {
-            englishTextKR.color =
-                unselectedColor;
-        }
-
-
-        // -----------------------------------------------------
-        // English Canvas
-        //
-        // 영어가 선택된 상태
-        // -----------------------------------------------------
-
-        if (koreanTextEN != null)
-        {
-            koreanTextEN.color =
-                unselectedColor;
-        }
-
-
-        if (englishTextEN != null)
-        {
-            englishTextEN.color =
-                selectedColor;
         }
     }
 

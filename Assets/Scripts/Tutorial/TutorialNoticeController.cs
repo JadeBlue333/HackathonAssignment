@@ -12,9 +12,10 @@ public class TutorialNoticeController : MonoBehaviour
     [SerializeField]
     private TMP_Text countdownText;
 
-    [Tooltip("튜토리얼 씬으로 넘어가기까지의 시간")]
+    [Tooltip("튜토리얼 씬으로 넘어가기")]
     [SerializeField]
     private int countdownSeconds = 5;
+    public GoToThisScene goToThisScene;
 
     [Tooltip("점이 바뀌는 속도")]
     [SerializeField]
@@ -70,7 +71,15 @@ public class TutorialNoticeController : MonoBehaviour
 
         isCountingDown = false;
 
-        SceneManager.LoadScene("Tutorial");
+        if (LanguageManager.Instance.isEnglish)
+        {
+            goToThisScene.sceneName = "Tutorial_EN";
+        }
+        else
+        {
+            goToThisScene.sceneName = "Tutorial";
+        }
+        goToThisScene.nextSceneButton();
     }
 
 
@@ -106,7 +115,15 @@ public class TutorialNoticeController : MonoBehaviour
 
     private void UpdateCountdownText()
     {
-        countdownText.text =
+        if (LanguageManager.Instance.isEnglish)
+        {
+            countdownText.text =
+            $"The training program will start automatically in {currentSeconds} seconds{currentDots}";
+        }
+        else
+        {
+            countdownText.text =
             $"{currentSeconds}초 뒤 교육 프로그램이 자동으로 실행됩니다{currentDots}";
+        }
     }
 }
