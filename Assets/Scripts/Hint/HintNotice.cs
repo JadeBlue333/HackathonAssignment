@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -33,6 +34,10 @@ public class HintNotice : MonoBehaviour
     [Tooltip("사라지는 시간")]
     [SerializeField]
     private float fadeOutDuration = 0.5f;
+
+    [Tooltip("한 힌트가 끝난 뒤 다음 힌트가 등장하기까지의 대기 시간")]
+    [SerializeField]
+    private float intervalBetweenHints = 10f;
 
 
     // =========================================================
@@ -69,7 +74,12 @@ public class HintNotice : MonoBehaviour
     // Runtime
     // =========================================================
 
-    private Coroutine noticeCoroutine;
+    private readonly Queue<string> hintQueue =
+        new Queue<string>();
+
+    private Coroutine queueCoroutine;
+
+    private bool isShowingHint = false;
 
 
     // =========================================================
@@ -82,6 +92,7 @@ public class HintNotice : MonoBehaviour
         {
             noticeObject.SetActive(false);
         }
+
 
         if (canvasGroup != null)
         {
@@ -103,12 +114,86 @@ public class HintNotice : MonoBehaviour
         }
 
 
-        if (noticeCoroutine != null)
+        if (string.IsNullOrEmpty(message))
         {
-            StopCoroutine(noticeCoroutine);
+            return;
         }
 
 
+        // 힌트를 큐에 추가
+        hintQueue.Enqueue(
+            message
+        );
+
+
+        // 큐 처리 중이 아니라면 시작
+        if (queueCoroutine == null)
+        {
+            queueCoroutine =
+                StartCoroutine(
+                    ProcessHintQueue()
+                );
+        }
+    }
+
+
+    // =========================================================
+    // Queue
+    // =========================================================
+
+    private IEnumerator ProcessHintQueue()
+    {
+        while (hintQueue.Count > 0)
+        {
+            string message =
+                hintQueue.Dequeue();
+
+
+            isShowingHint = true;
+
+
+            // -------------------------------------------------
+            // 현재 힌트 표시
+            // -------------------------------------------------
+
+            yield return StartCoroutine(
+                ShowRoutine(
+                    message
+                )
+            );
+
+
+            isShowingHint = false;
+
+
+            // -------------------------------------------------
+            // 다음 힌트가 있다면 간격 대기
+            // -------------------------------------------------
+
+            if (
+                hintQueue.Count > 0 &&
+                intervalBetweenHints > 0f
+            )
+            {
+                yield return new WaitForSecondsRealtime(
+                    intervalBetweenHints
+                );
+            }
+        }
+
+
+        queueCoroutine = null;
+    }
+
+
+    // =========================================================
+    // Show Routine
+    // =========================================================
+
+    private IEnumerator ShowRoutine(
+        string message
+    )
+    {
         noticeText.text =
             message;
 
@@ -118,19 +203,6 @@ public class HintNotice : MonoBehaviour
         );
 
 
-        noticeCoroutine =
-            StartCoroutine(
-                ShowRoutine()
-            );
-    }
-
-
-    // =========================================================
-    // Show Routine
-    // =========================================================
-
-    private IEnumerator ShowRoutine()
-    {
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 0f;
@@ -141,8 +213,10 @@ public class HintNotice : MonoBehaviour
         // Sound
         // -----------------------------------------------------
 
-        if (audioSource != null &&
-            noticeSound != null)
+        if (
+            audioSource != null &&
+            noticeSound != null
+        )
         {
             audioSource.PlayOneShot(
                 noticeSound,
@@ -155,8 +229,10 @@ public class HintNotice : MonoBehaviour
         // Boot Effect
         // -----------------------------------------------------
 
-        if (useBootEffect &&
-            canvasGroup != null)
+        if (
+            useBootEffect &&
+            canvasGroup != null
+        )
         {
             yield return StartCoroutine(
                 BootEffectRoutine()
@@ -184,13 +260,18 @@ public class HintNotice : MonoBehaviour
         // Fade Out
         // -----------------------------------------------------
 
-        if (canvasGroup != null &&
-            fadeOutDuration > 0f)
+        if (
+            canvasGroup != null &&
+            fadeOutDuration > 0f
+        )
         {
             float elapsed = 0f;
 
 
-            while (elapsed < fadeOutDuration)
+            while (
+                elapsed <
+                fadeOutDuration
+            )
             {
                 elapsed +=
                     Time.unscaledDeltaTime;
@@ -225,9 +306,6 @@ public class HintNotice : MonoBehaviour
         noticeObject.SetActive(
             false
         );
-
-
-        noticeCoroutine = null;
     }
 
 
@@ -292,6 +370,16 @@ public class HintNotice : MonoBehaviour
 
 
     // =========================================================
+    // Public State
+    // =========================================================
+
+    public bool IsShowingHint()
+    {
+        return isShowingHint;
+    }
+
+
+    // =========================================================
     // Inspector
     // =========================================================
 
@@ -303,11 +391,20 @@ public class HintNotice : MonoBehaviour
                 holdDuration
             );
 
+
         fadeOutDuration =
             Mathf.Max(
                 0f,
                 fadeOutDuration
             );
+
+
+        intervalBetweenHints =
+            Mathf.Max(
+                0f,
+                intervalBetweenHints
+            );
+
 
         bootStartDelay =
             Mathf.Max(
