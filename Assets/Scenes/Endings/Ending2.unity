@@ -174,7 +174,7 @@ MonoBehaviour:
   fadeDuration: 1
   bgm: {fileID: 1042138439}
   bgmFadeDuration: 1
-  nextSceneName: MainMenu
+  nextSceneName: Progress
   startOfGame: 0
   chatImg: {fileID: 0}
   endOfGame: 1
@@ -757,7 +757,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 1fbf737cec153bc489c33dc5a51973d4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

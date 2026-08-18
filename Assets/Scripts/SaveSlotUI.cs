@@ -52,12 +52,24 @@ public class SaveSlotUI : MonoBehaviour
         infoText.gameObject.SetActive(true);
         emptyText.gameObject.SetActive(false);
 
-        infoText.text =
-            $"D - {data.currentDay}\n" +
-            $"연료: {data.fuel}\n" +
-            $"신뢰도: {data.trust}\n" +
-            $"크레타: {data.money}\n\n" +
-            $"{data.saveDate}";
+        if (!LanguageManager.Instance.isEnglish)
+        {
+            infoText.text =
+                $"D - {data.currentDay}\n" +
+                $"연료: {data.fuel}\n" +
+                $"신뢰도: {data.trust}\n" +
+                $"크레타: {data.money}\n\n" +
+                $"{data.saveDate}";
+        }
+        else
+        {
+            infoText.text =
+                $"D - {data.currentDay}\n" +
+                $"Fuel: {data.fuel}\n" +
+                $"Trust: {data.trust}\n" +
+                $"Creta: {data.money}\n\n" +
+                $"{data.saveDate}";
+        }
 
         SetEndingAlpha(ending1, data.ending1Achieved);
         SetEndingAlpha(ending2, data.ending2Achieved);
