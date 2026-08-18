@@ -45,6 +45,7 @@ public class PlayerStatus : MonoBehaviour
 
         // Tutorial / Notice
         public bool tutorialCompleted;
+        public bool fuelLowHintShown;
         public int discardWarningIndex;
 
         // Endings
@@ -165,6 +166,8 @@ public class PlayerStatus : MonoBehaviour
         // =====================================================
 
         tutorialCompleted = false;
+
+        fuelLowHintShown = false;
 
         discardWarningIndex = 0;
 
@@ -375,6 +378,9 @@ public class PlayerStatus : MonoBehaviour
 
     [Tooltip("튜토리얼 완료 여부")]
     public bool tutorialCompleted = false;
+
+    [Tooltip("연료 부족 힌트를 이미 표시했는지 여부")]
+    public bool fuelLowHintShown = false;
 
     [Tooltip("폐기 실패 알림에서 현재 보여줄 대사 인덱스")]
     public int discardWarningIndex = 0;
@@ -1170,6 +1176,9 @@ public class PlayerStatus : MonoBehaviour
         progressSnapshot.tutorialCompleted =
             tutorialCompleted;
 
+        progressSnapshot.fuelLowHintShown =
+            fuelLowHintShown;
+
         progressSnapshot.discardWarningIndex =
             discardWarningIndex;
 
@@ -1330,6 +1339,9 @@ public class PlayerStatus : MonoBehaviour
         // Tutorial / Notice
         tutorialCompleted =
             progressSnapshot.tutorialCompleted;
+
+        fuelLowHintShown =
+            progressSnapshot.fuelLowHintShown;
 
         discardWarningIndex =
             Mathf.Max(

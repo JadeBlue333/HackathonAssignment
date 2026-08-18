@@ -690,14 +690,14 @@ PrefabInstance:
     - target: {fileID: 2349187090510857088, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 828176640}
+      objectReference: {fileID: 1628017315}
     - target: {fileID: 2349187090510857088, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: nextSceneButton
+      value: ReturnProgress
       objectReference: {fileID: 0}
     - target: {fileID: 2349187090510857088, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GoToThisScene, Assembly-CSharp
+      value: ReturnToProgress, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2492877745900601458, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Name
@@ -2350,17 +2350,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722573565}
   m_CullTransparentMesh: 1
---- !u!114 &828176640 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4089560541277413902, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
-  m_PrefabInstance: {fileID: 153260935}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039221353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ddee9d4597c1434ebe76fc55fd1069e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GoToThisScene
 --- !u!1 &883182855
 GameObject:
   m_ObjectHideFlags: 0
@@ -4522,6 +4511,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616893228}
   m_CullTransparentMesh: 1
+--- !u!114 &1628017315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3269269537477544187, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039221353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6be95a4b97454fc886d318602f2ade8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReturnToProgress
 --- !u!114 &1694736266 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7156701763335501604, guid: 14b799c203a704df3a47e608360d6cae, type: 3}

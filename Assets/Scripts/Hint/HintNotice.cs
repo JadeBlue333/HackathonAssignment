@@ -1,14 +1,14 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
-public class DiscardWarningNotice : MonoBehaviour
+public class HintNotice : MonoBehaviour
 {
     // =========================================================
-    // Notice UI
+    // UI
     // =========================================================
 
-    [Header("Notice UI")]
+    [Header("UI")]
 
     [SerializeField]
     private GameObject noticeObject;
@@ -16,13 +16,19 @@ public class DiscardWarningNotice : MonoBehaviour
     [SerializeField]
     private TMP_Text noticeText;
 
-    [Tooltip("발생 후 알림이 나타나기까지의 대기 시간")]
     [SerializeField]
-    private float delayBeforeShow = 5f;
+    private CanvasGroup canvasGroup;
 
-    [Tooltip("화면에 떠있는 시간")]
+
+    // =========================================================
+    // Timing
+    // =========================================================
+
+    [Header("Timing")]
+
+    [Tooltip("화면에 유지되는 시간")]
     [SerializeField]
-    private float holdDuration = 2.5f;
+    private float holdDuration = 3f;
 
     [Tooltip("사라지는 시간")]
     [SerializeField]
@@ -35,24 +41,11 @@ public class DiscardWarningNotice : MonoBehaviour
 
     [Header("Boot Effect")]
 
-    [Tooltip("등장 시 깜빡임 효과 사용")]
     [SerializeField]
     private bool useBootEffect = true;
 
-    [Tooltip("알림 활성화 후 첫 점멸까지 대기 시간")]
     [SerializeField]
     private float bootStartDelay = 0.05f;
-
-
-    // =========================================================
-    // Dialogue
-    // =========================================================
-
-    [Header("Dialogue")]
-
-    [TextArea(2, 5)]
-    [SerializeField]
-    private string[] warningMessages;
 
 
     // =========================================================
@@ -76,11 +69,7 @@ public class DiscardWarningNotice : MonoBehaviour
     // Runtime
     // =========================================================
 
-    private CanvasGroup canvasGroup;
-
     private Coroutine noticeCoroutine;
-
-    private bool isWaitingToShow = false;
 
 
     // =========================================================
@@ -89,64 +78,44 @@ public class DiscardWarningNotice : MonoBehaviour
 
     private void Awake()
     {
-        if (noticeObject == null)
-            return;
-
-
-        canvasGroup =
-            noticeObject.GetComponent<CanvasGroup>();
-
-
-        if (canvasGroup == null)
+        if (noticeObject != null)
         {
-            canvasGroup =
-                noticeObject.AddComponent<CanvasGroup>();
+            noticeObject.SetActive(false);
         }
 
-
-        canvasGroup.alpha = 0f;
-
-        noticeObject.SetActive(false);
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0f;
+        }
     }
 
 
     // =========================================================
-    // 실패 알림 호출
+    // Show
     // =========================================================
 
-    public void ShowNext()
+    public void Show(string message)
     {
-        if (PlayerStatus.Instance == null)
-        {
-            Debug.LogWarning(
-                "PlayerStatus.Instance가 없습니다."
-            );
-
-            return;
-        }
-
-
-        if (
-            warningMessages == null ||
-            warningMessages.Length == 0
-        )
-        {
-            Debug.LogWarning(
-                "폐기 실패 대사가 등록되어 있지 않습니다."
-            );
-
-            return;
-        }
-
-
-        // 이미 대기 중이면 중복 예약 방지
-        if (isWaitingToShow)
+        if (noticeObject == null ||
+            noticeText == null)
         {
             return;
         }
 
 
-        isWaitingToShow = true;
+        if (noticeCoroutine != null)
+        {
+            StopCoroutine(noticeCoroutine);
+        }
+
+
+        noticeText.text =
+            message;
+
+
+        noticeObject.SetActive(
+            true
+        );
 
 
         noticeCoroutine =
@@ -157,94 +126,23 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
     // =========================================================
-    // Notice Routine
+    // Show Routine
     // =========================================================
 
     private IEnumerator ShowRoutine()
     {
-        // -----------------------------------------------------
-        // 발생 후 대기
-        // -----------------------------------------------------
-
-        if (delayBeforeShow > 0f)
+        if (canvasGroup != null)
         {
-            yield return new WaitForSecondsRealtime(
-                delayBeforeShow
-            );
-        }
-
-
-        if (
-            noticeObject == null ||
-            noticeText == null ||
-            PlayerStatus.Instance == null
-        )
-        {
-            isWaitingToShow = false;
-
-            noticeCoroutine = null;
-
-            yield break;
+            canvasGroup.alpha = 0f;
         }
 
 
         // -----------------------------------------------------
-        // 현재 대사 번호 결정
+        // Sound
         // -----------------------------------------------------
 
-        int currentIndex =
-            PlayerStatus.Instance
-                .discardWarningIndex;
-
-
-        currentIndex =
-            Mathf.Clamp(
-                currentIndex,
-                0,
-                warningMessages.Length - 1
-            );
-
-
-        // -----------------------------------------------------
-        // 대사 적용
-        // -----------------------------------------------------
-
-        noticeText.text =
-            warningMessages[currentIndex];
-
-
-        // -----------------------------------------------------
-        // 다음 대사로 진행
-        // -----------------------------------------------------
-
-        if (
-            PlayerStatus.Instance.discardWarningIndex <
-            warningMessages.Length - 1
-        )
-        {
-            PlayerStatus.Instance
-                .discardWarningIndex++;
-        }
-
-
-        isWaitingToShow = false;
-
-
-        // -----------------------------------------------------
-        // Notice ON
-        // -----------------------------------------------------
-
-        noticeObject.SetActive(true);
-
-
-        // -----------------------------------------------------
-        // Notice Sound
-        // -----------------------------------------------------
-
-        if (
-            audioSource != null &&
-            noticeSound != null
-        )
+        if (audioSource != null &&
+            noticeSound != null)
         {
             audioSource.PlayOneShot(
                 noticeSound,
@@ -257,10 +155,8 @@ public class DiscardWarningNotice : MonoBehaviour
         // Boot Effect
         // -----------------------------------------------------
 
-        if (
-            useBootEffect &&
-            canvasGroup != null
-        )
+        if (useBootEffect &&
+            canvasGroup != null)
         {
             yield return StartCoroutine(
                 BootEffectRoutine()
@@ -276,27 +172,25 @@ public class DiscardWarningNotice : MonoBehaviour
         // Hold
         // -----------------------------------------------------
 
-        yield return new WaitForSecondsRealtime(
-            holdDuration
-        );
+        if (holdDuration > 0f)
+        {
+            yield return new WaitForSecondsRealtime(
+                holdDuration
+            );
+        }
 
 
         // -----------------------------------------------------
         // Fade Out
         // -----------------------------------------------------
 
-        if (
-            canvasGroup != null &&
-            fadeOutDuration > 0f
-        )
+        if (canvasGroup != null &&
+            fadeOutDuration > 0f)
         {
             float elapsed = 0f;
 
 
-            while (
-                elapsed <
-                fadeOutDuration
-            )
+            while (elapsed < fadeOutDuration)
             {
                 elapsed +=
                     Time.unscaledDeltaTime;
@@ -328,7 +222,9 @@ public class DiscardWarningNotice : MonoBehaviour
         }
 
 
-        noticeObject.SetActive(false);
+        noticeObject.SetActive(
+            false
+        );
 
 
         noticeCoroutine = null;
@@ -336,7 +232,7 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
     // =========================================================
-    // Boot Effect Routine
+    // Boot Effect
     // =========================================================
 
     private IEnumerator BootEffectRoutine()
@@ -390,23 +286,17 @@ public class DiscardWarningNotice : MonoBehaviour
         );
 
 
-        // 최종 고정
+        // 최종 표시
         canvasGroup.alpha = 1f;
     }
 
 
     // =========================================================
-    // Inspector 값 보정
+    // Inspector
     // =========================================================
 
     private void OnValidate()
     {
-        delayBeforeShow =
-            Mathf.Max(
-                0f,
-                delayBeforeShow
-            );
-
         holdDuration =
             Mathf.Max(
                 0f,

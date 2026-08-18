@@ -1434,6 +1434,7 @@ GameObject:
   - component: {fileID: 5599191748515450959}
   - component: {fileID: 8293338409998836836}
   - component: {fileID: 4089560541277413902}
+  - component: {fileID: 3269269537477544187}
   m_Layer: 9
   m_Name: Goto Progress
   m_TagString: Untagged
@@ -1544,9 +1545,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4089560541277413902}
-        m_TargetAssemblyTypeName: GoToThisScene, Assembly-CSharp
-        m_MethodName: nextSceneButton
+      - m_Target: {fileID: 3269269537477544187}
+        m_TargetAssemblyTypeName: ReturnToProgress, Assembly-CSharp
+        m_MethodName: ReturnProgress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1624,6 +1625,19 @@ MonoBehaviour:
   report: 0
   reportUI: {fileID: 0}
   resetThisDay: 1
+--- !u!114 &3269269537477544187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789534985300986603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6be95a4b97454fc886d318602f2ade8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReturnToProgress
+  progressSceneName: Progress
 --- !u!1 &812557709176562796
 GameObject:
   m_ObjectHideFlags: 0
@@ -18342,6 +18356,8 @@ MonoBehaviour:
   delayBeforeShow: 5
   holdDuration: 4
   fadeOutDuration: 1
+  useBootEffect: 1
+  bootStartDelay: 0.05
   warningMessages: []
   audioSource: {fileID: 4875054674038719183}
   noticeSound: {fileID: 8300000, guid: 93ae16d8426e9409b96e82c723ada024, type: 3}

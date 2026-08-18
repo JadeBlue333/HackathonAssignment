@@ -7561,6 +7561,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SystemWindowBootEffect
   windowCanvasGroup: {fileID: 305069187}
   startDelay: 0.3
+  audioSource: {fileID: 1527392959}
+  bootSound: {fileID: 8300000, guid: 7c2df0dedd5254755bfee0d230b6e7e4, type: 3}
+  bootSoundVolume: 0.8
 --- !u!4 &1155368137
 Transform:
   m_ObjectHideFlags: 0
@@ -9461,11 +9464,11 @@ Transform:
   m_GameObject: {fileID: 1564459515}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 67.04425, y: -0.00002, z: -7014.6533}
+  m_LocalPosition: {x: 884.50256, y: -0.00002, z: 3781.4453}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1966410796}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1576517887
 GameObject:
@@ -11484,7 +11487,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1966410796}
-  - component: {fileID: 1966410795}
   m_Layer: 0
   m_Name: Tutorial
   m_TagString: Untagged
@@ -11492,18 +11494,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1966410795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1966410794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a91b35ad0cdd498f8afe661dd9b8aee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TutorialFinishController
 --- !u!4 &1966410796
 Transform:
   m_ObjectHideFlags: 0
@@ -11518,7 +11508,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1155368137}
-  - {fileID: 1564459517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968274605
@@ -12906,4 +12895,5 @@ SceneRoots:
   - {fileID: 803683598}
   - {fileID: 1527392960}
   - {fileID: 1953206689}
+  - {fileID: 1564459517}
   - {fileID: 1966410796}

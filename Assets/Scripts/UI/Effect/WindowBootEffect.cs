@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SystemWindowBootEffect : MonoBehaviour
+public class WindowBootEffect : MonoBehaviour
 {
     [Header("Canvas")]
     [SerializeField]
@@ -27,25 +27,21 @@ public class SystemWindowBootEffect : MonoBehaviour
 
     private void OnEnable()
     {
-        // 이미 튜토리얼을 완료한 경우 실행하지 않음
-        if (PlayerStatus.Instance != null &&
-            PlayerStatus.Instance.tutorialCompleted)
-        {
-            return;
-        }
-
         StartCoroutine(BootEffect());
     }
 
 
     private IEnumerator BootEffect()
     {
+        if (windowCanvasGroup == null)
+            yield break;
+
+
         windowCanvasGroup.alpha = 0f;
 
         yield return new WaitForSeconds(startDelay);
 
 
-        // 등장 사운드
         if (audioSource != null &&
             bootSound != null)
         {
@@ -76,6 +72,8 @@ public class SystemWindowBootEffect : MonoBehaviour
         windowCanvasGroup.alpha = 0.5f;
         yield return new WaitForSeconds(0.04f);
 
+
+        // 최종 표시
         windowCanvasGroup.alpha = 1f;
     }
 }
