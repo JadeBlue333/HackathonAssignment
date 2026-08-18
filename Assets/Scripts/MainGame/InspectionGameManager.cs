@@ -241,6 +241,10 @@ public class InspectionGameManager : MonoBehaviour
 
     private IEnumerator Start()
     {
+        // =========================================================
+        // Wrong Reason UI 초기화
+        // =========================================================
+
         if (wrongReasonUI != null)
         {
             wrongReasonCanvasGroup =
@@ -252,27 +256,58 @@ public class InspectionGameManager : MonoBehaviour
                     wrongReasonUI.AddComponent<CanvasGroup>();
             }
 
+            wrongReasonCanvasGroup.alpha = 1f;
 
-            wrongReasonCanvasGroup.alpha =
-                1f;
+            wrongReasonUI.SetActive(false);
+        }
 
 
-            wrongReasonUI.SetActive(
-                false
+        // =========================================================
+        // 씬 전환 직후 한 프레임 대기
+        // =========================================================
+
+        yield return null;
+
+
+        // =========================================================
+        // 박스 매니저만 준비되면 박스 생성
+        //
+        // MotorMatchManager는 박스를 열기 전까지 필요 없음
+        // =========================================================
+
+        yield return new WaitUntil(
+            () =>
+                boxMatchManager != null &&
+                boxMatchManager.IsReady
+        );
+
+
+        // =========================================================
+        // PlayerStatus
+        // =========================================================
+
+        if (PlayerStatus.Instance != null)
+        {
+            comboCount =
+                PlayerStatus.Instance.comboNumber;
+        }
+        else
+        {
+            comboCount = 0;
+
+            Debug.LogWarning(
+                "PlayerStatus.Instance가 아직 없습니다."
             );
         }
 
 
-        yield return new WaitUntil(
-            () =>
-                boxMatchManager.IsReady &&
-                motorMatchManager.IsReady
+        // =========================================================
+        // 첫 박스 생성
+        // =========================================================
+
+        Debug.Log(
+            "[InspectionGameManager] 첫 박스 생성"
         );
-
-
-        comboCount =
-            PlayerStatus.Instance.comboNumber;
-
 
         GenerateQuestion();
     }
@@ -793,10 +828,9 @@ public class InspectionGameManager : MonoBehaviour
 
     private IEnumerator NextQuestionDelay()
     {
-        yield return new WaitForSeconds(
+        yield return new WaitForSecondsRealtime(
             0.5f
         );
-
 
         if (boxButtons != null)
         {
