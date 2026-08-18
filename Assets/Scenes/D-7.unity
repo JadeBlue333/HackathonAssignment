@@ -6326,6 +6326,10 @@ PrefabInstance:
       propertyPath: useStainMotorTexture
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useSameNumberCondition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: boxButtons
       value: 
