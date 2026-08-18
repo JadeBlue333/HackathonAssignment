@@ -43,11 +43,14 @@ public class IntroManager : MonoBehaviour
 
     private void Start()
     {
-        // 게임이 끝나는 씬이면 PlayerStatus 삭제
+        /*
+         * 게임이 끝나는 부분에서는 PlayerStatus.Instance를 파괴해야 함
+        지금은 주석처리.
         if (endOfGame)
         {
             Destroy(PlayerStatus.Instance.gameObject);
         }
+        */
 
         StartCoroutine(PlayIntroTexts());
 

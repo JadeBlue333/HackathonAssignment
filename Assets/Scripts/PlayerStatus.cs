@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ public class PlayerStatus : MonoBehaviour
     public class ProgressSnapshot
     {
         public bool hasData = false;
+
+        public string playerId;
 
         // Date
         public int currentDay;
@@ -94,6 +97,11 @@ public class PlayerStatus : MonoBehaviour
             gameObject
         );
 
+        // 플레이어 ID는 최초 Awake에서 딱 한 번 생성
+        if (string.IsNullOrEmpty(playerId))
+        {
+            playerId = Guid.NewGuid().ToString();
+        }
 
         Initialize();
     }
@@ -194,6 +202,11 @@ public class PlayerStatus : MonoBehaviour
 
     [Header("Inspector에서 수정해도 게임 시작 시 Initialize 값으로 초기화됩니다.")]
 
+    [Header("Player ID")]
+    [SerializeField]
+    private string playerId;
+
+    public string PlayerId => playerId;
 
     // =========================================================
     // Date
@@ -915,8 +928,10 @@ public class PlayerStatus : MonoBehaviour
         }
         else
         {
+            currentDay = 9;
+
             Debug.Log(
-                "D-Day입니다."
+                "1회차 플레이가 끝났습니다. 날짜만 초기화시킵니다."
             );
         }
     }
@@ -1079,6 +1094,7 @@ public class PlayerStatus : MonoBehaviour
                 new ProgressSnapshot();
         }
 
+        progressSnapshot.playerId = playerId;
 
         // Date
         progressSnapshot.currentDay =
@@ -1229,6 +1245,29 @@ public class PlayerStatus : MonoBehaviour
             return false;
         }
 
+        // Player ID가 다를 경우에만 Ending 상태를 불러옵니다.
+        if (progressSnapshot.playerId != playerId)
+        {
+            // Endings
+            ending1Achieved =
+                progressSnapshot.ending1Achieved;
+
+            ending2Achieved =
+                progressSnapshot.ending2Achieved;
+
+            ending3Achieved =
+                progressSnapshot.ending3Achieved;
+
+            ending4Achieved =
+                progressSnapshot.ending4Achieved;
+
+            ending5Achieved =
+                progressSnapshot.ending5Achieved;
+        }
+
+        // Player ID
+        playerId =
+            progressSnapshot.playerId;
 
         // Date
         currentDay =
@@ -1305,23 +1344,6 @@ public class PlayerStatus : MonoBehaviour
         workTimeLevel =
             progressSnapshot.workTimeLevel;
 
-        // Endings
-        ending1Achieved =
-            progressSnapshot.ending1Achieved;
-
-        ending2Achieved =
-            progressSnapshot.ending2Achieved;
-
-        ending3Achieved =
-            progressSnapshot.ending3Achieved;
-
-        ending4Achieved =
-            progressSnapshot.ending4Achieved;
-
-        ending5Achieved =
-            progressSnapshot.ending5Achieved;
-
-
         // Time
         dayDuration =
             progressSnapshot.dayDuration;
@@ -1336,23 +1358,6 @@ public class PlayerStatus : MonoBehaviour
                 0,
                 progressSnapshot.discardWarningIndex
             );
-
-
-        // Endings
-        ending1Achieved =
-            progressSnapshot.ending1Achieved;
-
-        ending2Achieved =
-            progressSnapshot.ending2Achieved;
-
-        ending3Achieved =
-            progressSnapshot.ending3Achieved;
-
-        ending4Achieved =
-            progressSnapshot.ending4Achieved;
-
-        ending5Achieved =
-            progressSnapshot.ending5Achieved;
 
 
         Debug.Log(

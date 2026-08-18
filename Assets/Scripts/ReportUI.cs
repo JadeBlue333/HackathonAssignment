@@ -20,6 +20,7 @@ public class ReportUI : MonoBehaviour
 
     private const int FuelPrice = 20;
     private const int FuelAmount = 30;
+    private int fuelRecovery = 0;
 
     private void Start()
     {
@@ -67,11 +68,21 @@ public class ReportUI : MonoBehaviour
             fuel += FuelAmount;
             totalMoney -= FuelPrice;
         }
-        
-        if (fuel - 10 + ps.fuelRecoveryLevel * 5 == 0)
+
+        if (ps.fuelRecoveryLevel == 0)
+            fuelRecovery = 0;
+        else if (ps.fuelRecoveryLevel == 1)
+            fuelRecovery = 20;
+        else if (ps.fuelRecoveryLevel == 2)
+            fuelRecovery = 30;
+        else if (ps.fuelRecoveryLevel == 3)
+            fuelRecovery = 45;
+
+
+        if (fuel - 10 + fuelRecovery == 0)
             fuelLeftText.text = $"내일 예상 연료: 0";
-        else if (fuel - 10 + ps.fuelRecoveryLevel * 5 <= 100 && fuel - 10 + ps.fuelRecoveryLevel * 5 > 0)
-            fuelLeftText.text = $"내일 예상 연료: {fuel - 10 + ps.fuelRecoveryLevel * 5}";
+        else if (fuel - 10 + fuelRecovery <= 100 && fuel - 10 + fuelRecovery > 0)
+            fuelLeftText.text = $"내일 예상 연료: {fuel - 10 + fuelRecovery}";
         else
             fuelLeftText.text = $"내일 예상 연료: 100";
 
