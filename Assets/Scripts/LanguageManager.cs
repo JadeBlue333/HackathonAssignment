@@ -1,112 +1,328 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LanguageManager : MonoBehaviour
 {
     public static LanguageManager Instance;
 
+
+    // =========================================================
+    // Language
+    // =========================================================
+
     [Header("Language")]
     public bool isEnglish = false;
+
+
+    // =========================================================
+    // Language Canvas
+    // =========================================================
 
     private CanvasGroup canvasKR;
     private CanvasGroup canvasEN;
 
+
+    // =========================================================
+    // Language Button Texts
+    // =========================================================
+
+    [Header("Korean Canvas Button Texts")]
+
+    [SerializeField]
+    private TMP_Text koreanTextKR;
+
+    [SerializeField]
+    private TMP_Text englishTextKR;
+
+
+    [Header("English Canvas Button Texts")]
+
+    [SerializeField]
+    private TMP_Text koreanTextEN;
+
+    [SerializeField]
+    private TMP_Text englishTextEN;
+
+
+    // =========================================================
+    // Text Colors
+    // =========================================================
+
+    [Header("Text Colors")]
+
+    [Tooltip("ÌòÑÏû¨ ÏÑ†ÌÉùÎêú Ïñ∏Ïñ¥ ÌÖçÏä§Ìä∏ ÏÉâÏÉÅ")]
+    [SerializeField]
+    private Color selectedColor =
+        new Color(
+            1f,
+            1f,
+            1f,
+            1f
+        );
+
+    [Tooltip("ÏÑ†ÌÉùÎêòÏßÄ ÏïäÏùÄ Ïñ∏Ïñ¥ ÌÖçÏä§Ìä∏ ÏÉâÏÉÅ")]
+    [SerializeField]
+    private Color unselectedColor =
+        new Color(
+            1f,
+            1f,
+            1f,
+            0.35f
+        );
+
+
+    // =========================================================
+    // Awake
+    // =========================================================
+
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (
+            Instance != null &&
+            Instance != this
+        )
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        Instance = this;
+
+        DontDestroyOnLoad(
+            gameObject
+        );
+
+
+        SceneManager.sceneLoaded +=
+            OnSceneLoaded;
     }
+
+
+    // =========================================================
+    // Start
+    // =========================================================
 
     private void Start()
     {
         SetupLanguageCanvases();
     }
 
+
+    // =========================================================
+    // On Destroy
+    // =========================================================
+
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded -=
+            OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+
+    // =========================================================
+    // Scene Loaded
+    // =========================================================
+
+    private void OnSceneLoaded(
+        Scene scene,
+        LoadSceneMode mode
+    )
     {
         SetupLanguageCanvases();
     }
+
+
+    // =========================================================
+    // Setup Language Canvas
+    // =========================================================
 
     private void SetupLanguageCanvases()
     {
         canvasKR = null;
         canvasEN = null;
 
-        // «ˆ¿Á æ¿¿« ∏µÁ ∑Á∆Æ ø¿∫Í¡ß∆Æ ∞°¡Æø¿±‚
-        GameObject[] roots = SceneManager.GetActiveScene().GetRootGameObjects();
+
+        GameObject[] roots =
+            SceneManager
+                .GetActiveScene()
+                .GetRootGameObjects();
+
 
         foreach (GameObject root in roots)
         {
-            FindLanguageCanvas(root.transform);
+            FindLanguageCanvas(
+                root.transform
+            );
         }
+
 
         UpdateCanvas();
     }
 
-    private void FindLanguageCanvas(Transform parent)
+
+    // =========================================================
+    // Find Language Canvas
+    // =========================================================
+
+    private void FindLanguageCanvas(
+        Transform parent
+    )
     {
-        // «ˆ¿Á ø¿∫Í¡ß∆Æ ∞ÀªÁ
         if (parent.name == "Canvas_KR")
         {
-            canvasKR = parent.GetComponent<CanvasGroup>();
+            canvasKR =
+                parent.GetComponent<CanvasGroup>();
+
 
             if (canvasKR == null)
-                canvasKR = parent.gameObject.AddComponent<CanvasGroup>();
+            {
+                canvasKR =
+                    parent.gameObject
+                        .AddComponent<CanvasGroup>();
+            }
         }
+
         else if (parent.name == "Canvas_EN")
         {
-            canvasEN = parent.GetComponent<CanvasGroup>();
+            canvasEN =
+                parent.GetComponent<CanvasGroup>();
+
 
             if (canvasEN == null)
-                canvasEN = parent.gameObject.AddComponent<CanvasGroup>();
+            {
+                canvasEN =
+                    parent.gameObject
+                        .AddComponent<CanvasGroup>();
+            }
         }
 
-        // ¿⁄ΩƒµÈµµ ∞ÀªÁ
-        for (int i = 0; i < parent.childCount; i++)
+
+        for (
+            int i = 0;
+            i < parent.childCount;
+            i++
+        )
         {
-            FindLanguageCanvas(parent.GetChild(i));
+            FindLanguageCanvas(
+                parent.GetChild(i)
+            );
         }
     }
+
+
+    // =========================================================
+    // Update Canvas
+    // =========================================================
 
     private void UpdateCanvas()
     {
+        // -----------------------------------------------------
+        // Korean Canvas
+        // -----------------------------------------------------
+
         if (canvasKR != null)
         {
-            canvasKR.alpha = isEnglish ? 0f : 1f;
-            canvasKR.interactable = !isEnglish;
-            canvasKR.blocksRaycasts = !isEnglish;
+            canvasKR.alpha =
+                isEnglish ? 0f : 1f;
+
+            canvasKR.interactable =
+                !isEnglish;
+
+            canvasKR.blocksRaycasts =
+                !isEnglish;
         }
+
+
+        // -----------------------------------------------------
+        // English Canvas
+        // -----------------------------------------------------
 
         if (canvasEN != null)
         {
-            canvasEN.alpha = isEnglish ? 1f : 0f;
-            canvasEN.interactable = isEnglish;
-            canvasEN.blocksRaycasts = isEnglish;
+            canvasEN.alpha =
+                isEnglish ? 1f : 0f;
+
+            canvasEN.interactable =
+                isEnglish;
+
+            canvasEN.blocksRaycasts =
+                isEnglish;
+        }
+
+
+        UpdateLanguageTexts();
+    }
+
+
+    // =========================================================
+    // Update Language Texts
+    // =========================================================
+
+    private void UpdateLanguageTexts()
+    {
+        // -----------------------------------------------------
+        // Korean Canvas
+        //
+        // ÌïúÍµ≠Ïñ¥Í∞Ä ÏÑ†ÌÉùÎêú ÏÉÅÌÉú
+        // -----------------------------------------------------
+
+        if (koreanTextKR != null)
+        {
+            koreanTextKR.color =
+                selectedColor;
+        }
+
+
+        if (englishTextKR != null)
+        {
+            englishTextKR.color =
+                unselectedColor;
+        }
+
+
+        // -----------------------------------------------------
+        // English Canvas
+        //
+        // ÏòÅÏñ¥Í∞Ä ÏÑ†ÌÉùÎêú ÏÉÅÌÉú
+        // -----------------------------------------------------
+
+        if (koreanTextEN != null)
+        {
+            koreanTextEN.color =
+                unselectedColor;
+        }
+
+
+        if (englishTextEN != null)
+        {
+            englishTextEN.color =
+                selectedColor;
         }
     }
+
+
+    // =========================================================
+    // Set Korean
+    // =========================================================
 
     public void SetKorean()
     {
         isEnglish = false;
+
         UpdateCanvas();
     }
+
+
+    // =========================================================
+    // Set English
+    // =========================================================
 
     public void SetEnglish()
     {
         isEnglish = true;
+
         UpdateCanvas();
     }
 }
