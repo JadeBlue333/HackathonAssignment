@@ -3,26 +3,18 @@ using UnityEngine;
 public class RandomMotor : MonoBehaviour
 {
     // =========================================================
-    // 확률 설정
-    // =========================================================
+    // 기존 랜덤 생성용 확률
     //
-    // Spawn Chance = 실제 퍼센트(%)
-    // Weight = 상대적 등장 가중치
+    // GenerateMotor(false)를 사용할 때만 사용합니다.
+    // GenerateMotorByCondition()에서는 사용하지 않습니다.
     // =========================================================
 
-
-    // =========================================================
-    // Propeller Spawn Chance
-    // =========================================================
-
-    [Header("Probability - Spawn")]
+    [Header("Legacy Random - Spawn")]
 
     [Range(0f, 100f)]
-    [Tooltip("앞 프로펠러가 생성될 확률 (%)")]
     public float frontSpawnChance = 80f;
 
     [Range(0f, 100f)]
-    [Tooltip("뒤 프로펠러가 생성될 확률 (%)")]
     public float backSpawnChance = 80f;
 
 
@@ -30,21 +22,12 @@ public class RandomMotor : MonoBehaviour
     // Motor Material Weight
     // =========================================================
 
-    [Header("Probability - Motor Material")]
+    [Header("Motor Material Weight")]
 
-    [Tooltip("Motor 0의 등장 가중치")]
     public float motor0Weight = 1f;
-
-    [Tooltip("Motor 1의 등장 가중치")]
     public float motor1Weight = 1f;
-
-    [Tooltip("Motor 2의 등장 가중치")]
     public float motor2Weight = 1f;
-
-    [Tooltip("Motor 3의 등장 가중치")]
     public float motor3Weight = 1f;
-
-    [Tooltip("Motor 4의 등장 가중치")]
     public float motor4Weight = 1f;
 
 
@@ -52,15 +35,10 @@ public class RandomMotor : MonoBehaviour
     // Front Propeller Type Weight
     // =========================================================
 
-    [Header("Probability - Front Propeller Type")]
+    [Header("Front Propeller Type Weight")]
 
-    [Tooltip("Front 3의 등장 가중치")]
     public float front3Weight = 1f;
-
-    [Tooltip("Front 4의 등장 가중치")]
     public float front4Weight = 1f;
-
-    [Tooltip("Front 5의 등장 가중치")]
     public float front5Weight = 1f;
 
 
@@ -68,15 +46,10 @@ public class RandomMotor : MonoBehaviour
     // Back Propeller Type Weight
     // =========================================================
 
-    [Header("Probability - Back Propeller Type")]
+    [Header("Back Propeller Type Weight")]
 
-    [Tooltip("Back 3의 등장 가중치")]
     public float back3Weight = 1f;
-
-    [Tooltip("Back 4의 등장 가중치")]
     public float back4Weight = 1f;
-
-    [Tooltip("Back 5의 등장 가중치")]
     public float back5Weight = 1f;
 
 
@@ -84,7 +57,7 @@ public class RandomMotor : MonoBehaviour
     // Front Propeller Color Weight
     // =========================================================
 
-    [Header("Probability - Front Propeller Color")]
+    [Header("Front Propeller Color Weight")]
 
     public float frontColor0Weight = 1f;
     public float frontColor1Weight = 1f;
@@ -96,15 +69,12 @@ public class RandomMotor : MonoBehaviour
     // Back Propeller Color Weight
     // =========================================================
 
-    [Header("Probability - Back Propeller Color")]
+    [Header("Back Propeller Color Weight")]
 
     public float backColor0Weight = 1f;
     public float backColor1Weight = 1f;
     public float backColor2Weight = 1f;
     public float backColor3Weight = 1f;
-
-
-
 
 
     // =========================================================
@@ -113,8 +83,8 @@ public class RandomMotor : MonoBehaviour
 
     [Header("Debug")]
 
-    [Tooltip("모터가 생성될 때 결과를 Console에 출력할지 여부")]
-    public bool showDebugLog = true;
+    [SerializeField]
+    private bool showDebugLog = true;
 
 
     // =========================================================
@@ -123,16 +93,10 @@ public class RandomMotor : MonoBehaviour
 
     [Header("Main Body")]
 
-    // 항상 존재하는 모터 본체
     public GameObject motorMain;
 
-    // Element 순서
-    //
-    // 0 = Motor 0
-    // 1 = Motor 1
-    // 2 = Motor 2
-    // 3 = Motor 3
-    // 4 = Motor 4
+    // 0 = 정상
+    // 1~4 = 얼룩
     public Material[] motorMaterials;
 
 
@@ -142,11 +106,9 @@ public class RandomMotor : MonoBehaviour
 
     [Header("Front Propeller")]
 
-    // Element 순서
-    //
-    // 0 = prof_front_3
-    // 1 = prof_front_4
-    // 2 = prof_front_5
+    // Element 0 = front_3
+    // Element 1 = front_4
+    // Element 2 = front_5
     public GameObject[] frontPropellers;
 
 
@@ -156,11 +118,9 @@ public class RandomMotor : MonoBehaviour
 
     [Header("Back Propeller")]
 
-    // Element 순서
-    //
-    // 0 = prof_back_3
-    // 1 = prof_back_4
-    // 2 = prof_back_5
+    // Element 0 = back_3
+    // Element 1 = back_4
+    // Element 2 = back_5
     public GameObject[] backPropellers;
 
 
@@ -170,21 +130,14 @@ public class RandomMotor : MonoBehaviour
 
     [Header("Propeller Materials")]
 
-    // Element 순서
-    //
-    // 0 = Color 0
-    // 1 = Color 1
-    // 2 = Color 2
-    // 3 = Color 3
+    // 0~3
     public Material[] propellerMaterials;
 
 
     // =========================================================
-    // 최종 정상 / 불량 판정
+    // Current State
     // =========================================================
 
-    // true  = A 조건을 만족하는 정상 모터
-    // false = 하나 이상의 문제가 있는 모터
     public bool IsValidMotor
     {
         get;
@@ -192,60 +145,20 @@ public class RandomMotor : MonoBehaviour
     }
 
 
-    // =========================================================
-    // 현재 생성된 모터 정보
-    // =========================================================
-
-    // 앞 프로펠러 존재 여부
     private bool hasFront;
-
-    // 뒤 프로펠러 존재 여부
     private bool hasBack;
 
-
-    // 현재 선택된 앞 프로펠러 번호
-    //
-    // 3 / 4 / 5
-    // 없으면 -1
     private int selectedFrontNumber = -1;
-
-
-    // 현재 선택된 뒤 프로펠러 번호
-    //
-    // 3 / 4 / 5
-    // 없으면 -1
     private int selectedBackNumber = -1;
 
-
-    // 현재 선택된 앞 프로펠러 컬러
-    //
-    // 0 ~ 3
-    // 없으면 -1
     private int selectedFrontColor = -1;
-
-
-    // 현재 선택된 뒤 프로펠러 컬러
-    //
-    // 0 ~ 3
-    // 없으면 -1
     private int selectedBackColor = -1;
 
-
-    // 현재 선택된 Motor Material
-    //
-    // 0 ~ 4
     private int selectedMotorMaterial = -1;
 
 
     // =========================================================
-    // 외부 코드에서 읽을 수 있는 현재 모터 정보
-    // =========================================================
-    //
-    // MotorMatchManager에서
-    // A / B / C / 폐기 판정에 사용
-    //
-    // 외부에서는 읽기만 가능하고
-    // 직접 값을 변경할 수 없음.
+    // 외부 공개 정보
     // =========================================================
 
     public bool HasFront =>
@@ -273,13 +186,8 @@ public class RandomMotor : MonoBehaviour
         selectedMotorMaterial;
 
 
-
-
     // =========================================================
     // 기존 코드 호환용
-    // =========================================================
-    //
-    // 인자 없이 호출하면 일반 랜덤 생성
     // =========================================================
 
     public void GenerateMotor()
@@ -287,112 +195,142 @@ public class RandomMotor : MonoBehaviour
         GenerateMotor(false);
     }
 
+
     // =========================================================
-    // 지정 조건으로 모터 생성
-    // =========================================================
+    // InspectionGameManager 조건 기반 생성
     //
     // spawnFront
-    // true  = 앞 프로펠러 생성
-    // false = 앞 프로펠러 없음
+    // OFF = 앞 프로펠러 0%
+    // ON  = frontChance 확률
     //
     // spawnBack
-    // true  = 뒤 프로펠러 생성
-    // false = 뒤 프로펠러 없음
+    // OFF = 뒤 프로펠러 0%
+    // ON  = backChance 확률
     //
-    // useStainTexture
-    // false = Motor Material 0
-    // true  = Motor Material 1~4 중 랜덤
+    // useMotorTextureCondition
+    // OFF = 무조건 Motor 0
+    // ON  = motor0Chance 확률로 Motor 0
     //
-    // sameNumber
-    // true  = 앞뒤 날개 개수 동일
-    // false = 앞뒤 날개 개수 다름
+    // useSameNumberCondition
+    // OFF = 무조건 다름
+    // ON  = sameNumberChance 확률로 같음
     //
-    // sameColor
-    // true  = 앞뒤 색상 동일
-    // false = 앞뒤 색상 다름
-    //
+    // useSameColorCondition
+    // OFF = 무조건 다름
+    // ON  = sameColorChance 확률로 같음
     // =========================================================
 
     public void GenerateMotorByCondition(
         bool spawnFront,
+        float frontChance,
+
         bool spawnBack,
-        bool useStainTexture,
-        bool sameNumber,
-        bool sameColor
+        float backChance,
+
+        bool useMotorTextureCondition,
+        float motor0Chance,
+
+        bool useSameNumberCondition,
+        float sameNumberChance,
+
+        bool useSameColorCondition,
+        float sameColorChance
     )
     {
+        // =====================================================
+        // 확률 보정
+        // =====================================================
+
+        frontChance =
+            Mathf.Clamp(
+                frontChance,
+                0f,
+                100f
+            );
+
+        backChance =
+            Mathf.Clamp(
+                backChance,
+                0f,
+                100f
+            );
+
+        motor0Chance =
+            Mathf.Clamp(
+                motor0Chance,
+                0f,
+                100f
+            );
+
+        sameNumberChance =
+            Mathf.Clamp(
+                sameNumberChance,
+                0f,
+                100f
+            );
+
+        sameColorChance =
+            Mathf.Clamp(
+                sameColorChance,
+                0f,
+                100f
+            );
+
+
         // =====================================================
         // 초기화
         // =====================================================
 
-        if (motorMain != null)
-        {
-            motorMain.SetActive(true);
-        }
-
-
-        foreach (GameObject prop in frontPropellers)
-        {
-            if (prop != null)
-            {
-                prop.SetActive(false);
-            }
-        }
-
-
-        foreach (GameObject prop in backPropellers)
-        {
-            if (prop != null)
-            {
-                prop.SetActive(false);
-            }
-        }
-
-
-        hasFront = false;
-        hasBack = false;
-
-        selectedFrontNumber = -1;
-        selectedBackNumber = -1;
-
-        selectedFrontColor = -1;
-        selectedBackColor = -1;
-
-        selectedMotorMaterial = -1;
+        ResetMotor();
 
 
         // =====================================================
-        // 1. Motor Texture
+        // 1. Motor Material
+        //
+        // 조건 OFF
+        // → Motor 0
+        //
+        // 조건 ON
+        // → motor0Chance 확률로 Motor 0
+        // → 실패 시 Motor 1~4
         // =====================================================
 
-        if (useStainTexture)
+        if (!useMotorTextureCondition)
         {
-            // 체크되어 있으면 기존 방식대로 랜덤
-            // 0이 나오면 정상 / 1~4가 나오면 얼룩
-            float[] motorWeights =
-            {
-        motor0Weight,
-        motor1Weight,
-        motor2Weight,
-        motor3Weight,
-        motor4Weight
-    };
-
             selectedMotorMaterial =
-                GetWeightedRandomIndex(
-                    motorWeights
-                );
+                0;
         }
         else
         {
-            // 체크 해제 = 얼룩 절대 없음
-            selectedMotorMaterial = 0;
+            bool motor0Selected =
+                RollChance(
+                    motor0Chance
+                );
+
+
+            if (motor0Selected)
+            {
+                selectedMotorMaterial =
+                    0;
+            }
+            else
+            {
+                float[] stainWeights =
+                {
+                    motor1Weight,
+                    motor2Weight,
+                    motor3Weight,
+                    motor4Weight
+                };
+
+
+                selectedMotorMaterial =
+                    GetWeightedRandomIndex(
+                        stainWeights
+                    ) + 1;
+            }
         }
 
-        ApplyMotorMaterial(
-            selectedMotorMaterial
-        );
-
 
         ApplyMotorMaterial(
             selectedMotorMaterial
@@ -400,400 +338,82 @@ public class RandomMotor : MonoBehaviour
 
 
         // =====================================================
-        // 프로펠러 존재 여부 저장
-        // =====================================================
-
-        // =====================================================
-        // 앞 프로펠러
-        // 체크 OFF = 무조건 없음
-        // 체크 ON = 기존 확률 사용
+        // 2. 앞 프로펠러 생성 여부
         // =====================================================
 
         if (spawnFront)
         {
             hasFront =
-                Random.Range(
-                    0f,
-                    100f
-                ) <
-                frontSpawnChance;
+                RollChance(
+                    frontChance
+                );
         }
         else
         {
-            hasFront = false;
+            hasFront =
+                false;
         }
 
 
         // =====================================================
-        // 뒤 프로펠러
-        // 체크 OFF = 무조건 없음
-        // 체크 ON = 기존 확률 사용
+        // 3. 뒤 프로펠러 생성 여부
         // =====================================================
 
         if (spawnBack)
         {
             hasBack =
-                Random.Range(
-                    0f,
-                    100f
-                ) <
-                backSpawnChance;
+                RollChance(
+                    backChance
+                );
         }
         else
         {
-            hasBack = false;
+            hasBack =
+                false;
         }
 
+
         // =====================================================
-        // 둘 다 존재하는 경우
+        // 4. 앞뒤 모두 존재
         // =====================================================
 
-        if (hasFront && hasBack)
+        if (
+            hasFront &&
+            hasBack
+        )
         {
-            // =============================================
-            // 앞 프로펠러 선택
-            // =============================================
+            GenerateBothPropellers(
+                useSameNumberCondition,
+                sameNumberChance,
 
-            float[] frontTypeWeights =
-            {
-            front3Weight,
-            front4Weight,
-            front5Weight
-        };
-
-            int frontIndex =
-                GetWeightedRandomIndex(
-                    frontTypeWeights
-                );
-
-
-            GameObject front =
-                frontPropellers[
-                    frontIndex
-                ];
-
-            front.SetActive(true);
-
-            selectedFrontNumber =
-                GetPropellerNumber(
-                    front
-                );
-
-
-            // =============================================
-            // 뒤 프로펠러 선택
-            // =============================================
-
-            int backIndex;
-
-
-            if (sameNumber)
-            {
-                // 앞과 같은 날개 개수
-                backIndex =
-                    FindPropellerIndexByNumber(
-                        backPropellers,
-                        selectedFrontNumber
-                    );
-            }
-            else
-            {
-                // 앞과 다른 날개 개수
-                backIndex =
-                    GetDifferentPropellerIndex(
-                        backPropellers,
-                        selectedFrontNumber
-                    );
-            }
-
-
-            GameObject back =
-                backPropellers[
-                    backIndex
-                ];
-
-            back.SetActive(true);
-
-            selectedBackNumber =
-                GetPropellerNumber(
-                    back
-                );
-
-
-            // =============================================
-            // 앞 색상
-            // =============================================
-
-            float[] frontColorWeights =
-            {
-            frontColor0Weight,
-            frontColor1Weight,
-            frontColor2Weight,
-            frontColor3Weight
-        };
-
-            selectedFrontColor =
-                GetWeightedRandomIndex(
-                    frontColorWeights
-                );
-
-
-            // =============================================
-            // 뒤 색상
-            // =============================================
-
-            if (sameColor)
-            {
-                selectedBackColor =
-                    selectedFrontColor;
-            }
-            else
-            {
-                selectedBackColor =
-                    GetDifferentColorIndex(
-                        selectedFrontColor
-                    );
-            }
-
-
-            ApplyFrontColor(
-                frontIndex,
-                selectedFrontColor
-            );
-
-            ApplyBackColor(
-                backIndex,
-                selectedBackColor
+                useSameColorCondition,
+                sameColorChance
             );
         }
 
 
         // =====================================================
-        // 앞만 존재
+        // 5. 앞만 존재
         // =====================================================
 
         else if (hasFront)
         {
-            float[] frontTypeWeights =
-            {
-            front3Weight,
-            front4Weight,
-            front5Weight
-        };
-
-            int frontIndex =
-                GetWeightedRandomIndex(
-                    frontTypeWeights
-                );
-
-            GameObject front =
-                frontPropellers[
-                    frontIndex
-                ];
-
-            front.SetActive(true);
-
-            selectedFrontNumber =
-                GetPropellerNumber(
-                    front
-                );
-
-
-            float[] colorWeights =
-            {
-            frontColor0Weight,
-            frontColor1Weight,
-            frontColor2Weight,
-            frontColor3Weight
-        };
-
-            selectedFrontColor =
-                GetWeightedRandomIndex(
-                    colorWeights
-                );
-
-            ApplyFrontColor(
-                frontIndex,
-                selectedFrontColor
-            );
+            GenerateFrontOnly();
         }
 
 
         // =====================================================
-        // 뒤만 존재
+        // 6. 뒤만 존재
         // =====================================================
 
         else if (hasBack)
         {
-            float[] backTypeWeights =
-            {
-            back3Weight,
-            back4Weight,
-            back5Weight
-        };
-
-            int backIndex =
-                GetWeightedRandomIndex(
-                    backTypeWeights
-                );
-
-            GameObject back =
-                backPropellers[
-                    backIndex
-                ];
-
-            back.SetActive(true);
-
-            selectedBackNumber =
-                GetPropellerNumber(
-                    back
-                );
-
-
-            float[] colorWeights =
-            {
-            backColor0Weight,
-            backColor1Weight,
-            backColor2Weight,
-            backColor3Weight
-        };
-
-            selectedBackColor =
-                GetWeightedRandomIndex(
-                    colorWeights
-                );
-
-            ApplyBackColor(
-                backIndex,
-                selectedBackColor
-            );
+            GenerateBackOnly();
         }
 
 
         // =====================================================
-        // 정상 여부 계산
-        // =====================================================
-
-        CheckMotorValidity();
-
-
-        if (showDebugLog)
-        {
-            Debug.Log(
-                "조건 지정 Motor 생성 완료"
-            );
-        }
-    }
-
-    // =========================================================
-    // Motor 생성
-    // =========================================================
-    //
-    // forceValid == true
-    //
-    // → A 조건을 만족하는 정상 모터만 생성
-    //
-    //
-    // forceValid == false
-    //
-    // → 기존 확률을 사용하여
-    //   모든 조합 랜덤 생성
-    //
-    // =========================================================
-
-    public void GenerateMotor(
-        bool forceValid
-    )
-    {
-        // =====================================================
-        // 초기화
-        // =====================================================
-
-        if (motorMain != null)
-        {
-            motorMain.SetActive(
-                true
-            );
-        }
-
-
-        // 모든 앞 프로펠러 끄기
-        foreach (
-            GameObject prop in frontPropellers
-        )
-        {
-            if (prop != null)
-            {
-                prop.SetActive(
-                    false
-                );
-            }
-        }
-
-
-        // 모든 뒤 프로펠러 끄기
-        foreach (
-            GameObject prop in backPropellers
-        )
-        {
-            if (prop != null)
-            {
-                prop.SetActive(
-                    false
-                );
-            }
-        }
-
-
-        // =====================================================
-        // 현재 정보 초기화
-        // =====================================================
-
-        hasFront =
-            false;
-
-        hasBack =
-            false;
-
-
-        selectedFrontNumber =
-            -1;
-
-        selectedBackNumber =
-            -1;
-
-
-        selectedFrontColor =
-            -1;
-
-        selectedBackColor =
-            -1;
-
-
-        selectedMotorMaterial =
-            -1;
-
-
-        // =====================================================
-        // 생성
-        // =====================================================
-
-        if (forceValid)
-        {
-            // 정상 박스일 때
-            // 무조건 A 조건의 모터 생성
-            GenerateValidMotor();
-        }
-        else
-        {
-            // 비정상 박스일 때
-            // 모든 경우 랜덤 생성 가능
-            GenerateRandomMotor();
-        }
-
-
-        // =====================================================
-        // 최종 정상 여부 확인
+        // 최종 상태 계산
         // =====================================================
 
         CheckMotorValidity();
@@ -805,88 +425,106 @@ public class RandomMotor : MonoBehaviour
 
         if (showDebugLog)
         {
-            PrintResult(
-                forceValid
+            Debug.Log(
+                "============= CONDITION MOTOR =============" +
+
+                "\n앞 조건 활성 : " +
+                spawnFront +
+
+                "\n앞 생성 확률 : " +
+                frontChance +
+
+                "\n앞 실제 생성 : " +
+                hasFront +
+
+                "\n" +
+
+                "\n뒤 조건 활성 : " +
+                spawnBack +
+
+                "\n뒤 생성 확률 : " +
+                backChance +
+
+                "\n뒤 실제 생성 : " +
+                hasBack +
+
+                "\n" +
+
+                "\nMotor 조건 활성 : " +
+                useMotorTextureCondition +
+
+                "\nMotor 0 확률 : " +
+                motor0Chance +
+
+                "\n실제 Motor Material : " +
+                selectedMotorMaterial +
+
+                "\n" +
+
+                "\nNumber 조건 활성 : " +
+                useSameNumberCondition +
+
+                "\nNumber 같을 확률 : " +
+                sameNumberChance +
+
+                "\n앞 Number : " +
+                selectedFrontNumber +
+
+                "\n뒤 Number : " +
+                selectedBackNumber +
+
+                "\n" +
+
+                "\nColor 조건 활성 : " +
+                useSameColorCondition +
+
+                "\nColor 같을 확률 : " +
+                sameColorChance +
+
+                "\n앞 Color : " +
+                selectedFrontColor +
+
+                "\n뒤 Color : " +
+                selectedBackColor +
+
+                "\n" +
+
+                "\n최종 정상 여부 : " +
+                IsValidMotor +
+
+                "\n==========================================="
             );
         }
     }
 
 
     // =========================================================
-    // 정상 모터 강제 생성
-    // =========================================================
-    //
-    // A 조건
-    //
-    // Motor Material = 0
-    //
-    // 앞 프로펠러 있음
-    // 뒤 프로펠러 있음
-    //
-    // 앞뒤 프로펠러 번호 동일
-    //
-    // 앞뒤 프로펠러 컬러 동일
-    //
+    // 앞뒤 모두 존재
     // =========================================================
 
-    private void GenerateValidMotor()
+    private void GenerateBothPropellers(
+        bool useSameNumberCondition,
+        float sameNumberChance,
+
+        bool useSameColorCondition,
+        float sameColorChance
+    )
     {
         // =====================================================
-        // 1. Motor Material은 무조건 0
+        // 앞 프로펠러 종류 선택
         // =====================================================
-
-        selectedMotorMaterial =
-            0;
-
-
-        ApplyMotorMaterial(
-            selectedMotorMaterial
-        );
-
-
-        // =====================================================
-        // 2. 프로펠러 앞뒤 모두 존재
-        // =====================================================
-
-        hasFront =
-            true;
-
-        hasBack =
-            true;
-
-
-        // =====================================================
-        // 3. 앞 프로펠러 종류 랜덤 선택
-        // =====================================================
-
-        float[] frontTypeWeights =
-        {
-            front3Weight,
-            front4Weight,
-            front5Weight
-        };
-
 
         int frontIndex =
-            GetWeightedRandomIndex(
-                frontTypeWeights
-            );
+            GetRandomFrontPropellerIndex();
 
 
         if (
             frontIndex < 0 ||
-            frontIndex >= frontPropellers.Length
+            frontIndex >= frontPropellers.Length ||
+            frontPropellers[frontIndex] == null
         )
         {
-            Debug.LogError(
-                "Front Propeller Index가 잘못되었습니다."
-            );
-
-            hasFront =
-                false;
-
-            hasBack =
-                false;
+            hasFront = false;
 
             return;
         }
@@ -896,22 +534,6 @@ public class RandomMotor : MonoBehaviour
             frontPropellers[
                 frontIndex
             ];
-
-
-        if (selectedFront == null)
-        {
-            Debug.LogError(
-                "Front Propeller가 연결되어 있지 않습니다."
-            );
-
-            hasFront =
-                false;
-
-            hasBack =
-                false;
-
-            return;
-        }
 
 
         selectedFront.SetActive(
@@ -926,26 +548,50 @@ public class RandomMotor : MonoBehaviour
 
 
         // =====================================================
-        // 4. 같은 번호의 뒤 프로펠러 찾기
+        // Number 같음 / 다름 결정
         // =====================================================
 
-        int backIndex =
-            FindPropellerIndexByNumber(
-                backPropellers,
-                selectedFrontNumber
-            );
+        bool makeSameNumber =
+            false;
 
 
-        if (backIndex < 0)
+        if (useSameNumberCondition)
         {
-            Debug.LogError(
-                "앞 프로펠러 번호와 같은 " +
-                "뒤 프로펠러를 찾을 수 없습니다."
-            );
+            makeSameNumber =
+                RollChance(
+                    sameNumberChance
+                );
+        }
 
 
-            hasBack =
-                false;
+        int backIndex;
+
+
+        if (makeSameNumber)
+        {
+            backIndex =
+                FindPropellerIndexByNumber(
+                    backPropellers,
+                    selectedFrontNumber
+                );
+        }
+        else
+        {
+            backIndex =
+                GetDifferentPropellerIndex(
+                    backPropellers,
+                    selectedFrontNumber
+                );
+        }
+
+
+        if (
+            backIndex < 0 ||
+            backIndex >= backPropellers.Length ||
+            backPropellers[backIndex] == null
+        )
+        {
+            hasBack = false;
 
             return;
         }
@@ -955,20 +601,6 @@ public class RandomMotor : MonoBehaviour
             backPropellers[
                 backIndex
             ];
-
-
-        if (selectedBack == null)
-        {
-            Debug.LogError(
-                "Back Propeller가 연결되어 있지 않습니다."
-            );
-
-
-            hasBack =
-                false;
-
-            return;
-        }
 
 
         selectedBack.SetActive(
@@ -983,57 +615,319 @@ public class RandomMotor : MonoBehaviour
 
 
         // =====================================================
-        // 5. 프로펠러 컬러 하나 선택
+        // 앞 Color
         // =====================================================
-
-        float[] frontColorWeights =
-        {
-            frontColor0Weight,
-            frontColor1Weight,
-            frontColor2Weight,
-            frontColor3Weight
-        };
-
-
-        int colorIndex =
-            GetWeightedRandomIndex(
-                frontColorWeights
-            );
-
 
         selectedFrontColor =
-            colorIndex;
-
-
-        selectedBackColor =
-            colorIndex;
+            GetRandomFrontColorIndex();
 
 
         // =====================================================
-        // 6. 같은 컬러 적용
+        // Color 같음 / 다름 결정
+        // =====================================================
+
+        bool makeSameColor =
+            false;
+
+
+        if (useSameColorCondition)
+        {
+            makeSameColor =
+                RollChance(
+                    sameColorChance
+                );
+        }
+
+
+        if (makeSameColor)
+        {
+            selectedBackColor =
+                selectedFrontColor;
+        }
+        else
+        {
+            selectedBackColor =
+                GetDifferentBackColorIndex(
+                    selectedFrontColor
+                );
+        }
+
+
+        // =====================================================
+        // Material 적용
         // =====================================================
 
         ApplyFrontColor(
             frontIndex,
-            colorIndex
+            selectedFrontColor
         );
 
 
         ApplyBackColor(
             backIndex,
-            colorIndex
+            selectedBackColor
         );
     }
 
 
     // =========================================================
-    // 일반 랜덤 모터 생성
+    // 앞 프로펠러만 존재
+    // =========================================================
+
+    private void GenerateFrontOnly()
+    {
+        int frontIndex =
+            GetRandomFrontPropellerIndex();
+
+
+        if (
+            frontIndex < 0 ||
+            frontIndex >= frontPropellers.Length ||
+            frontPropellers[frontIndex] == null
+        )
+        {
+            hasFront = false;
+
+            return;
+        }
+
+
+        GameObject selectedFront =
+            frontPropellers[
+                frontIndex
+            ];
+
+
+        selectedFront.SetActive(
+            true
+        );
+
+
+        selectedFrontNumber =
+            GetPropellerNumber(
+                selectedFront
+            );
+
+
+        selectedFrontColor =
+            GetRandomFrontColorIndex();
+
+
+        ApplyFrontColor(
+            frontIndex,
+            selectedFrontColor
+        );
+    }
+
+
+    // =========================================================
+    // 뒤 프로펠러만 존재
+    // =========================================================
+
+    private void GenerateBackOnly()
+    {
+        int backIndex =
+            GetRandomBackPropellerIndex();
+
+
+        if (
+            backIndex < 0 ||
+            backIndex >= backPropellers.Length ||
+            backPropellers[backIndex] == null
+        )
+        {
+            hasBack = false;
+
+            return;
+        }
+
+
+        GameObject selectedBack =
+            backPropellers[
+                backIndex
+            ];
+
+
+        selectedBack.SetActive(
+            true
+        );
+
+
+        selectedBackNumber =
+            GetPropellerNumber(
+                selectedBack
+            );
+
+
+        selectedBackColor =
+            GetRandomBackColorIndex();
+
+
+        ApplyBackColor(
+            backIndex,
+            selectedBackColor
+        );
+    }
+
+
+    // =========================================================
+    // 기존 GenerateMotor
+    // =========================================================
+
+    public void GenerateMotor(
+        bool forceValid
+    )
+    {
+        ResetMotor();
+
+
+        if (forceValid)
+        {
+            GenerateValidMotor();
+        }
+        else
+        {
+            GenerateRandomMotor();
+        }
+
+
+        CheckMotorValidity();
+
+
+        if (showDebugLog)
+        {
+            PrintResult(
+                forceValid
+            );
+        }
+    }
+
+
+    // =========================================================
+    // A등급 강제 생성
+    // =========================================================
+
+    private void GenerateValidMotor()
+    {
+        // Motor 0
+        selectedMotorMaterial =
+            0;
+
+
+        ApplyMotorMaterial(
+            selectedMotorMaterial
+        );
+
+
+        // 앞뒤 모두 존재
+        hasFront =
+            true;
+
+        hasBack =
+            true;
+
+
+        // 앞 종류 랜덤
+        int frontIndex =
+            GetRandomFrontPropellerIndex();
+
+
+        if (
+            frontIndex < 0 ||
+            frontIndex >= frontPropellers.Length ||
+            frontPropellers[frontIndex] == null
+        )
+        {
+            hasFront = false;
+            hasBack = false;
+
+            return;
+        }
+
+
+        GameObject selectedFront =
+            frontPropellers[
+                frontIndex
+            ];
+
+
+        selectedFront.SetActive(
+            true
+        );
+
+
+        selectedFrontNumber =
+            GetPropellerNumber(
+                selectedFront
+            );
+
+
+        // 같은 번호의 뒤 프로펠러
+        int backIndex =
+            FindPropellerIndexByNumber(
+                backPropellers,
+                selectedFrontNumber
+            );
+
+
+        if (
+            backIndex < 0 ||
+            backIndex >= backPropellers.Length ||
+            backPropellers[backIndex] == null
+        )
+        {
+            hasBack = false;
+
+            return;
+        }
+
+
+        GameObject selectedBack =
+            backPropellers[
+                backIndex
+            ];
+
+
+        selectedBack.SetActive(
+            true
+        );
+
+
+        selectedBackNumber =
+            GetPropellerNumber(
+                selectedBack
+            );
+
+
+        // 같은 색
+        selectedFrontColor =
+            GetRandomFrontColorIndex();
+
+        selectedBackColor =
+            selectedFrontColor;
+
+
+        ApplyFrontColor(
+            frontIndex,
+            selectedFrontColor
+        );
+
+
+        ApplyBackColor(
+            backIndex,
+            selectedBackColor
+        );
+    }
+
+
+    // =========================================================
+    // 기존 완전 랜덤 생성
     // =========================================================
 
     private void GenerateRandomMotor()
     {
         // =====================================================
-        // 1. Motor Material 랜덤 선택
+        // Motor Material
         // =====================================================
 
         float[] motorWeights =
@@ -1058,48 +952,55 @@ public class RandomMotor : MonoBehaviour
 
 
         // =====================================================
-        // 2. 앞 프로펠러 생성 여부 결정
+        // 프로펠러 생성 여부
         // =====================================================
 
         hasFront =
-            Random.Range(
-                0f,
-                100f
-            ) <
-            frontSpawnChance;
+            RollChance(
+                frontSpawnChance
+            );
+
+
+        hasBack =
+            RollChance(
+                backSpawnChance
+            );
 
 
         // =====================================================
-        // 3. 앞 프로펠러 종류 + 컬러 결정
+        // 둘 다 생성
+        //
+        // 완전 랜덤이므로 서로 독립적으로 생성
         // =====================================================
 
         if (
             hasFront &&
-            frontPropellers.Length >= 3
+            hasBack
         )
         {
-            float[] frontTypeWeights =
-            {
-                front3Weight,
-                front4Weight,
-                front5Weight
-            };
-
-
             int frontIndex =
-                GetWeightedRandomIndex(
-                    frontTypeWeights
-                );
+                GetRandomFrontPropellerIndex();
+
+            int backIndex =
+                GetRandomBackPropellerIndex();
 
 
-            GameObject selectedFront =
-                frontPropellers[
-                    frontIndex
-                ];
-
-
-            if (selectedFront != null)
+            if (
+                frontIndex < 0 ||
+                frontIndex >= frontPropellers.Length ||
+                frontPropellers[frontIndex] == null
+            )
             {
+                hasFront = false;
+            }
+            else
+            {
+                GameObject selectedFront =
+                    frontPropellers[
+                        frontIndex
+                    ];
+
+
                 selectedFront.SetActive(
                     true
                 );
@@ -1111,19 +1012,8 @@ public class RandomMotor : MonoBehaviour
                     );
 
 
-                float[] frontColorWeights =
-                {
-                    frontColor0Weight,
-                    frontColor1Weight,
-                    frontColor2Weight,
-                    frontColor3Weight
-                };
-
-
                 selectedFrontColor =
-                    GetWeightedRandomIndex(
-                        frontColorWeights
-                    );
+                    GetRandomFrontColorIndex();
 
 
                 ApplyFrontColor(
@@ -1131,57 +1021,24 @@ public class RandomMotor : MonoBehaviour
                     selectedFrontColor
                 );
             }
+
+
+            if (
+                backIndex < 0 ||
+                backIndex >= backPropellers.Length ||
+                backPropellers[backIndex] == null
+            )
+            {
+                hasBack = false;
+            }
             else
             {
-                hasFront =
-                    false;
-            }
-        }
+                GameObject selectedBack =
+                    backPropellers[
+                        backIndex
+                    ];
 
 
-        // =====================================================
-        // 4. 뒤 프로펠러 생성 여부 결정
-        // =====================================================
-
-        hasBack =
-            Random.Range(
-                0f,
-                100f
-            ) <
-            backSpawnChance;
-
-
-        // =====================================================
-        // 5. 뒤 프로펠러 종류 + 컬러 결정
-        // =====================================================
-
-        if (
-            hasBack &&
-            backPropellers.Length >= 3
-        )
-        {
-            float[] backTypeWeights =
-            {
-                back3Weight,
-                back4Weight,
-                back5Weight
-            };
-
-
-            int backIndex =
-                GetWeightedRandomIndex(
-                    backTypeWeights
-                );
-
-
-            GameObject selectedBack =
-                backPropellers[
-                    backIndex
-                ];
-
-
-            if (selectedBack != null)
-            {
                 selectedBack.SetActive(
                     true
                 );
@@ -1193,19 +1050,8 @@ public class RandomMotor : MonoBehaviour
                     );
 
 
-                float[] backColorWeights =
-                {
-                    backColor0Weight,
-                    backColor1Weight,
-                    backColor2Weight,
-                    backColor3Weight
-                };
-
-
                 selectedBackColor =
-                    GetWeightedRandomIndex(
-                        backColorWeights
-                    );
+                    GetRandomBackColorIndex();
 
 
                 ApplyBackColor(
@@ -1213,15 +1059,543 @@ public class RandomMotor : MonoBehaviour
                     selectedBackColor
                 );
             }
-            else
-            {
-                hasBack =
-                    false;
-            }
+        }
+
+        else if (hasFront)
+        {
+            GenerateFrontOnly();
+        }
+
+        else if (hasBack)
+        {
+            GenerateBackOnly();
         }
     }
 
 
+    // =========================================================
+    // 초기화
+    // =========================================================
+
+    private void ResetMotor()
+    {
+        if (motorMain != null)
+        {
+            motorMain.SetActive(
+                true
+            );
+        }
+
+
+        if (frontPropellers != null)
+        {
+            foreach (
+                GameObject prop in frontPropellers
+            )
+            {
+                if (prop != null)
+                {
+                    prop.SetActive(
+                        false
+                    );
+                }
+            }
+        }
+
+
+        if (backPropellers != null)
+        {
+            foreach (
+                GameObject prop in backPropellers
+            )
+            {
+                if (prop != null)
+                {
+                    prop.SetActive(
+                        false
+                    );
+                }
+            }
+        }
+
+
+        hasFront =
+            false;
+
+        hasBack =
+            false;
+
+
+        selectedFrontNumber =
+            -1;
+
+        selectedBackNumber =
+            -1;
+
+
+        selectedFrontColor =
+            -1;
+
+        selectedBackColor =
+            -1;
+
+
+        selectedMotorMaterial =
+            -1;
+
+
+        IsValidMotor =
+            false;
+    }
+
+
+    // =========================================================
+    // 확률 판정
+    // =========================================================
+
+    private bool RollChance(
+        float chance
+    )
+    {
+        chance =
+            Mathf.Clamp(
+                chance,
+                0f,
+                100f
+            );
+
+
+        return
+            Random.Range(
+                0f,
+                100f
+            ) <
+            chance;
+    }
+
+
+    // =========================================================
+    // Front Type Random
+    // =========================================================
+
+    private int GetRandomFrontPropellerIndex()
+    {
+        if (
+            frontPropellers == null ||
+            frontPropellers.Length < 3
+        )
+        {
+            Debug.LogError(
+                "Front Propeller 배열에 3 / 4 / 5를 모두 연결해주세요."
+            );
+
+            return -1;
+        }
+
+
+        float[] weights =
+        {
+            front3Weight,
+            front4Weight,
+            front5Weight
+        };
+
+
+        return GetWeightedRandomIndex(
+            weights
+        );
+    }
+
+
+    // =========================================================
+    // Back Type Random
+    // =========================================================
+
+    private int GetRandomBackPropellerIndex()
+    {
+        if (
+            backPropellers == null ||
+            backPropellers.Length < 3
+        )
+        {
+            Debug.LogError(
+                "Back Propeller 배열에 3 / 4 / 5를 모두 연결해주세요."
+            );
+
+            return -1;
+        }
+
+
+        float[] weights =
+        {
+            back3Weight,
+            back4Weight,
+            back5Weight
+        };
+
+
+        return GetWeightedRandomIndex(
+            weights
+        );
+    }
+
+
+    // =========================================================
+    // Front Color Random
+    // =========================================================
+
+    private int GetRandomFrontColorIndex()
+    {
+        if (
+            propellerMaterials == null ||
+            propellerMaterials.Length == 0
+        )
+        {
+            return -1;
+        }
+
+
+        float[] weights =
+        {
+            frontColor0Weight,
+            frontColor1Weight,
+            frontColor2Weight,
+            frontColor3Weight
+        };
+
+
+        int index =
+            GetWeightedRandomIndex(
+                weights
+            );
+
+
+        if (
+            index < 0 ||
+            index >= propellerMaterials.Length
+        )
+        {
+            return 0;
+        }
+
+
+        return index;
+    }
+
+
+    // =========================================================
+    // Back Color Random
+    // =========================================================
+
+    private int GetRandomBackColorIndex()
+    {
+        if (
+            propellerMaterials == null ||
+            propellerMaterials.Length == 0
+        )
+        {
+            return -1;
+        }
+
+
+        float[] weights =
+        {
+            backColor0Weight,
+            backColor1Weight,
+            backColor2Weight,
+            backColor3Weight
+        };
+
+
+        int index =
+            GetWeightedRandomIndex(
+                weights
+            );
+
+
+        if (
+            index < 0 ||
+            index >= propellerMaterials.Length
+        )
+        {
+            return 0;
+        }
+
+
+        return index;
+    }
+
+
+    // =========================================================
+    // 앞과 다른 Back Number 선택
+    // =========================================================
+
+    private int GetDifferentPropellerIndex(
+        GameObject[] propellers,
+        int excludedNumber
+    )
+    {
+        if (
+            propellers == null ||
+            propellers.Length == 0
+        )
+        {
+            return -1;
+        }
+
+
+        int[] candidates =
+            new int[propellers.Length];
+
+        float[] candidateWeights =
+            new float[propellers.Length];
+
+        int candidateCount =
+            0;
+
+
+        for (
+            int i = 0;
+            i < propellers.Length;
+            i++
+        )
+        {
+            if (propellers[i] == null)
+                continue;
+
+
+            int number =
+                GetPropellerNumber(
+                    propellers[i]
+                );
+
+
+            if (
+                number ==
+                excludedNumber
+            )
+            {
+                continue;
+            }
+
+
+            candidates[
+                candidateCount
+            ] =
+                i;
+
+
+            // Back 가중치 사용
+            if (number == 3)
+            {
+                candidateWeights[
+                    candidateCount
+                ] =
+                    back3Weight;
+            }
+            else if (number == 4)
+            {
+                candidateWeights[
+                    candidateCount
+                ] =
+                    back4Weight;
+            }
+            else if (number == 5)
+            {
+                candidateWeights[
+                    candidateCount
+                ] =
+                    back5Weight;
+            }
+            else
+            {
+                candidateWeights[
+                    candidateCount
+                ] =
+                    1f;
+            }
+
+
+            candidateCount++;
+        }
+
+
+        if (candidateCount == 0)
+        {
+            Debug.LogError(
+                "다른 번호의 뒤 프로펠러를 찾을 수 없습니다."
+            );
+
+            return -1;
+        }
+
+
+        float[] finalWeights =
+            new float[
+                candidateCount
+            ];
+
+
+        for (
+            int i = 0;
+            i < candidateCount;
+            i++
+        )
+        {
+            finalWeights[i] =
+                candidateWeights[i];
+        }
+
+
+        int selectedCandidate =
+            GetWeightedRandomIndex(
+                finalWeights
+            );
+
+
+        return candidates[
+            selectedCandidate
+        ];
+    }
+
+
+    // =========================================================
+    // 앞과 다른 Back Color 선택
+    // =========================================================
+
+    private int GetDifferentBackColorIndex(
+        int excludedColor
+    )
+    {
+        if (
+            propellerMaterials == null ||
+            propellerMaterials.Length <= 1
+        )
+        {
+            Debug.LogError(
+                "서로 다른 프로펠러 색상을 만들 수 없습니다."
+            );
+
+            return -1;
+        }
+
+
+        int colorCount =
+            Mathf.Min(
+                propellerMaterials.Length,
+                4
+            );
+
+
+        int[] candidates =
+            new int[
+                colorCount
+            ];
+
+        float[] candidateWeights =
+            new float[
+                colorCount
+            ];
+
+
+        int candidateCount =
+            0;
+
+
+        for (
+            int i = 0;
+            i < colorCount;
+            i++
+        )
+        {
+            if (
+                i ==
+                excludedColor
+            )
+            {
+                continue;
+            }
+
+
+            candidates[
+                candidateCount
+            ] =
+                i;
+
+
+            candidateWeights[
+                candidateCount
+            ] =
+                GetBackColorWeight(
+                    i
+                );
+
+
+            candidateCount++;
+        }
+
+
+        if (candidateCount == 0)
+        {
+            return -1;
+        }
+
+
+        float[] finalWeights =
+            new float[
+                candidateCount
+            ];
+
+
+        for (
+            int i = 0;
+            i < candidateCount;
+            i++
+        )
+        {
+            finalWeights[i] =
+                candidateWeights[i];
+        }
+
+
+        int selectedCandidate =
+            GetWeightedRandomIndex(
+                finalWeights
+            );
+
+
+        return candidates[
+            selectedCandidate
+        ];
+    }
+
+
+    // =========================================================
+    // Back Color Weight
+    // =========================================================
+
+    private float GetBackColorWeight(
+        int colorIndex
+    )
+    {
+        switch (colorIndex)
+        {
+            case 0:
+                return backColor0Weight;
+
+            case 1:
+                return backColor1Weight;
+
+            case 2:
+                return backColor2Weight;
+
+            case 3:
+                return backColor3Weight;
+        }
+
+
+        return 1f;
+    }
 
 
     // =========================================================
@@ -1278,7 +1652,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // 앞 프로펠러 컬러 적용
+    // Front Color 적용
     // =========================================================
 
     private void ApplyFrontColor(
@@ -1287,6 +1661,7 @@ public class RandomMotor : MonoBehaviour
     )
     {
         if (
+            frontPropellers == null ||
             propellerIndex < 0 ||
             propellerIndex >= frontPropellers.Length
         )
@@ -1296,6 +1671,7 @@ public class RandomMotor : MonoBehaviour
 
 
         if (
+            propellerMaterials == null ||
             colorIndex < 0 ||
             colorIndex >= propellerMaterials.Length
         )
@@ -1326,8 +1702,7 @@ public class RandomMotor : MonoBehaviour
             frontRenderer.materials;
 
 
-        // 앞 프로펠러는
-        // Material Element 0 사용
+        // Front는 Element 0
         if (materials.Length > 0)
         {
             materials[0] =
@@ -1343,7 +1718,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // 뒤 프로펠러 컬러 적용
+    // Back Color 적용
     // =========================================================
 
     private void ApplyBackColor(
@@ -1352,6 +1727,7 @@ public class RandomMotor : MonoBehaviour
     )
     {
         if (
+            backPropellers == null ||
             propellerIndex < 0 ||
             propellerIndex >= backPropellers.Length
         )
@@ -1361,6 +1737,7 @@ public class RandomMotor : MonoBehaviour
 
 
         if (
+            propellerMaterials == null ||
             colorIndex < 0 ||
             colorIndex >= propellerMaterials.Length
         )
@@ -1400,9 +1777,9 @@ public class RandomMotor : MonoBehaviour
         // =====================================================
         // 현재 FBX Material 구조
         //
-        // back_3 → Element 3
-        // back_4 → Element 1
-        // back_5 → Element 3
+        // back_3 = Element 3
+        // back_4 = Element 1
+        // back_5 = Element 3
         // =====================================================
 
         int materialElement =
@@ -1455,7 +1832,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // 같은 번호의 프로펠러 Index 찾기
+    // 같은 Number 찾기
     // =========================================================
 
     private int FindPropellerIndexByNumber(
@@ -1463,6 +1840,10 @@ public class RandomMotor : MonoBehaviour
         int targetNumber
     )
     {
+        if (propellers == null)
+            return -1;
+
+
         for (
             int i = 0;
             i < propellers.Length;
@@ -1473,7 +1854,8 @@ public class RandomMotor : MonoBehaviour
                 propellers[i] != null &&
                 GetPropellerNumber(
                     propellers[i]
-                ) == targetNumber
+                ) ==
+                targetNumber
             )
             {
                 return i;
@@ -1484,92 +1866,6 @@ public class RandomMotor : MonoBehaviour
         return -1;
     }
 
-    // =========================================================
-    // 지정한 번호와 다른 프로펠러 선택
-    // =========================================================
-
-    private int GetDifferentPropellerIndex(
-        GameObject[] propellers,
-        int excludedNumber
-    )
-    {
-        int[] candidates =
-            new int[propellers.Length];
-
-        int candidateCount = 0;
-
-
-        for (int i = 0; i < propellers.Length; i++)
-        {
-            if (
-                propellers[i] != null &&
-                GetPropellerNumber(propellers[i]) != excludedNumber
-            )
-            {
-                candidates[candidateCount] = i;
-                candidateCount++;
-            }
-        }
-
-
-        if (candidateCount == 0)
-        {
-            Debug.LogError(
-                "다른 번호의 프로펠러를 찾을 수 없습니다."
-            );
-
-            return 0;
-        }
-
-
-        return candidates[
-            Random.Range(
-                0,
-                candidateCount
-            )
-        ];
-    }
-
-
-    // =========================================================
-    // 지정한 색상과 다른 색상 선택
-    // =========================================================
-
-    private int GetDifferentColorIndex(
-        int excludedColor
-    )
-    {
-        if (
-            propellerMaterials == null ||
-            propellerMaterials.Length <= 1
-        )
-        {
-            Debug.LogError(
-                "서로 다른 프로펠러 색상을 선택할 수 없습니다."
-            );
-
-            return 0;
-        }
-
-
-        int randomColor;
-
-
-        do
-        {
-            randomColor =
-                Random.Range(
-                    0,
-                    propellerMaterials.Length
-                );
-        }
-        while (
-            randomColor == excludedColor
-        );
-
-
-        return randomColor;
-    }
 
     // =========================================================
     // 가중치 랜덤
@@ -1579,11 +1875,19 @@ public class RandomMotor : MonoBehaviour
         float[] weights
     )
     {
+        if (
+            weights == null ||
+            weights.Length == 0
+        )
+        {
+            return -1;
+        }
+
+
         float totalWeight =
             0f;
 
 
-        // 전체 가중치 계산
         for (
             int i = 0;
             i < weights.Length;
@@ -1598,8 +1902,7 @@ public class RandomMotor : MonoBehaviour
         }
 
 
-        // 모든 가중치가 0이면
-        // 일반 랜덤
+        // 전부 0이면 균등 랜덤
         if (totalWeight <= 0f)
         {
             return Random.Range(
@@ -1626,7 +1929,10 @@ public class RandomMotor : MonoBehaviour
                 continue;
 
 
-            if (randomValue < weights[i])
+            if (
+                randomValue <
+                weights[i]
+            )
             {
                 return i;
             }
@@ -1642,17 +1948,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // 프로펠러 이름에서 번호 가져오기
-    // =========================================================
-    //
-    // prof_front_3 → 3
-    // prof_front_4 → 4
-    // prof_front_5 → 5
-    //
-    // prof_back_3 → 3
-    // prof_back_4 → 4
-    // prof_back_5 → 5
-    //
+    // 이름에서 Propeller Number 가져오기
     // =========================================================
 
     private int GetPropellerNumber(
@@ -1690,28 +1986,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // 최종 정상 / 불량 판정
-    // =========================================================
-    //
-    // 이 bool은 기존 코드 호환용으로 유지
-    //
-    // true:
-    // A 조건
-    //
-    // false:
-    // B / C / 폐기 중 하나
-    //
-    // 실제 A/B/C/폐기 세부 구분은
-    // MotorMatchManager가 아래 공개 값들을 이용해 판단
-    //
-    // HasFront
-    // HasBack
-    // SelectedMotorMaterial
-    // SelectedFrontNumber
-    // SelectedBackNumber
-    // SelectedFrontColor
-    // SelectedBackColor
-    //
+    // 최종 A 여부
     // =========================================================
 
     private void CheckMotorValidity()
@@ -1720,7 +1995,7 @@ public class RandomMotor : MonoBehaviour
             true;
 
 
-        // 프로펠러 하나라도 없음
+        // 프로펠러 누락
         if (
             !hasFront ||
             !hasBack
@@ -1731,7 +2006,7 @@ public class RandomMotor : MonoBehaviour
         }
 
 
-        // 프로펠러 번호 다름
+        // Number 다름
         if (
             selectedFrontNumber !=
             selectedBackNumber
@@ -1742,7 +2017,7 @@ public class RandomMotor : MonoBehaviour
         }
 
 
-        // 프로펠러 컬러 다름
+        // Color 다름
         if (
             selectedFrontColor !=
             selectedBackColor
@@ -1753,7 +2028,7 @@ public class RandomMotor : MonoBehaviour
         }
 
 
-        // Motor Material이 0번이 아님
+        // Motor 얼룩
         if (
             selectedMotorMaterial !=
             0
@@ -1766,7 +2041,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // 기존 코드 호환용 결과 함수
+    // 기존 호환용
     // =========================================================
 
     public bool GetMotorResult()
@@ -1776,7 +2051,7 @@ public class RandomMotor : MonoBehaviour
 
 
     // =========================================================
-    // Console 출력
+    // 기존 Debug
     // =========================================================
 
     private void PrintResult(

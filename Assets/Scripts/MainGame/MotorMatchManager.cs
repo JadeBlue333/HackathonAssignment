@@ -666,12 +666,23 @@ public class MotorMatchManager : MonoBehaviour
     // =====================================================
 
     public InspectionResult CreateNextMatchByCondition(
-        bool spawnFront,
-        bool spawnBack,
-        bool useStainTexture,
-        bool sameNumber,
-        bool sameColor
-    )
+    bool spawnFront,
+    float frontChance,
+
+    bool spawnBack,
+    float backChance,
+
+    bool useMotorTextureCondition,
+    float motor0Chance,
+
+    bool useSameNumberCondition,
+    float sameNumberChance,
+
+    bool useSameColorCondition,
+    float sameColorChance,
+
+    bool allowTripleDefectMotor
+)
     {
         // 기존 모터 제거
         RemoveCurrentMotor();
@@ -750,16 +761,113 @@ public class MotorMatchManager : MonoBehaviour
 
 
         // =================================================
-        // 지정된 조건으로 모터 생성
+        // 지정 조건으로 모터 생성
+        //
+        // allowTripleDefectMotor == true
+        // → 모든 조합 허용
+        //
+        // allowTripleDefectMotor == false
+        // → 아래 조건이 동시에 발생하면 다시 생성
+        //
+        // 1. 앞뒤 프로펠러 모두 존재
+        // 2. Motor Material != 0
+        // 3. 앞뒤 Number 다름
+        // 4. 앞뒤 Color 다름
         // =================================================
 
-        currentRandomMotor.GenerateMotorByCondition(
-            spawnFront,
-            spawnBack,
-            useStainTexture,
-            sameNumber,
-            sameColor
-        );
+        const int maxGenerateAttempts = 100;
+
+        int generateAttempt = 0;
+
+
+        while (true)
+        {
+            // =============================================
+            // 모터 생성
+            // =============================================
+
+            currentRandomMotor.GenerateMotorByCondition(
+                spawnFront,
+                frontChance,
+
+                spawnBack,
+                backChance,
+
+                useMotorTextureCondition,
+                motor0Chance,
+
+                useSameNumberCondition,
+                sameNumberChance,
+
+                useSameColorCondition,
+                sameColorChance
+            );
+
+
+            generateAttempt++;
+
+
+            // =============================================
+            // 3개 불량 동시 발생 여부
+            // =============================================
+
+            bool isTripleDefect =
+                currentRandomMotor.HasFront &&
+                currentRandomMotor.HasBack &&
+
+                currentRandomMotor.SelectedMotorMaterial != 0 &&
+
+                currentRandomMotor.SelectedFrontNumber !=
+                currentRandomMotor.SelectedBackNumber &&
+
+                currentRandomMotor.SelectedFrontColor !=
+                currentRandomMotor.SelectedBackColor;
+
+
+            // =============================================
+            // 체크 ON
+            // → 모든 조합 허용
+            // =============================================
+
+            if (allowTripleDefectMotor)
+            {
+                break;
+            }
+
+
+            // =============================================
+            // 체크 OFF인데 금지 조합이 아니면 사용
+            // =============================================
+
+            if (!isTripleDefect)
+            {
+                break;
+            }
+
+
+            // =============================================
+            // 무한 루프 방지
+            //
+            // 확률 설정상 금지 조합만 나올 수 있는 경우
+            // 100번 이후 A 모터 생성
+            // =============================================
+
+            if (generateAttempt >= maxGenerateAttempts)
+            {
+                Debug.LogWarning(
+                    "3개 불량 동시 발생을 피할 수 없는 확률 설정입니다. " +
+                    "A등급 모터로 대체합니다."
+                );
+
+
+                currentRandomMotor.GenerateMotor(
+                    true
+                );
+
+
+                break;
+            }
+        }
 
 
         // =================================================

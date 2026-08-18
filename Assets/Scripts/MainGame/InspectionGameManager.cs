@@ -20,30 +20,65 @@ public class InspectionGameManager : MonoBehaviour
 
     // =========================================================
     // Motor Generation Conditions
-    // 프리팹마다 Inspector에서 설정
     // =========================================================
 
     [Header("Motor Generation Conditions")]
 
-    [Tooltip("앞 프로펠러를 생성할지")]
+
+    // 1. 앞 프로펠러
     [SerializeField]
     private bool spawnFrontPropeller = true;
 
-    [Tooltip("뒤 프로펠러를 생성할지")]
+    [Range(0f, 100f)]
+    [SerializeField]
+    private float frontPropellerChance = 80f;
+
+
+    // 2. 뒤 프로펠러
     [SerializeField]
     private bool spawnBackPropeller = true;
 
-    [Tooltip("체크하면 모터에 얼룩 텍스처(Material 1~4)를 사용")]
+    [Range(0f, 100f)]
     [SerializeField]
-    private bool useStainMotorTexture = false;
+    private float backPropellerChance = 80f;
 
-    [Tooltip("체크 = 앞뒤 날개 개수 같음 / 해제 = 다름")]
-    [SerializeField]
-    private bool samePropellerNumber = true;
 
-    [Tooltip("체크 = 앞뒤 색상 같음 / 해제 = 다름")]
+    // 3. 모터 텍스처
     [SerializeField]
-    private bool samePropellerColor = true;
+    private bool useMotorTextureCondition = true;
+
+    [Tooltip("체크 활성화 시 Motor 0이 생성될 확률")]
+    [Range(0f, 100f)]
+    [SerializeField]
+    private float motor0Chance = 50f;
+
+
+    // 4. 프로펠러 Number
+    [SerializeField]
+    private bool useSameNumberCondition = true;
+
+    [Tooltip("체크 활성화 시 앞뒤 프로펠러 Number가 같을 확률")]
+    [Range(0f, 100f)]
+    [SerializeField]
+    private float sameNumberChance = 50f;
+
+
+    // 5. 프로펠러 Color
+    [SerializeField]
+    private bool useSameColorCondition = true;
+
+    [Tooltip("체크 활성화 시 앞뒤 프로펠러 Color가 같을 확률")]
+    [Range(0f, 100f)]
+    [SerializeField]
+    private float sameColorChance = 50f;
+
+    // 6. 3개 불량 조건 동시 발생 허용
+    [SerializeField]
+    [Tooltip(
+        "ON = 모터 얼룩 + 날개 개수 다름 + 컬러 다름이 동시에 나올 수 있음\n" +
+        "OFF = 위 3개 불량이 동시에 발생하는 모터는 생성하지 않음"
+    )]
+    private bool allowTripleDefectMotor = true;
 
     // =========================================================
     // Wrong Answer UI
@@ -560,7 +595,7 @@ public class InspectionGameManager : MonoBehaviour
         // =====================================================
 
         AddCurrentWrongReason(
-            $"검수기준 {issueCount}개로 {gradeText}등급입니다."
+            $"검수기준 미충족 {issueCount}개로 {gradeText}등급입니다."
         );
     }
 
@@ -850,12 +885,22 @@ public class InspectionGameManager : MonoBehaviour
     motorMatchManager
         .CreateNextMatchByCondition(
             spawnFrontPropeller,
-            spawnBackPropeller,
-            useStainMotorTexture,
-            samePropellerNumber,
-            samePropellerColor
-        );
+            frontPropellerChance,
 
+            spawnBackPropeller,
+            backPropellerChance,
+
+            useMotorTextureCondition,
+            motor0Chance,
+
+            useSameNumberCondition,
+            sameNumberChance,
+
+            useSameColorCondition,
+            sameColorChance,
+
+            allowTripleDefectMotor
+        );
 
         // =====================================================
         // 모터 오답 사유 준비
