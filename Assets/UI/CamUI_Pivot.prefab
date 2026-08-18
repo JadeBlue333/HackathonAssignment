@@ -473,8 +473,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DiscardWarningNotice
   noticeObject: {fileID: 4709636423644098178}
   noticeText: {fileID: 2353371189331372883}
-  delayBeforeShow: 4
-  holdDuration: 5
+  delayBeforeShow: 3
+  holdDuration: 4
   fadeOutDuration: 1
   warningMessages:
   - "[SYSTEM] \uD3D0\uAE30 \uB300\uC0C1 \uC81C\uD488\uC758 \uC624\uBD84\uB958\uAC00
@@ -510,7 +510,7 @@ MonoBehaviour:
     \uB2E4\uC2DC \uD655\uC778\uD558\uC2ED\uC2DC\uC624."
   audioSource: {fileID: 1994718056113339114}
   noticeSound: {fileID: 8300000, guid: 7c2df0dedd5254755bfee0d230b6e7e4, type: 3}
-  noticeVolume: 1
+  noticeVolume: 0.9
 --- !u!1 &2008674427948450631
 GameObject:
   m_ObjectHideFlags: 0
