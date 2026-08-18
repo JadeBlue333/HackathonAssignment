@@ -6835,7 +6835,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 307072752067722949}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e49219e63527b4d4c84b9e0691d76efb, type: 3}
   m_Name: 
@@ -7515,6 +7515,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7773518870147361473, guid: 9f6322cf7f47de34ca3906a0f439f9fa, type: 3}
+      propertyPath: displayAnchor
+      value: 
+      objectReference: {fileID: 883182859}
     - target: {fileID: 7805978362638565834, guid: 9f6322cf7f47de34ca3906a0f439f9fa, type: 3}
       propertyPath: displayAnchor
       value: 
@@ -7524,6 +7528,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f6322cf7f47de34ca3906a0f439f9fa, type: 3}
+--- !u!114 &307072752067722950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7773518870147361473, guid: 9f6322cf7f47de34ca3906a0f439f9fa, type: 3}
+  m_PrefabInstance: {fileID: 307072752067722949}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af599a2f70814174e978b9608c7d026e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotorMatchManager
 --- !u!1001 &1365056560517719147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7593,6 +7608,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: boxButtons
+      value: 
+      objectReference: {fileID: 277148465}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: failEffect
+      value: 
+      objectReference: {fileID: 672341047}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1140698141}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: motorButtons
+      value: 
+      objectReference: {fileID: 1099938106}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: wrongReasonUI
+      value: 
+      objectReference: {fileID: 2029026619}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: boxMatchManager
+      value: 
+      objectReference: {fileID: 2043312633}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: wrongReasonText
+      value: 
+      objectReference: {fileID: 2029026620}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: motorMatchManager
+      value: 
+      objectReference: {fileID: 307072752067722950}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: discardWarningNotice
+      value: 
+      objectReference: {fileID: 1712168507}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useStainMotorTexture
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: boxButtons
       value: 
@@ -7684,7 +7739,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3801493218913883263}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7ec62d7f953214478de4803b03f035c, type: 3}
   m_Name: 

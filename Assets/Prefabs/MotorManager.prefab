@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6506972609033216006}
   - component: {fileID: 7805978362638565834}
+  - component: {fileID: 7773518870147361473}
   m_Layer: 0
   m_Name: MotorManager
   m_TagString: Untagged
@@ -39,7 +40,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631917742778489733}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e49219e63527b4d4c84b9e0691d76efb, type: 3}
   m_Name: 
@@ -49,8 +50,13 @@ MonoBehaviour:
   motorLocalPosition: {x: 0, y: 0, z: 0}
   motorLocalRotation: {x: 0, y: 0, z: 0}
   motorScale: {x: 25, y: 25, z: 25}
-  mouseRotationSpeed: 0.2
-  fineRotationSpeed: 30
+  baseMouseRotationSpeed: 0.2
+  defaultObjectRotationSensitivity: 1
+  baseKeyboardRotationSpeed: 30
+  defaultKeyboardRotationSensitivity: 1
+  zoomSpeed: 0.15
+  minZoomScale: 0.7
+  maxZoomScale: 2
   frontPropellerName: P_Front
   backPropellerName: P_Back
   sameColorChance: 50
@@ -70,3 +76,27 @@ MonoBehaviour:
   - {fileID: 2100000, guid: cc1847174b54d1348a0d807b14a2d896, type: 2}
   - {fileID: 2100000, guid: f6e6a4c7296275e45b0ffa87fb4a3fb1, type: 2}
   - {fileID: 2100000, guid: 36aabe85620727b4f895eacffec3ac89, type: 2}
+--- !u!114 &7773518870147361473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631917742778489733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af599a2f70814174e978b9608c7d026e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MotorMatchManager
+  motorResourcePath: Motor_new/Motor_Random
+  displayAnchor: {fileID: 0}
+  motorLocalPosition: {x: 0, y: 0, z: 0}
+  motorLocalRotation: {x: 0, y: 0, z: 0}
+  motorScale: {x: 25, y: 25, z: 25}
+  baseMouseRotationSpeed: 0.2
+  defaultObjectRotationSensitivity: 1
+  baseKeyboardRotationSpeed: 30
+  defaultKeyboardRotationSensitivity: 1
+  zoomSpeed: 0.15
+  minZoomScale: 1
+  maxZoomScale: 3

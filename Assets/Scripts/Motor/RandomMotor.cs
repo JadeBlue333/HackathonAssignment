@@ -367,25 +367,31 @@ public class RandomMotor : MonoBehaviour
 
         if (useStainTexture)
         {
-            // Material 1~4 중 랜덤
-            float[] stainWeights =
+            // 체크되어 있으면 기존 방식대로 랜덤
+            // 0이 나오면 정상 / 1~4가 나오면 얼룩
+            float[] motorWeights =
             {
-            motor1Weight,
-            motor2Weight,
-            motor3Weight,
-            motor4Weight
-        };
+        motor0Weight,
+        motor1Weight,
+        motor2Weight,
+        motor3Weight,
+        motor4Weight
+    };
 
             selectedMotorMaterial =
                 GetWeightedRandomIndex(
-                    stainWeights
-                ) + 1;
+                    motorWeights
+                );
         }
         else
         {
-            // 정상 Motor
+            // 체크 해제 = 얼룩 절대 없음
             selectedMotorMaterial = 0;
         }
+
+        ApplyMotorMaterial(
+            selectedMotorMaterial
+        );
 
 
         ApplyMotorMaterial(
@@ -397,9 +403,46 @@ public class RandomMotor : MonoBehaviour
         // 프로펠러 존재 여부 저장
         // =====================================================
 
-        hasFront = spawnFront;
-        hasBack = spawnBack;
+        // =====================================================
+        // 앞 프로펠러
+        // 체크 OFF = 무조건 없음
+        // 체크 ON = 기존 확률 사용
+        // =====================================================
 
+        if (spawnFront)
+        {
+            hasFront =
+                Random.Range(
+                    0f,
+                    100f
+                ) <
+                frontSpawnChance;
+        }
+        else
+        {
+            hasFront = false;
+        }
+
+
+        // =====================================================
+        // 뒤 프로펠러
+        // 체크 OFF = 무조건 없음
+        // 체크 ON = 기존 확률 사용
+        // =====================================================
+
+        if (spawnBack)
+        {
+            hasBack =
+                Random.Range(
+                    0f,
+                    100f
+                ) <
+                backSpawnChance;
+        }
+        else
+        {
+            hasBack = false;
+        }
 
         // =====================================================
         // 둘 다 존재하는 경우
