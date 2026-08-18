@@ -18,6 +18,32 @@ public class InspectionGameManager : MonoBehaviour
     public GameObject boxButtons;
     public GameObject motorButtons;
 
+    // =========================================================
+    // Motor Generation Conditions
+    // 프리팹마다 Inspector에서 설정
+    // =========================================================
+
+    [Header("Motor Generation Conditions")]
+
+    [Tooltip("앞 프로펠러를 생성할지")]
+    [SerializeField]
+    private bool spawnFrontPropeller = true;
+
+    [Tooltip("뒤 프로펠러를 생성할지")]
+    [SerializeField]
+    private bool spawnBackPropeller = true;
+
+    [Tooltip("체크하면 모터에 얼룩 텍스처(Material 1~4)를 사용")]
+    [SerializeField]
+    private bool useStainMotorTexture = false;
+
+    [Tooltip("체크 = 앞뒤 날개 개수 같음 / 해제 = 다름")]
+    [SerializeField]
+    private bool samePropellerNumber = true;
+
+    [Tooltip("체크 = 앞뒤 색상 같음 / 해제 = 다름")]
+    [SerializeField]
+    private bool samePropellerColor = true;
 
     // =========================================================
     // Wrong Answer UI
@@ -821,10 +847,14 @@ public class InspectionGameManager : MonoBehaviour
         // =====================================================
 
         currentAnswer =
-            motorMatchManager
-                .CreateNextMatch(
-                    currentBoxIsNormal
-                );
+    motorMatchManager
+        .CreateNextMatchByCondition(
+            spawnFrontPropeller,
+            spawnBackPropeller,
+            useStainMotorTexture,
+            samePropellerNumber,
+            samePropellerColor
+        );
 
 
         // =====================================================

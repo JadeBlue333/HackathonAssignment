@@ -456,7 +456,13 @@ public class MotorMatchManager : MonoBehaviour
     public InspectionResult CreateNextMatch(
         bool boxIsNormal
     )
+
+
+
     {
+
+
+
         // =================================================
         // 기존 모터 제거
         // =================================================
@@ -649,6 +655,153 @@ public class MotorMatchManager : MonoBehaviour
             CurrentResult +
 
             "\n==========================================="
+        );
+
+
+        return CurrentResult;
+    }
+
+    // =====================================================
+    // 지정 조건으로 Motor 문제 생성
+    // =====================================================
+
+    public InspectionResult CreateNextMatchByCondition(
+        bool spawnFront,
+        bool spawnBack,
+        bool useStainTexture,
+        bool sameNumber,
+        bool sameColor
+    )
+    {
+        // 기존 모터 제거
+        RemoveCurrentMotor();
+
+
+        // =================================================
+        // Holder 생성
+        // =================================================
+
+        currentHolder =
+            new GameObject(
+                "CurrentMotorHolder"
+            );
+
+        currentHolder.transform.SetParent(
+            displayAnchor,
+            false
+        );
+
+        currentHolder.transform.localPosition =
+            Vector3.zero;
+
+        currentHolder.transform.localRotation =
+            Quaternion.identity;
+
+        currentHolder.transform.localScale =
+            Vector3.one;
+
+        currentZoomScale =
+            1f;
+
+
+        // =================================================
+        // Motor Prefab 생성
+        // =================================================
+
+        currentMotor =
+            Instantiate(
+                motorPrefab,
+                currentHolder.transform
+            );
+
+        currentMotor.transform.localPosition =
+            motorLocalPosition;
+
+        currentMotor.transform.localRotation =
+            Quaternion.Euler(
+                motorLocalRotation
+            );
+
+        currentMotor.transform.localScale =
+            motorScale;
+
+
+        // =================================================
+        // RandomMotor 찾기
+        // =================================================
+
+        currentRandomMotor =
+            currentMotor.GetComponentInChildren<RandomMotor>(
+                true
+            );
+
+        if (currentRandomMotor == null)
+        {
+            Debug.LogError(
+                "생성된 Motor Prefab에서 RandomMotor를 찾을 수 없습니다."
+            );
+
+            CurrentMotorValid = false;
+            CurrentDefectCount = 0;
+            CurrentResult = InspectionResult.Discard;
+
+            return CurrentResult;
+        }
+
+
+        // =================================================
+        // 지정된 조건으로 모터 생성
+        // =================================================
+
+        currentRandomMotor.GenerateMotorByCondition(
+            spawnFront,
+            spawnBack,
+            useStainTexture,
+            sameNumber,
+            sameColor
+        );
+
+
+        // =================================================
+        // 기존 등급 판정 사용
+        // =================================================
+
+        CurrentResult =
+            DetermineMotorResult();
+
+        CurrentMotorValid =
+            CurrentResult ==
+            InspectionResult.A;
+
+
+        Debug.Log(
+            "======= MOTOR CONDITION GENERATION =======" +
+
+            "\n앞 프로펠러 : " +
+            currentRandomMotor.HasFront +
+
+            "\n뒤 프로펠러 : " +
+            currentRandomMotor.HasBack +
+
+            "\n모터 Material : " +
+            currentRandomMotor.SelectedMotorMaterial +
+
+            "\n앞 날개 : " +
+            currentRandomMotor.SelectedFrontNumber +
+
+            "\n뒤 날개 : " +
+            currentRandomMotor.SelectedBackNumber +
+
+            "\n앞 색상 : " +
+            currentRandomMotor.SelectedFrontColor +
+
+            "\n뒤 색상 : " +
+            currentRandomMotor.SelectedBackColor +
+
+            "\n최종 등급 : " +
+            CurrentResult +
+
+            "\n=========================================="
         );
 
 
