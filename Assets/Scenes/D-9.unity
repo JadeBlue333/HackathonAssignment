@@ -200,6 +200,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 3738632117013043757, guid: 50840d5bba5e64502ad90469a417e375, type: 3}
   m_PrefabInstance: {fileID: 28517037}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &58097770 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1458698891987745762, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &79732494
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,6 +923,14 @@ PrefabInstance:
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 969460808}
+    - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1848485569}
+    - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1244279058}
     - target: {fileID: 7419735950969981314, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1028,10 +1047,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 58097770}
+    - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1244279058}
     - target: {fileID: 8350434777190609336, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 1921510401}
+    - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 894208213}
+    - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1244279058}
     - target: {fileID: 8807100950990691910, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2
@@ -2767,6 +2802,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888819474}
   m_CullTransparentMesh: 1
+--- !u!114 &894208213 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8201400462420775628, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &907034867 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
@@ -3988,7 +4034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4811,6 +4857,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837448601}
   m_CullTransparentMesh: 1
+--- !u!114 &1848485569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7894361936416770027, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &1868331834 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8989187730278119675, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}

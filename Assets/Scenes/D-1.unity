@@ -469,6 +469,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108884307}
   m_CullTransparentMesh: 1
+--- !u!114 &121973164 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7894361936416770027, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &136927725 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5025099305813903714, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
@@ -839,6 +850,18 @@ PrefabInstance:
       propertyPath: changeTargetImage
       value: 
       objectReference: {fileID: 398724101}
+    - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 121973164}
+    - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3801493218913883264}
+    - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_text
       value: D - 0
@@ -935,10 +958,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 262387538}
+    - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3801493218913883264}
+    - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8350434777190609336, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 1921510401}
+    - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 341552191}
+    - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3801493218913883264}
+    - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InspectionGameManager7, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8910319424310683213, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
       value: 
@@ -1389,6 +1436,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SetActive
   targetObject: {fileID: 2030823646}
+--- !u!114 &262387538 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1458698891987745762, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &277148465 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2830328171844805307, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
@@ -1543,6 +1601,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &341552191 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8201400462420775628, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1001 &393188936
 PrefabInstance:
   m_ObjectHideFlags: 0
