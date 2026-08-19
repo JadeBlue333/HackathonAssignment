@@ -794,9 +794,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 1
-  skillName: Work Extension Module I
-  description: "An auxiliary system for extended operation is activated.\nDaily work
-    hours are extended by 30 minutes. (09:00\u201315:30)"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 50
   nodeButton: {fileID: 4312843606700768027}
   purchasedTargetImage: {fileID: 2039144555009052106}
@@ -1827,13 +1828,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 3
-  skillName: Reputation Adjustment Module III
-  description: 'Manages evaluation records more effectively.
-
-    Restores 20 Trust
-    at the start of each workday.
-
-    [Requires Reputation Adjustment Module II]'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 40
   nodeButton: {fileID: 2559951413306410493}
   purchasedTargetImage: {fileID: 1681540818551893000}
@@ -2973,13 +2971,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 3
-  skillName: Self-Charging Circuit III
-  description: 'Charging efficiency has reached its maximum.
-
-    Restores 45 Fuel
-    at the start of each workday.
-
-    [Requires Self-Charging Circuit II]'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 40
   nodeButton: {fileID: 1843352077008678086}
   purchasedTargetImage: {fileID: 8904644443521574027}
@@ -4838,11 +4833,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 1
-  skillName: Self-Charging Circuit I
-  description: 'Basic self-charging functionality is activated.
-
-    Restores 20
-    Fuel at the start of each workday.'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 20
   nodeButton: {fileID: 1257294502270197093}
   purchasedTargetImage: {fileID: 4987862801437259472}
@@ -6723,12 +6717,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 2
   level: 1
-  skillName: Overload Contract
-  description: 'A work contract exceeding safe operating limits is initiated.
-
-    Successful
-    inspections earn double the usual payout, but failed inspections also reduce
-    Trust by twice the usual amount.'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 100
   nodeButton: {fileID: 9114087774257934748}
   purchasedTargetImage: {fileID: 6170852951222677271}
@@ -9423,11 +9415,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 1
-  skillName: Reputation Adjustment Module I
-  description: 'Evaluation records can now be adjusted.
-
-    Restores 5 Trust at
-    the start of each workday.'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 20
   nodeButton: {fileID: 4708470792249411762}
   purchasedTargetImage: {fileID: 52543619590892986}
@@ -11714,11 +11705,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 3
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 III"
-  description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uB354\uC6B1 \uD6A8\uACFC\uC801\uC73C\uB85C
-    \uAD00\uB9AC\uD569\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC
-    \uC2E0\uB8B0\uD3C9\uAC00\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
-    \uBCF4\uC815 \uBAA8\uB4C8 II \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 40
   nodeButton: {fileID: 5305299143890850428}
   purchasedTargetImage: {fileID: 1681540818551893000}
@@ -13081,10 +13071,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 1
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 I"
-  description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uBCF4\uC815\uD560 \uC218 \uC788\uAC8C
-    \uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C
-    5 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 20
   nodeButton: {fileID: 7528157111784201636}
   purchasedTargetImage: {fileID: 52543619590892986}
@@ -13265,11 +13255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 2
   level: 1
-  skillName: "\uACFC\uBD80\uD558 \uACC4\uC57D"
-  description: "\uC548\uC804 \uD55C\uACC4\uB97C \uB118\uC5B4\uC120 \uC791\uC5C5 \uACC4\uC57D\uC744
-    \uCCB4\uACB0\uD569\uB2C8\uB2E4.\n\uAC80\uC218 \uC131\uACF5 \uC2DC \uC5BB\uB294
-    \uC218\uC775\uC774 2\uBC30\uAC00 \uB418\uC9C0\uB9CC, \uC2E4\uD328 \uC2DC \uAC10\uC18C\uD558\uB294
-    \uC2E0\uB8B0\uD3C9\uAC00\uB3C4 2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 100
   nodeButton: {fileID: 6480264141728758504}
   purchasedTargetImage: {fileID: 6170852951222677271}
@@ -14557,10 +14546,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 3
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C III"
-  description: "\uCDA9\uC804 \uD6A8\uC728\uC774 \uCD5C\uB300\uCE58\uB85C \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 45 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
-    \uCDA9\uC804 \uD68C\uB85C II \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 40
   nodeButton: {fileID: 6145131085205717239}
   purchasedTargetImage: {fileID: 8904644443521574027}
@@ -15050,11 +15039,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 3
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 III"
-  description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC2DC\uC2A4\uD15C\uC774 \uC644\uC804\uD788
-    \uCD5C\uC801\uD654\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8 \uC791\uC5C5
-    \uC2DC\uAC04\uC774 \uCD94\uAC00\uB85C 30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4.
-    (09:00 - 16:30)\n[\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 100
   nodeButton: {fileID: 2797069276928941484}
   purchasedTargetImage: {fileID: 3935185541600363531}
@@ -16171,10 +16159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 2
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II"
-  description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC548\uC815\uC131\uC774 \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8
-    \uC791\uC5C5 \uC2DC\uAC04\uC774 \uCD94\uAC00\uB85C 30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4.
-    (09:00 - 16:00)\n[\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 70
   nodeButton: {fileID: 8203194891410992188}
   purchasedTargetImage: {fileID: 8681789459029301570}
@@ -16616,7 +16604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1322644173399488457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17059,13 +17047,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 2
-  skillName: Self-Charging Circuit II
-  description: 'The charging circuit has been enhanced.
-
-    Restores 30 Fuel at
-    the start of each workday.
-
-    [Requires Self-Charging Circuit I]'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 30
   nodeButton: {fileID: 8575368485385650711}
   purchasedTargetImage: {fileID: 6762644483420037120}
@@ -17434,10 +17419,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 2
-  skillName: Work Extension Module II
-  description: "Extended operation stability has been improved.\nDaily work hours
-    are extended by an additional 30 minutes. (09:00\u201316:00)\n[Requires Work
-    Extension Module I]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 70
   nodeButton: {fileID: 1013569386194273594}
   purchasedTargetImage: {fileID: 8681789459029301570}
@@ -17936,10 +17921,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 3
-  skillName: Work Extension Module III
-  description: "The extended operation system has been fully optimized.\nDaily work
-    hours are extended by an additional 30 minutes. (09:00\u201316:30)\n[Requires
-    Work Extension Module II]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 100
   nodeButton: {fileID: 7184026813185083691}
   purchasedTargetImage: {fileID: 3935185541600363531}
@@ -18217,14 +18202,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 2
-  skillName: Reputation Adjustment Module II
-  description: 'The reputation adjustment process has been refined.
-
-    Restores
-    10 Trust at the start of each workday.
-
-    [Requires Reputation Adjustment Module
-    I]'
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 30
   nodeButton: {fileID: 6922836100571589040}
   purchasedTargetImage: {fileID: 7283328279800377594}
@@ -19076,10 +19057,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 1
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I"
-  description: "\uC7A5\uC2DC\uAC04 \uC791\uC5C5\uC744 \uC704\uD55C \uBCF4\uC870 \uC2DC\uC2A4\uD15C\uC774
-    \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uD558\uB8E8 \uC791\uC5C5 \uC2DC\uAC04\uC774
-    30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4. (09:00 - 15:30)"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 50
   nodeButton: {fileID: 2568866335110438845}
   purchasedTargetImage: {fileID: 2039144555009052106}
@@ -19695,7 +19676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4763499996928731457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22881,10 +22862,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 1
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C I"
-  description: "\uAE30\uBCF8\uC801\uC778 \uC790\uAC00 \uCDA9\uC804 \uAE30\uB2A5\uC774
-    \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791
-    \uC2DC \uC5F0\uB8CC\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 20
   nodeButton: {fileID: 45178688923296035}
   purchasedTargetImage: {fileID: 4987862801437259472}
@@ -23848,10 +23829,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 2
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C II"
-  description: "\uCDA9\uC804 \uD68C\uB85C\uAC00 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 30 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
-    \uCDA9\uC804 \uD68C\uB85C I \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 30
   nodeButton: {fileID: 5461046360101767535}
   purchasedTargetImage: {fileID: 6762644483420037120}
@@ -29094,10 +29075,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 2
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 II"
-  description: "\uD3C9\uD310 \uBCF4\uC815 \uACFC\uC815\uC774 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
-    \uBCF4\uC815 \uBAA8\uB4C8 I \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 30
   nodeButton: {fileID: 5680960219051935462}
   purchasedTargetImage: {fileID: 7283328279800377594}

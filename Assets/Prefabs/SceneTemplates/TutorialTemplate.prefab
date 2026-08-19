@@ -2972,11 +2972,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 3
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 III"
-  description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC2DC\uC2A4\uD15C\uC774 \uC644\uC804\uD788
-    \uCD5C\uC801\uD654\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8 \uC791\uC5C5
-    \uC2DC\uAC04\uC774 \uCD94\uAC00\uB85C 30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4.
-    (09:00 - 16:30)\n[\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 100
   nodeButton: {fileID: 5781448224957781195}
   purchasedTargetImage: {fileID: 6986326834084490161}
@@ -3117,10 +3116,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 1
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 I"
-  description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uBCF4\uC815\uD560 \uC218 \uC788\uAC8C
-    \uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C
-    3 \uCD94\uAC00 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 20
   nodeButton: {fileID: 3750311860545148322}
   purchasedTargetImage: {fileID: 3752260169108569033}
@@ -7386,11 +7385,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 3
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 III"
-  description: "\uD3C9\uAC00 \uAE30\uB85D\uC744 \uB354\uC6B1 \uD6A8\uACFC\uC801\uC73C\uB85C
-    \uAD00\uB9AC\uD569\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791 \uC2DC
-    \uC2E0\uB8B0\uD3C9\uAC00\uB97C 10 \uCD94\uAC00 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310
-    \uBCF4\uC815 \uBAA8\uB4C8 II \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 40
   nodeButton: {fileID: 7401558434694254215}
   purchasedTargetImage: {fileID: 3239164201620184301}
@@ -10307,10 +10305,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 1
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I"
-  description: "\uC7A5\uC2DC\uAC04 \uC791\uC5C5\uC744 \uC704\uD55C \uBCF4\uC870 \uC2DC\uC2A4\uD15C\uC774
-    \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uD558\uB8E8 \uC791\uC5C5 \uC2DC\uAC04\uC774
-    30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4. (09:00 - 15:30)"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 50
   nodeButton: {fileID: 519853830795701971}
   purchasedTargetImage: {fileID: 5465044845392892844}
@@ -10824,10 +10822,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 2
-  skillName: "\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 II"
-  description: "\uD3C9\uD310 \uBCF4\uC815 \uACFC\uC815\uC774 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC2E0\uB8B0\uD3C9\uAC00\uB97C 6 \uCD94\uAC00
-    \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uD3C9\uD310 \uBCF4\uC815 \uBAA8\uB4C8 I \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 30
   nodeButton: {fileID: 6166081650901242413}
   purchasedTargetImage: {fileID: 7189819952089777431}
@@ -17676,9 +17674,9 @@ Transform:
   - {fileID: 6977708106581524142}
   - {fileID: 3880598489672540614}
   - {fileID: 8513334329586668156}
-  - {fileID: 7271401269064148582}
   - {fileID: 8926797087893119466}
   - {fileID: 5047600514638969468}
+  - {fileID: 7271401269064148582}
   - {fileID: 3537651940978616010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22037,10 +22035,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 2
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C II"
-  description: "\uCDA9\uC804 \uD68C\uB85C\uAC00 \uB354\uC6B1 \uC815\uAD50\uD574\uC84C\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
-    \uCDA9\uC804 \uD68C\uB85C I \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 30
   nodeButton: {fileID: 3872164353729878676}
   purchasedTargetImage: {fileID: 5240139332317982153}
@@ -22486,11 +22484,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 1
-  skillName: "\uACFC\uBD80\uD558 \uACC4\uC57D"
-  description: "\uC548\uC804 \uD55C\uACC4\uB97C \uB118\uC5B4\uC120 \uC791\uC5C5 \uACC4\uC57D\uC744
-    \uCCB4\uACB0\uD569\uB2C8\uB2E4.\n\uAC80\uC218 \uC131\uACF5 \uC2DC \uC5BB\uB294
-    \uC218\uC775\uC774 2\uBC30\uAC00 \uB418\uC9C0\uB9CC, \uC2E4\uD328 \uC2DC \uAC10\uC18C\uD558\uB294
-    \uC2E0\uB8B0\uD3C9\uAC00\uB3C4 2\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 100
   nodeButton: {fileID: 7241901167092847609}
   purchasedTargetImage: {fileID: 7431326619695023775}
@@ -27794,10 +27791,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 1
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C I"
-  description: "\uAE30\uBCF8\uC801\uC778 \uC790\uAC00 \uCDA9\uC804 \uAE30\uB2A5\uC774
-    \uD65C\uC131\uD654\uB429\uB2C8\uB2E4.\n\uB9E4\uC77C \uC791\uC5C5 \uC2DC\uC791
-    \uC2DC \uC5F0\uB8CC\uB97C 5 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 20
   nodeButton: {fileID: 4999247116787637908}
   purchasedTargetImage: {fileID: 1766020162463081594}
@@ -28724,10 +28721,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 3
-  skillName: "\uC790\uAC00 \uCDA9\uC804 \uD68C\uB85C III"
-  description: "\uCDA9\uC804 \uD6A8\uC728\uC774 \uCD5C\uB300\uCE58\uB85C \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uB9E4\uC77C
-    \uC791\uC5C5 \uC2DC\uC791 \uC2DC \uC5F0\uB8CC\uB97C 15 \uD68C\uBCF5\uD569\uB2C8\uB2E4.\n[\uC790\uAC00
-    \uCDA9\uC804 \uD68C\uB85C II \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 40
   nodeButton: {fileID: 6102809801654761936}
   purchasedTargetImage: {fileID: 6870656246866891656}
@@ -29142,10 +29139,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 2
-  skillName: "\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 II"
-  description: "\uC7A5\uC2DC\uAC04 \uAC00\uB3D9 \uC548\uC815\uC131\uC774 \uD5A5\uC0C1\uB418\uC5C8\uC2B5\uB2C8\uB2E4.\n\uD558\uB8E8
-    \uC791\uC5C5 \uC2DC\uAC04\uC774 \uCD94\uAC00\uB85C 30\uBD84 \uC5F0\uC7A5\uB429\uB2C8\uB2E4.
-    (09:00 - 16:00)\n[\uC791\uC5C5 \uC5F0\uC7A5 \uBAA8\uB4C8 I \uD544\uC694]"
+  skillNameKR: 
+  descriptionKR: 
+  skillNameEN: 
+  descriptionEN: 
   price: 70
   nodeButton: {fileID: 4782702045314690311}
   purchasedTargetImage: {fileID: 8835903107498433102}
