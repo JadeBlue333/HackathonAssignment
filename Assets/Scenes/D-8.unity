@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &9649665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3238322843003358045, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &16518645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7755328529171751637, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
@@ -4337,7 +4348,8 @@ MonoBehaviour:
   skillNameText: {fileID: 341549418}
   descriptionText: {fileID: 136927725}
   selectedPriceText: {fileID: 1868331834}
-  purchaseButton: {fileID: 467848666}
+  purchaseButtonKR: {fileID: 467848666}
+  purchaseButtonEN: {fileID: 9649665}
   purchaseButtonText: {fileID: 1541104979}
   audioSource: {fileID: 1140698141}
   purchaseSuccessSfx: {fileID: 8300000, guid: 902c17516b1e342dc9ba9ce69ad756dc, type: 3}
@@ -5268,10 +5280,11 @@ PrefabInstance:
       objectReference: {fileID: 1351998166}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_text
-      value: "\uBB50? \uB108\uD76C\uB294 \uC800\uAC8C \uC81C\uB300\uB85C \uB41C \uBD80\uD488\uCC98\uB7FC
-        \uBCF4\uC774\uB098?\n\uC55E\uB4A4 \uD504\uB85C\uD3A0\uB7EC\uAC00 \uD558\uB098\uB77C\uB3C4
-        \uC5C6\uC73C\uBA74\n\uD3D0\uAE30\uCC98\uB9AC\uD558\uB3C4\uB85D.\n\uC9D1\uC911\uD574\uB77C.
-        \uC544\uB2C8\uBA74 \uB108\uD76C\uAC00 \uD3D0\uAE30\uB420\uD14C\uB2C8."
+      value: "\uBB50? \uC800\uAC8C \uC81C\uB300\uB85C \uB41C \uBD80\uD488\uCC98\uB7FC
+        \uBCF4\uC774\uB098?\n\uC55E\uB4A4 \uD504\uB85C\uD3A0\uB7EC \uC911 \uD558\uB098\uB77C\uB3C4
+        \uBE60\uC838 \uC788\uC73C\uBA74 \uD3D0\uAE30\uD574.\n\uB611\uBC14\uB85C \uD655\uC778\uD558\uB3C4\uB85D.\n\uC548
+        \uADF8\uB7EC\uBA74 \uB2E4\uC74C \uD3D0\uAE30 \uB300\uC0C1\uC740 \uB108\uD76C\uAC00
+        \uB420 \uD14C\uB2C8."
       objectReference: {fileID: 0}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_margin.x
@@ -5437,9 +5450,30 @@ PrefabInstance:
       propertyPath: hoverAudioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 4290060625695954813, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290060625695954813, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290060625695954813, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -12.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4895016526957201661, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: "What?\nDoes that look like a proper part to you?\nIf even one propeller
+        is missing, scrap it.\nCheck carefully. Or you\u2019ll be next."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.x
+      value: 0.4616928
       objectReference: {fileID: 0}
     - target: {fileID: 5908613370720704912, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset

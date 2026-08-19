@@ -175,19 +175,11 @@ public class SkillNodeUI : MonoBehaviour
 
         switch (skillType)
         {
-            // -------------------------------------------------
-            // 자가 충전 회로
-            // -------------------------------------------------
-
             case SkillType.FuelRecovery:
 
                 return PlayerStatus.Instance
                     .fuelRecoveryLevel >= level;
 
-
-            // -------------------------------------------------
-            // 평판 보정 모듈
-            // -------------------------------------------------
 
             case SkillType.TrustRecovery:
 
@@ -195,19 +187,11 @@ public class SkillNodeUI : MonoBehaviour
                     .trustRecoveryLevel >= level;
 
 
-            // -------------------------------------------------
-            // 과부하 계약
-            // -------------------------------------------------
-
             case SkillType.HighRiskHighReturn:
 
                 return PlayerStatus.Instance
                     .highRiskHighReturnLevel >= level;
 
-
-            // -------------------------------------------------
-            // 작업 연장 모듈
-            // -------------------------------------------------
 
             case SkillType.WorkTime:
 
@@ -226,7 +210,6 @@ public class SkillNodeUI : MonoBehaviour
 
     public bool IsPreviousLevelPurchased()
     {
-        // I 단계는 선행 스킬 없음
         if (level <= 1)
             return true;
 
@@ -241,19 +224,11 @@ public class SkillNodeUI : MonoBehaviour
 
         switch (skillType)
         {
-            // -------------------------------------------------
-            // 자가 충전 회로
-            // -------------------------------------------------
-
             case SkillType.FuelRecovery:
 
                 return PlayerStatus.Instance
                     .fuelRecoveryLevel >= requiredLevel;
 
-
-            // -------------------------------------------------
-            // 평판 보정 모듈
-            // -------------------------------------------------
 
             case SkillType.TrustRecovery:
 
@@ -261,19 +236,10 @@ public class SkillNodeUI : MonoBehaviour
                     .trustRecoveryLevel >= requiredLevel;
 
 
-            // -------------------------------------------------
-            // 과부하 계약
-            // 단일 스킬이므로 선행 조건 없음
-            // -------------------------------------------------
-
             case SkillType.HighRiskHighReturn:
 
                 return true;
 
-
-            // -------------------------------------------------
-            // 작업 연장 모듈
-            // -------------------------------------------------
 
             case SkillType.WorkTime:
 
@@ -340,10 +306,6 @@ public class SkillNodeUI : MonoBehaviour
 
         switch (skillType)
         {
-            // -------------------------------------------------
-            // 자가 충전 회로
-            // -------------------------------------------------
-
             case SkillType.FuelRecovery:
 
                 success =
@@ -354,10 +316,6 @@ public class SkillNodeUI : MonoBehaviour
 
                 break;
 
-
-            // -------------------------------------------------
-            // 평판 보정 모듈
-            // -------------------------------------------------
 
             case SkillType.TrustRecovery:
 
@@ -370,10 +328,6 @@ public class SkillNodeUI : MonoBehaviour
                 break;
 
 
-            // -------------------------------------------------
-            // 과부하 계약
-            // -------------------------------------------------
-
             case SkillType.HighRiskHighReturn:
 
                 success =
@@ -384,10 +338,6 @@ public class SkillNodeUI : MonoBehaviour
 
                 break;
 
-
-            // -------------------------------------------------
-            // 작업 연장 모듈
-            // -------------------------------------------------
 
             case SkillType.WorkTime:
 
@@ -401,7 +351,6 @@ public class SkillNodeUI : MonoBehaviour
         }
 
 
-        // 구매 성공
         if (success)
         {
             RefreshPurchasedImage();
@@ -452,8 +401,6 @@ public class SkillNodeUI : MonoBehaviour
             );
 
 
-        // 에디터에서 가격 수정 시
-        // 연결된 텍스트 바로 갱신
         RefreshPriceText();
     }
 }

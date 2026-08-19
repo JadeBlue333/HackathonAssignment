@@ -4308,6 +4308,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &1480442740 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3238322843003358045, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+  m_PrefabInstance: {fileID: 153260935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1490449859
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,7 +4352,8 @@ MonoBehaviour:
   skillNameText: {fileID: 341549418}
   descriptionText: {fileID: 136927725}
   selectedPriceText: {fileID: 1868331834}
-  purchaseButton: {fileID: 467848666}
+  purchaseButtonKR: {fileID: 467848666}
+  purchaseButtonEN: {fileID: 1480442740}
   purchaseButtonText: {fileID: 1541104979}
   audioSource: {fileID: 1140698141}
   purchaseSuccessSfx: {fileID: 8300000, guid: 902c17516b1e342dc9ba9ce69ad756dc, type: 3}
@@ -5310,6 +5322,15 @@ PrefabInstance:
     - target: {fileID: 4895016526957201661, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: "Hah\u2026 We\u2019ve got some lousy suppliers.\nIf you spot green rust
+        or black stains on a motor, lower its grade by one."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.x
+      value: 12.22361
       objectReference: {fileID: 0}
     - target: {fileID: 5908613370720704912, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset

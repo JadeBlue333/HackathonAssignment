@@ -74,10 +74,12 @@ public class InspectionGameManager8 : MonoBehaviour
     [Header("Combo")]
 
     [Tooltip("이 콤보 이상부터 정답 시 신뢰도 보너스")]
-    [SerializeField] private int trustComboThreshold = 3;
+    [SerializeField]
+    private int trustComboThreshold = 3;
 
     [Tooltip("콤보 보너스로 얻는 신뢰도")]
-    [SerializeField] private int comboTrustReward = 2;
+    [SerializeField]
+    private int comboTrustReward = 2;
 
 
     // =========================================================
@@ -85,18 +87,21 @@ public class InspectionGameManager8 : MonoBehaviour
     // =========================================================
 
     [Header("Fail Effect")]
+
     [SerializeField]
     private InspectionFailEffect failEffect;
+
 
     // =========================================================
     // Discard Warning Notice
     // =========================================================
 
     [Header("Discard Warning Notice")]
+
     [SerializeField]
     private DiscardWarningNotice discardWarningNotice;
 
-    
+
     // =========================================================
     // Sound
     // =========================================================
@@ -168,6 +173,7 @@ public class InspectionGameManager8 : MonoBehaviour
             wrongReasonCanvasGroup =
                 wrongReasonUI.GetComponent<CanvasGroup>();
 
+
             if (wrongReasonCanvasGroup == null)
             {
                 wrongReasonCanvasGroup =
@@ -192,7 +198,9 @@ public class InspectionGameManager8 : MonoBehaviour
         );
 
 
-        comboCount = PlayerStatus.Instance.comboNumber;
+        comboCount =
+            PlayerStatus.Instance.comboNumber;
+
 
         GenerateQuestion();
     }
@@ -310,6 +318,18 @@ public class InspectionGameManager8 : MonoBehaviour
 
 
     // =========================================================
+    // Language
+    // =========================================================
+
+    private bool IsEnglish()
+    {
+        return
+            LanguageManager.Instance != null &&
+            LanguageManager.Instance.isEnglish;
+    }
+
+
+    // =========================================================
     // Sound
     // =========================================================
 
@@ -384,9 +404,15 @@ public class InspectionGameManager8 : MonoBehaviour
     {
         ClearCurrentWrongReason();
 
-        bool isEnglish = LanguageManager.Instance.isEnglish;
 
+        bool isEnglish =
+            IsEnglish();
+
+
+        // =====================================================
         // 박스 손상
+        // =====================================================
+
         if (boxMatchManager.CurrentBoxDamaged)
         {
             AddCurrentWrongReason(
@@ -397,18 +423,24 @@ public class InspectionGameManager8 : MonoBehaviour
         }
 
 
+        // =====================================================
         // 테이프 개봉 흔적
+        // =====================================================
+
         if (boxMatchManager.CurrentTapeOpened)
         {
             AddCurrentWrongReason(
                 isEnglish
-                    ? "There are signs of tampering on the tape."
+                    ? "The tape shows signs of opening."
                     : "테이프에 개봉 흔적이 있습니다."
             );
         }
 
 
+        // =====================================================
         // 정상 박스 + 정상 테이프
+        // =====================================================
+
         if (
             !boxMatchManager.CurrentBoxDamaged &&
             !boxMatchManager.CurrentTapeOpened
@@ -416,7 +448,7 @@ public class InspectionGameManager8 : MonoBehaviour
         {
             AddCurrentWrongReason(
                 isEnglish
-                    ? "There are no signs of tampering on the box or tape."
+                    ? "The box and tape show no signs of opening."
                     : "박스와 테이프에 개봉 흔적이 없습니다."
             );
         }
@@ -431,7 +463,10 @@ public class InspectionGameManager8 : MonoBehaviour
     {
         ClearCurrentWrongReason();
 
-        bool isEnglish = LanguageManager.Instance.isEnglish;
+
+        bool isEnglish =
+            IsEnglish();
+
 
         // =====================================================
         // 폐기 대상
@@ -703,7 +738,9 @@ public class InspectionGameManager8 : MonoBehaviour
         if (openedWrongBox)
         {
             SetCurrentWrongReason(
-                "미개봉 제품을 개봉했습니다."
+                IsEnglish()
+                    ? "You opened an unopened product."
+                    : "미개봉 제품을 개봉했습니다."
             );
         }
 
@@ -899,7 +936,10 @@ public class InspectionGameManager8 : MonoBehaviour
 
             // 콤보 증가
             comboCount++;
-            PlayerStatus.Instance.successNumber++;
+
+            PlayerStatus.Instance
+                .successNumber++;
+
 
             PlayerStatus.Instance.comboNumber =
                 comboCount;
@@ -956,7 +996,9 @@ public class InspectionGameManager8 : MonoBehaviour
 
             // 오답 통계
             wrongCount++;
-            PlayerStatus.Instance.mistakeNumber++;
+
+            PlayerStatus.Instance
+                .mistakeNumber++;
 
 
             // 콤보 초기화
@@ -971,14 +1013,18 @@ public class InspectionGameManager8 : MonoBehaviour
             // =================================================
             // 신뢰도 패널티
             // =================================================
+
             if (PlayerStatus.Instance.humanHead)
             {
-                trustPenalty = -2;
+                trustPenalty =
+                    -2;
             }
             else
             {
-                trustPenalty = -5;
+                trustPenalty =
+                    -5;
             }
+
 
             PlayerStatus.Instance
                 .AddTrustChanges(
@@ -997,7 +1043,9 @@ public class InspectionGameManager8 : MonoBehaviour
             if (string.IsNullOrEmpty(reason))
             {
                 reason =
-                    "검수 기준과 일치하지 않습니다.";
+                    IsEnglish()
+                        ? "The inspection does not match the criteria."
+                        : "검수 기준과 일치하지 않습니다.";
             }
 
 
@@ -1005,14 +1053,24 @@ public class InspectionGameManager8 : MonoBehaviour
                 reason
             );
 
-            // 폐기를 미폐기 처리했을시 폭발 트리거
-            if (currentAnswer == InspectionResult.Discard && playerAnswer != InspectionResult.Discard)
+
+            // =================================================
+            // 폐기를 미폐기 처리했을 시 폭발 트리거
+            // =================================================
+
+            if (
+                currentAnswer ==
+                    InspectionResult.Discard &&
+                playerAnswer !=
+                    InspectionResult.Discard
+            )
             {
                 // 폭발 연출은 매번 실행
                 if (failEffect != null)
                 {
                     failEffect.Play();
                 }
+
 
                 // 안내 이미지는 전체 플레이 중 최초 1회만
                 if (discardWarningNotice != null)
@@ -1029,12 +1087,15 @@ public class InspectionGameManager8 : MonoBehaviour
 
         if (PlayerStatus.Instance.humanBody)
         {
-            fuelCost = 1;
+            fuelCost =
+                1;
         }
         else
         {
-            fuelCost = 2;
+            fuelCost =
+                2;
         }
+
 
         PlayerStatus.Instance
             .ReduceFuel(
@@ -1081,27 +1142,22 @@ public class InspectionGameManager8 : MonoBehaviour
         switch (result)
         {
             case InspectionResult.Unopened:
-
                 return unopenedReward;
 
 
             case InspectionResult.A:
-
                 return aReward;
 
 
             case InspectionResult.B:
-
                 return bReward;
 
 
             case InspectionResult.C:
-
                 return cReward;
 
 
             case InspectionResult.Discard:
-
                 return discardReward;
         }
 

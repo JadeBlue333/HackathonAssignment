@@ -15,17 +15,36 @@ public class LowTrustHintTrigger : MonoBehaviour
     [SerializeField]
     private int trustThreshold = 20;
 
+    [Tooltip("신뢰도가 이 값 이상으로 회복되면 힌트를 다시 표시할 수 있습니다.")]
+    [SerializeField]
+    private int resetThreshold = 40;
+
 
     // =========================================================
     // Message
     // =========================================================
 
-    [Header("Message")]
+    [Header("Message - Korean")]
 
     [TextArea(2, 5)]
     [SerializeField]
-    private string hintMessage =
+    private string hintMessageKR =
         "신뢰도가 크게 낮아졌습니다.\n신뢰도가 0이 되면 폐기 처리됩니다.";
+
+
+    [Header("Message - English")]
+
+    [TextArea(2, 5)]
+    [SerializeField]
+    private string hintMessageEN =
+        "Trust has dropped significantly.\nIf trust reaches 0, you will be discarded.";
+
+
+    // =========================================================
+    // Runtime
+    // =========================================================
+
+    private bool canShowHint = true;
 
 
     // =========================================================
@@ -38,19 +57,29 @@ public class LowTrustHintTrigger : MonoBehaviour
             return;
 
 
-        // 이미 한 번 표시했으면 종료
-        if (PlayerStatus.Instance.lowTrustHintShown)
-            return;
-
-
         // 현재 신뢰도 + 오늘 누적 변화량
         int currentTrust =
             PlayerStatus.Instance.trust +
             PlayerStatus.Instance.trustChange;
 
 
-        // 실제 반영 예정 신뢰도가 기준 이하이면 최초 1회 표시
-        if (currentTrust <= trustThreshold)
+        // -----------------------------------------------------
+        // 40 이상으로 회복되면 다시 표시 가능
+        // -----------------------------------------------------
+
+        if (!canShowHint &&
+            currentTrust >= resetThreshold)
+        {
+            canShowHint = true;
+        }
+
+
+        // -----------------------------------------------------
+        // 20 이하가 되면 힌트 표시
+        // -----------------------------------------------------
+
+        if (canShowHint &&
+            currentTrust <= trustThreshold)
         {
             ShowHint();
         }
@@ -63,14 +92,32 @@ public class LowTrustHintTrigger : MonoBehaviour
 
     private void ShowHint()
     {
-        PlayerStatus.Instance.lowTrustHintShown = true;
+        canShowHint = false;
 
 
         if (hintNotice != null)
         {
             hintNotice.Show(
-                hintMessage
+                GetLocalizedMessage()
             );
         }
+    }
+
+
+    // =========================================================
+    // Localized Message
+    // =========================================================
+
+    private string GetLocalizedMessage()
+    {
+        if (LanguageManager.Instance == null)
+        {
+            return hintMessageKR;
+        }
+
+
+        return LanguageManager.Instance.isEnglish
+            ? hintMessageEN
+            : hintMessageKR;
     }
 }

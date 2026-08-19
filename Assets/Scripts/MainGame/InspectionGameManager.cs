@@ -560,11 +560,18 @@ public class InspectionGameManager : MonoBehaviour
         ClearCurrentWrongReason();
 
 
+        bool isEnglish =
+            LanguageManager.Instance != null &&
+            LanguageManager.Instance.isEnglish;
+
+
         // 박스 손상
         if (boxMatchManager.CurrentBoxDamaged)
         {
             AddCurrentWrongReason(
-                "박스가 손상되어 있습니다."
+                isEnglish
+                    ? "The box is damaged."
+                    : "박스가 손상되어 있습니다."
             );
         }
 
@@ -573,7 +580,9 @@ public class InspectionGameManager : MonoBehaviour
         if (boxMatchManager.CurrentTapeOpened)
         {
             AddCurrentWrongReason(
-                "테이프에 개봉 흔적이 있습니다."
+                isEnglish
+                    ? "The tape shows signs of opening."
+                    : "테이프에 개봉 흔적이 있습니다."
             );
         }
 
@@ -585,7 +594,9 @@ public class InspectionGameManager : MonoBehaviour
         )
         {
             AddCurrentWrongReason(
-                "박스와 테이프에 개봉 흔적이 없습니다."
+                isEnglish
+                    ? "The box and tape show no signs of opening."
+                    : "박스와 테이프에 개봉 흔적이 없습니다."
             );
         }
     }
@@ -598,6 +609,11 @@ public class InspectionGameManager : MonoBehaviour
     private void SetMotorWrongReasons()
     {
         ClearCurrentWrongReason();
+
+
+        bool isEnglish =
+            LanguageManager.Instance != null &&
+            LanguageManager.Instance.isEnglish;
 
 
         bool hasFront =
@@ -635,7 +651,9 @@ public class InspectionGameManager : MonoBehaviour
             )
             {
                 SetCurrentWrongReason(
-                    "[폐기 필요] 앞뒤 프로펠러가 누락되어 있습니다."
+                    isEnglish
+                        ? "[Discard] Front and rear propellers are missing."
+                        : "[폐기 필요] 앞뒤 프로펠러가 누락되어 있습니다."
                 );
             }
 
@@ -643,7 +661,9 @@ public class InspectionGameManager : MonoBehaviour
             else if (missingRequiredFront)
             {
                 SetCurrentWrongReason(
-                    "[폐기 필요] 앞 프로펠러가 누락되어 있습니다."
+                    isEnglish
+                        ? "[Discard] Front propeller is missing."
+                        : "[폐기 필요] 앞 프로펠러가 누락되어 있습니다."
                 );
             }
 
@@ -651,7 +671,9 @@ public class InspectionGameManager : MonoBehaviour
             else
             {
                 SetCurrentWrongReason(
-                    "[폐기 필요] 뒤 프로펠러가 누락되어 있습니다."
+                    isEnglish
+                        ? "[Discard] Rear propeller is missing."
+                        : "[폐기 필요] 뒤 프로펠러가 누락되어 있습니다."
                 );
             }
 
@@ -680,7 +702,9 @@ public class InspectionGameManager : MonoBehaviour
         )
         {
             AddCurrentWrongReason(
-                "모터에 얼룩이 있습니다."
+                isEnglish
+                    ? "The motor has stains."
+                    : "모터에 얼룩이 있습니다."
             );
 
             issueCount++;
@@ -710,7 +734,9 @@ public class InspectionGameManager : MonoBehaviour
         )
         {
             AddCurrentWrongReason(
-                "프로펠러 앞뒤 번호가 다릅니다."
+                isEnglish
+                    ? "The front and rear propeller numbers do not match."
+                    : "프로펠러 앞뒤 번호가 다릅니다."
             );
 
             issueCount++;
@@ -728,7 +754,9 @@ public class InspectionGameManager : MonoBehaviour
         )
         {
             AddCurrentWrongReason(
-                "프로펠러 색상이 다릅니다."
+                isEnglish
+                    ? "The propeller colors do not match."
+                    : "프로펠러 색상이 다릅니다."
             );
 
             issueCount++;
@@ -764,7 +792,9 @@ public class InspectionGameManager : MonoBehaviour
         // =====================================================
 
         AddCurrentWrongReason(
-            $"검수사항 불량이 {issueCount}개로 {gradeText}등급입니다."
+            isEnglish
+                ? $"{issueCount} defect(s): Grade {gradeText}."
+                : $"검수사항 불량이 {issueCount}개로 {gradeText}등급입니다."
         );
     }
 
@@ -1021,8 +1051,15 @@ public class InspectionGameManager : MonoBehaviour
 
         if (openedWrongBox)
         {
+            bool isEnglish =
+                LanguageManager.Instance != null &&
+                LanguageManager.Instance.isEnglish;
+
+
             SetCurrentWrongReason(
-                "미개봉 제품을 개봉했습니다."
+                isEnglish
+                    ? "You opened an unopened product."
+                    : "미개봉 제품을 개봉했습니다."
             );
         }
 
@@ -1414,8 +1451,15 @@ public class InspectionGameManager : MonoBehaviour
 
             if (string.IsNullOrEmpty(reason))
             {
+                bool isEnglish =
+                    LanguageManager.Instance != null &&
+                    LanguageManager.Instance.isEnglish;
+
+
                 reason =
-                    "검수 기준과 일치하지 않습니다.";
+                    isEnglish
+                        ? "The inspection does not match the criteria."
+                        : "검수 기준과 일치하지 않습니다.";
             }
 
 

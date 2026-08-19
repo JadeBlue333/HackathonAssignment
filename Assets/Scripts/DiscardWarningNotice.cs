@@ -45,14 +45,25 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
     // =========================================================
-    // Dialogue
+    // Dialogue - Korean
     // =========================================================
 
-    [Header("Dialogue")]
+    [Header("Dialogue - Korean")]
 
     [TextArea(2, 5)]
     [SerializeField]
-    private string[] warningMessages;
+    private string[] warningMessagesKR;
+
+
+    // =========================================================
+    // Dialogue - English
+    // =========================================================
+
+    [Header("Dialogue - English")]
+
+    [TextArea(2, 5)]
+    [SerializeField]
+    private string[] warningMessagesEN;
 
 
     // =========================================================
@@ -126,10 +137,7 @@ public class DiscardWarningNotice : MonoBehaviour
         }
 
 
-        if (
-            warningMessages == null ||
-            warningMessages.Length == 0
-        )
+        if (!HasMessages())
         {
             Debug.LogWarning(
                 "폐기 실패 대사가 등록되어 있지 않습니다."
@@ -189,6 +197,27 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
         // -----------------------------------------------------
+        // 현재 사용 언어의 대사 배열
+        // -----------------------------------------------------
+
+        string[] currentMessages =
+            GetCurrentMessages();
+
+
+        if (
+            currentMessages == null ||
+            currentMessages.Length == 0
+        )
+        {
+            isWaitingToShow = false;
+
+            noticeCoroutine = null;
+
+            yield break;
+        }
+
+
+        // -----------------------------------------------------
         // 현재 대사 번호 결정
         // -----------------------------------------------------
 
@@ -201,7 +230,7 @@ public class DiscardWarningNotice : MonoBehaviour
             Mathf.Clamp(
                 currentIndex,
                 0,
-                warningMessages.Length - 1
+                currentMessages.Length - 1
             );
 
 
@@ -210,16 +239,20 @@ public class DiscardWarningNotice : MonoBehaviour
         // -----------------------------------------------------
 
         noticeText.text =
-            warningMessages[currentIndex];
+            currentMessages[currentIndex];
 
 
         // -----------------------------------------------------
         // 다음 대사로 진행
         // -----------------------------------------------------
 
+        int maxMessageCount =
+            GetMaxMessageCount();
+
+
         if (
             PlayerStatus.Instance.discardWarningIndex <
-            warningMessages.Length - 1
+            maxMessageCount - 1
         )
         {
             PlayerStatus.Instance
@@ -332,6 +365,68 @@ public class DiscardWarningNotice : MonoBehaviour
 
 
         noticeCoroutine = null;
+    }
+
+
+    // =========================================================
+    // Current Language Messages
+    // =========================================================
+
+    private string[] GetCurrentMessages()
+    {
+        if (
+            LanguageManager.Instance != null &&
+            LanguageManager.Instance.isEnglish
+        )
+        {
+            return warningMessagesEN;
+        }
+
+
+        return warningMessagesKR;
+    }
+
+
+    // =========================================================
+    // Has Messages
+    // =========================================================
+
+    private bool HasMessages()
+    {
+        string[] currentMessages =
+            GetCurrentMessages();
+
+
+        return
+            currentMessages != null &&
+            currentMessages.Length > 0;
+    }
+
+
+    // =========================================================
+    // Max Message Count
+    // =========================================================
+
+    private int GetMaxMessageCount()
+    {
+        int koreanCount =
+            warningMessagesKR != null
+                ? warningMessagesKR.Length
+                : 0;
+
+
+        int englishCount =
+            warningMessagesEN != null
+                ? warningMessagesEN.Length
+                : 0;
+
+
+        // 두 언어 중 더 짧은 배열을 기준으로 사용
+        // KR / EN 대사 번호가 어긋나는 것을 방지
+        return Mathf.Min(
+            koreanCount,
+            englishCount
+        );
     }
 
 

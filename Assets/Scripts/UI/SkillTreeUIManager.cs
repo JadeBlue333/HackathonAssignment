@@ -44,9 +44,15 @@ public class SkillTreeUIManager : MonoBehaviour
 
     [Header("Purchase Button")]
 
+    [Tooltip("한국어 구매 버튼")]
     [SerializeField]
-    private Button purchaseButton;
+    private Button purchaseButtonKR;
 
+    [Tooltip("영어 구매 버튼")]
+    [SerializeField]
+    private Button purchaseButtonEN;
+
+    [Tooltip("구매 버튼 상태 텍스트")]
     [SerializeField]
     private TMP_Text purchaseButtonText;
 
@@ -94,9 +100,17 @@ public class SkillTreeUIManager : MonoBehaviour
         Instance = this;
 
 
-        if (purchaseButton != null)
+        if (purchaseButtonKR != null)
         {
-            purchaseButton.onClick.AddListener(
+            purchaseButtonKR.onClick.AddListener(
+                OnPurchaseButtonClicked
+            );
+        }
+
+
+        if (purchaseButtonEN != null)
+        {
+            purchaseButtonEN.onClick.AddListener(
                 OnPurchaseButtonClicked
             );
         }
@@ -113,6 +127,7 @@ public class SkillTreeUIManager : MonoBehaviour
         {
             detailPanel.SetActive(false);
         }
+
 
         RefreshAllNodes();
     }
@@ -190,14 +205,22 @@ public class SkillTreeUIManager : MonoBehaviour
         if (selectedNode == null)
             return;
 
-        if (purchaseButton == null)
-            return;
+
+        if (purchaseButtonKR != null)
+        {
+            purchaseButtonKR.interactable = true;
+        }
+
+        if (purchaseButtonEN != null)
+        {
+            purchaseButtonEN.interactable = true;
+        }
 
 
-        purchaseButton.interactable = true;
-
-
+        // -----------------------------------------------------
         // 이미 구매 완료
+        // -----------------------------------------------------
+
         if (selectedNode.IsPurchased())
         {
             SetPurchaseButtonText(
@@ -211,13 +234,16 @@ public class SkillTreeUIManager : MonoBehaviour
         }
 
 
+        // -----------------------------------------------------
         // 이전 단계 미구매
+        // -----------------------------------------------------
+
         if (!selectedNode.IsPreviousLevelPurchased())
         {
             SetPurchaseButtonText(
                 GetLocalizedText(
-                    "구매불가",
-                    "UNAVAILABLE"
+                    "잠김",
+                    "LOCKED"
                 )
             );
 
@@ -225,13 +251,16 @@ public class SkillTreeUIManager : MonoBehaviour
         }
 
 
+        // -----------------------------------------------------
         // 돈 부족
+        // -----------------------------------------------------
+
         if (!selectedNode.HasEnoughMoney())
         {
             SetPurchaseButtonText(
                 GetLocalizedText(
-                    "구매불가",
-                    "UNAVAILABLE"
+                    "잔액부족",
+                    "NO FUNDS"
                 )
             );
 
@@ -239,7 +268,10 @@ public class SkillTreeUIManager : MonoBehaviour
         }
 
 
+        // -----------------------------------------------------
         // 구매 가능
+        // -----------------------------------------------------
+
         SetPurchaseButtonText(
             GetLocalizedText(
                 "구매하기",
@@ -274,9 +306,13 @@ public class SkillTreeUIManager : MonoBehaviour
                 purchaseFailVolume
             );
 
+
             Debug.Log(
                 "구매 불가 - 이전 단계 스킬이 필요합니다."
             );
+
+
+            RefreshPurchaseButton();
 
             return;
         }
@@ -290,9 +326,13 @@ public class SkillTreeUIManager : MonoBehaviour
                 purchaseFailVolume
             );
 
+
             Debug.Log(
                 "구매 불가 - 돈이 부족합니다."
             );
+
+
+            RefreshPurchaseButton();
 
             return;
         }
@@ -349,6 +389,7 @@ public class SkillTreeUIManager : MonoBehaviour
         {
             return koreanText;
         }
+
 
         return LanguageManager.Instance.isEnglish
             ? englishText

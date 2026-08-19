@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class MoneySkillHintTrigger : MonoBehaviour
@@ -15,17 +16,36 @@ public class MoneySkillHintTrigger : MonoBehaviour
     [SerializeField]
     private int moneyThreshold = 20;
 
+    [Tooltip("조건 성립 후 힌트가 나타나기까지의 시간")]
+    [SerializeField]
+    private float showDelay = 1f;
+
 
     // =========================================================
     // Message
     // =========================================================
 
-    [Header("Message")]
+    [Header("Message - Korean")]
 
     [TextArea(2, 5)]
     [SerializeField]
-    private string hintMessage =
-        "[TAB] 기술 강화 / 도구 보기에서 능력을 강화할 수 있습니다.";
+    private string hintMessageKR =
+        "[TAB] 기술 강화 / 도구 보기에서\n능력을 강화할 수 있습니다.";
+
+
+    [Header("Message - English")]
+
+    [TextArea(2, 5)]
+    [SerializeField]
+    private string hintMessageEN =
+        "You can upgrade your abilities in\n[TAB] Upgrade Skills / Tools.";
+
+
+    // =========================================================
+    // Runtime
+    // =========================================================
+
+    private bool isWaiting = false;
 
 
     // =========================================================
@@ -43,11 +63,39 @@ public class MoneySkillHintTrigger : MonoBehaviour
             return;
 
 
-        // 보유 금액이 기준 이상이면 최초 1회 표시
+        // 이미 표시 대기 중이면 종료
+        if (isWaiting)
+            return;
+
+
+        // 보유 금액이 기준 이상이면 최초 1회 대기 시작
         if (PlayerStatus.Instance.money >= moneyThreshold)
         {
-            ShowHint();
+            StartCoroutine(
+                ShowHintAfterDelay()
+            );
         }
+    }
+
+
+    // =========================================================
+    // Show Hint After Delay
+    // =========================================================
+
+    private IEnumerator ShowHintAfterDelay()
+    {
+        isWaiting = true;
+
+
+        if (showDelay > 0f)
+        {
+            yield return new WaitForSecondsRealtime(
+                showDelay
+            );
+        }
+
+
+        ShowHint();
     }
 
 
@@ -57,14 +105,50 @@ public class MoneySkillHintTrigger : MonoBehaviour
 
     private void ShowHint()
     {
+        if (PlayerStatus.Instance == null)
+        {
+            isWaiting = false;
+            return;
+        }
+
+
+        // 다른 곳에서 이미 표시 처리된 경우
+        if (PlayerStatus.Instance.moneySkillHintShown)
+        {
+            isWaiting = false;
+            return;
+        }
+
+
         PlayerStatus.Instance.moneySkillHintShown = true;
 
 
         if (hintNotice != null)
         {
             hintNotice.Show(
-                hintMessage
+                GetLocalizedMessage()
             );
         }
+
+
+        isWaiting = false;
+    }
+
+
+    // =========================================================
+    // Localized Message
+    // =========================================================
+
+    private string GetLocalizedMessage()
+    {
+        if (LanguageManager.Instance == null)
+        {
+            return hintMessageKR;
+        }
+
+
+        return LanguageManager.Instance.isEnglish
+            ? hintMessageEN
+            : hintMessageKR;
     }
 }
