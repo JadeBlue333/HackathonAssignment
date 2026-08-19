@@ -3966,7 +3966,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6029,12 +6029,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 307072752067722950}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: spawnBackPropeller
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: spawnFrontPropeller
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: discardWarningNotice
       value: 
       objectReference: {fileID: 1712168507}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: useStainMotorTexture
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useSameColorCondition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: allowTripleDefectMotor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useSameNumberCondition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useMotorTextureCondition
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: boxButtons

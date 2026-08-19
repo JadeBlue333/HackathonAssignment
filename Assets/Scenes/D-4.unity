@@ -4051,7 +4051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1407244559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5145,10 +5145,15 @@ PrefabInstance:
       objectReference: {fileID: 1351998166}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_text
-      value: "\uC694\uB9AC \uC798\uD558\uB294 \uB140\uC11D \uC788\uB098?\n\uC5C5\uBB34
-        \uB05D\uB098\uACE0 \uB0B4 \uC0AC\uBB34\uC2E4\uB85C \uC624\uB3C4\uB85D.\n\uC544,
-        \uC694\uB9AC\uB791 \uC124\uAC70\uC9C0 \uB2E4 \uC798\uD558\uB294 \uB140\uC11D\uB9CC
-        \uC640\uB77C."
+      value: "\uC694\uB9AC \uC880 \uD558\uB294 \uB140\uC11D \uC788\uB098?\n\uC788\uC73C\uBA74
+        \uC5C5\uBB34 \uB05D\uB098\uACE0 \uB0B4 \uC0AC\uBB34\uC2E4\uB85C \uC624\uB3C4\uB85D.\n\uADF8\uB9AC\uACE0
+        \uC624\uB298 \uBB3C\uAC74\uC5D0\uC11C\uB294 \uD2B9\uBCC4\uD788\n\uC55E\uB4A4
+        \uD504\uB85C\uD3A0\uB7EC\uC758 \uC0C9\uC0C1\uC774 \uB2EC\uB77C\uB3C4 \uAC10\uC810\uD558\uC9C0
+        \uC54A\uB294\uB2E4."
+      objectReference: {fileID: 0}
+    - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.x
+      value: 8.1180725
       objectReference: {fileID: 0}
     - target: {fileID: 469077383693136958, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset
@@ -5310,18 +5315,41 @@ PrefabInstance:
       propertyPath: hoverAudioSource
       value: 
       objectReference: {fileID: 1140698141}
+    - target: {fileID: 4290060625695954813, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290060625695954813, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290060625695954813, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -13.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4895016526957201661, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_text
-      value: 'Anyone good at cooking?
+      value: 'Anyone here know how to cook? If so, come to my office after work.
 
-        Come to my office after work.
-
-        Oh,
-        only if you can cook and do dishes.'
+        And
+        just for today, mismatched front and rear propeller colors will not count
+        as a defect.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.w
+      value: -5.473503
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.x
+      value: -4.2676163
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705405075331533192, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.z
+      value: -3.9199104
       objectReference: {fileID: 0}
     - target: {fileID: 5908613370720704912, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_fontAsset
@@ -5385,7 +5413,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181779963369352717, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -14.2
+      value: -13.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6006,6 +6034,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1140698141}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: motor0Chance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: motorButtons
       value: 
       objectReference: {fileID: 1099938106}
@@ -6018,6 +6050,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2043312633}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: sameColorChance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: wrongReasonText
       value: 
       objectReference: {fileID: 1286452037}
@@ -6025,6 +6061,10 @@ PrefabInstance:
       propertyPath: motorMatchManager
       value: 
       objectReference: {fileID: 307072752067722950}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: gradePropellerColor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: spawnFrontPropeller
       value: 1
@@ -6034,8 +6074,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1380302508}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: frontPropellerChance
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: useStainMotorTexture
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useSameNumberCondition
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: boxButtons
