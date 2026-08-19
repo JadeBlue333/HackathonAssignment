@@ -13044,7 +13044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ad140590f174759bd9efd04da94888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FrameRateLimiter
-  targetFrameRate: 30
+  targetFrameRate: 60
 --- !u!4 &1552629268
 Transform:
   m_ObjectHideFlags: 0

@@ -681,10 +681,10 @@ PrefabInstance:
     - target: {fileID: 1799993431143987742, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 3801493218913883264}
+      objectReference: {fileID: 3801493218913883265}
     - target: {fileID: 1799993431143987742, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectA
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1799993431143987742, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -704,7 +704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2279079438988674714, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2349187090510857088, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -748,7 +748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3612577759179194810, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3975945098402215779, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5167146101561423449, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5433326241479257086, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -796,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5433326241479257086, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5587465445796366463, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
@@ -816,7 +816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5853079651437692504, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6200580541700901110, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_Enabled
@@ -875,8 +875,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3801493218913883264}
     - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectDiscard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224886089023113194, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7604574149256202770, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_text
@@ -987,8 +991,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3801493218913883264}
     - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectOpened
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049719969395382512, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8179516887995143364, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: targetImage
@@ -1007,8 +1015,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3801493218913883264}
     - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectUnopened
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424024452415905470, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: InspectionGameManager7, Assembly-CSharp
+      value: InspectionGameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8474184781216521939, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: m_TagString
@@ -6140,15 +6152,20 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
 --- !u!114 &3801493218913883264 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3576332288357460690, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
   m_PrefabInstance: {fileID: 3801493218913883263}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_GameObject: {fileID: 3801493218913883265}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7ec62d7f953214478de4803b03f035c, type: 3}
+  m_Script: {fileID: 11500000, guid: bebedde59ab788e488d85f6271bfb8b5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InspectionGameManager7
+  m_EditorClassIdentifier: Assembly-CSharp::InspectionGameManager
+--- !u!1 &3801493218913883265 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5642914071655844641, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+  m_PrefabInstance: {fileID: 3801493218913883263}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
