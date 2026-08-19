@@ -45,112 +45,78 @@ public class HumanPartHintTrigger : MonoBehaviour
 
 
     // =========================================================
-    // Save Key
-    // =========================================================
-
-    private const string HumanPartCountKey =
-        "LastHumanPartCount";
-
-
-    // =========================================================
     // Start
     // =========================================================
 
     private IEnumerator Start()
     {
-        if (PlayerStatus.Instance == null)
-            yield break;
+        // =====================================================
+        // PlayerStatus가 생성될 때까지 대기
+        // =====================================================
+
+        yield return new WaitUntil(
+            () =>
+                PlayerStatus.Instance != null
+        );
 
 
         // =====================================================
-        // 현재 보유 파츠 개수
+        // 현재 인간 파츠 개수 확인
         // =====================================================
 
         int currentPartCount =
-            GetCurrentPartCount();
+            PlayerStatus.Instance
+                .GetHumanPartCount();
+
+
+        int checkedPartCount =
+            PlayerStatus.Instance
+                .checkedHumanPartCount;
 
 
         // =====================================================
-        // 이전 Day에서 확인했던 파츠 개수
-        // =====================================================
-
-        int previousPartCount =
-            PlayerPrefs.GetInt(
-                HumanPartCountKey,
-                currentPartCount
-            );
-
-
-        // =====================================================
-        // 파츠 개수가 증가했다면 새 파츠 획득
+        // 이전에 확인한 개수보다 증가했는지 확인
         // =====================================================
 
         bool obtainedNewPart =
             currentPartCount >
-            previousPartCount;
+            checkedPartCount;
+
+
+        if (!obtainedNewPart)
+            yield break;
 
 
         // =====================================================
-        // 현재 개수를 다음 비교용으로 저장
+        // Day 시작 후 일정 시간 대기
         // =====================================================
 
-        PlayerPrefs.SetInt(
-            HumanPartCountKey,
-            currentPartCount
+        yield return new WaitForSecondsRealtime(
+            showDelay
         );
 
-        PlayerPrefs.Save();
+
+        // =====================================================
+        // 힌트 표시
+        // =====================================================
+
+        ShowHint();
 
 
         // =====================================================
-        // 새로운 파츠가 있다면 Day 시작 후 힌트 표시
+        // 현재 파츠 개수를 확인 완료 상태로 저장
         // =====================================================
 
-        if (obtainedNewPart)
-        {
-            yield return new WaitForSecondsRealtime(
-                showDelay
-            );
+        PlayerStatus.Instance
+            .checkedHumanPartCount =
+                currentPartCount;
 
 
-            ShowHint();
-        }
-    }
-
-
-    // =========================================================
-    // Current Part Count
-    // =========================================================
-
-    private int GetCurrentPartCount()
-    {
-        if (PlayerStatus.Instance == null)
-            return 0;
-
-
-        int count =
-            0;
-
-
-        if (PlayerStatus.Instance.humanHead)
-        {
-            count++;
-        }
-
-
-        if (PlayerStatus.Instance.humanBody)
-        {
-            count++;
-        }
-
-
-        if (PlayerStatus.Instance.humanHeart)
-        {
-            count++;
-        }
-
-
-        return count;
+        Debug.Log(
+            $"인간 파츠 획득 힌트 표시 / " +
+            $"이전: {checkedPartCount} / " +
+            $"현재: {currentPartCount}"
+        );
     }
 
 
@@ -160,13 +126,12 @@ public class HumanPartHintTrigger : MonoBehaviour
 
     private void ShowHint()
     {
-        if (hintNotice == null)
-            return;
-
-
-        hintNotice.Show(
-            GetLocalizedMessage()
-        );
+        if (hintNotice != null)
+        {
+            hintNotice.Show(
+                GetLocalizedMessage()
+            );
+        }
     }
 
 

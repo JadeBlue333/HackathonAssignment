@@ -36,6 +36,7 @@ public class PlayerStatus : MonoBehaviour
         public bool humanHead;
         public bool humanHeart;
         public bool isHuman;
+        public int checkedHumanPartCount;
 
         // Skill
         public int fuelRecoveryLevel;
@@ -158,6 +159,8 @@ public class PlayerStatus : MonoBehaviour
         humanHeart = false;
 
         isHuman = false;
+
+        checkedHumanPartCount = 0;
 
 
         // =====================================================
@@ -294,6 +297,9 @@ public class PlayerStatus : MonoBehaviour
 
     [Tooltip("인간이 되었는지 여부")]
     public bool isHuman = false;
+
+    [Tooltip("마지막으로 획득 힌트를 확인한 인간 파츠 개수")]
+    public int checkedHumanPartCount = 0;
 
 
     // =========================================================
@@ -699,6 +705,38 @@ public class PlayerStatus : MonoBehaviour
             humanBody &&
             humanHead &&
             humanHeart;
+    }
+
+
+    // =========================================================
+    // Human Part Count
+    // =========================================================
+
+    public int GetHumanPartCount()
+    {
+        int count =
+            0;
+
+
+        if (humanHead)
+        {
+            count++;
+        }
+
+
+        if (humanBody)
+        {
+            count++;
+        }
+
+
+        if (humanHeart)
+        {
+            count++;
+        }
+
+
+        return count;
     }
 
 
@@ -1192,6 +1230,9 @@ public class PlayerStatus : MonoBehaviour
         progressSnapshot.isHuman =
             isHuman;
 
+        progressSnapshot.checkedHumanPartCount =
+            checkedHumanPartCount;
+
 
         // Skill
         progressSnapshot.fuelRecoveryLevel =
@@ -1374,6 +1415,9 @@ public class PlayerStatus : MonoBehaviour
 
         isHuman =
             progressSnapshot.isHuman;
+
+        checkedHumanPartCount =
+            progressSnapshot.checkedHumanPartCount;
 
 
         // Skill
