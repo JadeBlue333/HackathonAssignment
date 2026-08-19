@@ -205,6 +205,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EndingTemplate
       objectReference: {fileID: 0}
+    - target: {fileID: 7600165420317007852, guid: a761002cc3baef241a528a728e2c6237, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8379739268786235473, guid: a761002cc3baef241a528a728e2c6237, type: 3}
       propertyPath: ending1
       value: 0

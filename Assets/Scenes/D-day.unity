@@ -6037,9 +6037,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 307072752067722950}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: backPropellerChance
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: discardWarningNotice
       value: 
       objectReference: {fileID: 212168190}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: frontPropellerChance
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: allowTripleDefectMotor
       value: 0

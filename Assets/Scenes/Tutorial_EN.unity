@@ -1079,6 +1079,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 88
       objectReference: {fileID: 0}
+    - target: {fileID: 2516611753137828444, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_text
+      value: Be sure to check the notice each day.
+      objectReference: {fileID: 0}
     - target: {fileID: 2520796888244393641, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_text
       value: 03 Internal Motor Inspection
@@ -1223,6 +1227,10 @@ PrefabInstance:
     - target: {fileID: 3723690165614495473, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -22.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749582465850572914, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3840324317367121708, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_IsActive
@@ -1542,7 +1550,19 @@ PrefabInstance:
 
 
         Press [SPACE]
-        to review the manual at any time.'
+        during inspection to view the manual anytime.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217287221146152105, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217287221146152105, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6217287221146152105, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.8
       objectReference: {fileID: 0}
     - target: {fileID: 6238216960945075729, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_IsActive
@@ -1766,6 +1786,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8868991398413685965, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e9c433fbb79747ea87bb8b832350693, type: 3}
+    - target: {fileID: 8868991398413685965, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8996188521840214734, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_text
       value: 00 Controls & Shortcuts
@@ -1799,6 +1827,34 @@ PrefabInstance:
     - target: {fileID: 9111191016057067515, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 269
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 239
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.1293619
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.1293619
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.1293619
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -666
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121525981387914083, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 9169229157386451653, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_IsActive

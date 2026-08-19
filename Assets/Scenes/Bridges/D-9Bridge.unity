@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 123652680838958167, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 516683197659304001, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
       propertyPath: m_LocalPosition.x
       value: 792.2206
@@ -167,9 +171,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1427987753170302951, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 880
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427987753170302951, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 833
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427987753170302951, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.59338
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427987753170302951, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.59338
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427987753170302951, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.59338
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139371615383302840, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f7941fd54d4b78409711c4c01c58766, type: 3}
+    - target: {fileID: 5027377619707306881, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6289247631775507956, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
       propertyPath: m_Name
       value: BridgeTemplate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7515301378082972448, guid: bc3cfb429ef802c41b964ff4fb62c661, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

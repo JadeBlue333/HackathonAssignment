@@ -15,6 +15,8 @@ public class MenuProgressBGM : MonoBehaviour
     [SerializeField] private string mainMenuSceneName = "MainMenu";
     [SerializeField] private string progressSceneName = "Progress";
     [SerializeField] private string introSceneName = "Intro";
+    [SerializeField] private string tutorialSceneName = "Tutorial";
+    [SerializeField] private string tutorialENSceneName = "Tutorial_EN";
 
 
     // =====================================================
@@ -118,11 +120,15 @@ public class MenuProgressBGM : MonoBehaviour
 
 
         // =================================================
-        // MainMenu / Progress
+        // MainMenu / Progress / Tutorial / Tutorial_EN
         // =================================================
 
-        if (sceneName == mainMenuSceneName ||
-            sceneName == progressSceneName)
+        if (
+            sceneName == mainMenuSceneName ||
+            sceneName == progressSceneName ||
+            sceneName == tutorialSceneName ||
+            sceneName == tutorialENSceneName
+        )
         {
             // Fade Out 중이었다면 취소
             if (fadeCoroutine != null)
@@ -139,7 +145,6 @@ public class MenuProgressBGM : MonoBehaviour
             }
 
 
-            // Progress에 들어왔을 때
             // Intro에서 0으로 만들어뒀던 볼륨 복구
             audioSource.volume = normalVolume;
 

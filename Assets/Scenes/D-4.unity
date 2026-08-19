@@ -6051,7 +6051,7 @@ PrefabInstance:
       objectReference: {fileID: 2043312633}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: sameColorChance
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: wrongReasonText
