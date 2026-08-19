@@ -1087,6 +1087,10 @@ PrefabInstance:
       value: "Cute and soft, or sharp and striking\u2014we've got the face you're
         looking for.\r\nAll you need is enough Creta.\r\n"
       objectReference: {fileID: 0}
+    - target: {fileID: 7882740838028956502, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7902735446776593184, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
       propertyPath: m_text
       value: Back

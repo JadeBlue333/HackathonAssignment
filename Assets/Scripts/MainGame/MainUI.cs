@@ -430,25 +430,11 @@ public class MainUI : MonoBehaviour
                 .wasPressedThisFrame
         )
         {
-            if (
-                endWorkPanel != null &&
-                endWorkPanel.activeSelf
-            )
+            if (endWorkPanel != null)
             {
                 endWorkPanel.SetActive(
-                    false
+                    !endWorkPanel.activeSelf
                 );
-            }
-
-            else if (
-                endWorkButton != null &&
-                endWorkButton.interactable &&
-                endWorkButton.gameObject
-                    .activeInHierarchy
-            )
-            {
-                endWorkButton.onClick
-                    .Invoke();
             }
         }
 
@@ -462,25 +448,11 @@ public class MainUI : MonoBehaviour
                 .wasPressedThisFrame
         )
         {
-            if (
-                manualPanel != null &&
-                manualPanel.activeSelf
-            )
+            if (manualPanel != null)
             {
                 manualPanel.SetActive(
-                    false
+                    !manualPanel.activeSelf
                 );
-            }
-
-            else if (
-                manualButton != null &&
-                manualButton.interactable &&
-                manualButton.gameObject
-                    .activeInHierarchy
-            )
-            {
-                manualButton.onClick
-                    .Invoke();
             }
         }
 
@@ -494,25 +466,11 @@ public class MainUI : MonoBehaviour
                 .wasPressedThisFrame
         )
         {
-            if (
-                settingsPanel != null &&
-                settingsPanel.activeSelf
-            )
+            if (settingsPanel != null)
             {
                 settingsPanel.SetActive(
-                    false
+                    !settingsPanel.activeSelf
                 );
-            }
-
-            else if (
-                settingsButton != null &&
-                settingsButton.interactable &&
-                settingsButton.gameObject
-                    .activeInHierarchy
-            )
-            {
-                settingsButton.onClick
-                    .Invoke();
             }
         }
     }

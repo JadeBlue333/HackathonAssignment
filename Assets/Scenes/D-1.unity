@@ -618,6 +618,10 @@ PrefabInstance:
       propertyPath: changeTargetImage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 403707218017228680, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 52e7c133abfd61941818b458a469addd, type: 3}
     - target: {fileID: 495438141448582343, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
       value: 
@@ -4982,6 +4986,19 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1351998167}
     m_Modifications:
+    - target: {fileID: 166917212359104671, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: Sometimes it feels like you've been forced into a mold that doesn't
+        fit you. You're free to go and find what you truly love. Follow your heart.
+      objectReference: {fileID: 0}
+    - target: {fileID: 166917212359104671, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.x
+      value: 6.476692
+      objectReference: {fileID: 0}
+    - target: {fileID: 166917212359104671, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_margin.z
+      value: 3.1402092
+      objectReference: {fileID: 0}
     - target: {fileID: 187614830709877982, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_Camera
       value: 
@@ -5252,7 +5269,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1921510402 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2677376769821127217, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2190581259070417624, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
   m_PrefabInstance: {fileID: 1921510398}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1921510403 stripped

@@ -629,6 +629,10 @@ PrefabInstance:
       propertyPath: changeTargetImage
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 403707218017228680, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 23f97aea7f4696146bb5889f28c23459, type: 3}
     - target: {fileID: 495438141448582343, guid: ab9d02ac5f0de44cf87fc51c29e60142, type: 3}
       propertyPath: audioSource
       value: 
@@ -5151,6 +5155,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1351998167}
     m_Modifications:
+    - target: {fileID: 166917212359104671, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+      propertyPath: m_text
+      value: But I like that innocence of yours.
+      objectReference: {fileID: 0}
     - target: {fileID: 187614830709877982, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
       propertyPath: m_Camera
       value: 
@@ -5420,7 +5428,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1921510402 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2677376769821127217, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2190581259070417624, guid: 14b799c203a704df3a47e608360d6cae, type: 3}
   m_PrefabInstance: {fileID: 1921510398}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1921510403 stripped
@@ -6041,23 +6049,31 @@ PrefabInstance:
       objectReference: {fileID: 1261426813}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: sameNumberChance
-      value: 100
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: motorMatchManager
       value: 
       objectReference: {fileID: 307072752067722950}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: backPropellerChance
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: discardWarningNotice
       value: 
       objectReference: {fileID: 968025204}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: frontPropellerChance
-      value: 80
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: useStainMotorTexture
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
+      propertyPath: useSameColorCondition
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2077750061579354344, guid: 77b8439660f194a41a19b29a6c73ee9a, type: 3}
       propertyPath: allowTripleDefectMotor
