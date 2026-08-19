@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 5058193860300328990}
   m_Layer: 9
   m_Name: 1-1 (3)
-  m_TagString: Untagged
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2836,7 +2836,7 @@ MonoBehaviour:
   displayMode: 1
   slotButton: {fileID: 3375182544722097851}
   ownedVisual: {fileID: 1942243820514370859}
-  ownedNameText: {fileID: 1883778812095077245}
+  ownedNameText: {fileID: 1965888671521836366}
   unknownName: ???
 --- !u!1 &853794448002211728
 GameObject:
@@ -5085,8 +5085,8 @@ GameObject:
   - component: {fileID: 1521771212109665219}
   - component: {fileID: 1586655453097564143}
   m_Layer: 9
-  m_Name: name (1)
-  m_TagString: Untagged
+  m_Name: name_kor2
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6885,7 +6885,7 @@ GameObject:
   - component: {fileID: 3382787843097807016}
   m_Layer: 9
   m_Name: Name
-  m_TagString: Untagged
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9583,8 +9583,8 @@ GameObject:
   - component: {fileID: 7264513934650526553}
   - component: {fileID: 1463645615345481038}
   m_Layer: 9
-  m_Name: name (1)
-  m_TagString: Untagged
+  m_Name: name_eng2
+  m_TagString: eng
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11473,7 +11473,7 @@ GameObject:
   - component: {fileID: 4489971616261385174}
   m_Layer: 9
   m_Name: 1-1 (2)
-  m_TagString: Untagged
+  m_TagString: eng
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12317,8 +12317,8 @@ GameObject:
   - component: {fileID: 4900132227444682108}
   - component: {fileID: 1965888671521836366}
   m_Layer: 9
-  m_Name: name (2)
-  m_TagString: Untagged
+  m_Name: name_eng3
+  m_TagString: eng
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15073,8 +15073,8 @@ GameObject:
   - component: {fileID: 6347070696068359168}
   - component: {fileID: 1883778812095077245}
   m_Layer: 9
-  m_Name: name (2)
-  m_TagString: Untagged
+  m_Name: name_kor3
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18391,7 +18391,7 @@ GameObject:
   - component: {fileID: 3719081688407030403}
   m_Layer: 9
   m_Name: 1-1 (3)
-  m_TagString: Untagged
+  m_TagString: eng
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19597,7 +19597,7 @@ GameObject:
   - component: {fileID: 245359281157286356}
   m_Layer: 9
   m_Name: 1-1 (1)
-  m_TagString: Untagged
+  m_TagString: eng
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19842,7 +19842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4763499996928731457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20054,8 +20054,8 @@ GameObject:
   - component: {fileID: 3387390951614023800}
   - component: {fileID: 7380793129623637717}
   m_Layer: 9
-  m_Name: name
-  m_TagString: Untagged
+  m_Name: name_eng1
+  m_TagString: eng
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21193,8 +21193,8 @@ GameObject:
   - component: {fileID: 6349454000793902742}
   - component: {fileID: 2518062391460817451}
   m_Layer: 9
-  m_Name: name
-  m_TagString: Untagged
+  m_Name: name_kor1
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22879,7 +22879,7 @@ MonoBehaviour:
   displayMode: 1
   slotButton: {fileID: 5021191516673544059}
   ownedVisual: {fileID: 4807734694419035132}
-  ownedNameText: {fileID: 2518062391460817451}
+  ownedNameText: {fileID: 7380793129623637717}
   unknownName: ???
 --- !u!1 &7408555881077091837
 GameObject:
@@ -24342,7 +24342,7 @@ GameObject:
   - component: {fileID: 6364694082856216247}
   m_Layer: 9
   m_Name: 1-1 (2)
-  m_TagString: Untagged
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25461,7 +25461,7 @@ GameObject:
   - component: {fileID: 8729538105094070958}
   m_Layer: 9
   m_Name: 1-1 (1)
-  m_TagString: Untagged
+  m_TagString: kor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27489,7 +27489,7 @@ MonoBehaviour:
   displayMode: 1
   slotButton: {fileID: 688781795397419305}
   ownedVisual: {fileID: 1039648636602375000}
-  ownedNameText: {fileID: 1586655453097564143}
+  ownedNameText: {fileID: 1463645615345481038}
   unknownName: ???
 --- !u!1 &8673534669621375931
 GameObject:
