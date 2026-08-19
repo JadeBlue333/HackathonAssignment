@@ -3851,7 +3851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialNoticeController
   tutorialNoticeCanvas: {fileID: 1747973361}
   countdownText: {fileID: 1674000712}
-  countdownSeconds: 5
+  countdownSeconds: 6
   goToThisScene: {fileID: 213459484}
   dotInterval: 0.3
 --- !u!1001 &396882327
@@ -10777,7 +10777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SystemWindowBootEffect
   windowCanvasGroup: {fileID: 305069187}
-  startDelay: 1
+  startDelay: 2
   audioSource: {fileID: 1527392959}
   bootSound: {fileID: 8300000, guid: 7c2df0dedd5254755bfee0d230b6e7e4, type: 3}
   bootSoundVolume: 0.8
@@ -13559,7 +13559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialNoticeController
   tutorialNoticeCanvas: {fileID: 604094740}
   countdownText: {fileID: 1789435995}
-  countdownSeconds: 5
+  countdownSeconds: 6
   goToThisScene: {fileID: 2005564267}
   dotInterval: 0.3
 --- !u!4 &1564459517
@@ -14433,7 +14433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SystemWindowBootEffect
   windowCanvasGroup: {fileID: 1818980754}
-  startDelay: 1
+  startDelay: 2
   audioSource: {fileID: 1527392959}
   bootSound: {fileID: 8300000, guid: 7c2df0dedd5254755bfee0d230b6e7e4, type: 3}
   bootSoundVolume: 0.8
