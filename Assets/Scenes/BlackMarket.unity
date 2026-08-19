@@ -446,6 +446,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 755639506217080210, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
+      propertyPath: m_text
+      value: 300 C
+      objectReference: {fileID: 0}
     - target: {fileID: 1723156444802511001, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1648.3643
@@ -486,6 +490,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1926404689394346627, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
+      propertyPath: moneyItems.Array.data[3].price
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926404689394346627, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
+      propertyPath: moneyItems.Array.data[4].price
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2368993439487478694, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -521,6 +533,10 @@ PrefabInstance:
     - target: {fileID: 2722657995278960123, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3046538191504291175, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
+      propertyPath: m_text
+      value: 100 C
       objectReference: {fileID: 0}
     - target: {fileID: 4258050748097634360, guid: 4e5f7f8034409dd4fb850d83d5cab9c1, type: 3}
       propertyPath: m_IsActive

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class HumanPartHintTrigger : MonoBehaviour
 {
@@ -33,106 +34,123 @@ public class HumanPartHintTrigger : MonoBehaviour
 
 
     // =========================================================
-    // Runtime
+    // Delay
     // =========================================================
 
-    private bool previousHead;
-    private bool previousBody;
-    private bool previousHeart;
+    [Header("Delay")]
 
-    private bool initialized = false;
+    [Tooltip("Day 시작 후 힌트가 나타나기까지의 시간")]
+    [SerializeField]
+    private float showDelay = 1f;
+
+
+    // =========================================================
+    // Save Key
+    // =========================================================
+
+    private const string HumanPartCountKey =
+        "LastHumanPartCount";
 
 
     // =========================================================
     // Start
     // =========================================================
 
-    private void Start()
+    private IEnumerator Start()
     {
         if (PlayerStatus.Instance == null)
-            return;
+            yield break;
 
 
-        // 현재 보유 상태를 기준값으로 저장
-        // 이미 가지고 있던 파츠 때문에 힌트가 다시 뜨지 않게 함
-        previousHead =
-            PlayerStatus.Instance.humanHead;
+        // =====================================================
+        // 현재 보유 파츠 개수
+        // =====================================================
 
-        previousBody =
-            PlayerStatus.Instance.humanBody;
-
-        previousHeart =
-            PlayerStatus.Instance.humanHeart;
+        int currentPartCount =
+            GetCurrentPartCount();
 
 
-        initialized = true;
+        // =====================================================
+        // 이전 Day에서 확인했던 파츠 개수
+        // =====================================================
+
+        int previousPartCount =
+            PlayerPrefs.GetInt(
+                HumanPartCountKey,
+                currentPartCount
+            );
+
+
+        // =====================================================
+        // 파츠 개수가 증가했다면 새 파츠 획득
+        // =====================================================
+
+        bool obtainedNewPart =
+            currentPartCount >
+            previousPartCount;
+
+
+        // =====================================================
+        // 현재 개수를 다음 비교용으로 저장
+        // =====================================================
+
+        PlayerPrefs.SetInt(
+            HumanPartCountKey,
+            currentPartCount
+        );
+
+        PlayerPrefs.Save();
+
+
+        // =====================================================
+        // 새로운 파츠가 있다면 Day 시작 후 힌트 표시
+        // =====================================================
+
+        if (obtainedNewPart)
+        {
+            yield return new WaitForSecondsRealtime(
+                showDelay
+            );
+
+
+            ShowHint();
+        }
     }
 
 
     // =========================================================
-    // Update
+    // Current Part Count
     // =========================================================
 
-    private void Update()
+    private int GetCurrentPartCount()
     {
         if (PlayerStatus.Instance == null)
-            return;
+            return 0;
 
 
-        if (!initialized)
+        int count =
+            0;
+
+
+        if (PlayerStatus.Instance.humanHead)
         {
-            previousHead =
-                PlayerStatus.Instance.humanHead;
-
-            previousBody =
-                PlayerStatus.Instance.humanBody;
-
-            previousHeart =
-                PlayerStatus.Instance.humanHeart;
-
-            initialized = true;
-
-            return;
+            count++;
         }
 
 
-        // -----------------------------------------------------
-        // 새로운 파츠 획득 확인
-        // -----------------------------------------------------
-
-        bool obtainedNewPart =
-            (!previousHead &&
-             PlayerStatus.Instance.humanHead)
-            ||
-            (!previousBody &&
-             PlayerStatus.Instance.humanBody)
-            ||
-            (!previousHeart &&
-             PlayerStatus.Instance.humanHeart);
-
-
-        // -----------------------------------------------------
-        // 현재 상태 저장
-        // -----------------------------------------------------
-
-        previousHead =
-            PlayerStatus.Instance.humanHead;
-
-        previousBody =
-            PlayerStatus.Instance.humanBody;
-
-        previousHeart =
-            PlayerStatus.Instance.humanHeart;
-
-
-        // -----------------------------------------------------
-        // 새로운 파츠를 얻었다면 힌트 표시
-        // -----------------------------------------------------
-
-        if (obtainedNewPart)
+        if (PlayerStatus.Instance.humanBody)
         {
-            ShowHint();
+            count++;
         }
+
+
+        if (PlayerStatus.Instance.humanHeart)
+        {
+            count++;
+        }
+
+
+        return count;
     }
 
 
@@ -142,12 +160,13 @@ public class HumanPartHintTrigger : MonoBehaviour
 
     private void ShowHint()
     {
-        if (hintNotice != null)
-        {
-            hintNotice.Show(
-                GetLocalizedMessage()
-            );
-        }
+        if (hintNotice == null)
+            return;
+
+
+        hintNotice.Show(
+            GetLocalizedMessage()
+        );
     }
 
 
