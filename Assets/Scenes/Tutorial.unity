@@ -255,6 +255,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4623630117997848224, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033695768954597868, guid: 8ae6ad3614f9d284690b7ccab06fdd24, type: 3}
       propertyPath: m_Name
       value: TutorialTemplate

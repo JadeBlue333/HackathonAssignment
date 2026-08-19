@@ -132,7 +132,7 @@ public class PlayerStatus : MonoBehaviour
 
         fuel = 70;
 
-        trust = 10;
+        trust = 50;
 
 
         earnings = 0;
