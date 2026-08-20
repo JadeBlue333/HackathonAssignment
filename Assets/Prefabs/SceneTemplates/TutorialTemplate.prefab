@@ -2972,10 +2972,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 3
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 100
   nodeButton: {fileID: 5781448224957781195}
   purchasedTargetImage: {fileID: 6986326834084490161}
@@ -3116,10 +3114,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 1
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 20
   nodeButton: {fileID: 3750311860545148322}
   purchasedTargetImage: {fileID: 3752260169108569033}
@@ -7385,10 +7381,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 3
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 40
   nodeButton: {fileID: 7401558434694254215}
   purchasedTargetImage: {fileID: 3239164201620184301}
@@ -10305,10 +10299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 1
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 50
   nodeButton: {fileID: 519853830795701971}
   purchasedTargetImage: {fileID: 5465044845392892844}
@@ -10822,10 +10814,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 1
   level: 2
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 30
   nodeButton: {fileID: 6166081650901242413}
   purchasedTargetImage: {fileID: 7189819952089777431}
@@ -13183,10 +13173,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -17676,6 +17666,7 @@ Transform:
   - {fileID: 8513334329586668156}
   - {fileID: 8926797087893119466}
   - {fileID: 5047600514638969468}
+  - {fileID: 5120963663886590472}
   - {fileID: 7271401269064148582}
   - {fileID: 3537651940978616010}
   m_Father: {fileID: 0}
@@ -22035,10 +22026,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 2
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 30
   nodeButton: {fileID: 3872164353729878676}
   purchasedTargetImage: {fileID: 5240139332317982153}
@@ -22484,10 +22473,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 3
   level: 1
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 100
   nodeButton: {fileID: 7241901167092847609}
   purchasedTargetImage: {fileID: 7431326619695023775}
@@ -27791,10 +27778,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 1
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 20
   nodeButton: {fileID: 4999247116787637908}
   purchasedTargetImage: {fileID: 1766020162463081594}
@@ -28721,10 +28706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 0
   level: 3
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 40
   nodeButton: {fileID: 6102809801654761936}
   purchasedTargetImage: {fileID: 6870656246866891656}
@@ -29139,10 +29122,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillNodeUI
   skillType: 4
   level: 2
-  skillNameKR: 
-  descriptionKR: 
-  skillNameEN: 
-  descriptionEN: 
+  skillName: 
+  description: 
   price: 70
   nodeButton: {fileID: 4782702045314690311}
   purchasedTargetImage: {fileID: 8835903107498433102}
@@ -30773,6 +30754,108 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3537674891092178351, guid: dd45b6477b6a4422785c0c4482962d21, type: 3}
   m_PrefabInstance: {fileID: 3152741941202926294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5463473414231955799
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4226270508503749513}
+    m_Modifications:
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197021944491367115, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+      propertyPath: m_Name
+      value: Canvas_Black
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+--- !u!224 &5120963663886590472 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 919712126484003679, guid: 3fd1da238a4ba814fbd2d7c60665b49b, type: 3}
+  m_PrefabInstance: {fileID: 5463473414231955799}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7908715265293204436
 PrefabInstance:
